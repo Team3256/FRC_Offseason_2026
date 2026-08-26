@@ -25,6 +25,16 @@ public final class SimMechs {
   public final Mechanism2d mech =
       new Mechanism2d(Constants.SimulationConstants.kDrivebaseWidth.in(Meters), 1.0);
 
+  public final MechanismRoot2d indexerRoot =
+      mech.getRoot(
+          "Indexer",
+          Constants.SimulationConstants.kDrivebaseWidth.in(Meters) / 2 - 0.15,
+          Inches.of(2).in(Meters));
+
+  private final MechanismLigament2d indexerViz =
+      indexerRoot.append(
+          new MechanismLigament2d(
+              "Indexer", Inches.of(2).in(Meters), 0.0, 3, new Color8Bit(Color.kRed)));
 
   private static SimMechs instance = null;
 
@@ -39,6 +49,10 @@ public final class SimMechs {
 
   public void publishToNT() {
     SmartDashboard.putData("RobotSim", mech);
+  }
+
+  public void updateIndexer(Angle x) {
+    indexerViz.setAngle(indexerViz.getAngle() + x.in(Degrees));
   }
 
   public void updateClimb(Angle of) {
