@@ -1,12 +1,18 @@
+// Copyright (c) 2025 FRC 3256
+// https://github.com/Team3256
+//
+// Use of this source code is governed by a 
+// license that can be found in the LICENSE file at
+// the root directory of this project.
+
 package frc.robot.subsystems.linearslide;
 
+import com.ctre.phoenix6.hardware.TalonFX;
 import org.littletonrobotics.junction.AutoLog;
 
-import com.ctre.phoenix6.hardware.TalonFX;
-
 public interface LinearSlideIO {
-    @AutoLog
-    public class LinearSlideIOInputs {
+  @AutoLog
+  public class LinearSlideIOInputs {
 
     public double slideMotorVoltage = 0.0;
     public double slideMotorVelocity = 0.0;
