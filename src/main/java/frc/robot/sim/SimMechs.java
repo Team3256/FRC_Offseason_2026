@@ -25,6 +25,16 @@ public final class SimMechs {
   public final Mechanism2d mech =
       new Mechanism2d(Constants.SimulationConstants.kDrivebaseWidth.in(Meters), 1.0);
 
+  private final MechanismRoot2d shooterPivotRoot =
+      mech.getRoot(
+          "Shooter Pivot",
+          Constants.SimulationConstants.kDrivebaseWidth.in(Meters) / 2 - 0.05,
+          Inches.of(14).in(Meters));
+
+  private final MechanismLigament2d shooterPivotViz =
+      shooterPivotRoot.append(
+          new MechanismLigament2d(
+              "Shooter Pivot", Inches.of(10).in(Meters), 0.0, 7, new Color8Bit(Color.kCyan)));
 
   private static SimMechs instance = null;
 
@@ -35,6 +45,10 @@ public final class SimMechs {
       instance = new SimMechs();
     }
     return instance;
+  }
+
+  public void updateShooterPivot(Angle angle) {
+    shooterPivotViz.setAngle(angle.in(Degrees)); // flips direction
   }
 
   public void publishToNT() {
