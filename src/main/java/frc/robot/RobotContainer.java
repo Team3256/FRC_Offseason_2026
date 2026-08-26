@@ -69,4 +69,7 @@ public class RobotContainer {
   private void configureSwerve() {
     SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric();
   }
+
+  public void periodic() {
+  }
 }
