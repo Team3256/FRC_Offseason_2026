@@ -15,6 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.sim.SimMechs;
+import frc.robot.subsystems.feeder.Feeder;
+import frc.robot.subsystems.feeder.FeederIOSim;
+import frc.robot.subsystems.feeder.FeederIOTalonFX;
 import frc.robot.utils.AutoConfig;
 import frc.robot.utils.MappedXboxController;
 import java.util.ArrayList;
@@ -47,7 +50,12 @@ public class RobotContainer {
     }
   }
 
-  private void configureOperatorBinds() {}
+  private final Feeder feeder =
+      new Feeder(true, Utils.isSimulation() ? new FeederIOSim() : new FeederIOTalonFX());
+
+  private void configureOperatorBinds() {
+    m_operatorController.a().onTrue(feeder.startFeeding());
+  }
 
   private void configureChoreoAutoChooser() {}
 
@@ -70,6 +78,5 @@ public class RobotContainer {
     SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric();
   }
 
-  public void periodic() {
-  }
+  public void periodic() {}
 }

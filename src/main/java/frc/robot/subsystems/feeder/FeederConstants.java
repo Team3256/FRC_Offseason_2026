@@ -54,8 +54,8 @@ public class FeederConstants {
   public static int flashConfigRetries = 5;
 
   public static final class SimulationConstants {
-    public static double rollerGearingRatio = 0.0;
-    public static double rollerMomentOfInertia = 0.0;
+    public static double rollerGearingRatio = 1.0;
+    public static double rollerMomentOfInertia = 1.0;
     public static double kAngularVelocityScalar = 0.0;
   }
 }

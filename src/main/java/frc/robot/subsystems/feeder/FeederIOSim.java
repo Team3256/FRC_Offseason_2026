@@ -22,10 +22,10 @@ public class FeederIOSim extends FeederIOTalonFX {
   private FlywheelSim feederSimModel =
       new FlywheelSim(
           LinearSystemId.createFlywheelSystem(
-              FeederConstants.kUseFOC ? DCMotor.getKrakenX60Foc(1) : DCMotor.getKrakenX60(1),
+              FeederConstants.kUseFOC ? DCMotor.getKrakenX60Foc(2) : DCMotor.getKrakenX60(1),
               FeederConstants.SimulationConstants.rollerGearingRatio,
               FeederConstants.SimulationConstants.rollerMomentOfInertia),
-          FeederConstants.kUseFOC ? DCMotor.getKrakenX60Foc(1) : DCMotor.getKrakenX60(1));
+          FeederConstants.kUseFOC ? DCMotor.getKrakenX60Foc(2) : DCMotor.getKrakenX60(1));
 
   private final TalonFXSimState motorSim;
 
