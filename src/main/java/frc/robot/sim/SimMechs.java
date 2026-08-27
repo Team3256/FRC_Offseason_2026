@@ -7,6 +7,8 @@
 
 package frc.robot.sim;
 
+import static edu.wpi.first.units.Units.*;
+
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
@@ -16,27 +18,29 @@ import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
 import frc.robot.Constants;
 
-import static edu.wpi.first.units.Units.*;
-
 public final class SimMechs {
 
   public final Mechanism2d mech =
       new Mechanism2d(Constants.SimulationConstants.kDrivebaseWidth.in(Meters), 1.0);
 
   private final MechanismRoot2d shooterRoot =
-          mech.getRoot(
-                  "Shooter",
-                  Constants.SimulationConstants.kDrivebaseWidth.in(Meters) / 2 - 0.05,
-                  Inches.of(14).in(Meters));
+      mech.getRoot(
+          "Shooter",
+          Constants.SimulationConstants.kDrivebaseWidth.in(Meters) / 2 - 0.05,
+          Inches.of(14).in(Meters));
 
   private final MechanismLigament2d shooterWheelViz =
-          shooterRoot.append(
-                  new MechanismLigament2d(
-                          "Shooter Wheel", Inches.of(4).in(Meters), 0.0, 4, new Color8Bit(Color.kPink)));
+      shooterRoot.append(
+          new MechanismLigament2d(
+              "Shooter Wheel", Inches.of(4).in(Meters), 0.0, 4, new Color8Bit(Color.kPink)));
   private final MechanismLigament2d shooterWheelFollowerViz =
-          shooterRoot.append(
-                  new MechanismLigament2d(
-                          "Shooter Wheel Follower", Inches.of(6).in(Meters), 180.0, 4, new Color8Bit(Color.kDeepPink)));
+      shooterRoot.append(
+          new MechanismLigament2d(
+              "Shooter Wheel Follower",
+              Inches.of(6).in(Meters),
+              180.0,
+              4,
+              new Color8Bit(Color.kDeepPink)));
 
   private static SimMechs instance = null;
 
@@ -63,5 +67,3 @@ public final class SimMechs {
     throw new UnsupportedOperationException("Unimplemented method 'updateClimb'");
   }
 }
-
-

@@ -8,7 +8,6 @@
 package frc.robot.subsystems.shooter;
 
 import com.ctre.phoenix6.hardware.TalonFX;
-import edu.wpi.first.math.Pair;
 import org.littletonrobotics.junction.AutoLog;
 
 public interface ShooterIO {
@@ -21,14 +20,11 @@ public interface ShooterIO {
       this.positionV = i;
       this.positionH = i1;
       this.opposed = (i1 == 1);
-
     }
   }
 
   public static MotorPosition[] motorPositions = {
-          new MotorPosition(0, 1),
-          new MotorPosition(1, 0),
-          new MotorPosition(1, 1),
+    new MotorPosition(0, 1), new MotorPosition(1, 0), new MotorPosition(1, 1),
   };
 
   public final int NUM_FOLLOWER_MOTORS = motorPositions.length;
@@ -41,7 +37,6 @@ public interface ShooterIO {
     public double shooterMotorFollowerSupplyCurrent = 0.0;
     public double shooterMotorFollowerTemperature = 0.0;
   }
-
 
   @AutoLog
   public static class ShooterIOInputs {
@@ -56,7 +51,7 @@ public interface ShooterIO {
     public double[] shooterMotorFollowerStatorCurrents = new double[3];
     public double[] shooterMotorFollowerSupplyCurrents = new double[3];
     public double[] shooterMotorFollowerTemperatures = new double[3];
-    //ShooterMotorFollowerIOInputs[] shooterMotorFollowers = new ShooterMotorFollowerIOInputs[3];
+    // ShooterMotorFollowerIOInputs[] shooterMotorFollowers = new ShooterMotorFollowerIOInputs[3];
   }
 
   public default void updateInputs(ShooterIOInputs inputs) {}

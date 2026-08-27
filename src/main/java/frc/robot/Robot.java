@@ -37,7 +37,6 @@ public class Robot extends LoggedRobot {
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
-
   public Robot() {
     super();
     SignalLogger.enableAutoLogging(false);
@@ -122,8 +121,7 @@ public class Robot extends LoggedRobot {
   public void disabledInit() {}
 
   @Override
-  public void disabledPeriodic() {
-  }
+  public void disabledPeriodic() {}
 
   @Override
   public void driverStationConnected() {

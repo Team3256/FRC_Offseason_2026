@@ -44,9 +44,9 @@ public class ShooterIOSim extends ShooterIOTalonFX {
     shooterMotorFollowerSims = getMotorsSims(super.getFollowerMotors());
   }
 
-  public TalonFXSimState[] getMotorsSims(TalonFX[] motors){
+  public TalonFXSimState[] getMotorsSims(TalonFX[] motors) {
     TalonFXSimState[] motorSims = new TalonFXSimState[NUM_FOLLOWER_MOTORS];
-    for (int i=0; i<NUM_FOLLOWER_MOTORS; i++){
+    for (int i = 0; i < NUM_FOLLOWER_MOTORS; i++) {
       motorSims[i] = motors[i].getSimState();
     }
     return motorSims;
@@ -56,7 +56,8 @@ public class ShooterIOSim extends ShooterIOTalonFX {
   public void updateInputs(ShooterIOInputs inputs) {
     // Update battery voltage
     shooterMotorSim.setSupplyVoltage(RobotController.getBatteryVoltage());
-    for (TalonFXSimState shooterMotorFollowerSim : shooterMotorFollowerSims) shooterMotorFollowerSim.setSupplyVoltage(RobotController.getBatteryVoltage());
+    for (TalonFXSimState shooterMotorFollowerSim : shooterMotorFollowerSims)
+      shooterMotorFollowerSim.setSupplyVoltage(RobotController.getBatteryVoltage());
     // Update physics models
     flywheelSim.setInputVoltage(shooterMotorSim.getMotorVoltage());
     flywheelSim.update(LoggedRobot.defaultPeriodSecs);
@@ -64,8 +65,8 @@ public class ShooterIOSim extends ShooterIOTalonFX {
     double motor1Rps = flywheelSim.getAngularVelocityRPM() / 60;
     shooterMotorSim.setRotorVelocity(motor1Rps);
     shooterMotorSim.addRotorPosition(motor1Rps * LoggedRobot.defaultPeriodSecs);
-    double[] motorFollowerRps = new double [3];
-    for (int i=0; i<NUM_FOLLOWER_MOTORS; i++)  {
+    double[] motorFollowerRps = new double[3];
+    for (int i = 0; i < NUM_FOLLOWER_MOTORS; i++) {
       TalonFXSimState shooterMotorFollowerSim = shooterMotorFollowerSims[i];
       motorFollowerRps[i] = flywheelSim.getAngularVelocityRPM() / 60;
       shooterMotorFollowerSim.setRotorVelocity(motorFollowerRps[i]);
@@ -85,10 +86,9 @@ public class ShooterIOSim extends ShooterIOTalonFX {
                     * LoggedRobot.defaultPeriodSecs
                     * ShooterConstants.SimulationConstants.kAngularVelocityScalar),
             Degrees.of(
-                    motorFollowerRps[2]
-                            * 360
-                            * LoggedRobot.defaultPeriodSecs
-                            * ShooterConstants.SimulationConstants.kAngularVelocityScalar)
-                );
+                motorFollowerRps[2]
+                    * 360
+                    * LoggedRobot.defaultPeriodSecs
+                    * ShooterConstants.SimulationConstants.kAngularVelocityScalar));
   }
 }

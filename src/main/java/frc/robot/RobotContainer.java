@@ -40,7 +40,7 @@ public class RobotContainer {
   private Field2d field2d = new Field2d();
 
   private final Shooter shooter =
-          new Shooter(true, Utils.isSimulation() ? new ShooterIOSim() : new ShooterIOTalonFX());
+      new Shooter(true, Utils.isSimulation() ? new ShooterIOSim() : new ShooterIOTalonFX());
 
   public RobotContainer() {
 
@@ -76,9 +76,7 @@ public class RobotContainer {
     SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric();
     m_driverController.a().onTrue(shooter.setVelocity(10));
     m_driverController.b().onTrue(shooter.off());
-
   }
 
-  public void periodic() {
-  }
+  public void periodic() {}
 }
