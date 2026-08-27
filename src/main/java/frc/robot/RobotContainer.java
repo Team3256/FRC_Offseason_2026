@@ -15,6 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.sim.SimMechs;
+import frc.robot.subsystems.shooter.Shooter;
+import frc.robot.subsystems.shooter.ShooterIOSim;
+import frc.robot.subsystems.shooter.ShooterIOTalonFX;
 import frc.robot.utils.AutoConfig;
 import frc.robot.utils.MappedXboxController;
 import java.util.ArrayList;
@@ -35,6 +38,9 @@ public class RobotContainer {
 
   private SendableChooser<AutoConfig> autoVisualizer = new SendableChooser<AutoConfig>();
   private Field2d field2d = new Field2d();
+
+  private final Shooter shooter =
+          new Shooter(true, Utils.isSimulation() ? new ShooterIOSim() : new ShooterIOTalonFX());
 
   public RobotContainer() {
 
@@ -68,6 +74,9 @@ public class RobotContainer {
 
   private void configureSwerve() {
     SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric();
+    m_driverController.a().onTrue(shooter.setVelocity(10));
+    m_driverController.b().onTrue(shooter.off());
+
   }
 
   public void periodic() {
