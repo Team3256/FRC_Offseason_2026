@@ -28,26 +28,30 @@ public class IndexerIOSim extends IndexerIOTalonFX {
               IndexerConstants.SimulationConstants.indexerMomentOfInertia),
           IndexerConstants.KUseFOC ? DCMotor.getKrakenX60Foc(2) : DCMotor.getKrakenX60(2));
 
-  private final TalonFXSimState motorSim;
+  private final TalonFXSimState motorLeftSim;
+  private final TalonFXSimState motorRightSim;
 
   public IndexerIOSim() {
     super();
-    motorSim = super.getMotor().getSimState();
+    motorLeftSim = super.getMotor().getSimState();
+    motorRightSim = super.getMotor().getSimState();
   }
 
   @Override
   public void updateInputs(IndexerIOInputs inputs) {
 
     // Update battery voltage
-    motorSim.setSupplyVoltage(RobotController.getBatteryVoltage());
+    motorLeftSim.setSupplyVoltage(RobotController.getBatteryVoltage());
 
     // Update physics models
-    indexerSimModel.setInput(motorSim.getMotorVoltage());
+    indexerSimModel.setInput(motorLeftSim.getMotorVoltage());
     indexerSimModel.update(LoggedRobot.defaultPeriodSecs);
 
     double motorRPS = indexerSimModel.getAngularVelocityRPM() / 60;
-    motorSim.setRotorVelocity(motorRPS);
-    motorSim.addRotorPosition(motorRPS * LoggedRobot.defaultPeriodSecs);
+    motorLeftSim.setRotorVelocity(motorRPS);
+    motorRightSim.setRotorVelocity(motorRPS);
+    motorLeftSim.addRotorPosition(motorRPS * LoggedRobot.defaultPeriodSecs);
+    motorRightSim.addRotorPosition(motorRPS * LoggedRobot.defaultPeriodSecs);
 
     // Update battery voltage (after the effects of physics models)
     RoboRioSim.setVInVoltage(
