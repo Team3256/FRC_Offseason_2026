@@ -12,25 +12,18 @@ import org.littletonrobotics.junction.AutoLog;
 
 public interface ShooterIO {
   public final boolean[] motorOpposed = {
-    false, true, true
+    false, false, true, true
   }; // set what motors are opposed to leader motor
 
-  public final int NUM_FOLLOWER_MOTORS = motorOpposed.length;
+  public final int NUM_MOTORS = ShooterConstants.shooters.length;
 
   @AutoLog
   public static class ShooterIOInputs {
-    public double shooterMotorVoltage = 0.0;
-    public double shooterMotorVelocity = 0.0;
-    public double shooterMotorStatorCurrent = 0.0;
-    public double shooterMotorSupplyCurrent = 0.0;
-    public double shooterMotorTemperature = 0.0;
-
-    public double[] shooterMotorFollowerVoltages = new double[3];
-    public double[] shooterMotorFollowerVelocitys = new double[3];
-    public double[] shooterMotorFollowerStatorCurrents = new double[3];
-    public double[] shooterMotorFollowerSupplyCurrents = new double[3];
-    public double[] shooterMotorFollowerTemperatures = new double[3];
-    // ShooterMotorFollowerIOInputs[] shooterMotorFollowers = new ShooterMotorFollowerIOInputs[3];
+    public double[] shooterMotorVoltages = new double[NUM_MOTORS];
+    public double[] shooterMotorVelocitys = new double[NUM_MOTORS];
+    public double[] shooterMotorStatorCurrents = new double[NUM_MOTORS];
+    public double[] shooterMotorSupplyCurrents = new double[NUM_MOTORS];
+    public double[] shooterMotorTemperatures = new double[NUM_MOTORS];
   }
 
   public default void updateInputs(ShooterIOInputs inputs) {}
@@ -39,11 +32,7 @@ public interface ShooterIO {
 
   public default void setShooterVelocity(double velocity) {}
 
-  public default TalonFX getMotor() {
-    return new TalonFX(0);
-  }
-
-  public default TalonFX[] getFollowerMotors() {
+  public default TalonFX[] getMotors() {
     return new TalonFX[0];
   }
 

@@ -22,8 +22,8 @@ public final class ShooterConstants {
   // field oriented control
   public static final boolean kUseFOC = true;
 
-  public static int shooterFollower = 60;
-  public static int shooterMain = 59;
+  public static int[] shooters = {59, 60, 61, 62};
+  // the leader is the shooters[0] and the rest are followers
 
   // pid
   public static TalonFXConfiguration motorConfigs =

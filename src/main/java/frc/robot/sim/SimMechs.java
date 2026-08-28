@@ -37,8 +37,8 @@ public final class SimMechs {
       shooterRoot.append(
           new MechanismLigament2d(
               "Shooter Wheel Follower",
-              Inches.of(6).in(Meters),
-              180.0,
+              Inches.of(3).in(Meters),
+              0.0,
               4,
               new Color8Bit(Color.kDeepPink)));
 

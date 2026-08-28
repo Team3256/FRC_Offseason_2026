@@ -67,7 +67,7 @@ public class Shooter extends DisableSubsystem {
   }
 
   public boolean reachedVelocity() {
-    return Util.epsilonEquals(shooterIOAutoLogged.shooterMotorVelocity, reqVelocity, 5);
+    return Util.epsilonEquals(shooterIOAutoLogged.shooterMotorVelocitys[0], reqVelocity, 5);
   }
 
   public Command off() {

@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.simulation.BatterySim;
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import frc.robot.sim.SimMechs;
+import java.util.Arrays;
 import org.littletonrobotics.junction.LoggedRobot;
 
 public class ShooterIOSim extends ShooterIOTalonFX {
@@ -35,42 +36,28 @@ public class ShooterIOSim extends ShooterIOTalonFX {
 
   private final FlywheelSim flywheelSim = new FlywheelSim(flywheelSystem, motor);
 
-  private final TalonFXSimState shooterMotorSim;
-  private final TalonFXSimState[] shooterMotorFollowerSims;
+  private final TalonFXSimState[] shooterMotorSims;
 
   public ShooterIOSim() {
     super();
-    shooterMotorSim = super.getMotor().getSimState();
-    shooterMotorFollowerSims = getMotorsSims(super.getFollowerMotors());
-  }
-
-  public TalonFXSimState[] getMotorsSims(TalonFX[] motors) {
-    TalonFXSimState[] motorSims = new TalonFXSimState[NUM_FOLLOWER_MOTORS];
-    for (int i = 0; i < NUM_FOLLOWER_MOTORS; i++) {
-      motorSims[i] = motors[i].getSimState();
-    }
-    return motorSims;
+    shooterMotorSims =
+        Arrays.stream(super.getMotors()).map(TalonFX::getSimState).toArray(TalonFXSimState[]::new);
   }
 
   @Override
   public void updateInputs(ShooterIOInputs inputs) {
     // Update battery voltage
-    shooterMotorSim.setSupplyVoltage(RobotController.getBatteryVoltage());
-    for (TalonFXSimState shooterMotorFollowerSim : shooterMotorFollowerSims)
-      shooterMotorFollowerSim.setSupplyVoltage(RobotController.getBatteryVoltage());
+    for (TalonFXSimState shooterMotorSim : shooterMotorSims)
+      shooterMotorSim.setSupplyVoltage(RobotController.getBatteryVoltage());
     // Update physics models
-    flywheelSim.setInputVoltage(shooterMotorSim.getMotorVoltage());
+    flywheelSim.setInputVoltage(shooterMotorSims[0].getMotorVoltage());
     flywheelSim.update(LoggedRobot.defaultPeriodSecs);
 
-    double motor1Rps = flywheelSim.getAngularVelocityRPM() / 60;
-    shooterMotorSim.setRotorVelocity(motor1Rps);
-    shooterMotorSim.addRotorPosition(motor1Rps * LoggedRobot.defaultPeriodSecs);
-    double[] motorFollowerRps = new double[3];
-    for (int i = 0; i < NUM_FOLLOWER_MOTORS; i++) {
-      TalonFXSimState shooterMotorFollowerSim = shooterMotorFollowerSims[i];
-      motorFollowerRps[i] = flywheelSim.getAngularVelocityRPM() / 60;
-      shooterMotorFollowerSim.setRotorVelocity(motorFollowerRps[i]);
-      shooterMotorFollowerSim.addRotorPosition(motorFollowerRps[i] * LoggedRobot.defaultPeriodSecs);
+    double[] motorRps = new double[NUM_MOTORS];
+    for (int i = 0; i < NUM_MOTORS; i++) {
+      motorRps[i] = flywheelSim.getAngularVelocityRPM() / 60;
+      shooterMotorSims[i].setRotorVelocity(motorRps[i]);
+      shooterMotorSims[i].addRotorPosition(motorRps[i] * LoggedRobot.defaultPeriodSecs);
     }
 
     // Update battery voltage (after the effects of physics models)
@@ -81,12 +68,12 @@ public class ShooterIOSim extends ShooterIOTalonFX {
     SimMechs.getInstance()
         .updateShooterWheel(
             Degrees.of(
-                motor1Rps
+                motorRps[0]
                     * 360
                     * LoggedRobot.defaultPeriodSecs
                     * ShooterConstants.SimulationConstants.kAngularVelocityScalar),
             Degrees.of(
-                motorFollowerRps[2]
+                motorRps[1]
                     * 360
                     * LoggedRobot.defaultPeriodSecs
                     * ShooterConstants.SimulationConstants.kAngularVelocityScalar));

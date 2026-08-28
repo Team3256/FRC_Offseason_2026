@@ -17,163 +17,114 @@ import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.units.measure.Voltage;
 import frc.robot.utils.PhoenixUtil;
+import java.util.Arrays;
 
 public class ShooterIOTalonFX implements ShooterIO {
-  private final TalonFX shooterMotor = new TalonFX(ShooterConstants.shooterMain);
+  private final TalonFX[] shooterMotors =
+      Arrays.stream(
+              ShooterConstants.shooters) // create talonfxs with canids defined in the constants
+          .mapToObj(TalonFX::new)
+          .toArray(TalonFX[]::new);
+
   final VelocityVoltage velocityRequest = new VelocityVoltage(0).withSlot(0);
   final MotionMagicVelocityVoltage motionMagicRequest =
       new MotionMagicVelocityVoltage(0).withSlot(0);
 
-  public static class ShooterMotorStatus {
-    public StatusSignal<Voltage> shooterMotorVoltage;
-    public StatusSignal<AngularVelocity> shooterMotorVelocity;
-    public StatusSignal<Current> shooterMotorStatorCurrent;
-    public StatusSignal<Current> shooterMotorSupplyCurrent;
-    public StatusSignal<Temperature> shooterMotorTemperature;
-
-    public ShooterMotorStatus(TalonFX shooterMotor) {
-      shooterMotorVoltage = shooterMotor.getMotorVoltage();
-      shooterMotorVelocity = shooterMotor.getVelocity();
-      shooterMotorStatorCurrent = shooterMotor.getStatorCurrent();
-      shooterMotorSupplyCurrent = shooterMotor.getSupplyCurrent();
-      shooterMotorTemperature = shooterMotor.getDeviceTemp();
-
-      BaseStatusSignal.setUpdateFrequencyForAll(
-          ShooterConstants.updateFrequency,
-          shooterMotorVoltage,
-          shooterMotorVelocity,
-          shooterMotorStatorCurrent,
-          shooterMotorSupplyCurrent,
-          shooterMotorTemperature);
-      PhoenixUtil.registerSignals(
-          false,
-          shooterMotorVoltage,
-          shooterMotorVelocity,
-          shooterMotorStatorCurrent,
-          shooterMotorSupplyCurrent,
-          shooterMotorTemperature);
-    }
-  }
-
-  private final ShooterMotorStatus shooterMotorStatus = new ShooterMotorStatus(shooterMotor);
-
-  TalonFX[] createFollowers() {
-    TalonFX[] shooterMotorFollowers = new TalonFX[NUM_FOLLOWER_MOTORS];
-
-    for (int i = 0; i < NUM_FOLLOWER_MOTORS; i++) {
-      shooterMotorFollowers[i] = new TalonFX(ShooterConstants.shooterFollower);
-    }
-    return shooterMotorFollowers;
-  }
-
-
-  ShooterMotorStatus[] createFollowerStatuses(TalonFX[] shooterMotorFollowers) {
-    ShooterMotorStatus[] shooterMotorFollowerStatuses = new ShooterMotorStatus[NUM_FOLLOWER_MOTORS];
-    for (int i = 0; i < NUM_FOLLOWER_MOTORS; i++) {
-      TalonFX shooterMotorFollower = shooterMotorFollowers[i];
-      shooterMotorFollowerStatuses[i] = new ShooterMotorStatus(shooterMotorFollower);
-    }
-    return shooterMotorFollowerStatuses;
-  }
-
-  TalonFX[] shooterMotorFollowers = createFollowers();
-  ShooterMotorStatus[] shooterMotorFollowerStatuses = createFollowerStatuses(shooterMotorFollowers);
+  private final StatusSignal<Voltage>[] shooterMotorVoltages =
+      Arrays.stream(shooterMotors).map(TalonFX::getMotorVoltage).toArray(StatusSignal[]::new);
+  private final StatusSignal<AngularVelocity>[] shooterMotorVelocitys =
+      Arrays.stream(shooterMotors).map(TalonFX::getVelocity).toArray(StatusSignal[]::new);
+  private final StatusSignal<Current>[] shooterMotorStatorCurrents =
+      Arrays.stream(shooterMotors).map(TalonFX::getStatorCurrent).toArray(StatusSignal[]::new);
+  private final StatusSignal<Current>[] shooterMotorSupplyCurrents =
+      Arrays.stream(shooterMotors).map(TalonFX::getSupplyCurrent).toArray(StatusSignal[]::new);
+  private final StatusSignal<Temperature>[] shooterMotorTemperatures =
+      Arrays.stream(shooterMotors).map(TalonFX::getDeviceTemp).toArray(StatusSignal[]::new);
 
   public ShooterIOTalonFX() {
-    PhoenixUtil.applyMotorConfigs(
-        shooterMotor, ShooterConstants.motorConfigs, ShooterConstants.flashConfigRetries);
-
-    for (int i = 0; i < NUM_FOLLOWER_MOTORS; i++) {
+    for (int i = 0; i < NUM_MOTORS; i++) {
       PhoenixUtil.applyMotorConfigs(
-          shooterMotorFollowers[i],
-          ShooterConstants.followerMotorConfigs,
-          ShooterConstants.flashConfigRetries);
+          shooterMotors[i], ShooterConstants.motorConfigs, ShooterConstants.flashConfigRetries);
     }
 
-    shooterMotor.optimizeBusUtilization();
+    for (int i = 0; i < NUM_MOTORS; i++) {
+      BaseStatusSignal.setUpdateFrequencyForAll(
+          ShooterConstants.updateFrequency,
+          shooterMotorVoltages[i],
+          shooterMotorVelocitys[i],
+          shooterMotorStatorCurrents[i],
+          shooterMotorSupplyCurrents[i],
+          shooterMotorTemperatures[i]);
+    }
 
-    for (int i = 0; i < NUM_FOLLOWER_MOTORS; i++) {
-      PhoenixUtil.applyMotorConfigs(
-          shooterMotorFollowers[i],
-          ShooterConstants.followerMotorConfigs,
-          ShooterConstants.flashConfigRetries);
+    for (int i = 0; i < NUM_MOTORS; i++) {
+      PhoenixUtil.registerSignals(
+          false,
+          shooterMotorVoltages[i],
+          shooterMotorVelocitys[i],
+          shooterMotorStatorCurrents[i],
+          shooterMotorSupplyCurrents[i],
+          shooterMotorTemperatures[i]);
+    }
 
-      Follower followReq =
-          motorOpposed[i]
-              ? new Follower(ShooterConstants.shooterMain, MotorAlignmentValue.Opposed)
-              : new Follower(ShooterConstants.shooterMain, MotorAlignmentValue.Aligned);
-
-      shooterMotorFollowers[i].optimizeBusUtilization();
-      shooterMotorFollowers[i].setControl(followReq);
+    for (int i = 0; i < NUM_MOTORS; i++) {
+      shooterMotors[i].optimizeBusUtilization();
+      if (i > 0) {
+        Follower followReq =
+            motorOpposed[i]
+                ? new Follower(ShooterConstants.shooters[0], MotorAlignmentValue.Opposed)
+                : new Follower(ShooterConstants.shooters[0], MotorAlignmentValue.Aligned);
+        shooterMotors[i].setControl(followReq);
+      }
     }
   }
 
   @Override
   public void updateInputs(ShooterIOInputs inputs) {
-
-    inputs.shooterMotorVoltage = shooterMotorStatus.shooterMotorVoltage.getValueAsDouble();
-    inputs.shooterMotorVelocity = shooterMotorStatus.shooterMotorVelocity.getValueAsDouble();
-    inputs.shooterMotorStatorCurrent =
-        shooterMotorStatus.shooterMotorStatorCurrent.getValueAsDouble();
-    inputs.shooterMotorSupplyCurrent =
-        shooterMotorStatus.shooterMotorSupplyCurrent.getValueAsDouble();
-    inputs.shooterMotorTemperature = shooterMotorStatus.shooterMotorTemperature.getValueAsDouble();
-
-    for (int i = 0; i < NUM_FOLLOWER_MOTORS; i++) {
-      ShooterMotorStatus shooterMotorFollowerStatus = shooterMotorFollowerStatuses[i];
-      inputs.shooterMotorFollowerVoltages[i] =
-          shooterMotorFollowerStatus.shooterMotorVoltage.getValueAsDouble();
-      inputs.shooterMotorFollowerVelocitys[i] =
-          shooterMotorFollowerStatus.shooterMotorVelocity.getValueAsDouble();
-      inputs.shooterMotorFollowerStatorCurrents[i] =
-          shooterMotorFollowerStatus.shooterMotorStatorCurrent.getValueAsDouble();
-      inputs.shooterMotorFollowerSupplyCurrents[i] =
-          shooterMotorFollowerStatus.shooterMotorSupplyCurrent.getValueAsDouble();
-      inputs.shooterMotorFollowerTemperatures[i] =
-          shooterMotorFollowerStatus.shooterMotorTemperature.getValueAsDouble();
+    for (int i = 0; i < NUM_MOTORS; i++) {
+      inputs.shooterMotorVoltages[i] = shooterMotorVoltages[i].getValueAsDouble();
+      inputs.shooterMotorVelocitys[i] = shooterMotorVelocitys[i].getValueAsDouble();
+      inputs.shooterMotorStatorCurrents[i] = shooterMotorStatorCurrents[i].getValueAsDouble();
+      inputs.shooterMotorSupplyCurrents[i] = shooterMotorSupplyCurrents[i].getValueAsDouble();
+      inputs.shooterMotorTemperatures[i] = shooterMotorTemperatures[i].getValueAsDouble();
     }
   }
 
   @Override
   public void setShooterVoltage(double voltage) {
-    shooterMotor.setVoltage(voltage);
-    for (int i = 0; i < NUM_FOLLOWER_MOTORS; i++) {
+    shooterMotors[0].setVoltage(voltage);
+    for (int i = 1; i < NUM_MOTORS; i++) {
       Follower followReq =
           motorOpposed[i]
-              ? new Follower(ShooterConstants.shooterMain, MotorAlignmentValue.Opposed)
-              : new Follower(ShooterConstants.shooterMain, MotorAlignmentValue.Aligned);
-      shooterMotorFollowers[i].setControl(followReq);
+              ? new Follower(ShooterConstants.shooters[0], MotorAlignmentValue.Opposed)
+              : new Follower(ShooterConstants.shooters[0], MotorAlignmentValue.Aligned);
+      shooterMotors[i].setControl(followReq);
     }
   }
 
   @Override
   public void setShooterVelocity(double velocity) {
     if (ShooterConstants.kUseMotionMagic) {
-      shooterMotor.setControl(motionMagicRequest.withVelocity(velocity));
+      shooterMotors[0].setControl(motionMagicRequest.withVelocity(velocity));
     } else {
-      shooterMotor.setControl(velocityRequest.withVelocity(velocity));
+      shooterMotors[0].setControl(velocityRequest.withVelocity(velocity));
     }
-    for (int i = 0; i < NUM_FOLLOWER_MOTORS; i++) {
+    for (int i = 1; i < NUM_MOTORS; i++) {
       Follower followReq =
           motorOpposed[i]
-              ? new Follower(ShooterConstants.shooterMain, MotorAlignmentValue.Opposed)
-              : new Follower(ShooterConstants.shooterMain, MotorAlignmentValue.Aligned);
-      shooterMotorFollowers[i].setControl(followReq);
+              ? new Follower(ShooterConstants.shooters[0], MotorAlignmentValue.Opposed)
+              : new Follower(ShooterConstants.shooters[0], MotorAlignmentValue.Aligned);
+      shooterMotors[i].setControl(followReq);
     }
   }
 
   @Override
   public void off() {
-    shooterMotor.setControl(new NeutralOut());
+    shooterMotors[0].setControl(new NeutralOut());
   }
 
   @Override
-  public TalonFX getMotor() {
-    return shooterMotor;
-  }
-
-  @Override
-  public TalonFX[] getFollowerMotors() {
-    return shooterMotorFollowers;
+  public TalonFX[] getMotors() {
+    return shooterMotors;
   }
 }
