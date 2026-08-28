@@ -9,6 +9,8 @@ package frc.robot.subsystems.feeder;
 
 // TODO: FILL
 
+import static edu.wpi.first.units.Units.Degrees;
+
 import com.ctre.phoenix6.sim.TalonFXSimState;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
@@ -17,8 +19,6 @@ import edu.wpi.first.wpilibj.simulation.BatterySim;
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import frc.robot.sim.SimMechs;
-import static edu.wpi.first.units.Units.Degrees;
-
 import org.littletonrobotics.junction.LoggedRobot;
 
 public class FeederIOSim extends FeederIOTalonFX {
@@ -61,10 +61,10 @@ public class FeederIOSim extends FeederIOTalonFX {
         BatterySim.calculateDefaultBatteryLoadedVoltage(feederSimModel.getCurrentDrawAmps()));
     super.updateInputs(inputs);
     SimMechs.getInstance()
-    .updateFeeder(
-        Degrees.of(
-            Math.toDegrees(motorRPS)
-                * LoggedRobot.defaultPeriodSecs
-                * FeederConstants.SimulationConstants.kAngularVelocityScalar));
+        .updateFeeder(
+            Degrees.of(
+                Math.toDegrees(motorRPS)
+                    * LoggedRobot.defaultPeriodSecs
+                    * FeederConstants.SimulationConstants.kAngularVelocityScalar));
   }
 }

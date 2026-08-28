@@ -25,20 +25,28 @@ public class FeederIOTalonFX implements FeederIO {
   final VelocityVoltage velReq = new VelocityVoltage(0).withSlot(0);
 
   private final StatusSignal<Voltage> feederMotorLeftVoltage = feederMotorLeft.getMotorVoltage();
-  private final StatusSignal<AngularVelocity> feederMotorLeftVelocity = feederMotorLeft.getVelocity();
-  private final StatusSignal<Current> feederMotorLeftStatorCurrent = feederMotorLeft.getStatorCurrent();
-  private final StatusSignal<Current> feederMotorLeftSupplyCurrent = feederMotorLeft.getSupplyCurrent();
-  private final StatusSignal<Temperature> feederMotorLeftTemperature = feederMotorLeft.getDeviceTemp();
+  private final StatusSignal<AngularVelocity> feederMotorLeftVelocity =
+      feederMotorLeft.getVelocity();
+  private final StatusSignal<Current> feederMotorLeftStatorCurrent =
+      feederMotorLeft.getStatorCurrent();
+  private final StatusSignal<Current> feederMotorLeftSupplyCurrent =
+      feederMotorLeft.getSupplyCurrent();
+  private final StatusSignal<Temperature> feederMotorLeftTemperature =
+      feederMotorLeft.getDeviceTemp();
 
   private final TalonFX feederMotorRight = new TalonFX(FeederConstants.FeederMotorRightID);
   final Follower followReq =
       new Follower(FeederConstants.FeederMotorLeftID, MotorAlignmentValue.Aligned);
 
   private final StatusSignal<Voltage> feederMotorRightVoltage = feederMotorRight.getMotorVoltage();
-  private final StatusSignal<AngularVelocity> feederMotorRightVelocity = feederMotorRight.getVelocity();
-  private final StatusSignal<Current> feederMotorRightStatorCurrent = feederMotorRight.getStatorCurrent();
-  private final StatusSignal<Current> feederMotorRightSupplyCurrent = feederMotorRight.getSupplyCurrent();
-  private final StatusSignal<Temperature> feederMotorRightTemperature = feederMotorRight.getDeviceTemp();
+  private final StatusSignal<AngularVelocity> feederMotorRightVelocity =
+      feederMotorRight.getVelocity();
+  private final StatusSignal<Current> feederMotorRightStatorCurrent =
+      feederMotorRight.getStatorCurrent();
+  private final StatusSignal<Current> feederMotorRightSupplyCurrent =
+      feederMotorRight.getSupplyCurrent();
+  private final StatusSignal<Temperature> feederMotorRightTemperature =
+      feederMotorRight.getDeviceTemp();
 
   public FeederIOTalonFX() {
     PhoenixUtil.applyMotorConfigs(
@@ -96,7 +104,7 @@ public class FeederIOTalonFX implements FeederIO {
     feederMotorLeft.setVoltage(voltage);
     feederMotorRight.setControl(followReq);
   }
-  
+
   public void setVelocity(double velocity) {
     feederMotorLeft.setControl(velReq.withVelocity(velocity));
   }

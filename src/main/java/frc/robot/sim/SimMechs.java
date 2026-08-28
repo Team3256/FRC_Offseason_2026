@@ -7,19 +7,18 @@
 
 package frc.robot.sim;
 
-import static edu.wpi.first.units.Units.Meters;
-import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.Inches;
+import static edu.wpi.first.units.Units.Meters;
 
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants;
-import frc.robot.subsystems.feeder.Feeder;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
+import frc.robot.Constants;
 
 public final class SimMechs {
 
@@ -27,12 +26,12 @@ public final class SimMechs {
       new Mechanism2d(Constants.SimulationConstants.kDrivebaseWidth.in(Meters), 1.0);
 
   private final MechanismRoot2d feederRoot =
-    mech.getRoot(
-        "Feeder",
+      mech.getRoot(
+          "Feeder",
           Constants.SimulationConstants.kDrivebaseWidth.in(Meters) / 2,
           Inches.of(5).in(Meters));
 
-    private final MechanismLigament2d feederViz =
+  private final MechanismLigament2d feederViz =
       feederRoot.append(
           new MechanismLigament2d(
               "Feeder", Inches.of(2).in(Meters), 0.0, 3, new Color8Bit(Color.kMagenta)));
@@ -47,10 +46,9 @@ public final class SimMechs {
     return instance;
   }
 
-   public void updateFeeder(Angle x) {
+  public void updateFeeder(Angle x) {
     feederViz.setAngle(feederViz.getAngle() + x.in(Degrees));
   }
-
 
   public void publishToNT() {
     SmartDashboard.putData("RobotSim", mech);
