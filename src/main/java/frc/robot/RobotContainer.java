@@ -15,6 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.sim.SimMechs;
+import frc.robot.subsystems.linearslide.LinearSlide;
+import frc.robot.subsystems.linearslide.LinearSlideIOSim;
+import frc.robot.subsystems.linearslide.LinearSlideIOTalonFX;
 import frc.robot.utils.AutoConfig;
 import frc.robot.utils.MappedXboxController;
 import java.util.ArrayList;
@@ -28,6 +31,9 @@ public class RobotContainer {
       new MappedXboxController(ControllerConstants.kOperatorControllerPort, "Operator");
 
   /// sim file for intakepivot needs to be added -- seems like its not been merged yet
+  public final LinearSlide linearSlide =
+      new LinearSlide(
+          true, Utils.isSimulation() ? new LinearSlideIOSim() : new LinearSlideIOTalonFX());
 
   private AutoChooser autoChooser = new AutoChooser();
 
@@ -47,7 +53,9 @@ public class RobotContainer {
     }
   }
 
-  private void configureOperatorBinds() {}
+  private void configureOperatorBinds() {
+    m_operatorController.a().onTrue(linearSlide.setVoltage(100));
+  }
 
   private void configureChoreoAutoChooser() {}
 
@@ -70,6 +78,5 @@ public class RobotContainer {
     SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric();
   }
 
-  public void periodic() {
-  }
+  public void periodic() {}
 }

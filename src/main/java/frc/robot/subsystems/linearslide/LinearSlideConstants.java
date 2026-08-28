@@ -18,18 +18,18 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.Mass;
 
 public class LinearSlideConstants {
-  public static final int slideMotorID = 0;
+  public static final int slideMotorID = 3;
 
-  public static final boolean kUseFOC = false;
+  public static final boolean kUseFOC = true;
   public static final boolean kUseMotionMagic = true;
   public static final int flashConfigRetries = 5;
-  public static final double stowPosition = 0;
-  public static final double intakePosition = 0;
+  public static final double stowPosition = 10;
+  public static final double intakePosition = 30;
+
   // get when tuning
   public static double updateFrequency = 50;
   public static final TalonFXConfiguration motorConfigs =
@@ -43,7 +43,7 @@ public class LinearSlideConstants {
                   .withKD(0)
                   .withKA(0)
                   .withKG(0)
-                  .withGravityType(GravityTypeValue.Arm_Cosine))
+                  .withGravityType(GravityTypeValue.Elevator_Static))
           .withMotorOutput(
               new MotorOutputConfigs()
                   .withNeutralMode(NeutralModeValue.Brake)
@@ -56,22 +56,23 @@ public class LinearSlideConstants {
               // how do u get these values actually i need to learn
               new CurrentLimitsConfigs()
                   .withStatorCurrentLimitEnable(true)
-                  .withStatorCurrentLimit(0)
-                  .withSupplyCurrentLimit(0)
+                  .withStatorCurrentLimit(40)
+                  .withSupplyCurrentLimit(50)
                   .withSupplyCurrentLimitEnable(true)
-                  .withSupplyCurrentLowerTime(0)
-                  .withSupplyCurrentLowerLimit(0))
+                  .withSupplyCurrentLowerTime(.1)
+                  .withSupplyCurrentLowerLimit(20))
           .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(85.46));
 
   public static final class LinearSlideSim {
-    public static final double pivotSimGearing = 0;
+    public static final double slideSimGearing = 60;
 
-    public static final Distance linearSlideLength = Inches.of(0);
+    public static final Distance linearSlideLength = Inches.of(23);
+    public static final Distance linearSlideDrumRadius = Inches.of(10);
+
+    public static final Distance linearSlideMinLength = Inches.of(10);
+    public static final Distance linearSlideMaxLength = Inches.of(20);
     public static final Mass LinearSlideMass = Kilograms.of(1);
     public static final double jkGMetersSquared = 1;
-
-    public static final Rotation2d minAngle = Rotation2d.fromDegrees(0);
-    public static final Rotation2d maxAngle = Rotation2d.fromDegrees(180);
-    public static final Rotation2d startingAngle = Rotation2d.fromDegrees(90);
+    public static final Distance startingHeight = Inches.of(12);
   }
 }
