@@ -26,16 +26,8 @@ public final class SimMechs {
   public final Mechanism2d mech =
       new Mechanism2d(Constants.SimulationConstants.kDrivebaseWidth.in(Meters), 1.0);
 
-  private final MechanismRoot2d shooterRoot =
-      mech.getRoot(
-          "Shooter",
-          Constants.SimulationConstants.kDrivebaseWidth.in(Meters) / 2 - 0.05,
-          Inches.of(14).in(Meters));
 
-  private final MechanismLigament2d shooterWheelViz =
-      shooterRoot.append(
-          new MechanismLigament2d(
-              "Shooter Wheel", Inches.of(4).in(Meters), 0.0, 4, new Color8Bit(Color.kPink)));
+
   private final MechanismRoot2d shooterPivotRoot =
       mech.getRoot(
           "Shooter Pivot",
@@ -46,6 +38,11 @@ public final class SimMechs {
       shooterPivotRoot.append(
           new MechanismLigament2d(
               "Shooter Pivot", Inches.of(10).in(Meters), 0.0, 7, new Color8Bit(Color.kCyan)));
+
+  private final MechanismLigament2d shooterWheelViz =
+          shooterPivotRoot.append(
+                  new MechanismLigament2d(
+                          "Shooter Wheel", Inches.of(4).in(Meters), 0.0, 4, new Color8Bit(Color.kPink)));
 
   private static SimMechs instance = null;
 

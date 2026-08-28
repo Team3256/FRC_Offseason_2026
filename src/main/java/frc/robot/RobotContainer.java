@@ -81,9 +81,9 @@ public class RobotContainer {
   }
 
   private void configureOperatorBinds() {
-    m_operatorController.a().onTrue(shooterPivot.setPosition(0.0));
-    m_operatorController.b().onTrue(shooterPivot.setPosition(0.1));
-    m_operatorController.x().onTrue(shooterPivot.off());
+    m_operatorController.a().onTrue(shooter.setVelocity(10.0));
+    m_operatorController.b().onTrue(shooterPivot.setPosition(100));
+    m_operatorController.x().onTrue(shooterPivot.setPosition(0.0));
   }
 
   public void periodic() {}
