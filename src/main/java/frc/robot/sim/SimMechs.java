@@ -7,6 +7,7 @@
 
 package frc.robot.sim;
 
+import static edu.wpi.first.units.Units.*;
 import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.Meters;
@@ -25,6 +26,16 @@ public final class SimMechs {
   public final Mechanism2d mech =
       new Mechanism2d(Constants.SimulationConstants.kDrivebaseWidth.in(Meters), 1.0);
 
+  private final MechanismRoot2d shooterRoot =
+      mech.getRoot(
+          "Shooter",
+          Constants.SimulationConstants.kDrivebaseWidth.in(Meters) / 2 - 0.05,
+          Inches.of(14).in(Meters));
+
+  private final MechanismLigament2d shooterWheelViz =
+      shooterRoot.append(
+          new MechanismLigament2d(
+              "Shooter Wheel", Inches.of(4).in(Meters), 0.0, 4, new Color8Bit(Color.kPink)));
   private final MechanismRoot2d shooterPivotRoot =
       mech.getRoot(
           "Shooter Pivot",
@@ -53,6 +64,10 @@ public final class SimMechs {
 
   public void publishToNT() {
     SmartDashboard.putData("RobotSim", mech);
+  }
+
+  public void updateShooterWheel(Angle delta) {
+    shooterWheelViz.setAngle(shooterWheelViz.getAngle() + delta.in(Degrees));
   }
 
   public void updateClimb(Angle of) {
