@@ -117,7 +117,11 @@ public class IndexerIOTalonFX implements IndexerIO {
   }
 
   @Override
-  public TalonFX getMotor() {
+  public TalonFX getLeftMotor() {
     return indexerMotorLeft;
+  }
+
+  public TalonFX getRightMotor() {
+    return indexerMotorRight;
   }
 }

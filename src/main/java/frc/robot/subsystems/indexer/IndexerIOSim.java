@@ -33,8 +33,8 @@ public class IndexerIOSim extends IndexerIOTalonFX {
 
   public IndexerIOSim() {
     super();
-    motorLeftSim = super.getMotor().getSimState();
-    motorRightSim = super.getMotor().getSimState();
+    motorLeftSim = super.getLeftMotor().getSimState();
+    motorRightSim = super.getRightMotor().getSimState();
   }
 
   @Override

@@ -32,7 +32,11 @@ public interface IndexerIO {
 
   public default void setVelocity(double velocity) {}
 
-  public default TalonFX getMotor() {
+  public default TalonFX getLeftMotor() {
+    return new TalonFX(0);
+  }
+
+  public default TalonFX getRightMotor() {
     return new TalonFX(0);
   }
 
