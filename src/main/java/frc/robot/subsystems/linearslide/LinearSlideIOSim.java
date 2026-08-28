@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.simulation.BatterySim;
 import edu.wpi.first.wpilibj.simulation.ElevatorSim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import frc.robot.sim.SimMechs;
+import org.littletonrobotics.junction.Logger;
 
 public class LinearSlideIOSim extends LinearSlideIOTalonFX {
   // private final TalonFXSimState slideSimState;
@@ -36,7 +37,7 @@ public class LinearSlideIOSim extends LinearSlideIOTalonFX {
   public LinearSlideIOSim() {
     super();
     this.motorSim = super.getMotor().getSimState();
-    //slideSimState.Orientation = ChassisReference.Clockwise_Positive;
+    // slideSimState.Orientation = ChassisReference.Clockwise_Positive;
   }
 
   @Override
@@ -56,7 +57,9 @@ public class LinearSlideIOSim extends LinearSlideIOTalonFX {
     RoboRioSim.setVInVoltage(
         BatterySim.calculateDefaultBatteryLoadedVoltage(slideSimModel.getCurrentDrawAmps()));
     super.updateInputs(inputs);
-
+    Logger.recordOutput("/LinearSlideSim/positionMeters", slideSimModel.getPositionMeters());
+    Logger.recordOutput(
+        "/LinearSlideSim/velocityMetersPerSecond", slideSimModel.getVelocityMetersPerSecond());
     SimMechs.getInstance().updateLinearSlide(Meters.of(slideSimModel.getPositionMeters()));
   }
 }
