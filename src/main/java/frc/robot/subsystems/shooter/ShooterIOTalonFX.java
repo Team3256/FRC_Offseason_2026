@@ -66,15 +66,6 @@ public class ShooterIOTalonFX implements ShooterIO {
     return shooterMotorFollowers;
   }
 
-  ShooterMotorFollowerIOInputs[] createFollowerIOInputses(TalonFX[] shooterMotors) {
-    ShooterMotorFollowerIOInputs[] shooterFollowerMotors =
-        new ShooterMotorFollowerIOInputs[NUM_FOLLOWER_MOTORS];
-
-    for (int i = 0; i < NUM_FOLLOWER_MOTORS; i++) {
-      TalonFX shooterMotorFollower = shooterMotors[i];
-    }
-    return shooterFollowerMotors;
-  }
 
   ShooterMotorStatus[] createFollowerStatuses(TalonFX[] shooterMotorFollowers) {
     ShooterMotorStatus[] shooterMotorFollowerStatuses = new ShooterMotorStatus[NUM_FOLLOWER_MOTORS];
@@ -86,8 +77,6 @@ public class ShooterIOTalonFX implements ShooterIO {
   }
 
   TalonFX[] shooterMotorFollowers = createFollowers();
-  ShooterMotorFollowerIOInputs[] shooterMotorFollowerIOInputses =
-      createFollowerIOInputses(shooterMotorFollowers);
   ShooterMotorStatus[] shooterMotorFollowerStatuses = createFollowerStatuses(shooterMotorFollowers);
 
   public ShooterIOTalonFX() {
@@ -110,7 +99,7 @@ public class ShooterIOTalonFX implements ShooterIO {
           ShooterConstants.flashConfigRetries);
 
       Follower followReq =
-          motorPositions[i].opposed
+          motorOpposed[i]
               ? new Follower(ShooterConstants.shooterMain, MotorAlignmentValue.Opposed)
               : new Follower(ShooterConstants.shooterMain, MotorAlignmentValue.Aligned);
 
@@ -150,7 +139,7 @@ public class ShooterIOTalonFX implements ShooterIO {
     shooterMotor.setVoltage(voltage);
     for (int i = 0; i < NUM_FOLLOWER_MOTORS; i++) {
       Follower followReq =
-          motorPositions[i].opposed
+          motorOpposed[i]
               ? new Follower(ShooterConstants.shooterMain, MotorAlignmentValue.Opposed)
               : new Follower(ShooterConstants.shooterMain, MotorAlignmentValue.Aligned);
       shooterMotorFollowers[i].setControl(followReq);
@@ -166,7 +155,7 @@ public class ShooterIOTalonFX implements ShooterIO {
     }
     for (int i = 0; i < NUM_FOLLOWER_MOTORS; i++) {
       Follower followReq =
-          motorPositions[i].opposed
+          motorOpposed[i]
               ? new Follower(ShooterConstants.shooterMain, MotorAlignmentValue.Opposed)
               : new Follower(ShooterConstants.shooterMain, MotorAlignmentValue.Aligned);
       shooterMotorFollowers[i].setControl(followReq);

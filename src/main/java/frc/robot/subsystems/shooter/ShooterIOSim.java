@@ -25,7 +25,7 @@ import org.littletonrobotics.junction.LoggedRobot;
 public class ShooterIOSim extends ShooterIOTalonFX {
 
   private final DCMotor motor =
-      ShooterConstants.kUseFOC ? DCMotor.getKrakenX60Foc(2) : DCMotor.getKrakenX60(2);
+      ShooterConstants.kUseFOC ? DCMotor.getKrakenX60Foc(4) : DCMotor.getKrakenX60(4);
 
   private final LinearSystem<N1, N1, N1> flywheelSystem =
       LinearSystemId.createFlywheelSystem(

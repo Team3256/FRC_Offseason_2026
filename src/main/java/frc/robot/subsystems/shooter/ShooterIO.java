@@ -11,32 +11,11 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import org.littletonrobotics.junction.AutoLog;
 
 public interface ShooterIO {
-  public static class MotorPosition {
-    int positionV;
-    int positionH;
-    boolean opposed;
+  public final boolean[] motorOpposed = {
+    false, true, true
+  }; // set what motors are opposed to leader motor
 
-    public MotorPosition(int i, int i1) {
-      this.positionV = i;
-      this.positionH = i1;
-      this.opposed = (i1 == 1);
-    }
-  }
-
-  public static MotorPosition[] motorPositions = {
-    new MotorPosition(0, 1), new MotorPosition(1, 0), new MotorPosition(1, 1),
-  };
-
-  public final int NUM_FOLLOWER_MOTORS = motorPositions.length;
-
-  @AutoLog
-  public static class ShooterMotorFollowerIOInputs {
-    public double shooterMotorFollowerVoltage = 0.0;
-    public double shooterMotorFollowerVelocity = 0.0;
-    public double shooterMotorFollowerStatorCurrent = 0.0;
-    public double shooterMotorFollowerSupplyCurrent = 0.0;
-    public double shooterMotorFollowerTemperature = 0.0;
-  }
+  public final int NUM_FOLLOWER_MOTORS = motorOpposed.length;
 
   @AutoLog
   public static class ShooterIOInputs {
