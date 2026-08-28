@@ -54,7 +54,8 @@ public class RobotContainer {
       new Feeder(true, Utils.isSimulation() ? new FeederIOSim() : new FeederIOTalonFX());
 
   private void configureOperatorBinds() {
-    m_operatorController.a().onTrue(feeder.startFeeding());
+    m_operatorController.a().onTrue(feeder.setVoltage(10));
+    m_operatorController.b().onTrue(feeder.off());
   }
 
   private void configureChoreoAutoChooser() {}

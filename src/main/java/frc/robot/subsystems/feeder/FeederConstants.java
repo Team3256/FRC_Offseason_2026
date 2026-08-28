@@ -27,9 +27,9 @@ public class FeederConstants {
 
   public static final boolean kUseFOC = true;
 
-  public static final int kFeederMotor1ID = 0;
+  public static final int FeederMotorLeftID = 0;
 
-  public static final int kFeederMotor2ID = 0;
+  public static final int FeederMotorRightID = 0;
 
   public static final double feederVelocity = 80;
 
@@ -56,6 +56,6 @@ public class FeederConstants {
   public static final class SimulationConstants {
     public static double rollerGearingRatio = 1.0;
     public static double rollerMomentOfInertia = 1.0;
-    public static double kAngularVelocityScalar = 0.0;
+    public static double kAngularVelocityScalar = 10.0;
   }
 }

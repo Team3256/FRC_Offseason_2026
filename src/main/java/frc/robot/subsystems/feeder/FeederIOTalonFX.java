@@ -21,90 +21,91 @@ import edu.wpi.first.units.measure.Voltage;
 import frc.robot.utils.PhoenixUtil;
 
 public class FeederIOTalonFX implements FeederIO {
-  private final TalonFX feederMotor1 = new TalonFX(FeederConstants.kFeederMotor1ID);
+  private final TalonFX feederMotorLeft = new TalonFX(FeederConstants.FeederMotorLeftID);
   final VelocityVoltage velReq = new VelocityVoltage(0).withSlot(0);
 
-  private final StatusSignal<Voltage> feederMotor1Voltage = feederMotor1.getMotorVoltage();
-  private final StatusSignal<AngularVelocity> feederMotor1Velocity = feederMotor1.getVelocity();
-  private final StatusSignal<Current> feederMotor1StatorCurrent = feederMotor1.getStatorCurrent();
-  private final StatusSignal<Current> feederMotor1SupplyCurrent = feederMotor1.getSupplyCurrent();
-  private final StatusSignal<Temperature> feederMotor1Temperature = feederMotor1.getDeviceTemp();
+  private final StatusSignal<Voltage> feederMotorLeftVoltage = feederMotorLeft.getMotorVoltage();
+  private final StatusSignal<AngularVelocity> feederMotorLeftVelocity = feederMotorLeft.getVelocity();
+  private final StatusSignal<Current> feederMotorLeftStatorCurrent = feederMotorLeft.getStatorCurrent();
+  private final StatusSignal<Current> feederMotorLeftSupplyCurrent = feederMotorLeft.getSupplyCurrent();
+  private final StatusSignal<Temperature> feederMotorLeftTemperature = feederMotorLeft.getDeviceTemp();
 
-  private final TalonFX feederMotor2 = new TalonFX(FeederConstants.kFeederMotor2ID);
+  private final TalonFX feederMotorRight = new TalonFX(FeederConstants.FeederMotorRightID);
   final Follower followReq =
-      new Follower(FeederConstants.kFeederMotor1ID, MotorAlignmentValue.Aligned);
+      new Follower(FeederConstants.FeederMotorLeftID, MotorAlignmentValue.Aligned);
 
-  private final StatusSignal<Voltage> feederMotor2Voltage = feederMotor2.getMotorVoltage();
-  private final StatusSignal<AngularVelocity> feederMotor2Velocity = feederMotor2.getVelocity();
-  private final StatusSignal<Current> feederMotor2StatorCurrent = feederMotor2.getStatorCurrent();
-  private final StatusSignal<Current> feederMotor2SupplyCurrent = feederMotor2.getSupplyCurrent();
-  private final StatusSignal<Temperature> feederMotor2Temperature = feederMotor2.getDeviceTemp();
+  private final StatusSignal<Voltage> feederMotorRightVoltage = feederMotorRight.getMotorVoltage();
+  private final StatusSignal<AngularVelocity> feederMotorRightVelocity = feederMotorRight.getVelocity();
+  private final StatusSignal<Current> feederMotorRightStatorCurrent = feederMotorRight.getStatorCurrent();
+  private final StatusSignal<Current> feederMotorRightSupplyCurrent = feederMotorRight.getSupplyCurrent();
+  private final StatusSignal<Temperature> feederMotorRightTemperature = feederMotorRight.getDeviceTemp();
 
   public FeederIOTalonFX() {
     PhoenixUtil.applyMotorConfigs(
-        feederMotor1, FeederConstants.motorConfigs, FeederConstants.flashConfigRetries);
+        feederMotorLeft, FeederConstants.motorConfigs, FeederConstants.flashConfigRetries);
 
     PhoenixUtil.applyMotorConfigs(
-        feederMotor2, FeederConstants.motorConfigs, FeederConstants.flashConfigRetries);
+        feederMotorRight, FeederConstants.motorConfigs, FeederConstants.flashConfigRetries);
 
     BaseStatusSignal.setUpdateFrequencyForAll(
         FeederConstants.updateFrequency,
-        feederMotor1Voltage,
-        feederMotor1Velocity,
-        feederMotor1StatorCurrent,
-        feederMotor1SupplyCurrent,
-        feederMotor1Temperature,
-        feederMotor2Voltage,
-        feederMotor2Velocity,
-        feederMotor2StatorCurrent,
-        feederMotor2SupplyCurrent,
-        feederMotor2Temperature);
+        feederMotorLeftVoltage,
+        feederMotorLeftVelocity,
+        feederMotorLeftStatorCurrent,
+        feederMotorLeftSupplyCurrent,
+        feederMotorLeftTemperature,
+        feederMotorRightVoltage,
+        feederMotorRightVelocity,
+        feederMotorRightStatorCurrent,
+        feederMotorRightSupplyCurrent,
+        feederMotorRightTemperature);
     PhoenixUtil.registerSignals(
         false,
-        feederMotor1Voltage,
-        feederMotor1Velocity,
-        feederMotor1StatorCurrent,
-        feederMotor1SupplyCurrent,
-        feederMotor1Temperature,
-        feederMotor2Voltage,
-        feederMotor2Velocity,
-        feederMotor2StatorCurrent,
-        feederMotor2SupplyCurrent,
-        feederMotor2Temperature);
-    feederMotor1.optimizeBusUtilization();
-    feederMotor2.optimizeBusUtilization();
+        feederMotorLeftVoltage,
+        feederMotorLeftVelocity,
+        feederMotorLeftStatorCurrent,
+        feederMotorLeftSupplyCurrent,
+        feederMotorLeftTemperature,
+        feederMotorRightVoltage,
+        feederMotorRightVelocity,
+        feederMotorRightStatorCurrent,
+        feederMotorRightSupplyCurrent,
+        feederMotorRightTemperature);
+    feederMotorLeft.optimizeBusUtilization();
+    feederMotorRight.optimizeBusUtilization();
 
-    feederMotor2.setControl(followReq);
+    feederMotorRight.setControl(followReq);
   }
 
   public void updateInputs(FeederIOInputs inputs) {
 
-    inputs.feederMotor1Voltage = feederMotor1Voltage.getValueAsDouble();
-    inputs.feederMotor1Velocity = feederMotor1Velocity.getValueAsDouble();
-    inputs.feederMotor1StatorCurrent = feederMotor1StatorCurrent.getValueAsDouble();
-    inputs.feederMotor1SupplyCurrent = feederMotor1SupplyCurrent.getValueAsDouble();
-    inputs.feederMotor1Temperature = feederMotor1Temperature.getValueAsDouble();
+    inputs.feederMotorLeftVoltage = feederMotorLeftVoltage.getValueAsDouble();
+    inputs.feederMotorLeftVelocity = feederMotorLeftVelocity.getValueAsDouble();
+    inputs.feederMotorLeftStatorCurrent = feederMotorLeftStatorCurrent.getValueAsDouble();
+    inputs.feederMotorLeftSupplyCurrent = feederMotorLeftSupplyCurrent.getValueAsDouble();
+    inputs.feederMotorLeftTemperature = feederMotorLeftTemperature.getValueAsDouble();
 
-    inputs.feederMotor2Voltage = feederMotor2Voltage.getValueAsDouble();
-    inputs.feederMotor2Velocity = feederMotor2Velocity.getValueAsDouble();
-    inputs.feederMotor2StatorCurrent = feederMotor2StatorCurrent.getValueAsDouble();
-    inputs.feederMotor2SupplyCurrent = feederMotor2SupplyCurrent.getValueAsDouble();
-    inputs.feederMotor2Temperature = feederMotor2Temperature.getValueAsDouble();
+    inputs.feederMotorRightVoltage = feederMotorRightVoltage.getValueAsDouble();
+    inputs.feederMotorRightVelocity = feederMotorRightVelocity.getValueAsDouble();
+    inputs.feederMotorRightStatorCurrent = feederMotorRightStatorCurrent.getValueAsDouble();
+    inputs.feederMotorRightSupplyCurrent = feederMotorRightSupplyCurrent.getValueAsDouble();
+    inputs.feederMotorRightTemperature = feederMotorRightTemperature.getValueAsDouble();
   }
 
   public void setVoltage(double voltage) {
-    feederMotor1.setVoltage(voltage);
+    feederMotorLeft.setVoltage(voltage);
+    feederMotorRight.setControl(followReq);
   }
-
+  
   public void setVelocity(double velocity) {
-    feederMotor1.setControl(velReq.withVelocity(velocity));
+    feederMotorLeft.setControl(velReq.withVelocity(velocity));
   }
 
   public void off() {
-    feederMotor1.setControl(new NeutralOut());
+    feederMotorLeft.setControl(new NeutralOut());
   }
 
-  public TalonFX getFeederMotor1() {
-    return feederMotor1;
+  public TalonFX getFeederMotorLeft() {
+    return feederMotorLeft;
   }
 }
