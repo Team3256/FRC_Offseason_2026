@@ -60,7 +60,7 @@ public class ShooterPivotConstants {
                   .withSupplyCurrentLimitEnable(true)
                   .withSupplyCurrentLowerLimit(20)
                   .withSupplyCurrentLowerTime(0.1))
-          .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(158.142945));
+          .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(4));
 
   public static final InterpolatingDoubleTreeMap hubLUT =
       new InterpolatingDoubleTreeMap() {
@@ -93,7 +93,7 @@ public class ShooterPivotConstants {
       };
 
   public static final class PivotSim {
-    public static final double pivotSimGearing = 40;
+    public static final double pivotSimGearing = 4;
 
     public static final Distance shooterPivotLength = Inches.of(11.083714);
     public static final Mass shooterPivotMass = Kilograms.of(1);
