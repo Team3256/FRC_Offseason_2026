@@ -24,6 +24,7 @@ public interface ShooterIO {
     public double[] shooterMotorStatorCurrents = new double[NUM_MOTORS];
     public double[] shooterMotorSupplyCurrents = new double[NUM_MOTORS];
     public double[] shooterMotorTemperatures = new double[NUM_MOTORS];
+    public double[] shooterMotorIDs = new double[NUM_MOTORS];
   }
 
   public default void updateInputs(ShooterIOInputs inputs) {}

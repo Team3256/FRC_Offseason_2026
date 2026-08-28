@@ -83,6 +83,7 @@ public class ShooterIOTalonFX implements ShooterIO {
       inputs.shooterMotorStatorCurrents[i] = shooterMotorStatorCurrents[i].getValueAsDouble();
       inputs.shooterMotorSupplyCurrents[i] = shooterMotorSupplyCurrents[i].getValueAsDouble();
       inputs.shooterMotorTemperatures[i] = shooterMotorTemperatures[i].getValueAsDouble();
+      inputs.shooterMotorIDs[i] = ShooterConstants.shooters[i];
     }
   }
 
