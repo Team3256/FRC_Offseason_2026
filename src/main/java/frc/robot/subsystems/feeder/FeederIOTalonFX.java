@@ -107,6 +107,7 @@ public class FeederIOTalonFX implements FeederIO {
 
   public void setVelocity(double velocity) {
     feederMotorLeft.setControl(velReq.withVelocity(velocity));
+    feederMotorRight.setControl(followReq);
   }
 
   public void off() {
@@ -115,5 +116,9 @@ public class FeederIOTalonFX implements FeederIO {
 
   public TalonFX getFeederMotorLeft() {
     return feederMotorLeft;
+  }
+
+  public TalonFX getFeederMotorRight() {
+    return feederMotorRight;
   }
 }
