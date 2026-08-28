@@ -7,17 +7,34 @@
 
 package frc.robot.sim;
 
+import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.Meters;
 
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
+import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
+import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.util.Color8Bit;
 import frc.robot.Constants;
 
 public final class SimMechs {
 
   public final Mechanism2d mech =
       new Mechanism2d(Constants.SimulationConstants.kDrivebaseWidth.in(Meters), 1.0);
+
+  private final MechanismRoot2d shooterPivotRoot =
+      mech.getRoot(
+          "Shooter Pivot",
+          Constants.SimulationConstants.kDrivebaseWidth.in(Meters) / 2 - 0.05,
+          Inches.of(25).in(Meters));
+
+  private final MechanismLigament2d shooterPivotViz =
+      shooterPivotRoot.append(
+          new MechanismLigament2d(
+              "Shooter Pivot", Inches.of(10).in(Meters), 0.0, 7, new Color8Bit(Color.kCyan)));
 
   private static SimMechs instance = null;
 
@@ -28,6 +45,10 @@ public final class SimMechs {
       instance = new SimMechs();
     }
     return instance;
+  }
+
+  public void updateShooterPivot(Angle angle) {
+    shooterPivotViz.setAngle(angle.in(Degrees)); // flips direction
   }
 
   public void publishToNT() {

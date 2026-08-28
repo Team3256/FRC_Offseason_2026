@@ -15,6 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.sim.SimMechs;
+import frc.robot.subsystems.shooterpivot.ShooterPivot;
+import frc.robot.subsystems.shooterpivot.ShooterPivotIOSim;
+import frc.robot.subsystems.shooterpivot.ShooterPivotIOTalonFX;
 import frc.robot.utils.AutoConfig;
 import frc.robot.utils.MappedXboxController;
 import java.util.ArrayList;
@@ -36,6 +39,10 @@ public class RobotContainer {
   private SendableChooser<AutoConfig> autoVisualizer = new SendableChooser<AutoConfig>();
   private Field2d field2d = new Field2d();
 
+  private final ShooterPivot shooterPivot =
+      new ShooterPivot(
+          true, Utils.isSimulation() ? new ShooterPivotIOSim() : new ShooterPivotIOTalonFX());
+
   public RobotContainer() {
 
     configureSwerve();
@@ -46,8 +53,6 @@ public class RobotContainer {
       SimMechs.getInstance().publishToNT();
     }
   }
-
-  private void configureOperatorBinds() {}
 
   private void configureChoreoAutoChooser() {}
 
@@ -70,6 +75,11 @@ public class RobotContainer {
     SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric();
   }
 
-  public void periodic() {
+  private void configureOperatorBinds() {
+    m_operatorController.a().onTrue(shooterPivot.setPosition(0.0));
+    m_operatorController.b().onTrue(shooterPivot.setPosition(0.1));
+    m_operatorController.x().onTrue(shooterPivot.off());
   }
+
+  public void periodic() {}
 }
