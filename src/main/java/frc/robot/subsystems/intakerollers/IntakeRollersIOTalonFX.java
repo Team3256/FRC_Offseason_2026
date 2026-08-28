@@ -18,6 +18,7 @@ import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.units.measure.Voltage;
+import frc.robot.utils.PhoenixUtil;
 
 public class IntakeRollersIOTalonFX implements IntakeRollersIO {
   private final TalonFX intakeMotorLeft =
@@ -44,8 +45,14 @@ public class IntakeRollersIOTalonFX implements IntakeRollersIO {
   private final StatusSignal<Temperature> rollerTemperatureRight = intakeMotorRight.getDeviceTemp();
 
   public IntakeRollersIOTalonFX() {
-    intakeMotorLeft.getConfigurator().apply(IntakeRollerConstants.motorConfigs);
-    intakeMotorRight.getConfigurator().apply(IntakeRollerConstants.motorConfigs);
+    PhoenixUtil.applyMotorConfigs(
+        intakeMotorLeft,
+        IntakeRollerConstants.motorConfigs,
+        IntakeRollerConstants.flashConfigRetries);
+    PhoenixUtil.applyMotorConfigs(
+        intakeMotorRight,
+        IntakeRollerConstants.motorConfigs,
+        IntakeRollerConstants.flashConfigRetries);
 
     BaseStatusSignal.setUpdateFrequencyForAll(
         IntakeRollerConstants.updateFrequency,

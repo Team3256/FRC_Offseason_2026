@@ -8,19 +8,22 @@
 package frc.robot.subsystems.intakerollers;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.FeatureFlags;
+import frc.robot.utils.DisableSubsystem;
 import org.littletonrobotics.junction.Logger;
 
-public class IntakeRollers extends SubsystemBase {
+public class IntakeRollers extends DisableSubsystem {
   private final IntakeRollersIO io;
   private final IntakeRollersIOInputsAutoLogged inputs = new IntakeRollersIOInputsAutoLogged();
 
   public IntakeRollers(IntakeRollersIO io) {
+    super(FeatureFlags.kIntakeRollersEnabled);
     this.io = io;
   }
 
   @Override
   public void periodic() {
+    super.periodic();
     io.updateInputs(inputs);
     Logger.processInputs("IntakeRollers", inputs);
   }

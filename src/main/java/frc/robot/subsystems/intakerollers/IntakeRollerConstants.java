@@ -18,6 +18,8 @@ public class IntakeRollerConstants {
 
   public static double updateFrequency = 50;
 
+  public static final int flashConfigRetries = 5;
+
   // Rotations per second, at the motor
   public static final double kIntakeVelocity = 40.0;
   public static final double kOuttakeVelocity = -40.0;
