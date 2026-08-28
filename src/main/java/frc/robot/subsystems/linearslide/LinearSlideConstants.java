@@ -64,11 +64,11 @@ public class LinearSlideConstants {
           .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(85.46));
 
   public static final class LinearSlideSim {
-    public static final double slideSimGearing = 60;
+    public static final double slideSimGearing = 30;
 
     public static final Distance linearSlideLength = Inches.of(10);
     public static final Distance linearSlideDrumRadius = Inches.of(10);
-
+    // elevator sim parameter so i added it but claire doesn't know soooooooo
     public static final Distance linearSlideMinLength = Inches.of(5);
     public static final Distance linearSlideMaxLength = Inches.of(20);
     public static final Mass LinearSlideMass = Kilograms.of(1);

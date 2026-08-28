@@ -55,6 +55,7 @@ public class RobotContainer {
 
   private void configureOperatorBinds() {
     m_operatorController.a().onTrue(linearSlide.goToGroundIntake());
+    m_operatorController.b().onTrue(linearSlide.goToStow());
   }
 
   private void configureChoreoAutoChooser() {}

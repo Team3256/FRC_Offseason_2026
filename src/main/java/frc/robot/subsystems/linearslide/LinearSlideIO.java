@@ -36,5 +36,9 @@ public interface LinearSlideIO {
   public default void resetPosition(double angle) {}
 
   public default void off() {}
+
+  public default void zero() {
+    this.getMotor().setPosition(0);
+  }
   // does lin slide need a zero
 }

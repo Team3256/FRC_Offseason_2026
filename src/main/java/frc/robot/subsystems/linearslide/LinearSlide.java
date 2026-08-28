@@ -26,7 +26,7 @@ public class LinearSlide extends DisableSubsystem {
   public LinearSlide(boolean enabled, LinearSlideIO linearSlideIO) {
     super(enabled);
     this.linearSlideIO = linearSlideIO;
-    linearSlideIO.resetPosition(LinearSlideConstants.stowPosition);
+    linearSlideIO.zero();
   }
 
   @Override

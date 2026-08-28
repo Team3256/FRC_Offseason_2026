@@ -36,7 +36,7 @@ public class LinearSlideIOSim extends LinearSlideIOTalonFX {
   public LinearSlideIOSim() {
     super();
     this.motorSim = super.getMotor().getSimState();
-    // slideSimState.Orientation = ChassisReference.Clockwise_Positive;
+    //slideSimState.Orientation = ChassisReference.Clockwise_Positive;
   }
 
   @Override
@@ -57,6 +57,6 @@ public class LinearSlideIOSim extends LinearSlideIOTalonFX {
         BatterySim.calculateDefaultBatteryLoadedVoltage(slideSimModel.getCurrentDrawAmps()));
     super.updateInputs(inputs);
 
-   SimMechs.getInstance().updateLinearSlide(Meters.of(slideSimModel.getPositionMeters()));
+    SimMechs.getInstance().updateLinearSlide(Meters.of(slideSimModel.getPositionMeters()));
   }
 }

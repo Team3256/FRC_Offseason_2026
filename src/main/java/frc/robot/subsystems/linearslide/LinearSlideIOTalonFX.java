@@ -6,11 +6,13 @@
 // the root directory of this project.
 
 package frc.robot.subsystems.linearslide;
+
 import static edu.wpi.first.units.Units.*;
+
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
-import com.ctre.phoenix6.controls.NeutralOut;
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
@@ -19,7 +21,8 @@ import edu.wpi.first.units.measure.Voltage;
 import frc.robot.utils.PhoenixUtil;
 
 public class LinearSlideIOTalonFX implements LinearSlideIO {
-    
+  private final PositionVoltage positionRequest = new PositionVoltage(0).withSlot(0);
+
   private final TalonFX slideMotor = new TalonFX(LinearSlideConstants.slideMotorID);
 
   private final MotionMagicVoltage motionMagicRequest =
@@ -46,13 +49,14 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
     PhoenixUtil.registerSignals(
         false, motorVoltage, velocity, position, statorCurrent, supplyCurrent);
   }
+
   @Override
   public void updateInputs(LinearSlideIOInputs inputs) {
 
     inputs.slideMotorVoltage = motorVoltage.getValue().in(Volts);
     inputs.slideMotorVelocity = velocity.getValue().in(RotationsPerSecond);
 
-    inputs.slideMotorPosition = position.getValue().in(Rotations);
+    inputs.slideMotorPosition = position.getValueAsDouble();
 
     inputs.slideMotorStatorCurrent = statorCurrent.getValue().in(Amps);
     inputs.slideMotorSupplyCurrent = supplyCurrent.getValue().in(Amps);
@@ -62,6 +66,8 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
   public void setPosition(double target) {
     if (LinearSlideConstants.kUseMotionMagic) {
       slideMotor.setControl(motionMagicRequest.withPosition(target));
+    } else {
+      slideMotor.setControl(positionRequest.withPosition(target));
     }
   }
 
@@ -73,6 +79,13 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
   @Override
   public void setVoltage(double volts) {
     slideMotor.setVoltage(volts);
+  }
+
+  /* */
+
+  @Override
+  public void zero() {
+    slideMotor.setPosition(0);
   }
 
   @Override
