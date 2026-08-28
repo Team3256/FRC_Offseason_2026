@@ -66,10 +66,10 @@ public class LinearSlideConstants {
   public static final class LinearSlideSim {
     public static final double slideSimGearing = 60;
 
-    public static final Distance linearSlideLength = Inches.of(23);
+    public static final Distance linearSlideLength = Inches.of(10);
     public static final Distance linearSlideDrumRadius = Inches.of(10);
 
-    public static final Distance linearSlideMinLength = Inches.of(10);
+    public static final Distance linearSlideMinLength = Inches.of(5);
     public static final Distance linearSlideMaxLength = Inches.of(20);
     public static final Mass LinearSlideMass = Kilograms.of(1);
     public static final double jkGMetersSquared = 1;

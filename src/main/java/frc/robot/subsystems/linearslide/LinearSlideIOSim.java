@@ -57,6 +57,6 @@ public class LinearSlideIOSim extends LinearSlideIOTalonFX {
         BatterySim.calculateDefaultBatteryLoadedVoltage(slideSimModel.getCurrentDrawAmps()));
     super.updateInputs(inputs);
 
-    SimMechs.getInstance().updateLinearSlide(Meters.of(slideSimModel.getPositionMeters()));
+   SimMechs.getInstance().updateLinearSlide(Meters.of(slideSimModel.getPositionMeters()));
   }
 }
