@@ -1,3 +1,10 @@
+// Copyright (c) 2025 FRC 3256
+// https://github.com/Team3256
+//
+// Use of this source code is governed by a 
+// license that can be found in the LICENSE file at
+// the root directory of this project.
+
 package frc.robot.subsystems.intakerollers;
 
 import com.ctre.phoenix6.BaseStatusSignal;
@@ -34,8 +41,7 @@ public class IntakeRollersIOTalonFX implements IntakeRollersIO {
       intakeMotorRight.getStatorCurrent();
   private final StatusSignal<Current> rollerSupplyCurrentRight =
       intakeMotorRight.getSupplyCurrent();
-  private final StatusSignal<Temperature> rollerTemperatureRight =
-      intakeMotorRight.getDeviceTemp();
+  private final StatusSignal<Temperature> rollerTemperatureRight = intakeMotorRight.getDeviceTemp();
 
   public IntakeRollersIOTalonFX() {
     intakeMotorLeft.getConfigurator().apply(IntakeRollerConstants.motorConfigs);
