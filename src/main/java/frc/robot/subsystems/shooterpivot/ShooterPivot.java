@@ -48,7 +48,7 @@ public class ShooterPivot extends DisableSubsystem {
 
     hoodVel = hoodAngleFilter.calculate((reqPosition - lastHoodAngle) / 0.02);
     lastHoodAngle = reqPosition;
-    Logger.recordOutput(this.getClass().getSimpleName() + "/turretVel", hoodVel);
+    Logger.recordOutput(this.getClass().getSimpleName() + "/hoodVel", hoodVel);
 
     LoggedTracer.record("ShooterPivot");
   }

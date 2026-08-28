@@ -27,7 +27,7 @@ public class ShooterPivotConstants {
   public static final int pivotMotorId = 36;
 
   public static final boolean kUseFOC = false;
-  public static final boolean kUseMotionMagic = true;
+  public static final boolean kUseMotionMagic = false;
   public static final int flashConfigRetries = 5;
 
   public static double updateFrequency = 50;
