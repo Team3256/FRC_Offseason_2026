@@ -22,8 +22,16 @@ public final class ShooterConstants {
   // field oriented control
   public static final boolean kUseFOC = true;
 
-  public static int[] shooters = {59, 60, 61, 62};
+  public static int[] shooters = {
+          59, // top left
+          60, // bottom left
+          61, // top right
+          62, // bottom right
+  };
   // the leader is the shooters[0] and the rest are followers
+
+  public static double updateFrequency = 50.0;
+
 
   // pid
   public static TalonFXConfiguration motorConfigs =
@@ -92,8 +100,6 @@ public final class ShooterConstants {
     public static double kAngularVelocityScalar = .03;
   }
 
-  public static double updateFrequency = 50.0;
-  public static boolean kUseMotionMagic = false;
 
   public static int flashConfigRetries = 5;
 }

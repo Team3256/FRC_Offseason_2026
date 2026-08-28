@@ -33,14 +33,6 @@ public final class SimMechs {
       shooterRoot.append(
           new MechanismLigament2d(
               "Shooter Wheel", Inches.of(4).in(Meters), 0.0, 4, new Color8Bit(Color.kPink)));
-  private final MechanismLigament2d shooterWheelFollowerViz =
-      shooterRoot.append(
-          new MechanismLigament2d(
-              "Shooter Wheel Follower",
-              Inches.of(3).in(Meters),
-              0.0,
-              4,
-              new Color8Bit(Color.kDeepPink)));
 
   private static SimMechs instance = null;
 
@@ -57,9 +49,8 @@ public final class SimMechs {
     SmartDashboard.putData("RobotSim", mech);
   }
 
-  public void updateShooterWheel(Angle delta, Angle delta_F) {
+  public void updateShooterWheel(Angle delta) {
     shooterWheelViz.setAngle(shooterWheelViz.getAngle() + delta.in(Degrees));
-    shooterWheelFollowerViz.setAngle(shooterWheelFollowerViz.getAngle() + delta_F.in(Degrees));
   }
 
   public void updateClimb(Angle of) {

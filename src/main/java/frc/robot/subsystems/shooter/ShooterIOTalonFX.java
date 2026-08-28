@@ -45,9 +45,7 @@ public class ShooterIOTalonFX implements ShooterIO {
     for (int i = 0; i < NUM_MOTORS; i++) {
       PhoenixUtil.applyMotorConfigs(
           shooterMotors[i], ShooterConstants.motorConfigs, ShooterConstants.flashConfigRetries);
-    }
 
-    for (int i = 0; i < NUM_MOTORS; i++) {
       BaseStatusSignal.setUpdateFrequencyForAll(
           ShooterConstants.updateFrequency,
           shooterMotorVoltages[i],
@@ -55,9 +53,7 @@ public class ShooterIOTalonFX implements ShooterIO {
           shooterMotorStatorCurrents[i],
           shooterMotorSupplyCurrents[i],
           shooterMotorTemperatures[i]);
-    }
 
-    for (int i = 0; i < NUM_MOTORS; i++) {
       PhoenixUtil.registerSignals(
           false,
           shooterMotorVoltages[i],
@@ -104,11 +100,8 @@ public class ShooterIOTalonFX implements ShooterIO {
 
   @Override
   public void setShooterVelocity(double velocity) {
-    if (ShooterConstants.kUseMotionMagic) {
-      shooterMotors[0].setControl(motionMagicRequest.withVelocity(velocity));
-    } else {
-      shooterMotors[0].setControl(velocityRequest.withVelocity(velocity));
-    }
+    shooterMotors[0].setControl(velocityRequest.withVelocity(velocity));
+
     for (int i = 1; i < NUM_MOTORS; i++) {
       Follower followReq =
           motorOpposed[i]
