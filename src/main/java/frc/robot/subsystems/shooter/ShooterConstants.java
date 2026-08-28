@@ -23,15 +23,14 @@ public final class ShooterConstants {
   public static final boolean kUseFOC = true;
 
   public static int[] shooters = {
-          59, // top left
-          60, // bottom left
-          61, // top right
-          62, // bottom right
+    59, // top left
+    60, // bottom left
+    61, // top right
+    62, // bottom right
   };
   // the leader is the shooters[0] and the rest are followers
 
   public static double updateFrequency = 50.0;
-
 
   // pid
   public static TalonFXConfiguration motorConfigs =
@@ -99,7 +98,6 @@ public final class ShooterConstants {
     public static double kLeftMomentOfInertia = 0.01; // TODO: Update this value
     public static double kAngularVelocityScalar = .03;
   }
-
 
   public static int flashConfigRetries = 5;
 }

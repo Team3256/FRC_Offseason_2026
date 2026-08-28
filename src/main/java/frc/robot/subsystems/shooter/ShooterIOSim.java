@@ -71,7 +71,6 @@ public class ShooterIOSim extends ShooterIOTalonFX {
                 motorRps[0]
                     * 360
                     * LoggedRobot.defaultPeriodSecs
-                    * ShooterConstants.SimulationConstants.kAngularVelocityScalar)
-        );
+                    * ShooterConstants.SimulationConstants.kAngularVelocityScalar));
   }
 }
