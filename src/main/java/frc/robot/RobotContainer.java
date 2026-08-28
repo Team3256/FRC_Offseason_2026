@@ -18,6 +18,9 @@ import frc.robot.sim.SimMechs;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.shooter.ShooterIOSim;
 import frc.robot.subsystems.shooter.ShooterIOTalonFX;
+import frc.robot.subsystems.shooterpivot.ShooterPivot;
+import frc.robot.subsystems.shooterpivot.ShooterPivotIOSim;
+import frc.robot.subsystems.shooterpivot.ShooterPivotIOTalonFX;
 import frc.robot.utils.AutoConfig;
 import frc.robot.utils.MappedXboxController;
 import java.util.ArrayList;
@@ -41,6 +44,9 @@ public class RobotContainer {
 
   private final Shooter shooter =
       new Shooter(true, Utils.isSimulation() ? new ShooterIOSim() : new ShooterIOTalonFX());
+  private final ShooterPivot shooterPivot =
+      new ShooterPivot(
+          true, Utils.isSimulation() ? new ShooterPivotIOSim() : new ShooterPivotIOTalonFX());
 
   public RobotContainer() {
 
@@ -52,8 +58,6 @@ public class RobotContainer {
       SimMechs.getInstance().publishToNT();
     }
   }
-
-  private void configureOperatorBinds() {}
 
   private void configureChoreoAutoChooser() {}
 
@@ -74,8 +78,12 @@ public class RobotContainer {
 
   private void configureSwerve() {
     SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric();
-    m_driverController.a().onTrue(shooter.setVelocity(10));
-    m_driverController.b().onTrue(shooter.off());
+  }
+
+  private void configureOperatorBinds() {
+    m_operatorController.a().onTrue(shooterPivot.setPosition(0.0));
+    m_operatorController.b().onTrue(shooterPivot.setPosition(0.1));
+    m_operatorController.x().onTrue(shooterPivot.off());
   }
 
   public void periodic() {}
