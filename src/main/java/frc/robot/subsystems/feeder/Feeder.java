@@ -39,6 +39,10 @@ public class Feeder extends DisableSubsystem {
     return this.run(() -> feederIO.setVelocity(velocity)).finallyDo(feederIO::off);
   }
 
+  public Command setFeedVel(double velocity) {
+    return setVelocity(FeederConstants.feederVelocity);
+  }
+
   public Command off() {
     return this.runOnce(feederIO::off);
   }

@@ -21,7 +21,7 @@ import edu.wpi.first.units.measure.Voltage;
 import frc.robot.utils.PhoenixUtil;
 
 public class FeederIOTalonFX implements FeederIO {
-  private final TalonFX feederMotorLeft = new TalonFX(FeederConstants.FeederMotorLeftID);
+  private final TalonFX feederMotorLeft = new TalonFX(FeederConstants.feederMotorLeftID);
   final VelocityVoltage velReq = new VelocityVoltage(0).withSlot(0);
 
   private final StatusSignal<Voltage> feederMotorLeftVoltage = feederMotorLeft.getMotorVoltage();
@@ -34,9 +34,9 @@ public class FeederIOTalonFX implements FeederIO {
   private final StatusSignal<Temperature> feederMotorLeftTemperature =
       feederMotorLeft.getDeviceTemp();
 
-  private final TalonFX feederMotorRight = new TalonFX(FeederConstants.FeederMotorRightID);
+  private final TalonFX feederMotorRight = new TalonFX(FeederConstants.feederMotorRightID);
   final Follower followReq =
-      new Follower(FeederConstants.FeederMotorLeftID, MotorAlignmentValue.Aligned);
+      new Follower(FeederConstants.feederMotorLeftID, MotorAlignmentValue.Aligned);
 
   private final StatusSignal<Voltage> feederMotorRightVoltage = feederMotorRight.getMotorVoltage();
   private final StatusSignal<AngularVelocity> feederMotorRightVelocity =
