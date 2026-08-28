@@ -59,6 +59,6 @@ public final class SimMechs {
   }
 
   public void updateLinearSlide(Distance height) {
-    linearSlideViz.setLength(LinearSlideConstants.LinearSlideSim.linearSlideMaxLength.in(Meters));
+    linearSlideViz.setLength(height.in(Meters));
   }
 }

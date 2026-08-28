@@ -6,10 +6,11 @@
 // the root directory of this project.
 
 package frc.robot.subsystems.linearslide;
-
+import static edu.wpi.first.units.Units.*;
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
+import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
@@ -18,6 +19,7 @@ import edu.wpi.first.units.measure.Voltage;
 import frc.robot.utils.PhoenixUtil;
 
 public class LinearSlideIOTalonFX implements LinearSlideIO {
+    
   private final TalonFX slideMotor = new TalonFX(LinearSlideConstants.slideMotorID);
 
   private final MotionMagicVoltage motionMagicRequest =
@@ -43,5 +45,38 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
 
     PhoenixUtil.registerSignals(
         false, motorVoltage, velocity, position, statorCurrent, supplyCurrent);
+  }
+  @Override
+  public void updateInputs(LinearSlideIOInputs inputs) {
+
+    inputs.slideMotorVoltage = motorVoltage.getValue().in(Volts);
+    inputs.slideMotorVelocity = velocity.getValue().in(RotationsPerSecond);
+
+    inputs.slideMotorPosition = position.getValue().in(Rotations);
+
+    inputs.slideMotorStatorCurrent = statorCurrent.getValue().in(Amps);
+    inputs.slideMotorSupplyCurrent = supplyCurrent.getValue().in(Amps);
+  }
+
+  @Override
+  public void setPosition(double target) {
+    if (LinearSlideConstants.kUseMotionMagic) {
+      slideMotor.setControl(motionMagicRequest.withPosition(target));
+    }
+  }
+
+  @Override
+  public TalonFX getMotor() {
+    return slideMotor;
+  }
+
+  @Override
+  public void setVoltage(double volts) {
+    slideMotor.setVoltage(volts);
+  }
+
+  @Override
+  public void resetPosition(double angle) {
+    slideMotor.setPosition(angle);
   }
 }
