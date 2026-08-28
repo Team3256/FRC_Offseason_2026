@@ -32,9 +32,9 @@ public class IndexerIOTalonFX implements IndexerIO {
       indexerMotorLeft.getSupplyCurrent();
   private final StatusSignal<Temperature> indexerTemperatureLeft = indexerMotorLeft.getDeviceTemp();
 
-  private final TalonFX indexerMotorRight = new TalonFX(IndexerConstants.indexerMotorLeft);
+  private final TalonFX indexerMotorRight = new TalonFX(IndexerConstants.indexerMotorRight);
   final Follower followReq =
-      new Follower(IndexerConstants.indexerMotorRight, MotorAlignmentValue.Opposed);
+      new Follower(IndexerConstants.indexerMotorLeft, MotorAlignmentValue.Opposed);
 
   private final StatusSignal<Voltage> indexerVoltageRight = indexerMotorRight.getMotorVoltage();
   private final StatusSignal<AngularVelocity> indexerVelocityRight =

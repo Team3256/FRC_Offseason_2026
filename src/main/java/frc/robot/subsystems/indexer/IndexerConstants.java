@@ -18,10 +18,12 @@ public class IndexerConstants {
 
   public static final boolean KUseFOC = true;
 
-  public static final int indexerMotorLeft = 0;
-  public static final int indexerMotorRight = 0;
+  public static final int indexerMotorLeft = 1;
+  public static final int indexerMotorRight = 2;
 
   public static double updateFrequency = 50;
+
+  public static final int indexerVelocity = 50;
 
   public static final TalonFXConfiguration motorConfigs =
       new TalonFXConfiguration()

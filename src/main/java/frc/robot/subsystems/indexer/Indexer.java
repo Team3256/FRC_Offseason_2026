@@ -14,7 +14,7 @@ import org.littletonrobotics.junction.Logger;
 
 public class Indexer extends DisableSubsystem {
   private final IndexerIO indexerIO;
-  private final IndexerIO.IndexerIOInputs indexerIOAutoLogged = new IndexerIO.IndexerIOInputs();
+  private final IndexerIOInputsAutoLogged indexerIOAutoLogged = new IndexerIOInputsAutoLogged();
 
   public Indexer(boolean enabled, IndexerIO IndexerIO) {
     super(enabled);
@@ -25,16 +25,7 @@ public class Indexer extends DisableSubsystem {
   public void periodic() {
     super.periodic();
     indexerIO.updateInputs(indexerIOAutoLogged);
-
-    Logger.recordOutput("Indexer/indexerMotorVoltage", indexerIOAutoLogged.indexerVoltageLeft);
-    Logger.recordOutput("Indexer/indexerMotorVelocity", indexerIOAutoLogged.indexerVelocityLeft);
-    Logger.recordOutput(
-        "Indexer/indexerMotorStatorCurrent", indexerIOAutoLogged.indexerStatorCurrentLeft);
-    Logger.recordOutput(
-        "Indexer/indexerMotorSupplyCurrent", indexerIOAutoLogged.indexerSupplyCurrentLeft);
-    Logger.recordOutput(
-        "Indexer/indexerMotorTemperature", indexerIOAutoLogged.indexerTemperatureLeft);
-
+    Logger.processInputs("indexer", indexerIOAutoLogged);
     LoggedTracer.record("Indexer");
   }
 
@@ -44,6 +35,10 @@ public class Indexer extends DisableSubsystem {
 
   public Command setVelocity(double velocity) {
     return this.run(() -> indexerIO.setVelocity(velocity)).finallyDo(indexerIO::off);
+  }
+
+  public Command setIndexVel(double velocity) {
+    return setVelocity(IndexerConstants.indexerVelocity);
   }
 
   public Command off() {

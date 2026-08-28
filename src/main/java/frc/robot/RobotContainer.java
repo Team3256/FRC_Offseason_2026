@@ -15,6 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.sim.SimMechs;
+import frc.robot.subsystems.indexer.Indexer;
+import frc.robot.subsystems.indexer.IndexerIOSim;
+import frc.robot.subsystems.indexer.IndexerIOTalonFX;
 import frc.robot.utils.AutoConfig;
 import frc.robot.utils.MappedXboxController;
 import java.util.ArrayList;
@@ -47,7 +50,13 @@ public class RobotContainer {
     }
   }
 
-  private void configureOperatorBinds() {}
+  private final Indexer indexer =
+      new Indexer(true, Utils.isSimulation() ? new IndexerIOSim() : new IndexerIOTalonFX());
+
+  private void configureOperatorBinds() {
+    m_operatorController.a().onTrue(indexer.setVoltage(10));
+    m_operatorController.b().onTrue(indexer.off());
+  }
 
   private void configureChoreoAutoChooser() {}
 

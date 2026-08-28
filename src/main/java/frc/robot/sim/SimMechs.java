@@ -7,9 +7,9 @@
 
 package frc.robot.sim;
 
-import static edu.wpi.first.units.Units.Meters;
-import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.Inches;
+import static edu.wpi.first.units.Units.Meters;
 
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
@@ -34,7 +34,7 @@ public final class SimMechs {
   private final MechanismLigament2d indexerViz =
       indexerRoot.append(
           new MechanismLigament2d(
-              "Indexer", Inches.of(2).in(Meters), 0.0, 3, new Color8Bit(Color.kRed)));
+              "Indexer", Inches.of(2).in(Meters), 0.0, 5, new Color8Bit(Color.kGreen)));
 
   private static SimMechs instance = null;
 
