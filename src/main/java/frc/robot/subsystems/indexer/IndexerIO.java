@@ -40,9 +40,5 @@ public interface IndexerIO {
     return new TalonFX(0);
   }
 
-  public default TalonFX getFollowerMotor() {
-    return new TalonFX(0);
-  }
-
   public default void off() {}
 }

@@ -37,7 +37,7 @@ public class Indexer extends DisableSubsystem {
     return this.run(() -> indexerIO.setVelocity(velocity)).finallyDo(indexerIO::off);
   }
 
-  public Command setIndexVel(double velocity) {
+  public Command setIndexVel() {
     return setVelocity(IndexerConstants.indexerVelocity);
   }
 
