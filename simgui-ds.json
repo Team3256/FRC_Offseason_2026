@@ -92,6 +92,16 @@
   "robotJoysticks": [
     {
       "guid": "Keyboard0"
+<<<<<<< HEAD
+=======
+    },
+    {
+      "guid": "Keyboard1"
+    },
+    {},
+    {
+      "guid": "Keyboard2"
+>>>>>>> origin/main
     }
   ]
 }
