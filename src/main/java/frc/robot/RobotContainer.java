@@ -68,9 +68,6 @@ public class RobotContainer {
   private final Feeder feeder =
       new Feeder(true, Utils.isSimulation() ? new FeederIOSim() : new FeederIOTalonFX());
 
-  private void configureOperatorBinds() {
-    m_operatorController.a().onTrue(feeder.setVoltage(10));
-    m_operatorController.b().onTrue(feeder.off());
   private final Indexer indexer =
       new Indexer(true, Utils.isSimulation() ? new IndexerIOSim() : new IndexerIOTalonFX());
 

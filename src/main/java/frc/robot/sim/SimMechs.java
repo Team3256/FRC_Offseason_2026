@@ -76,6 +76,8 @@ public final class SimMechs {
 
   public void updateFeeder(Angle x) {
     feederViz.setAngle(feederViz.getAngle() + x.in(Degrees));
+  }
+
   public void updateShooterPivot(Angle angle) {
     shooterPivotViz.setAngle(angle.in(Degrees)); // flips direction
   }
