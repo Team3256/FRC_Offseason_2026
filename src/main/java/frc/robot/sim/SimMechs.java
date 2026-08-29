@@ -93,9 +93,4 @@ public final class SimMechs {
   public void updateShooterWheel(Angle delta) {
     shooterWheelViz.setAngle(shooterWheelViz.getAngle() + delta.in(Degrees));
   }
-
-  public void updateClimb(Angle of) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'updateClimb'");
-  }
 }
