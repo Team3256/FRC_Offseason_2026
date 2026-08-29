@@ -43,7 +43,6 @@ public class RobotContainer {
   private SendableChooser<AutoConfig> autoVisualizer = new SendableChooser<AutoConfig>();
   private Field2d field2d = new Field2d();
 
-
   public RobotContainer() {
 
     configureChoreoAutoChooser();
@@ -74,5 +73,6 @@ public class RobotContainer {
     SmartDashboard.putData("Auto Visualizer", autoVisualizer);
     SmartDashboard.putData("Field Visualize", field2d);
   }
+
   public void periodic() {}
 }
