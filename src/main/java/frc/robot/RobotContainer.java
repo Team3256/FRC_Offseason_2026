@@ -66,8 +66,12 @@ public class RobotContainer {
       new Indexer(true, Utils.isSimulation() ? new IndexerIOSim() : new IndexerIOTalonFX());
 
   private void configureOperatorBinds() {
+    // TODO UPDATE W SUPERSTRUCTURE STATES
     m_operatorController.a().onTrue(indexer.setVoltage(10));
     m_operatorController.b().onTrue(indexer.off());
+    m_operatorController.a().onTrue(shooter.setVelocity(10.0));
+    m_operatorController.b().onTrue(shooterPivot.setPosition(100));
+    m_operatorController.x().onTrue(shooterPivot.setPosition(0.0));
   }
 
   private void configureChoreoAutoChooser() {}
@@ -89,12 +93,6 @@ public class RobotContainer {
 
   private void configureSwerve() {
     SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric();
-  }
-
-  private void configureOperatorBinds() {
-    m_operatorController.a().onTrue(shooter.setVelocity(10.0));
-    m_operatorController.b().onTrue(shooterPivot.setPosition(100));
-    m_operatorController.x().onTrue(shooterPivot.setPosition(0.0));
   }
 
   public void periodic() {}

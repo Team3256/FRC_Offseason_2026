@@ -37,7 +37,6 @@ public final class SimMechs {
           new MechanismLigament2d(
               "Indexer", Inches.of(2).in(Meters), 0.0, 5, new Color8Bit(Color.kGreen)));
 
-
   private final MechanismRoot2d shooterPivotRoot =
       mech.getRoot(
           "Shooter Pivot",
@@ -50,9 +49,9 @@ public final class SimMechs {
               "Shooter Pivot", Inches.of(10).in(Meters), 0.0, 7, new Color8Bit(Color.kCyan)));
 
   private final MechanismLigament2d shooterWheelViz =
-          shooterPivotRoot.append(
-                  new MechanismLigament2d(
-                          "Shooter Wheel", Inches.of(4).in(Meters), 0.0, 4, new Color8Bit(Color.kPink)));
+      shooterPivotRoot.append(
+          new MechanismLigament2d(
+              "Shooter Wheel", Inches.of(4).in(Meters), 0.0, 4, new Color8Bit(Color.kPink)));
 
   private static SimMechs instance = null;
 
@@ -75,6 +74,8 @@ public final class SimMechs {
 
   public void updateIndexer(Angle x) {
     indexerViz.setAngle(indexerViz.getAngle() + x.in(Degrees));
+  }
+
   public void updateShooterWheel(Angle delta) {
     shooterWheelViz.setAngle(shooterWheelViz.getAngle() + delta.in(Degrees));
   }
