@@ -18,6 +18,15 @@ import frc.robot.sim.SimMechs;
 import frc.robot.subsystems.feeder.Feeder;
 import frc.robot.subsystems.feeder.FeederIOSim;
 import frc.robot.subsystems.feeder.FeederIOTalonFX;
+import frc.robot.subsystems.indexer.Indexer;
+import frc.robot.subsystems.indexer.IndexerIOSim;
+import frc.robot.subsystems.indexer.IndexerIOTalonFX;
+import frc.robot.subsystems.shooter.Shooter;
+import frc.robot.subsystems.shooter.ShooterIOSim;
+import frc.robot.subsystems.shooter.ShooterIOTalonFX;
+import frc.robot.subsystems.shooterpivot.ShooterPivot;
+import frc.robot.subsystems.shooterpivot.ShooterPivotIOSim;
+import frc.robot.subsystems.shooterpivot.ShooterPivotIOTalonFX;
 import frc.robot.utils.AutoConfig;
 import frc.robot.utils.MappedXboxController;
 import java.util.ArrayList;
@@ -39,6 +48,12 @@ public class RobotContainer {
   private SendableChooser<AutoConfig> autoVisualizer = new SendableChooser<AutoConfig>();
   private Field2d field2d = new Field2d();
 
+  private final Shooter shooter =
+      new Shooter(true, Utils.isSimulation() ? new ShooterIOSim() : new ShooterIOTalonFX());
+  private final ShooterPivot shooterPivot =
+      new ShooterPivot(
+          true, Utils.isSimulation() ? new ShooterPivotIOSim() : new ShooterPivotIOTalonFX());
+
   public RobotContainer() {
 
     configureSwerve();
@@ -56,6 +71,16 @@ public class RobotContainer {
   private void configureOperatorBinds() {
     m_operatorController.a().onTrue(feeder.setVoltage(10));
     m_operatorController.b().onTrue(feeder.off());
+  private final Indexer indexer =
+      new Indexer(true, Utils.isSimulation() ? new IndexerIOSim() : new IndexerIOTalonFX());
+
+  private void configureOperatorBinds() {
+    // TODO UPDATE W SUPERSTRUCTURE STATES
+    m_operatorController.a().onTrue(indexer.setVoltage(10));
+    m_operatorController.b().onTrue(indexer.off());
+    m_operatorController.a().onTrue(shooter.setVelocity(10.0));
+    m_operatorController.b().onTrue(shooterPivot.setPosition(100));
+    m_operatorController.x().onTrue(shooterPivot.setPosition(0.0));
   }
 
   private void configureChoreoAutoChooser() {}
