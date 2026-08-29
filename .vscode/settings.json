@@ -58,5 +58,4 @@
     "edu.wpi.first.math.**.struct.*",
   ],
   "java.dependency.enableDependencyCheckup": false,
-  "workbench.colorTheme": "Abyss"
 }

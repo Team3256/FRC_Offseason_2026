@@ -9,7 +9,6 @@ package frc.robot;
 
 import choreo.auto.AutoChooser;
 import com.ctre.phoenix6.Utils;
-import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -47,7 +46,6 @@ public class RobotContainer {
 
   public RobotContainer() {
 
-    configureSwerve();
     configureChoreoAutoChooser();
     configureOperatorBinds();
     configureAutoVisualizer();
@@ -76,10 +74,5 @@ public class RobotContainer {
     SmartDashboard.putData("Auto Visualizer", autoVisualizer);
     SmartDashboard.putData("Field Visualize", field2d);
   }
-
-  private void configureSwerve() {
-    SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric();
-  }
-
   public void periodic() {}
 }
