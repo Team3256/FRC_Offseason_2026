@@ -7,6 +7,7 @@
 
 package frc.robot.sim;
 
+import static edu.wpi.first.units.Units.*;
 import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.Meters;
@@ -36,6 +37,23 @@ public final class SimMechs {
           new MechanismLigament2d(
               "Indexer", Inches.of(2).in(Meters), 0.0, 5, new Color8Bit(Color.kGreen)));
 
+
+  private final MechanismRoot2d shooterPivotRoot =
+      mech.getRoot(
+          "Shooter Pivot",
+          Constants.SimulationConstants.kDrivebaseWidth.in(Meters) / 2 - 0.05,
+          Inches.of(25).in(Meters));
+
+  private final MechanismLigament2d shooterPivotViz =
+      shooterPivotRoot.append(
+          new MechanismLigament2d(
+              "Shooter Pivot", Inches.of(10).in(Meters), 0.0, 7, new Color8Bit(Color.kCyan)));
+
+  private final MechanismLigament2d shooterWheelViz =
+          shooterPivotRoot.append(
+                  new MechanismLigament2d(
+                          "Shooter Wheel", Inches.of(4).in(Meters), 0.0, 4, new Color8Bit(Color.kPink)));
+
   private static SimMechs instance = null;
 
   private SimMechs() {}
@@ -47,12 +65,18 @@ public final class SimMechs {
     return instance;
   }
 
+  public void updateShooterPivot(Angle angle) {
+    shooterPivotViz.setAngle(angle.in(Degrees)); // flips direction
+  }
+
   public void publishToNT() {
     SmartDashboard.putData("RobotSim", mech);
   }
 
   public void updateIndexer(Angle x) {
     indexerViz.setAngle(indexerViz.getAngle() + x.in(Degrees));
+  public void updateShooterWheel(Angle delta) {
+    shooterWheelViz.setAngle(shooterWheelViz.getAngle() + delta.in(Degrees));
   }
 
   public void updateClimb(Angle of) {
