@@ -15,6 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.sim.SimMechs;
+import frc.robot.subsystems.feeder.Feeder;
+import frc.robot.subsystems.feeder.FeederIOSim;
+import frc.robot.subsystems.feeder.FeederIOTalonFX;
 import frc.robot.subsystems.indexer.Indexer;
 import frc.robot.subsystems.indexer.IndexerIOSim;
 import frc.robot.subsystems.indexer.IndexerIOTalonFX;
@@ -62,6 +65,12 @@ public class RobotContainer {
     }
   }
 
+  private final Feeder feeder =
+      new Feeder(true, Utils.isSimulation() ? new FeederIOSim() : new FeederIOTalonFX());
+
+  private void configureOperatorBinds() {
+    m_operatorController.a().onTrue(feeder.setVoltage(10));
+    m_operatorController.b().onTrue(feeder.off());
   private final Indexer indexer =
       new Indexer(true, Utils.isSimulation() ? new IndexerIOSim() : new IndexerIOTalonFX());
 

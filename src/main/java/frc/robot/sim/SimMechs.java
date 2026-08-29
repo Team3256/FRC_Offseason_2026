@@ -26,6 +26,16 @@ public final class SimMechs {
   public final Mechanism2d mech =
       new Mechanism2d(Constants.SimulationConstants.kDrivebaseWidth.in(Meters), 1.0);
 
+  private final MechanismRoot2d feederRoot =
+      mech.getRoot(
+          "Feeder",
+          Constants.SimulationConstants.kDrivebaseWidth.in(Meters) / 2,
+          Inches.of(5).in(Meters));
+
+  private final MechanismLigament2d feederViz =
+      feederRoot.append(
+          new MechanismLigament2d(
+              "Feeder", Inches.of(2).in(Meters), 0.0, 3, new Color8Bit(Color.kMagenta)));
   public final MechanismRoot2d indexerRoot =
       mech.getRoot(
           "Indexer",
@@ -64,6 +74,8 @@ public final class SimMechs {
     return instance;
   }
 
+  public void updateFeeder(Angle x) {
+    feederViz.setAngle(feederViz.getAngle() + x.in(Degrees));
   public void updateShooterPivot(Angle angle) {
     shooterPivotViz.setAngle(angle.in(Degrees)); // flips direction
   }
