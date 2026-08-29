@@ -26,6 +26,16 @@ public final class SimMechs {
   public final Mechanism2d mech =
       new Mechanism2d(Constants.SimulationConstants.kDrivebaseWidth.in(Meters), 1.0);
 
+  public final MechanismRoot2d indexerRoot =
+      mech.getRoot(
+          "Indexer",
+          Constants.SimulationConstants.kDrivebaseWidth.in(Meters) / 2 - 0.15,
+          Inches.of(2).in(Meters));
+
+  private final MechanismLigament2d indexerViz =
+      indexerRoot.append(
+          new MechanismLigament2d(
+              "Indexer", Inches.of(2).in(Meters), 0.0, 5, new Color8Bit(Color.kGreen)));
 
 
   private final MechanismRoot2d shooterPivotRoot =
@@ -63,6 +73,8 @@ public final class SimMechs {
     SmartDashboard.putData("RobotSim", mech);
   }
 
+  public void updateIndexer(Angle x) {
+    indexerViz.setAngle(indexerViz.getAngle() + x.in(Degrees));
   public void updateShooterWheel(Angle delta) {
     shooterWheelViz.setAngle(shooterWheelViz.getAngle() + delta.in(Degrees));
   }
