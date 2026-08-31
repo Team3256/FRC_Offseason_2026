@@ -31,6 +31,9 @@ public class LinearSlideConstants {
   public static final double stowPosition = 10;
   public static final double intakePosition = 30;
 
+  public static final double jitterPosition = .15;
+  public static final double jitterIntermediate = 0.05;
+
   // get when tuning
   public static double updateFrequency = 50;
   public static final TalonFXConfiguration rightMotorConfigs =
@@ -64,7 +67,7 @@ public class LinearSlideConstants {
                   .withSupplyCurrentLowerLimit(20))
           .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(85.46));
 
-    public static final TalonFXConfiguration leftMotorConfigs =
+  public static final TalonFXConfiguration leftMotorConfigs =
       new TalonFXConfiguration()
           .withSlot0(
               new Slot0Configs()
@@ -93,7 +96,6 @@ public class LinearSlideConstants {
                   .withSupplyCurrentLowerTime(.1)
                   .withSupplyCurrentLowerLimit(20))
           .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(85.46));
-
 
   public static final class LinearSlideSim {
     public static final double slideSimGearing = 30;

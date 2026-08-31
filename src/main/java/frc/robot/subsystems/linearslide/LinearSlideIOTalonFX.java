@@ -43,10 +43,14 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
 
   public LinearSlideIOTalonFX() {
     PhoenixUtil.applyMotorConfigs(
-        rightSlideMotor, LinearSlideConstants.rightMotorConfigs, LinearSlideConstants.flashConfigRetries);
+        rightSlideMotor,
+        LinearSlideConstants.rightMotorConfigs,
+        LinearSlideConstants.flashConfigRetries);
 
     PhoenixUtil.applyMotorConfigs(
-        leftSlideMotor, LinearSlideConstants.leftMotorConfigs, LinearSlideConstants.flashConfigRetries);
+        leftSlideMotor,
+        LinearSlideConstants.leftMotorConfigs,
+        LinearSlideConstants.flashConfigRetries);
 
     BaseStatusSignal.setUpdateFrequencyForAll(
         LinearSlideConstants.updateFrequency,
@@ -62,7 +66,17 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
         leftMotorSupplyCurrent);
 
     PhoenixUtil.registerSignals(
-        false, rightMotorVoltage, rightMotorVelocity, rightMotorPosition, rightMotorStatorCurrent, rightMotorSupplyCurrent, leftMotorVoltage, leftMotorVelocity, leftMotorPosition, leftMotorStatorCurrent, leftMotorSupplyCurrent);
+        false,
+        rightMotorVoltage,
+        rightMotorVelocity,
+        rightMotorPosition,
+        rightMotorStatorCurrent,
+        rightMotorSupplyCurrent,
+        leftMotorVoltage,
+        leftMotorVelocity,
+        leftMotorPosition,
+        leftMotorStatorCurrent,
+        leftMotorSupplyCurrent);
   }
 
   @Override
@@ -78,7 +92,6 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
     inputs.leftMotorPosition = leftMotorPosition.getValueAsDouble();
     inputs.leftMotorStatorCurrent = leftMotorStatorCurrent.getValue().in(Amps);
     inputs.leftMotorSupplyCurrent = leftMotorSupplyCurrent.getValue().in(Amps);
-
   }
 
   @Override
