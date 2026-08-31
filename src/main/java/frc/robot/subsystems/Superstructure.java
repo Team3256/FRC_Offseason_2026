@@ -66,9 +66,9 @@ public class Superstructure {
   private final Trigger targetRedHub = new Trigger(this::targetRedHub);
 
   private final Trigger feedTopCorner =
-      targetBlueHub.or(targetRedHub).negate().and(this::isRobotTopHalf);
+          targetBlueHub.or(targetRedHub).negate().and(this::isRobotTopHalf);
   private final Trigger feedBottomCorner =
-      targetBlueHub.or(targetRedHub).or(feedTopCorner).negate();
+          targetBlueHub.or(targetRedHub).or(feedTopCorner).negate();
 
   private final Translation2d topCorner = new Translation2d(1.5, 6.8);
   private final Translation2d bottomCorner = new Translation2d(1.5, 1.5);
@@ -76,17 +76,17 @@ public class Superstructure {
   private double velMultiplier = 1.04;
 
   private Pose2d target =
-      new Pose2d(FieldConstants.Hub.topCenterPoint.toTranslation2d(), Rotation2d.kZero);
+          new Pose2d(FieldConstants.Hub.topCenterPoint.toTranslation2d(), Rotation2d.kZero);
 
   public Superstructure(
-      Indexer indexer,
-      ShooterPivot shooterPivot,
-      Shooter shooter,
-      IntakeRollers intakeRollers,
-      LinearSlide linearSlide,
-      Feeder feeder,
-      ShotCalculator shotCalculator,
-      Supplier<Pose2d> robotPoseSupplier) {
+          Indexer indexer,
+          ShooterPivot shooterPivot,
+          Shooter shooter,
+          IntakeRollers intakeRollers,
+          LinearSlide linearSlide,
+          Feeder feeder,
+          ShotCalculator shotCalculator,
+          Supplier<Pose2d> robotPoseSupplier) {
     this.indexer = indexer;
     this.shooterPivot = shooterPivot;
     this.shooter = shooter;
@@ -114,119 +114,131 @@ public class Superstructure {
 
     targetRedHub.onTrue(changeTarget(FieldConstants.Hub.oppTopCenterPoint.toTranslation2d()));
 
-    targetBlueHub.or(targetRedHub).whileTrue(shooter.shootHub(shotCalculator::getDistance, () -> velMultiplier)).onFalse(shooter.off());
+    targetBlueHub.or(targetRedHub).onTrue(this.setState(StructureState.REV));
+    targetBlueHub.or(targetRedHub).onFalse(shooter.off());
+
+    targetBlueHub
+            .or(targetRedHub)
+            .negate()
+            .and(stateTriggers.get(StructureState.REV))
+            .onTrue(this.setState(StructureState.IDLE));
+    targetBlueHub
+            .or(targetRedHub)
+            .negate()
+            .and(stateTriggers.get(StructureState.REV_AND_INTAKE))
+            .onTrue(this.setState(StructureState.INTAKE));
 
     feedTopCorner.onTrue(
-        changeTarget(
-            () -> getAllianceBlue() ? topCorner : ChoreoAllianceFlipUtil.flip(bottomCorner)));
+            changeTarget(
+                    () -> getAllianceBlue() ? topCorner : ChoreoAllianceFlipUtil.flip(bottomCorner)));
     feedBottomCorner.onTrue(
-        changeTarget(
-            () -> getAllianceBlue() ? bottomCorner : ChoreoAllianceFlipUtil.flip(topCorner)));
+            changeTarget(
+                    () -> getAllianceBlue() ? bottomCorner : ChoreoAllianceFlipUtil.flip(topCorner)));
 
     targetRedHub
-        .or(targetBlueHub)
-        .and(DriverStation::isEnabled)
-        .and(
-            stateTriggers
-                .get(StructureState.SHOOT)
-                .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE)))
-        .whileTrue(shooterPivot.shootHub(shotCalculator::getDistance));
+            .or(targetBlueHub)
+            .and(DriverStation::isEnabled)
+            .and(
+                    stateTriggers
+                            .get(StructureState.SHOOT)
+                            .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE)))
+            .whileTrue(shooterPivot.shootHub(shotCalculator::getDistance));
     feedTopCorner
-        .or(feedBottomCorner)
-        .and(DriverStation::isEnabled)
-        .and(
-            stateTriggers
-                .get(StructureState.SHOOT)
-                .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE)))
-        .whileTrue(shooterPivot.feedCorner(shotCalculator::getDistance));
+            .or(feedBottomCorner)
+            .and(DriverStation::isEnabled)
+            .and(
+                    stateTriggers
+                            .get(StructureState.SHOOT)
+                            .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE)))
+            .whileTrue(shooterPivot.feedCorner(shotCalculator::getDistance));
 
     stateTriggers
-        .get(StructureState.SHOOT)
-        .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
-        .and(targetRedHub.or(targetBlueHub))
-        .onTrue(shooter.shootHub(shotCalculator::getDistance, () -> velMultiplier));
+            .get(StructureState.SHOOT)
+            .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
+            .and(targetRedHub.or(targetBlueHub))
+            .onTrue(shooter.shootHub(shotCalculator::getDistance, () -> velMultiplier));
     stateTriggers
-        .get(StructureState.SHOOT)
-        .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
-        .and(feedTopCorner.or(feedBottomCorner))
-        .onTrue(shooter.feedCorner(shotCalculator::getDistance));
+            .get(StructureState.SHOOT)
+            .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
+            .and(feedTopCorner.or(feedBottomCorner))
+            .onTrue(shooter.feedCorner(shotCalculator::getDistance));
 
     stateTriggers
-        .get(StructureState.SHOOT)
-        .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
-        .and(shooter.reachedVelocity)
-        .debounce(.2)
-        .onTrue(indexer.setIndexVel())
-        .onTrue(feeder.setFeedVel());
+            .get(StructureState.SHOOT)
+            .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
+            .and(shooter.reachedVelocity)
+            .debounce(.2)
+            .onTrue(indexer.setIndexVel())
+            .onTrue(feeder.setFeedVel());
 
     stateTriggers
-        .get(StructureState.SHOOT)
-        .and(prevStateTriggers.get(StructureState.INTAKE))
-        .or(
-            stateTriggers
-                .get(StructureState.INTAKE)
-                .and(prevStateTriggers.get(StructureState.SHOOT)))
-        .or(
-            stateTriggers
-                .get(StructureState.SHOOT)
-                .and(prevStateTriggers.get(StructureState.REV_AND_INTAKE)))
-        .onTrue(this.setState(StructureState.SHOOT_AND_INTAKE));
+            .get(StructureState.SHOOT)
+            .and(prevStateTriggers.get(StructureState.INTAKE))
+            .or(
+                    stateTriggers
+                            .get(StructureState.INTAKE)
+                            .and(prevStateTriggers.get(StructureState.SHOOT)))
+            .or(
+                    stateTriggers
+                            .get(StructureState.SHOOT)
+                            .and(prevStateTriggers.get(StructureState.REV_AND_INTAKE)))
+            .onTrue(this.setState(StructureState.SHOOT_AND_INTAKE));
 
     stateTriggers
-        .get(StructureState.INTAKE)
-        .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
-        .or(stateTriggers.get(StructureState.REV_AND_INTAKE))
-        .onTrue(intakeRollers.setVoltage(8))
-        .onTrue(linearSlide.goToGroundIntake());
+            .get(StructureState.INTAKE)
+            .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
+            .or(stateTriggers.get(StructureState.REV_AND_INTAKE))
+            .onTrue(intakeRollers.setVoltage(8))
+            .onTrue(linearSlide.goToGroundIntake());
 
     stateTriggers
-        .get(StructureState.IDLE)
-        .onTrue(intakeRollers.off())
-        .onTrue(shooter.off())
-        .onTrue(indexer.off())
-        .onTrue(feeder.off())
-        .onTrue(linearSlide.off());
+            .get(StructureState.IDLE)
+            .onTrue(intakeRollers.off())
+            .onTrue(shooter.off())
+            .onTrue(indexer.off())
+            .onTrue(feeder.off())
+            .onTrue(linearSlide.off());
 
     // Kills all subsystems
     stateTriggers
-        .get(StructureState.CANCEL_ALL)
-        .onTrue(intakeRollers.off())
-        .onTrue(linearSlide.off())
-        .onTrue(shooter.off())
-        .onTrue(shooterPivot.off())
-        .onTrue(indexer.off())
-        .onTrue(feeder.off());
+            .get(StructureState.CANCEL_ALL)
+            .onTrue(intakeRollers.off())
+            .onTrue(linearSlide.off())
+            .onTrue(shooter.off())
+            .onTrue(shooterPivot.off())
+            .onTrue(indexer.off())
+            .onTrue(feeder.off());
 
     stateTriggers
-        .get(StructureState.HOME)
-        .onTrue(linearSlide.goToStow())
-        .onTrue(shooterPivot.setPosition(0))
-        .onTrue(intakeRollers.off())
-        .onTrue(shooter.off())
-        .onTrue(indexer.off())
-        .onTrue(feeder.off());
+            .get(StructureState.HOME)
+            .onTrue(linearSlide.goToStow())
+            .onTrue(shooterPivot.setPosition(0))
+            .onTrue(intakeRollers.off())
+            .onTrue(shooter.off())
+            .onTrue(indexer.off())
+            .onTrue(feeder.off());
 
     //
     stateTriggers
-        .get(StructureState.REV)
-        .and(prevStateTriggers.get(StructureState.INTAKE))
-        .or(stateTriggers.get(StructureState.INTAKE).and(prevStateTriggers.get(StructureState.REV)))
-        .onTrue(this.setState(StructureState.REV_AND_INTAKE));
+            .get(StructureState.REV)
+            .and(prevStateTriggers.get(StructureState.INTAKE))
+            .or(stateTriggers.get(StructureState.INTAKE).and(prevStateTriggers.get(StructureState.REV)))
+            .onTrue(this.setState(StructureState.REV_AND_INTAKE));
 
     stateTriggers
-        .get(StructureState.REV)
-        .or(stateTriggers.get(StructureState.REV_AND_INTAKE))
-        .onTrue(feeder.off())
-        .whileTrue(shooter.shootHub(shotCalculator::getDistance, () -> velMultiplier));
+            .get(StructureState.REV)
+            .or(stateTriggers.get(StructureState.REV_AND_INTAKE))
+            .onTrue(feeder.off())
+            .whileTrue(shooter.shootHub(shotCalculator::getDistance, () -> velMultiplier));
 
     stateTriggers
-        .get(StructureState.INTAKE)
-        .or(stateTriggers.get(StructureState.IDLE))
-        .or(stateTriggers.get(StructureState.CANCEL_ALL))
-        .or(stateTriggers.get(StructureState.HOME))
-        .or(stateTriggers.get(StructureState.REV))
-        .or(stateTriggers.get(StructureState.REV_AND_INTAKE))
-        .onTrue(shooterPivot.setPosition(0));
+            .get(StructureState.INTAKE)
+            .or(stateTriggers.get(StructureState.IDLE))
+            .or(stateTriggers.get(StructureState.CANCEL_ALL))
+            .or(stateTriggers.get(StructureState.HOME))
+            .or(stateTriggers.get(StructureState.REV))
+            .or(stateTriggers.get(StructureState.REV_AND_INTAKE))
+            .onTrue(shooterPivot.setPosition(0));
   }
 
   // call manually
@@ -249,17 +261,17 @@ public class Superstructure {
 
   private Command changeTarget(Supplier<Translation2d> target) {
     return Commands.runOnce(
-            () -> {
-              this.target = new Pose2d(target.get(), Rotation2d.kZero);
-              shotCalculator.setTarget(target.get());
-            })
-        .ignoringDisable(true);
+                    () -> {
+                      this.target = new Pose2d(target.get(), Rotation2d.kZero);
+                      shotCalculator.setTarget(target.get());
+                    })
+            .ignoringDisable(true);
   }
 
   private boolean getAllianceBlue() {
     return DriverStation.getAlliance()
-        .orElse(DriverStation.Alliance.Blue)
-        .equals(DriverStation.Alliance.Blue);
+            .orElse(DriverStation.Alliance.Blue)
+            .equals(DriverStation.Alliance.Blue);
   }
 
   private boolean targetBlueHub() {
@@ -276,11 +288,11 @@ public class Superstructure {
 
   public Command setState(StructureState state) {
     return Commands.runOnce(
-        () -> {
-          this.prevState = this.state == state ? this.prevState : this.state;
-          this.state = state;
-          this.stateTimer.restart();
-        });
+            () -> {
+              this.prevState = this.state == state ? this.prevState : this.state;
+              this.state = state;
+              this.stateTimer.restart();
+            });
   }
 
   public Command addShootMultiplier(double amt) {
