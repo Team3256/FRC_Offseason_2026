@@ -114,6 +114,8 @@ public class Superstructure {
 
     targetRedHub.onTrue(changeTarget(FieldConstants.Hub.oppTopCenterPoint.toTranslation2d()));
 
+    targetBlueHub.or(targetRedHub).whileTrue(shooter.shootHub(shotCalculator::getDistance, () -> velMultiplier)).onFalse(shooter.off());
+
     feedTopCorner.onTrue(
         changeTarget(
             () -> getAllianceBlue() ? topCorner : ChoreoAllianceFlipUtil.flip(bottomCorner)));
