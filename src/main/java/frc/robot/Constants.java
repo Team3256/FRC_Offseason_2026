@@ -47,8 +47,6 @@ public final class Constants {
     // sending values to our dashboard because we don't want
     // AdvantageKit (which logs EVERYTHING) to dump to NetworkTables
     // during competition. So we use Monologue to log the things
-
-    public static final boolean kIntakeRollersEnabled = true;
   }
 
   public static class SimulationConstants {

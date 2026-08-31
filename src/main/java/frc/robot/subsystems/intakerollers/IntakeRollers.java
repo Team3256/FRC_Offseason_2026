@@ -8,40 +8,38 @@
 package frc.robot.subsystems.intakerollers;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.FeatureFlags;
 import frc.robot.utils.DisableSubsystem;
 import org.littletonrobotics.junction.Logger;
 
 public class IntakeRollers extends DisableSubsystem {
-  private final IntakeRollersIO io;
+  private final IntakeRollersIO intakeRollersIO;
   private final IntakeRollersIOInputsAutoLogged inputs = new IntakeRollersIOInputsAutoLogged();
 
-  public IntakeRollers(IntakeRollersIO io) {
-    super(FeatureFlags.kIntakeRollersEnabled);
-    this.io = io;
+  public IntakeRollers(boolean enabled, IntakeRollersIO intakeRollersIO) {
+    super(enabled);
+    this.intakeRollersIO = intakeRollersIO;
   }
 
   @Override
   public void periodic() {
     super.periodic();
-    io.updateInputs(inputs);
+    intakeRollersIO.updateInputs(inputs);
     Logger.processInputs("IntakeRollers", inputs);
   }
 
-  public Command intake() {
-    return this.run(() -> io.setVelocity(IntakeRollerConstants.kIntakeVelocity)).finallyDo(io::off);
+  public Command setVoltage(double voltage) {
+    return this.run(() -> intakeRollersIO.setVoltage(voltage)).finallyDo(intakeRollersIO::off);
   }
 
-  public Command outtake() {
-    return this.run(() -> io.setVelocity(IntakeRollerConstants.kOuttakeVelocity))
-        .finallyDo(io::off);
-  }
-
-  public Command unjam() {
-    return this.run(() -> io.setVelocity(IntakeRollerConstants.kUnjamVelocity)).finallyDo(io::off);
+  public Command setVelocity(double velocity) {
+    return this.run(() -> intakeRollersIO.setVelocity(velocity)).finallyDo(intakeRollersIO::off);
   }
 
   public Command off() {
-    return this.runOnce(io::off);
+    return this.runOnce(intakeRollersIO::off);
+  }
+
+  public Command unjam() {
+    return setVoltage(-4.0);
   }
 }

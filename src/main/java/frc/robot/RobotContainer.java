@@ -22,6 +22,7 @@ import frc.robot.subsystems.feeder.FeederIOTalonFX;
 import frc.robot.subsystems.indexer.Indexer;
 import frc.robot.subsystems.indexer.IndexerIOSim;
 import frc.robot.subsystems.indexer.IndexerIOTalonFX;
+import frc.robot.subsystems.intakerollers.IntakeRollerConstants;
 import frc.robot.subsystems.intakerollers.IntakeRollers;
 import frc.robot.subsystems.intakerollers.IntakeRollersIOSim;
 import frc.robot.subsystems.intakerollers.IntakeRollersIOTalonFX;
@@ -45,7 +46,7 @@ public class RobotContainer {
 
   private final IntakeRollers intakeRollers =
       new IntakeRollers(
-          Utils.isSimulation() ? new IntakeRollersIOSim() : new IntakeRollersIOTalonFX());
+          true, Utils.isSimulation() ? new IntakeRollersIOSim() : new IntakeRollersIOTalonFX());
 
   private final Shooter shooter =
       new Shooter(true, Utils.isSimulation() ? new ShooterIOSim() : new ShooterIOTalonFX());
@@ -78,7 +79,8 @@ public class RobotContainer {
   }
 
   private void configureOperatorBinds() {
-    RobotModeTriggers.teleop().onTrue(intakeRollers.intake());
+    RobotModeTriggers.teleop()
+        .onTrue(intakeRollers.setVelocity(IntakeRollerConstants.kIntakeVelocity));
   }
 
   private void configureSwerve() {

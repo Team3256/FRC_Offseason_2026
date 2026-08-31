@@ -22,8 +22,6 @@ public class IntakeRollerConstants {
 
   // Rotations per second, at the motor
   public static final double kIntakeVelocity = 40.0;
-  public static final double kOuttakeVelocity = -40.0;
-  public static final double kUnjamVelocity = -15.0;
 
   public static final TalonFXConfiguration motorConfigs =
       new TalonFXConfiguration()
