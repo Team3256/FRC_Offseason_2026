@@ -212,12 +212,7 @@ public class Superstructure {
     stateTriggers
             .get(StructureState.HOME)
             .onTrue(linearSlide.goToStow())
-            .onTrue(shooterPivot.setPosition(0))
-            .onTrue(intakeRollers.off())
-            .onTrue(shooter.off())
-            .onTrue(indexer.off())
-            .onTrue(feeder.off());
-
+            .onTrue(shooterPivot.setPosition(0));
     //
     stateTriggers
             .get(StructureState.REV)
