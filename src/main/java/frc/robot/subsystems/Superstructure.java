@@ -39,7 +39,10 @@ public class Superstructure {
     HOME,
     REV,
     SHOOT_AND_INTAKE,
-    REV_AND_INTAKE
+    REV_AND_INTAKE,
+    JITTER,
+    JITTER_AND_INTAKE,
+    JITTER_AND_SHOOT,
   }
 
   private StructureState state = StructureState.IDLE;
@@ -73,7 +76,7 @@ public class Superstructure {
   private final Translation2d topCorner = new Translation2d(1.5, 6.8);
   private final Translation2d bottomCorner = new Translation2d(1.5, 1.5);
 
-  private double velMultiplier = 1.04;
+  private double velMultiplier = 1;
 
   private Pose2d target =
           new Pose2d(FieldConstants.Hub.topCenterPoint.toTranslation2d(), Rotation2d.kZero);
@@ -141,7 +144,8 @@ public class Superstructure {
             .and(
                     stateTriggers
                             .get(StructureState.SHOOT)
-                            .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE)))
+                            .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
+                            .or(stateTriggers.get(StructureState.JITTER_AND_SHOOT))
             .whileTrue(shooterPivot.shootHub(shotCalculator::getDistance));
     feedTopCorner
             .or(feedBottomCorner)
@@ -149,23 +153,27 @@ public class Superstructure {
             .and(
                     stateTriggers
                             .get(StructureState.SHOOT)
-                            .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE)))
+                            .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
+                            .or(stateTriggers.get(StructureState.JITTER_AND_SHOOT))
             .whileTrue(shooterPivot.feedCorner(shotCalculator::getDistance));
 
     stateTriggers
             .get(StructureState.SHOOT)
             .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
+            .or(stateTriggers.get(StructureState.JITTER_AND_SHOOT))
             .and(targetRedHub.or(targetBlueHub))
             .onTrue(shooter.shootHub(shotCalculator::getDistance, () -> velMultiplier));
     stateTriggers
             .get(StructureState.SHOOT)
             .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
+            .or(stateTriggers.get(StructureState.JITTER_AND_SHOOT))
             .and(feedTopCorner.or(feedBottomCorner))
             .onTrue(shooter.feedCorner(shotCalculator::getDistance));
 
     stateTriggers
             .get(StructureState.SHOOT)
             .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
+            .or(stateTriggers.get(StructureState.JITTER_AND_SHOOT))
             .and(shooter.reachedVelocity)
             .debounce(.2)
             .onTrue(indexer.setIndexVel())
@@ -182,12 +190,17 @@ public class Superstructure {
                     stateTriggers
                             .get(StructureState.SHOOT)
                             .and(prevStateTriggers.get(StructureState.REV_AND_INTAKE)))
+            .or(
+                    stateTriggers
+                            .get(StructureState.SHOOT)
+                            .and(prevStateTriggers.get(StructureState.JITTER_AND_INTAKE)))
             .onTrue(this.setState(StructureState.SHOOT_AND_INTAKE));
 
     stateTriggers
             .get(StructureState.INTAKE)
             .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
             .or(stateTriggers.get(StructureState.REV_AND_INTAKE))
+            .or(stateTriggers.get(StructureState.JITTER_AND_INTAKE))
             .onTrue(intakeRollers.setVoltage(8))
             .onTrue(linearSlide.goToGroundIntake());
 
@@ -213,7 +226,27 @@ public class Superstructure {
             .get(StructureState.HOME)
             .onTrue(linearSlide.goToStow())
             .onTrue(shooterPivot.setPosition(0));
-    //
+
+    stateTriggers
+            .get(StructureState.JITTER)
+            .or(stateTriggers.get(StructureState.JITTER_AND_SHOOT))
+            .or(stateTriggers.get(StructureState.JITTER_AND_INTAKE))
+            .onTrue(linearSlide.jitterIntake());
+
+    stateTriggers
+            .get(StructureState.JITTER)
+            .and(
+                    prevStateTriggers
+                            .get(StructureState.SHOOT)
+                            .or(prevStateTriggers.get(StructureState.SHOOT_AND_INTAKE)))
+            .onTrue(this.setState(StructureState.JITTER_AND_SHOOT));
+    stateTriggers
+            .get(StructureState.JITTER)
+            .and(
+                    prevStateTriggers
+                            .get(StructureState.INTAKE))
+            .onTrue(this.setState(StructureState.JITTER_AND_INTAKE));
+
     stateTriggers
             .get(StructureState.REV)
             .and(prevStateTriggers.get(StructureState.INTAKE))
@@ -233,6 +266,8 @@ public class Superstructure {
             .or(stateTriggers.get(StructureState.HOME))
             .or(stateTriggers.get(StructureState.REV))
             .or(stateTriggers.get(StructureState.REV_AND_INTAKE))
+            .or(stateTriggers.get(StructureState.JITTER))
+            .or(stateTriggers.get(StructureState.JITTER_AND_INTAKE))
             .onTrue(shooterPivot.setPosition(0));
   }
 
