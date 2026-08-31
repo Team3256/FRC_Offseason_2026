@@ -36,13 +36,13 @@ public class LinearSlideIOSim extends LinearSlideIOTalonFX {
 
   public LinearSlideIOSim() {
     super();
-    this.motorSim = super.getMotor().getSimState();
+    this.motorSim = super.getRightMotor().getSimState();
     // slideSimState.Orientation = ChassisReference.Clockwise_Positive;
   }
 
   @Override
   public void updateInputs(LinearSlideIOInputs inputs) {
-    motorSim = super.getMotor().getSimState();
+    motorSim = super.getRightMotor().getSimState();
     motorSim.setSupplyVoltage(RobotController.getBatteryVoltage());
 
     slideSimModel.setInputVoltage(motorSim.getMotorVoltage());

@@ -23,73 +23,102 @@ import frc.robot.utils.PhoenixUtil;
 public class LinearSlideIOTalonFX implements LinearSlideIO {
   private final PositionVoltage positionRequest = new PositionVoltage(0).withSlot(0);
 
-  private final TalonFX slideMotor = new TalonFX(LinearSlideConstants.slideMotorID);
+  private final TalonFX leftSlideMotor = new TalonFX(LinearSlideConstants.leftMotorID);
+  private final TalonFX rightSlideMotor = new TalonFX(LinearSlideConstants.rightMotorID);
 
   private final MotionMagicVoltage motionMagicRequest =
       new MotionMagicVoltage(0).withSlot(0).withEnableFOC(LinearSlideConstants.kUseFOC);
 
-  private final StatusSignal<Voltage> motorVoltage = slideMotor.getMotorVoltage();
-  private final StatusSignal<AngularVelocity> velocity = slideMotor.getVelocity();
-  private final StatusSignal<Angle> position = slideMotor.getPosition();
-  private final StatusSignal<Current> statorCurrent = slideMotor.getStatorCurrent();
-  private final StatusSignal<Current> supplyCurrent = slideMotor.getSupplyCurrent();
+  private final StatusSignal<Voltage> leftMotorVoltage = leftSlideMotor.getMotorVoltage();
+  private final StatusSignal<AngularVelocity> leftMotorVelocity = leftSlideMotor.getVelocity();
+  private final StatusSignal<Angle> leftMotorPosition = leftSlideMotor.getPosition();
+  private final StatusSignal<Current> leftMotorStatorCurrent = leftSlideMotor.getStatorCurrent();
+  private final StatusSignal<Current> leftMotorSupplyCurrent = leftSlideMotor.getSupplyCurrent();
+
+  private final StatusSignal<Voltage> rightMotorVoltage = leftSlideMotor.getMotorVoltage();
+  private final StatusSignal<AngularVelocity> rightMotorVelocity = rightSlideMotor.getVelocity();
+  private final StatusSignal<Angle> rightMotorPosition = rightSlideMotor.getPosition();
+  private final StatusSignal<Current> rightMotorStatorCurrent = rightSlideMotor.getStatorCurrent();
+  private final StatusSignal<Current> rightMotorSupplyCurrent = rightSlideMotor.getSupplyCurrent();
 
   public LinearSlideIOTalonFX() {
     PhoenixUtil.applyMotorConfigs(
-        slideMotor, LinearSlideConstants.motorConfigs, LinearSlideConstants.flashConfigRetries);
+        rightSlideMotor, LinearSlideConstants.rightMotorConfigs, LinearSlideConstants.flashConfigRetries);
+
+    PhoenixUtil.applyMotorConfigs(
+        leftSlideMotor, LinearSlideConstants.leftMotorConfigs, LinearSlideConstants.flashConfigRetries);
 
     BaseStatusSignal.setUpdateFrequencyForAll(
         LinearSlideConstants.updateFrequency,
-        motorVoltage,
-        velocity,
-        position,
-        statorCurrent,
-        supplyCurrent);
+        rightMotorVoltage,
+        rightMotorVelocity,
+        rightMotorPosition,
+        rightMotorStatorCurrent,
+        rightMotorSupplyCurrent,
+        leftMotorVoltage,
+        leftMotorVelocity,
+        leftMotorPosition,
+        leftMotorStatorCurrent,
+        leftMotorSupplyCurrent);
 
     PhoenixUtil.registerSignals(
-        false, motorVoltage, velocity, position, statorCurrent, supplyCurrent);
+        false, rightMotorVoltage, rightMotorVelocity, rightMotorPosition, rightMotorStatorCurrent, rightMotorSupplyCurrent, leftMotorVoltage, leftMotorVelocity, leftMotorPosition, leftMotorStatorCurrent, leftMotorSupplyCurrent);
   }
 
   @Override
   public void updateInputs(LinearSlideIOInputs inputs) {
+    inputs.rightMotorVoltage = rightMotorVoltage.getValue().in(Volts);
+    inputs.rightMotorVelocity = rightMotorVelocity.getValue().in(RotationsPerSecond);
+    inputs.rightMotorPosition = rightMotorPosition.getValueAsDouble();
+    inputs.rightMotorStatorCurrent = rightMotorStatorCurrent.getValue().in(Amps);
+    inputs.rightMotorSupplyCurrent = rightMotorSupplyCurrent.getValue().in(Amps);
 
-    inputs.slideMotorVoltage = motorVoltage.getValue().in(Volts);
-    inputs.slideMotorVelocity = velocity.getValue().in(RotationsPerSecond);
+    inputs.leftMotorVoltage = leftMotorVoltage.getValue().in(Volts);
+    inputs.leftMotorVelocity = leftMotorVelocity.getValue().in(RotationsPerSecond);
+    inputs.leftMotorPosition = leftMotorPosition.getValueAsDouble();
+    inputs.leftMotorStatorCurrent = leftMotorStatorCurrent.getValue().in(Amps);
+    inputs.leftMotorSupplyCurrent = leftMotorSupplyCurrent.getValue().in(Amps);
 
-    inputs.slideMotorPosition = position.getValueAsDouble();
-
-    inputs.slideMotorStatorCurrent = statorCurrent.getValue().in(Amps);
-    inputs.slideMotorSupplyCurrent = supplyCurrent.getValue().in(Amps);
   }
 
   @Override
   public void setPosition(double target) {
     if (LinearSlideConstants.kUseMotionMagic) {
-      slideMotor.setControl(motionMagicRequest.withPosition(target));
+      rightSlideMotor.setControl(motionMagicRequest.withPosition(target));
+      leftSlideMotor.setControl(motionMagicRequest.withPosition(target));
     } else {
-      slideMotor.setControl(positionRequest.withPosition(target));
+      rightSlideMotor.setControl(positionRequest.withPosition(target));
+      leftSlideMotor.setControl(positionRequest.withPosition(target));
     }
   }
 
   @Override
-  public TalonFX getMotor() {
-    return slideMotor;
+  public TalonFX getRightMotor() {
+    return rightSlideMotor;
+  }
+
+  @Override
+  public TalonFX getLeftMotor() {
+    return leftSlideMotor;
   }
 
   @Override
   public void setVoltage(double volts) {
-    slideMotor.setVoltage(volts);
+    rightSlideMotor.setVoltage(volts);
+    leftSlideMotor.setVoltage(volts);
   }
 
   /* */
 
   @Override
   public void zero() {
-    slideMotor.setPosition(0);
+    rightSlideMotor.setPosition(0);
+    leftSlideMotor.setPosition(0);
   }
 
   @Override
   public void resetPosition(double angle) {
-    slideMotor.setPosition(angle);
+    rightSlideMotor.setPosition(angle);
+    leftSlideMotor.setPosition(angle);
   }
 }

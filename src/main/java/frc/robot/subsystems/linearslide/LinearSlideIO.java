@@ -14,14 +14,24 @@ public interface LinearSlideIO {
   @AutoLog
   public class LinearSlideIOInputs {
 
-    public double slideMotorVoltage = 0.0;
-    public double slideMotorVelocity = 0.0;
-    public double slideMotorPosition = 0.0;
-    public double slideMotorStatorCurrent = 0.0;
-    public double slideMotorSupplyCurrent = 0.0;
+    public double rightMotorVoltage = 0.0;
+    public double rightMotorVelocity = 0.0;
+    public double rightMotorPosition = 0.0;
+    public double rightMotorStatorCurrent = 0.0;
+    public double rightMotorSupplyCurrent = 0.0;
+
+    public double leftMotorVoltage = 0.0;
+    public double leftMotorVelocity = 0.0;
+    public double leftMotorPosition = 0.0;
+    public double leftMotorStatorCurrent = 0.0;
+    public double leftMotorSupplyCurrent = 0.0;
   }
 
-  public default TalonFX getMotor() {
+  public default TalonFX getRightMotor() {
+    return new TalonFX(0);
+  }
+
+  public default TalonFX getLeftMotor() {
     return new TalonFX(0);
   }
 
@@ -38,7 +48,10 @@ public interface LinearSlideIO {
   public default void off() {}
 
   public default void zero() {
-    this.getMotor().setPosition(0);
+    this.getRightMotor().setPosition(0);
+    this.getLeftMotor().setPosition(0);
   }
+
+  
   // does lin slide need a zero
 }

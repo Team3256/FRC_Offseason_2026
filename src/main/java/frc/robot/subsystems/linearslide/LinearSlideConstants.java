@@ -22,7 +22,8 @@ import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.Mass;
 
 public class LinearSlideConstants {
-  public static final int slideMotorID = 3;
+  public static final int rightMotorID = 3;
+  public static final int leftMotorID = 4;
 
   public static final boolean kUseFOC = true;
   public static final boolean kUseMotionMagic = true;
@@ -32,17 +33,17 @@ public class LinearSlideConstants {
 
   // get when tuning
   public static double updateFrequency = 50;
-  public static final TalonFXConfiguration motorConfigs =
+  public static final TalonFXConfiguration rightMotorConfigs =
       new TalonFXConfiguration()
           .withSlot0(
               new Slot0Configs()
-                  .withKS(0)
-                  .withKV(0)
-                  .withKP(0)
+                  .withKS(0.1)
+                  .withKV(0.12)
+                  .withKP(10)
                   .withKI(0)
                   .withKD(0)
                   .withKA(0)
-                  .withKG(0)
+                  .withKG(0.3)
                   .withGravityType(GravityTypeValue.Elevator_Static))
           .withMotorOutput(
               new MotorOutputConfigs()
@@ -62,6 +63,37 @@ public class LinearSlideConstants {
                   .withSupplyCurrentLowerTime(.1)
                   .withSupplyCurrentLowerLimit(20))
           .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(85.46));
+
+    public static final TalonFXConfiguration leftMotorConfigs =
+      new TalonFXConfiguration()
+          .withSlot0(
+              new Slot0Configs()
+                  .withKS(0.1)
+                  .withKV(0.12)
+                  .withKP(10)
+                  .withKI(0)
+                  .withKD(0)
+                  .withKA(0)
+                  .withKG(0.3)
+                  .withGravityType(GravityTypeValue.Elevator_Static))
+          .withMotorOutput(
+              new MotorOutputConfigs()
+                  .withNeutralMode(NeutralModeValue.Brake)
+                  .withInverted(InvertedValue.Clockwise_Positive))
+          .withMotionMagic(
+              new MotionMagicConfigs()
+                  .withMotionMagicAcceleration(0)
+                  .withMotionMagicCruiseVelocity(0))
+          .withCurrentLimits(
+              new CurrentLimitsConfigs()
+                  .withStatorCurrentLimitEnable(true)
+                  .withStatorCurrentLimit(40)
+                  .withSupplyCurrentLimit(50)
+                  .withSupplyCurrentLimitEnable(true)
+                  .withSupplyCurrentLowerTime(.1)
+                  .withSupplyCurrentLowerLimit(20))
+          .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(85.46));
+
 
   public static final class LinearSlideSim {
     public static final double slideSimGearing = 30;

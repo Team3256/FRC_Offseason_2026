@@ -27,6 +27,9 @@ public class LinearSlide extends DisableSubsystem {
     super(enabled);
     this.linearSlideIO = linearSlideIO;
     linearSlideIO.zero();
+
+    System.out.println("Current command: " +
+      (this.getCurrentCommand() != null ? this.getCurrentCommand().getName() : "none"));
   }
 
   @Override
@@ -65,8 +68,8 @@ public class LinearSlide extends DisableSubsystem {
   public Command goToGroundIntake() {
     return this.setPosition(LinearSlideConstants.intakePosition);
   }
-
+// ***********
   public boolean reachedPosition() {
-    return Util.epsilonEquals(linearSlideIOInputsAutoLogged.slideMotorPosition, reqPosition, 0.01);
+    return Util.epsilonEquals(linearSlideIOInputsAutoLogged.rightMotorPosition, reqPosition, 0.01);
   }
 }
