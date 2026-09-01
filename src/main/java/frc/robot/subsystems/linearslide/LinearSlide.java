@@ -86,6 +86,7 @@ public class LinearSlide extends DisableSubsystem {
   }
 
   public boolean reachedPosition() {
-    return Util.epsilonEquals(linearSlideIOInputsAutoLogged.rightMotorPosition, reqPosition, 0.01);
+    return Util.epsilonEquals(linearSlideIOInputsAutoLogged.rightMotorPosition, reqPosition, 0.01)
+        && Util.epsilonEquals(linearSlideIOInputsAutoLogged.leftMotorPosition, reqPosition, 0.01);
   }
 }

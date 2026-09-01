@@ -26,9 +26,6 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
   private final TalonFX leftSlideMotor = new TalonFX(LinearSlideConstants.leftMotorID);
   private final TalonFX rightSlideMotor = new TalonFX(LinearSlideConstants.rightMotorID);
 
-  private final MotionMagicVoltage motionMagicRequest =
-      new MotionMagicVoltage(0).withSlot(0).withEnableFOC(LinearSlideConstants.kUseFOC);
-
   private final StatusSignal<Voltage> leftMotorVoltage = leftSlideMotor.getMotorVoltage();
   private final StatusSignal<AngularVelocity> leftMotorVelocity = leftSlideMotor.getVelocity();
   private final StatusSignal<Angle> leftMotorPosition = leftSlideMotor.getPosition();
@@ -40,6 +37,13 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
   private final StatusSignal<Angle> rightMotorPosition = rightSlideMotor.getPosition();
   private final StatusSignal<Current> rightMotorStatorCurrent = rightSlideMotor.getStatorCurrent();
   private final StatusSignal<Current> rightMotorSupplyCurrent = rightSlideMotor.getSupplyCurrent();
+
+  boolean ifExtended = rightMotorPosition.getValueAsDouble() == LinearSlideConstants.intakePosition;
+
+  private final MotionMagicVoltage motionMagicRequest =
+      new MotionMagicVoltage(0)
+          .withSlot(ifExtended ? 1 : 0)
+          .withEnableFOC(LinearSlideConstants.kUseFOC);
 
   public LinearSlideIOTalonFX() {
     PhoenixUtil.applyMotorConfigs(
@@ -134,4 +138,7 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
     rightSlideMotor.setPosition(angle);
     leftSlideMotor.setPosition(angle);
   }
+
+  // check if position is at intakePosition and then if so set control motor configs
+
 }

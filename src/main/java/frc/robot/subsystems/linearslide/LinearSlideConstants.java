@@ -14,6 +14,7 @@ import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.configs.Slot1Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -48,6 +49,15 @@ public class LinearSlideConstants {
                   .withKA(0)
                   .withKG(0.3)
                   .withGravityType(GravityTypeValue.Elevator_Static))
+          .withSlot1(
+              new Slot1Configs()
+                  .withKS(0)
+                  .withKV(0)
+                  .withKP(0) // change
+                  .withKI(0)
+                  .withKD(0) // change
+                  .withKA(0)
+                  .withKG(0))
           .withMotorOutput(
               new MotorOutputConfigs()
                   .withNeutralMode(NeutralModeValue.Brake)
@@ -79,6 +89,15 @@ public class LinearSlideConstants {
                   .withKA(0)
                   .withKG(0.3)
                   .withGravityType(GravityTypeValue.Elevator_Static))
+          .withSlot1(
+              new Slot1Configs()
+                  .withKS(0)
+                  .withKV(0)
+                  .withKP(0) // change
+                  .withKI(0)
+                  .withKD(0) // change
+                  .withKA(0)
+                  .withKG(0))
           .withMotorOutput(
               new MotorOutputConfigs()
                   .withNeutralMode(NeutralModeValue.Brake)
