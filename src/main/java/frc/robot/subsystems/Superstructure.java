@@ -175,7 +175,7 @@ public class Superstructure {
         .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
         .or(stateTriggers.get(StructureState.JITTER_AND_SHOOT))
         .and(shooter.reachedVelocity)
-        .debounce(.2)
+        .debounce(.02)
         .onTrue(indexer.setIndexVel())
         .onTrue(feeder.setFeedVel());
 
@@ -203,6 +203,8 @@ public class Superstructure {
         .or(stateTriggers.get(StructureState.JITTER_AND_INTAKE))
         .onTrue(intakeRollers.setVoltage(8))
         .onTrue(linearSlide.goToGroundIntake());
+
+    stateTriggers.get(StructureState.SHOOT).debounce(0.1).onTrue(linearSlide.goToStow());
 
     stateTriggers
         .get(StructureState.IDLE)
