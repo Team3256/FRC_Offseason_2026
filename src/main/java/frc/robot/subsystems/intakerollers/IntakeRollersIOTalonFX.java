@@ -23,18 +23,18 @@ import frc.robot.utils.PhoenixUtil;
 public class IntakeRollersIOTalonFX implements IntakeRollersIO {
   private final TalonFX intakeMotorLeft =
       new TalonFX(IntakeRollerConstants.kIntakeRollerMotorIDLeft);
-  private final TalonFX intakeMotorRight =
-      new TalonFX(IntakeRollerConstants.kIntakeRollerMotorIDRight);
-
-  private final VelocityVoltage velocityRequest = new VelocityVoltage(0).withSlot(0);
-  private final Follower followerRequest =
-      new Follower(IntakeRollerConstants.kIntakeRollerMotorIDLeft, MotorAlignmentValue.Opposed);
+  final VelocityVoltage velocityRequest = new VelocityVoltage(0).withSlot(0);
 
   private final StatusSignal<Voltage> rollerVoltageLeft = intakeMotorLeft.getMotorVoltage();
   private final StatusSignal<AngularVelocity> rollerVelocityLeft = intakeMotorLeft.getVelocity();
   private final StatusSignal<Current> rollerStatorCurrentLeft = intakeMotorLeft.getStatorCurrent();
   private final StatusSignal<Current> rollerSupplyCurrentLeft = intakeMotorLeft.getSupplyCurrent();
   private final StatusSignal<Temperature> rollerTemperatureLeft = intakeMotorLeft.getDeviceTemp();
+
+  private final TalonFX intakeMotorRight =
+      new TalonFX(IntakeRollerConstants.kIntakeRollerMotorIDRight);
+  final Follower followerRequest =
+      new Follower(IntakeRollerConstants.kIntakeRollerMotorIDLeft, MotorAlignmentValue.Opposed);
 
   private final StatusSignal<Voltage> rollerVoltageRight = intakeMotorRight.getMotorVoltage();
   private final StatusSignal<AngularVelocity> rollerVelocityRight = intakeMotorRight.getVelocity();
@@ -66,16 +66,8 @@ public class IntakeRollersIOTalonFX implements IntakeRollersIO {
         rollerStatorCurrentRight,
         rollerSupplyCurrentRight,
         rollerTemperatureRight);
-
-    intakeMotorLeft.optimizeBusUtilization();
-    intakeMotorRight.optimizeBusUtilization();
-
-    intakeMotorRight.setControl(followerRequest);
-  }
-
-  @Override
-  public void updateInputs(IntakeRollersIOInputs inputs) {
-    BaseStatusSignal.refreshAll(
+    PhoenixUtil.registerSignals(
+        false,
         rollerVoltageLeft,
         rollerVelocityLeft,
         rollerStatorCurrentLeft,
@@ -87,6 +79,14 @@ public class IntakeRollersIOTalonFX implements IntakeRollersIO {
         rollerSupplyCurrentRight,
         rollerTemperatureRight);
 
+    intakeMotorLeft.optimizeBusUtilization();
+    intakeMotorRight.optimizeBusUtilization();
+
+    intakeMotorRight.setControl(followerRequest);
+  }
+
+  @Override
+  public void updateInputs(IntakeRollersIOInputs inputs) {
     inputs.rollerVoltageLeft = rollerVoltageLeft.getValueAsDouble();
     inputs.rollerVelocityLeft = rollerVelocityLeft.getValueAsDouble();
     inputs.rollerStatorCurrentLeft = rollerStatorCurrentLeft.getValueAsDouble();
@@ -120,5 +120,9 @@ public class IntakeRollersIOTalonFX implements IntakeRollersIO {
   @Override
   public TalonFX getIntakeRollerMotor() {
     return intakeMotorLeft;
+  }
+
+  public TalonFX getIntakeRollerMotorRight() {
+    return intakeMotorRight;
   }
 }
