@@ -118,7 +118,6 @@ public class Superstructure {
     targetRedHub.onTrue(changeTarget(FieldConstants.Hub.oppTopCenterPoint.toTranslation2d()));
 
     targetBlueHub.or(targetRedHub).onTrue(this.setState(StructureState.REV));
-    targetBlueHub.or(targetRedHub).onFalse(shooter.off());
 
     targetBlueHub
         .or(targetRedHub)
@@ -146,7 +145,9 @@ public class Superstructure {
                 .get(StructureState.SHOOT)
                 .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
                 .or(stateTriggers.get(StructureState.JITTER_AND_SHOOT))
+                .onTrue(shooter.shootHub(shotCalculator::getDistance, () -> velMultiplier))
                 .whileTrue(shooterPivot.shootHub(shotCalculator::getDistance)));
+
     feedTopCorner
         .or(feedBottomCorner)
         .and(DriverStation::isEnabled)
@@ -155,20 +156,8 @@ public class Superstructure {
                 .get(StructureState.SHOOT)
                 .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
                 .or(stateTriggers.get(StructureState.JITTER_AND_SHOOT))
+                .onTrue(shooter.feedCorner(shotCalculator::getDistance, () -> velMultiplier))
                 .whileTrue(shooterPivot.feedCorner(shotCalculator::getDistance)));
-
-    stateTriggers
-        .get(StructureState.SHOOT)
-        .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
-        .or(stateTriggers.get(StructureState.JITTER_AND_SHOOT))
-        .and(targetRedHub.or(targetBlueHub))
-        .onTrue(shooter.shootHub(shotCalculator::getDistance, () -> velMultiplier));
-    stateTriggers
-        .get(StructureState.SHOOT)
-        .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
-        .or(stateTriggers.get(StructureState.JITTER_AND_SHOOT))
-        .and(feedTopCorner.or(feedBottomCorner))
-        .onTrue(shooter.feedCorner(shotCalculator::getDistance));
 
     stateTriggers
         .get(StructureState.SHOOT)
