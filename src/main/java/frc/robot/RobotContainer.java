@@ -15,9 +15,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.sim.SimMechs;
-import frc.robot.subsystems.linearslide.LinearSlide;
-import frc.robot.subsystems.linearslide.LinearSlideIOSim;
-import frc.robot.subsystems.linearslide.LinearSlideIOTalonFX;
+import frc.robot.subsystems.feeder.Feeder;
+import frc.robot.subsystems.feeder.FeederIOSim;
+import frc.robot.subsystems.feeder.FeederIOTalonFX;
+import frc.robot.subsystems.indexer.Indexer;
+import frc.robot.subsystems.indexer.IndexerIOSim;
+import frc.robot.subsystems.indexer.IndexerIOTalonFX;
+import frc.robot.subsystems.shooter.Shooter;
+import frc.robot.subsystems.shooter.ShooterIOSim;
+import frc.robot.subsystems.shooter.ShooterIOTalonFX;
+import frc.robot.subsystems.shooterpivot.ShooterPivot;
+import frc.robot.subsystems.shooterpivot.ShooterPivotIOSim;
+import frc.robot.subsystems.shooterpivot.ShooterPivotIOTalonFX;
 import frc.robot.utils.AutoConfig;
 import frc.robot.utils.MappedXboxController;
 import java.util.ArrayList;
@@ -42,6 +51,12 @@ public class RobotContainer {
   private SendableChooser<AutoConfig> autoVisualizer = new SendableChooser<AutoConfig>();
   private Field2d field2d = new Field2d();
 
+  private final Shooter shooter =
+      new Shooter(true, Utils.isSimulation() ? new ShooterIOSim() : new ShooterIOTalonFX());
+  private final ShooterPivot shooterPivot =
+      new ShooterPivot(
+          true, Utils.isSimulation() ? new ShooterPivotIOSim() : new ShooterPivotIOTalonFX());
+
   public RobotContainer() {
 
     configureSwerve();
@@ -53,9 +68,15 @@ public class RobotContainer {
     }
   }
 
+  private final Feeder feeder =
+      new Feeder(true, Utils.isSimulation() ? new FeederIOSim() : new FeederIOTalonFX());
+
+  private final Indexer indexer =
+      new Indexer(true, Utils.isSimulation() ? new IndexerIOSim() : new IndexerIOTalonFX());
+
   private void configureOperatorBinds() {
-    m_operatorController.a().onTrue(linearSlide.goToGroundIntake());
-    m_operatorController.b().onTrue(linearSlide.goToStow());
+    // TODO UPDATE W real BINDINGS
+
   }
 
   private void configureChoreoAutoChooser() {}
