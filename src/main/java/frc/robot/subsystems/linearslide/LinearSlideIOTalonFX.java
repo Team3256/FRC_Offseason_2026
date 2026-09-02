@@ -22,6 +22,7 @@ import frc.robot.utils.PhoenixUtil;
 
 public class LinearSlideIOTalonFX implements LinearSlideIO {
   private final PositionVoltage positionRequest = new PositionVoltage(0).withSlot(0);
+  private final PositionVoltage extendedPositionRequest = new PositionVoltage(0).withSlot(1);
 
   private final TalonFX leftSlideMotor = new TalonFX(LinearSlideConstants.leftMotorID);
   private final TalonFX rightSlideMotor = new TalonFX(LinearSlideConstants.rightMotorID);
@@ -41,9 +42,9 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
   boolean ifExtended = rightMotorPosition.getValueAsDouble() == LinearSlideConstants.intakePosition;
 
   private final MotionMagicVoltage motionMagicRequest =
-      new MotionMagicVoltage(0)
-          .withSlot(ifExtended ? 1 : 0)
-          .withEnableFOC(LinearSlideConstants.kUseFOC);
+      new MotionMagicVoltage(0).withSlot(0).withEnableFOC(LinearSlideConstants.kUseFOC);
+  private final MotionMagicVoltage extendedMotionMagicRequest =
+      new MotionMagicVoltage(0).withSlot(0).withEnableFOC(LinearSlideConstants.kUseFOC);
 
   public LinearSlideIOTalonFX() {
     PhoenixUtil.applyMotorConfigs(
@@ -100,12 +101,23 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
 
   @Override
   public void setPosition(double target) {
+    // uhhhh there is probably a better way to do this
     if (LinearSlideConstants.kUseMotionMagic) {
-      rightSlideMotor.setControl(motionMagicRequest.withPosition(target));
-      leftSlideMotor.setControl(motionMagicRequest.withPosition(target));
+      if (ifExtended) {
+        rightSlideMotor.setControl(extendedMotionMagicRequest.withPosition(target));
+        leftSlideMotor.setControl(extendedMotionMagicRequest.withPosition(target));
+      } else {
+        rightSlideMotor.setControl(motionMagicRequest.withPosition(target));
+        leftSlideMotor.setControl(motionMagicRequest.withPosition(target));
+      }
     } else {
-      rightSlideMotor.setControl(positionRequest.withPosition(target));
-      leftSlideMotor.setControl(positionRequest.withPosition(target));
+      if (ifExtended) {
+        rightSlideMotor.setControl(extendedPositionRequest.withPosition(target));
+        leftSlideMotor.setControl(extendedPositionRequest.withPosition(target));
+      } else {
+        rightSlideMotor.setControl(positionRequest.withPosition(target));
+        leftSlideMotor.setControl(positionRequest.withPosition(target));
+      }
     }
   }
 

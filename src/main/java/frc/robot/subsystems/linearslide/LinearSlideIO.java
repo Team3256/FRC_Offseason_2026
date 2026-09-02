@@ -51,6 +51,4 @@ public interface LinearSlideIO {
     this.getRightMotor().setPosition(0);
     this.getLeftMotor().setPosition(0);
   }
-
-  // does lin slide need a zero
 }

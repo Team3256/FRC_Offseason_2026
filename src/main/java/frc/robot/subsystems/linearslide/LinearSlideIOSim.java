@@ -21,11 +21,12 @@ import org.littletonrobotics.junction.Logger;
 
 public class LinearSlideIOSim extends LinearSlideIOTalonFX {
   // private final TalonFXSimState slideSimState;
-  private TalonFXSimState motorSim;
+  private TalonFXSimState rightMotorSim;
+  private TalonFXSimState leftMotorSim;
 
   private final ElevatorSim slideSimModel =
       new ElevatorSim(
-          DCMotor.getKrakenX60(1),
+          DCMotor.getKrakenX60(2),
           LinearSlideConstants.LinearSlideSim.slideSimGearing,
           LinearSlideConstants.LinearSlideSim.jkGMetersSquared,
           LinearSlideConstants.LinearSlideSim.linearSlideDrumRadius.in(Meters),
@@ -36,21 +37,29 @@ public class LinearSlideIOSim extends LinearSlideIOTalonFX {
 
   public LinearSlideIOSim() {
     super();
-    this.motorSim = super.getRightMotor().getSimState();
+    this.rightMotorSim = super.getRightMotor().getSimState();
+    this.leftMotorSim = super.getLeftMotor().getSimState();
     // slideSimState.Orientation = ChassisReference.Clockwise_Positive;
   }
 
   @Override
   public void updateInputs(LinearSlideIOInputs inputs) {
-    motorSim = super.getRightMotor().getSimState();
-    motorSim.setSupplyVoltage(RobotController.getBatteryVoltage());
+    rightMotorSim.setSupplyVoltage(RobotController.getBatteryVoltage());
+    leftMotorSim.setSupplyVoltage(RobotController.getBatteryVoltage());
 
-    slideSimModel.setInputVoltage(motorSim.getMotorVoltage());
+    slideSimModel.setInputVoltage(rightMotorSim.getMotorVoltage());
+    slideSimModel.setInputVoltage(leftMotorSim.getMotorVoltage());
     slideSimModel.update(TimedRobot.kDefaultPeriod);
 
-    motorSim.setRawRotorPosition(
+    rightMotorSim.setRawRotorPosition(
         slideSimModel.getPositionMeters() * LinearSlideConstants.LinearSlideSim.slideSimGearing);
-    motorSim.setRotorVelocity(
+    rightMotorSim.setRotorVelocity(
+        slideSimModel.getVelocityMetersPerSecond()
+            * LinearSlideConstants.LinearSlideSim.slideSimGearing);
+
+    leftMotorSim.setRawRotorPosition(
+        slideSimModel.getPositionMeters() * LinearSlideConstants.LinearSlideSim.slideSimGearing);
+    leftMotorSim.setRotorVelocity(
         slideSimModel.getVelocityMetersPerSecond()
             * LinearSlideConstants.LinearSlideSim.slideSimGearing);
 
