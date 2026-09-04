@@ -67,7 +67,7 @@ public final class ShooterConstants {
       };
 
   public static final class SimulationConstants {
-    public static double kLeftGearingRatio = 0; // TODO: Update this value
+    public static double kLeftGearingRatio = (double) 25 /9; // TODO: Update this value
     public static double kLeftMomentOfInertia = 0; // TODO: Update this value
     public static double kAngularVelocityScalar = 0;
   }
