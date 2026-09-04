@@ -15,8 +15,10 @@ public class IntakeRollerConstants {
 
   public static final int kIntakeRollerMotorIDLeft = 46;
   public static final int kIntakeRollerMotorIDRight = 47;
+  //needs to be updated 
 
   public static double updateFrequency = 50;
+
 
   public static final int flashConfigRetries = 5;
 
@@ -35,15 +37,17 @@ public class IntakeRollerConstants {
           .withCurrentLimits(
               new CurrentLimitsConfigs()
                   .withStatorCurrentLimitEnable(true)
-                  .withStatorCurrentLimit(70)
-                  .withSupplyCurrentLimit(50)
+                  .withStatorCurrentLimit(0)
+                  .withSupplyCurrentLimit(0)
                   .withSupplyCurrentLimitEnable(true)
-                  .withSupplyCurrentLowerLimit(30)
-                  .withSupplyCurrentLowerTime(0.1));
+                  .withSupplyCurrentLowerLimit(0)
+                  .withSupplyCurrentLowerTime(0));
+                  //these aren't updated (motor configs.withCurrentLimits")
 
   public static final class SimulationConstants {
-    public static double rollerGearingRatio = 1.0;
-    public static double rollerMomentOfInertia = 1;
+    public static double rollerGearingRatio = 0;
+    public static double rollerMomentOfInertia = 0;
+    //above two not updated
 
     // Scale down the angular velocity so we can actually see what is happening
     public static double kAngularVelocityScalar = 5;
