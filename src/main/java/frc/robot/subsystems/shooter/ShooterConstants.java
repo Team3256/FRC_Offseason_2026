@@ -23,10 +23,10 @@ public final class ShooterConstants {
   public static final boolean kUseFOC = true;
 
   public static int[] shooters = {
-    59, // top left
-    60, // bottom left
-    61, // top right
-    62, // bottom right
+    0, // top left
+    0, // bottom left
+    0, // top right
+    0, // bottom right
   };
   // the leader is the shooters[0] and the rest are followers
 
@@ -36,68 +36,42 @@ public final class ShooterConstants {
   public static TalonFXConfiguration motorConfigs =
       new TalonFXConfiguration()
           .withSlot0(
-              new Slot0Configs().withKS(0.2).withKV(.12).withKA(0).withKP(.4).withKI(0).withKD(0))
+              new Slot0Configs().withKS(0).withKV(0).withKA(0).withKP(0).withKI(0).withKD(0))
           // For regenerative braking
           .withMotorOutput(
               new MotorOutputConfigs()
                   .withNeutralMode(NeutralModeValue.Coast)
                   .withInverted(InvertedValue.Clockwise_Positive))
-          .withMotionMagic(new MotionMagicConfigs().withMotionMagicAcceleration(800))
+          .withMotionMagic(new MotionMagicConfigs().withMotionMagicAcceleration(0))
           .withCurrentLimits(
               new CurrentLimitsConfigs()
                   .withStatorCurrentLimitEnable(true)
-                  .withStatorCurrentLimit(80)
+                  .withStatorCurrentLimit(0)
                   .withStatorCurrentLimitEnable(true)
-                  .withSupplyCurrentLimit(50)
-                  .withSupplyCurrentLowerLimit(40)
-                  .withSupplyCurrentLowerTime(0.1));
+                  .withSupplyCurrentLimit(0)
+                  .withSupplyCurrentLowerLimit(0)
+                  .withSupplyCurrentLowerTime(0));
   public static TalonFXConfiguration followerMotorConfigs = motorConfigs;
 
   public static final InterpolatingDoubleTreeMap hubLUT =
       new InterpolatingDoubleTreeMap() {
         {
-          put(1.322, 29.6);
-          put(1.826, 31.2);
-          put(2.247, 32.2);
-          put(2.765, 33.6);
-          put(3.135, 34.5);
-          put(3.1979, 34.5);
-          put(3.501, 35.6);
-          put(3.85, 37.0);
-          put(3.901, 37.0);
-
-          put(4.1, 37.8); // d
-          put(4.450, 38.6);
-          put(4.899, 41.0);
-          put(5.31, 42.0);
-          put(5.7, 43.0);
-
-          // fake data
-
+          put(0d,0d);
         }
       };
 
   public static final InterpolatingDoubleTreeMap feedLUT =
       new InterpolatingDoubleTreeMap() {
         {
-          put(4.38, 35.6);
-          put(6.11, 39.6);
-          put(8.0, 44.4);
-          put(9.42, 53.4);
-          put(10.8, 59.6);
-          put(12.834, 75.2);
-          put(14.0, 80.0);
-          put(15.0, 85.0);
-          put(16.0, 90.0);
-          put(17.0, 95.0);
+          put(0d,0d);
         }
       };
 
   public static final class SimulationConstants {
-    public static double kLeftGearingRatio = 1; // TODO: Update this value
-    public static double kLeftMomentOfInertia = 0.01; // TODO: Update this value
-    public static double kAngularVelocityScalar = .03;
+    public static double kLeftGearingRatio = 0; // TODO: Update this value
+    public static double kLeftMomentOfInertia = 0; // TODO: Update this value
+    public static double kAngularVelocityScalar = 0;
   }
 
-  public static int flashConfigRetries = 5;
+  public static int flashConfigRetries = 0;
 }
