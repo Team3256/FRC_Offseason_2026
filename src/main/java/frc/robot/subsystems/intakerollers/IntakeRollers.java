@@ -40,6 +40,11 @@ public class IntakeRollers extends DisableSubsystem {
   }
 
   public Command unjam() {
-    return setVoltage(-4.0);
+    return setVoltage(IntakeRollerConstants.kUnjamVoltage);
+  }
+
+
+  public Command intake() {
+    return setVelocity(IntakeRollerConstants.kIntakeVelocity);
   }
 }

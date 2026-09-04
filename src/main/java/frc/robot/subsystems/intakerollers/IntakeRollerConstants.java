@@ -23,6 +23,8 @@ public class IntakeRollerConstants {
   // Rotations per second, at the motor
   public static final double kIntakeVelocity = 40.0;
 
+  public static final double kUnjamVoltage = -4.0;
+
   public static final TalonFXConfiguration motorConfigs =
       new TalonFXConfiguration()
           .withSlot0(new Slot0Configs().withKS(0).withKV(0.12).withKP(1).withKI(0).withKD(0))
