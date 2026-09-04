@@ -37,10 +37,10 @@ public class ShooterPivotConstants {
           .withSlot0(
               new Slot0Configs()
                   .withKS(0)
-                  .withKV(14.22)
-                  .withKP(450)
+                  .withKV(0)
+                  .withKP(0)
                   .withKI(0)
-                  .withKD(1)
+                  .withKD(0)
                   .withKA(0)
                   .withKG(0)
                   .withGravityType(GravityTypeValue.Arm_Cosine))
@@ -65,30 +65,13 @@ public class ShooterPivotConstants {
   public static final InterpolatingDoubleTreeMap hubLUT =
       new InterpolatingDoubleTreeMap() {
         {
-          put(1.322, 0.002197);
-          put(1.826, 0.002197);
-          put(2.247, 0.017578);
-          put(2.765, 0.0234);
-          put(3.0670, 0.028809);
-          put(3.135, 0.03833);
-          put(3.501, 0.037842);
-          put(3.901, 0.037842);
-          put(4.135, 0.033203);
-          put(4.450, 0.044189);
-          put(4.9539, 0.053711);
-          put(5.086, 0.044189);
-          put(5.7645, 0.057617);
+          put(0.0,0.0);
         }
       };
   public static final InterpolatingDoubleTreeMap feedLUT =
       new InterpolatingDoubleTreeMap() {
         {
-          put(4.38, 0.083);
-          put(6.11, 0.083);
-          put(8.0, 0.083);
-          put(9.42, 0.083);
-          put(10.8, 0.083);
-          put(12.834, 0.083);
+          put(0.0, 0.0);
         }
       };
 
