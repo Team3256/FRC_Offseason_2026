@@ -23,7 +23,7 @@ public class IntakeRollerConstants {
   public static final int flashConfigRetries = 5;
 
   // Rotations per second, at the motor
-  public static final double kIntakeVelocity = 40.0;
+  public static final double kIntakeVoltage = 8.0;
 
   public static final double kUnjamVoltage = -4.0;
 
