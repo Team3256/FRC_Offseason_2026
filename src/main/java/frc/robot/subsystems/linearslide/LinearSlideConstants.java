@@ -23,17 +23,17 @@ import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.Mass;
 
 public class LinearSlideConstants {
-  public static final int rightMotorID = 3;
-  public static final int leftMotorID = 4;
+  public static final int rightMotorID = 0;
+  public static final int leftMotorID = 0;
 
   public static final boolean kUseFOC = true;
   public static final boolean kUseMotionMagic = true;
   public static final int flashConfigRetries = 5;
-  public static final double stowPosition = 10;
-  public static final double intakePosition = 30;
+  public static final double stowPosition = 0; // dk yet
+  public static final double intakePosition = 0; // dk yet
 
-  public static final double jitterPosition = .15;
-  public static final double jitterIntermediate = 0.05;
+  public static final double jitterPosition = 0; // dk yet
+  public static final double jitterIntermediate = 0; // dk yet
 
   // get when tuning
   public static double updateFrequency = 50;
