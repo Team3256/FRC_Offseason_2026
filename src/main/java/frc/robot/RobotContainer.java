@@ -78,7 +78,7 @@ public class RobotContainer {
 
   private void configureOperatorBinds() {
     RobotModeTriggers.teleop()
-        .onTrue(intakeRollers.setVelocity(IntakeRollerConstants.kIntakeVelocity));
+        .onTrue(intakeRollers.setVelocity(IntakeRollerConstants.kIntakeVoltage));
   }
 
   private void configureChoreoAutoChooser() {}
