@@ -141,7 +141,8 @@ public class ShotCalculator {
     Logger.recordOutput("ShotCalculator/LookaheadPose", lookaheadPose);
     Logger.recordOutput("ShotCalculator/ShooterToTargetDistance", shooterToTargetDistance);
 
-    this.driveAngle = target.minus(lookaheadPose.getTranslation()).getAngle().rotateBy(Rotation2d.kPi);
+    this.driveAngle =
+        target.minus(lookaheadPose.getTranslation()).getAngle().rotateBy(Rotation2d.kPi);
   }
 
   private Rotation2d driveAngle = Rotation2d.kZero;
