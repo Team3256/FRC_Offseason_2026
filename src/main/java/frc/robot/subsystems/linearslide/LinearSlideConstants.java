@@ -16,8 +16,10 @@ import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.Slot1Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.mechanisms.DifferentialMotorConstants;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.Mass;
@@ -35,6 +37,7 @@ public class LinearSlideConstants {
   public static final double jitterPosition = 0; // dk yet
   public static final double jitterIntermediate = 0; // dk yet
 
+  public static final double differenceTarget = 0.0;
   // get when tuning
   public static double updateFrequency = 50;
   public static final TalonFXConfiguration rightMotorConfigs =
@@ -115,6 +118,16 @@ public class LinearSlideConstants {
                   .withSupplyCurrentLowerTime(.1)
                   .withSupplyCurrentLowerLimit(20))
           .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(85.46));
+
+  public static final DifferentialMotorConstants<TalonFXConfiguration> differentialConstants =
+      new DifferentialMotorConstants<TalonFXConfiguration>()
+          .withLeaderId(LinearSlideConstants.rightMotorID) // or whichever side is leader
+          .withFollowerId(LinearSlideConstants.leftMotorID)
+          .withAlignment(MotorAlignmentValue.Aligned)
+          .withSensorToDifferentialRatio(
+              1.0) // set to actual diff gear ratio <-- idk what this is im so srory
+          .withLeaderInitialConfigs(rightMotorConfigs)
+          .withFollowerInitialConfigs(leftMotorConfigs);
 
   public static final class LinearSlideSim {
     public static final double slideSimGearing = 30;
