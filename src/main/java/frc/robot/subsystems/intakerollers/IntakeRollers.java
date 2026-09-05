@@ -43,7 +43,6 @@ public class IntakeRollers extends DisableSubsystem {
     return setVoltage(IntakeRollerConstants.kUnjamVoltage);
   }
 
-
   public Command intake() {
     return setVoltage(IntakeRollerConstants.kIntakeVoltage);
   }
