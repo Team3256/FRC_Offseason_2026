@@ -122,11 +122,12 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
   public void setPosition(double target) {
     differentialMechanism.setControl(
         motionMagicRequest
-            // erroring .withTargetPosition(target) 
+            .withAveragePosition(target)
             .withAverageSlot(0)
             .withDifferentialPosition(LinearSlideConstants.differenceTarget));
     differentialMechanism.setControl(
         positionRequest
+            .withAveragePosition(target)
             .withAverageSlot(0)
             .withDifferentialPosition(LinearSlideConstants.differenceTarget));
   }
@@ -136,11 +137,13 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
     if (LinearSlideConstants.kUseMotionMagic) {
       differentialMechanism.setControl(
           motionMagicRequest
+              .withAveragePosition(target)
               .withAverageSlot(1)
               .withDifferentialPosition(LinearSlideConstants.differenceTarget));
     } else {
       differentialMechanism.setControl(
           positionRequest
+              .withAveragePosition(target)
               .withAverageSlot(1)
               .withDifferentialPosition(LinearSlideConstants.differenceTarget));
     }
