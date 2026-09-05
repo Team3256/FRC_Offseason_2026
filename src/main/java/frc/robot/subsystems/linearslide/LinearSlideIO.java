@@ -41,6 +41,8 @@ public interface LinearSlideIO {
 
   public default void setPosition(double position, double velocity) {}
 
+  public default void setExtendedPosition(double target) {}
+
   public default void setVoltage(double voltage) {}
 
   public default void resetPosition(double angle) {}

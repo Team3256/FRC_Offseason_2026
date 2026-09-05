@@ -27,7 +27,7 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
   // private final PositionVoltage positionRequest = new PositionVoltage(0).withSlot(0);
   private final DifferentialPositionVoltage positionRequest =
       new DifferentialPositionVoltage(0.0, LinearSlideConstants.differenceTarget)
-          .withAverageSlot(1)
+          .withAverageSlot(0)
           .withDifferentialSlot(2)
           .withEnableFOC(LinearSlideConstants.kUseFOC);
   // apparently target slot doesn't exist but it does in c++
@@ -120,17 +120,28 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
 
   @Override
   public void setPosition(double target) {
-    int averageSlot = isExtended() ? 1 : 0;
-    // uhhhh there is probably a better way to do this
+    differentialMechanism.setControl(
+        motionMagicRequest
+            // erroring .withTargetPosition(target) 
+            .withAverageSlot(0)
+            .withDifferentialPosition(LinearSlideConstants.differenceTarget));
+    differentialMechanism.setControl(
+        positionRequest
+            .withAverageSlot(0)
+            .withDifferentialPosition(LinearSlideConstants.differenceTarget));
+  }
+
+  @Override
+  public void setExtendedPosition(double target) {
     if (LinearSlideConstants.kUseMotionMagic) {
       differentialMechanism.setControl(
           motionMagicRequest
-              .withAverageSlot(averageSlot)
+              .withAverageSlot(1)
               .withDifferentialPosition(LinearSlideConstants.differenceTarget));
     } else {
       differentialMechanism.setControl(
           positionRequest
-              .withAverageSlot(averageSlot)
+              .withAverageSlot(1)
               .withDifferentialPosition(LinearSlideConstants.differenceTarget));
     }
   }
@@ -166,11 +177,4 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
     rightSlideMotor.setPosition(angle);
     leftSlideMotor.setPosition(angle);
   }
-
-  private boolean isExtended() {
-    return rightMotorPosition.getValueAsDouble() == LinearSlideConstants.intakePosition;
-  }
-
-  // check if position is at intakePosition and then if so set control motor configs
-
 }

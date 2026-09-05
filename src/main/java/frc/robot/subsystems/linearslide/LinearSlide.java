@@ -43,14 +43,26 @@ public class LinearSlide extends DisableSubsystem {
   }
 
   public Command setPosition(double position) {
-    return setPosition(() -> position);
+    return this.run(
+        () -> {
+          if (isExtended()) {
+            linearSlideIO.setExtendedPosition(position);
+          } else {
+            linearSlideIO.setPosition(position);
+          }
+        });
   }
 
   public Command setPosition(DoubleSupplier position) {
     return this.run(
         () -> {
-          reqPosition = position.getAsDouble();
-          linearSlideIO.setPosition(reqPosition);
+          if (isExtended()) {
+            reqPosition = position.getAsDouble();
+            linearSlideIO.setExtendedPosition(reqPosition);
+          } else {
+            reqPosition = position.getAsDouble();
+            linearSlideIO.setPosition(reqPosition);
+          }
         });
   }
 
@@ -88,5 +100,12 @@ public class LinearSlide extends DisableSubsystem {
   public boolean reachedPosition() {
     return Util.epsilonEquals(linearSlideIOInputsAutoLogged.rightMotorPosition, reqPosition, 0.01)
         && Util.epsilonEquals(linearSlideIOInputsAutoLogged.leftMotorPosition, reqPosition, 0.01);
+  }
+
+  private boolean isExtended() {
+    return Util.epsilonEquals(
+        linearSlideIOInputsAutoLogged.rightMotorPosition,
+        LinearSlideConstants.intakePosition,
+        0.01);
   }
 }
