@@ -70,11 +70,8 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
   private boolean m_hasAppliedOperatorPerspective = false;
 
   /** Swerve request to apply during field-centric path following */
-  private final SwerveRequest.ApplyFieldSpeeds m_pathApplyFieldSpeeds =
-      new SwerveRequest.ApplyFieldSpeeds()
-          .withDriveRequestType(SwerveModule.DriveRequestType.Velocity);
-
   private final PIDController xController = new PIDController(8.0, 0.0, 0);
+
   private final PIDController yController = new PIDController(8.0, 0.0, 0);
   private final PIDController headingController = new PIDController(5, 0, 0);
 
@@ -182,6 +179,10 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
   public AutoFactory createAutoFactory() {
     return createAutoFactory((sample, isStart) -> {});
   }
+
+  private final SwerveRequest.ApplyFieldSpeeds m_pathApplyFieldSpeeds =
+      new SwerveRequest.ApplyFieldSpeeds()
+          .withDriveRequestType(SwerveModule.DriveRequestType.Velocity);
 
   public void trajLogger(Trajectory<SwerveSample> sample, boolean isStart) {
     Logger.recordOutput(this.getClass().getSimpleName() + "/Choreo/TrajPoses", sample.getPoses());
