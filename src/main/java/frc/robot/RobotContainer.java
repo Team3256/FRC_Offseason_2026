@@ -25,6 +25,9 @@ import frc.robot.subsystems.intakerollers.IntakeRollerConstants;
 import frc.robot.subsystems.intakerollers.IntakeRollers;
 import frc.robot.subsystems.intakerollers.IntakeRollersIOSim;
 import frc.robot.subsystems.intakerollers.IntakeRollersIOTalonFX;
+import frc.robot.subsystems.linearslide.LinearSlide;
+import frc.robot.subsystems.linearslide.LinearSlideIOSim;
+import frc.robot.subsystems.linearslide.LinearSlideIOTalonFX;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.shooter.ShooterIOSim;
 import frc.robot.subsystems.shooter.ShooterIOTalonFX;
@@ -58,6 +61,9 @@ public class RobotContainer {
       new Indexer(true, Utils.isSimulation() ? new IndexerIOSim() : new IndexerIOTalonFX());
 
   /// sim file for intakepivot needs to be added -- seems like its not been merged yet
+  public final LinearSlide linearSlide =
+      new LinearSlide(
+          true, Utils.isSimulation() ? new LinearSlideIOSim() : new LinearSlideIOTalonFX());
 
   private AutoChooser autoChooser = new AutoChooser();
 

@@ -12,6 +12,7 @@ import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.Meters;
 
 import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
 import frc.robot.Constants;
+import frc.robot.subsystems.linearslide.LinearSlideConstants;
 
 public final class SimMechs {
 
@@ -73,6 +75,21 @@ public final class SimMechs {
           new MechanismLigament2d(
               "Shooter Wheel", Inches.of(4).in(Meters), 0.0, 4, new Color8Bit(Color.kPink)));
 
+  private final MechanismRoot2d linearSlideRoot =
+      mech.getRoot(
+          "Linear Slide",
+          Constants.SimulationConstants.kDrivebaseWidth.in(Meters) / 2,
+          LinearSlideConstants.LinearSlideSim.linearSlideMinLength.in(Meters));
+
+  private final MechanismLigament2d linearSlideViz =
+      linearSlideRoot.append(
+          new MechanismLigament2d(
+              "Linear Slide",
+              LinearSlideConstants.LinearSlideSim.linearSlideMinLength
+                  .plus(Inches.of(6))
+                  .in(Meters),
+              180));
+
   private static SimMechs instance = null;
 
   private SimMechs() {}
@@ -106,5 +123,9 @@ public final class SimMechs {
 
   public void updateShooterWheel(Angle delta) {
     shooterWheelViz.setAngle(shooterWheelViz.getAngle() + delta.in(Degrees));
+  }
+
+  public void updateLinearSlide(Distance height) {
+    linearSlideViz.setLength(height.in(Meters));
   }
 }
