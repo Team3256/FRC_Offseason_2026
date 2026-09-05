@@ -26,6 +26,10 @@ public interface LinearSlideIO {
     public double leftMotorStatorCurrent = 0.0;
     public double leftMotorSupplyCurrent = 0.0;
 
+    public String controlStatus = "";
+    public String disabledReason = "";
+    public String requiresUserReason = "";
+
     public double avgPosition = 0.0;
     public double diffPosition = 0.0;
   }

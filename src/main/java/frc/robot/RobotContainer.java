@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import static edu.wpi.first.units.Units.Inches;
+import static edu.wpi.first.units.Units.Meters;
+
 import choreo.auto.AutoChooser;
 import com.ctre.phoenix6.Utils;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
@@ -26,6 +29,7 @@ import frc.robot.subsystems.intakerollers.IntakeRollers;
 import frc.robot.subsystems.intakerollers.IntakeRollersIOSim;
 import frc.robot.subsystems.intakerollers.IntakeRollersIOTalonFX;
 import frc.robot.subsystems.linearslide.LinearSlide;
+import frc.robot.subsystems.linearslide.LinearSlideConstants;
 import frc.robot.subsystems.linearslide.LinearSlideIOSim;
 import frc.robot.subsystems.linearslide.LinearSlideIOTalonFX;
 import frc.robot.subsystems.shooter.Shooter;
@@ -85,6 +89,15 @@ public class RobotContainer {
   private void configureOperatorBinds() {
     RobotModeTriggers.teleop()
         .onTrue(intakeRollers.setVelocity(IntakeRollerConstants.kIntakeVoltage));
+
+    m_driverController
+        .a()
+        .onTrue(
+            linearSlide.setPosition(
+                Inches.of(15).in(Meters)
+                    / (2.0
+                        * Math.PI
+                        * LinearSlideConstants.LinearSlideSim.linearSlideDrumRadius.in(Meters))));
   }
 
   private void configureChoreoAutoChooser() {}

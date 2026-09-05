@@ -10,6 +10,7 @@ package frc.robot.subsystems.linearslide;
 import static edu.wpi.first.units.Units.*;
 
 import com.ctre.phoenix6.BaseStatusSignal;
+import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.controls.DifferentialMotionMagicVoltage;
 import com.ctre.phoenix6.controls.DifferentialPositionVoltage;
@@ -65,19 +66,9 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
           .withDifferentialSlot(2)
           .withEnableFOC(LinearSlideConstants.kUseFOC);
 
+  private StatusCode controlStatus = StatusCode.OK;
+
   public LinearSlideIOTalonFX() {
-    PhoenixUtil.applyMotorConfigs(
-        rightSlideMotor,
-        LinearSlideConstants.rightMotorConfigs,
-        LinearSlideConstants.flashConfigRetries);
-
-    PhoenixUtil.applyMotorConfigs(
-        leftSlideMotor,
-        LinearSlideConstants.leftMotorConfigs,
-        LinearSlideConstants.flashConfigRetries);
-
-    // apply configs is private in differentialmechanisms class???
-
     BaseStatusSignal.setUpdateFrequencyForAll(
         LinearSlideConstants.updateFrequency,
         rightMotorVoltage,
@@ -111,6 +102,11 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
 
   @Override
   public void updateInputs(LinearSlideIOInputs inputs) {
+    differentialMechanism.periodic();
+    inputs.controlStatus = controlStatus.toString();
+    inputs.disabledReason = differentialMechanism.getDisabledReason().toString();
+    inputs.requiresUserReason = differentialMechanism.getRequiresUserReason().toString();
+
     inputs.rightMotorVoltage = rightMotorVoltage.getValue().in(Volts);
     inputs.rightMotorVelocity = rightMotorVelocity.getValue().in(RotationsPerSecond);
     inputs.rightMotorPosition = rightMotorPosition.getValueAsDouble();
@@ -124,40 +120,44 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
     inputs.leftMotorSupplyCurrent = leftMotorSupplyCurrent.getValue().in(Amps);
 
     inputs.avgPosition = avgPosition.getValueAsDouble();
-    inputs.avgPosition = diffPosition.getValueAsDouble();
+    inputs.diffPosition = diffPosition.getValueAsDouble();
   }
 
   @Override
   public void setPosition(double target) {
     if (LinearSlideConstants.kUseMotionMagic) {
-      differentialMechanism.setControl(
-          motionMagicRequest
-              .withAveragePosition(target)
-              .withAverageSlot(0)
-              .withDifferentialPosition(LinearSlideConstants.differenceTarget));
+      controlStatus =
+          differentialMechanism.setControl(
+              motionMagicRequest
+                  .withAveragePosition(target)
+                  .withAverageSlot(0)
+                  .withDifferentialPosition(LinearSlideConstants.differenceTarget));
     } else {
-      differentialMechanism.setControl(
-          positionRequest
-              .withAveragePosition(target)
-              .withAverageSlot(0)
-              .withDifferentialPosition(LinearSlideConstants.differenceTarget));
+      controlStatus =
+          differentialMechanism.setControl(
+              positionRequest
+                  .withAveragePosition(target)
+                  .withAverageSlot(0)
+                  .withDifferentialPosition(LinearSlideConstants.differenceTarget));
     }
   }
 
   @Override
   public void setExtendedPosition(double target) {
     if (LinearSlideConstants.kUseMotionMagic) {
-      differentialMechanism.setControl(
-          motionMagicRequest
-              .withAveragePosition(target)
-              .withAverageSlot(1)
-              .withDifferentialPosition(LinearSlideConstants.differenceTarget));
+      controlStatus =
+          differentialMechanism.setControl(
+              motionMagicRequest
+                  .withAveragePosition(target)
+                  .withAverageSlot(1)
+                  .withDifferentialPosition(LinearSlideConstants.differenceTarget));
     } else {
-      differentialMechanism.setControl(
-          positionRequest
-              .withAveragePosition(target)
-              .withAverageSlot(1)
-              .withDifferentialPosition(LinearSlideConstants.differenceTarget));
+      controlStatus =
+          differentialMechanism.setControl(
+              positionRequest
+                  .withAveragePosition(target)
+                  .withAverageSlot(1)
+                  .withDifferentialPosition(LinearSlideConstants.differenceTarget));
     }
   }
 
@@ -173,13 +173,17 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
 
   @Override
   public void setVoltage(double volts) {
-    differentialMechanism.setControl(
-        voltageRequest
-            .withAverageOutput(volts)
-            .withDifferentialPosition(LinearSlideConstants.differenceTarget));
+    controlStatus =
+        differentialMechanism.setControl(
+            voltageRequest
+                .withAverageOutput(volts)
+                .withDifferentialPosition(LinearSlideConstants.differenceTarget));
   }
 
-  /* */
+  @Override
+  public void off() {
+    controlStatus = differentialMechanism.setNeutralOut();
+  }
 
   @Override
   public void zero() {

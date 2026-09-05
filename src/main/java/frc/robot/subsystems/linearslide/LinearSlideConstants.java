@@ -9,13 +9,7 @@ package frc.robot.subsystems.linearslide;
 
 import static edu.wpi.first.units.Units.*;
 
-import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
-import com.ctre.phoenix6.configs.FeedbackConfigs;
-import com.ctre.phoenix6.configs.MotionMagicConfigs;
-import com.ctre.phoenix6.configs.MotorOutputConfigs;
-import com.ctre.phoenix6.configs.Slot0Configs;
-import com.ctre.phoenix6.configs.Slot1Configs;
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.mechanisms.DifferentialMotorConstants;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -25,11 +19,11 @@ import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.Mass;
 
 public class LinearSlideConstants {
-  public static final int rightMotorID = 3;
-  public static final int leftMotorID = 4;
+  public static final int rightMotorID = 39;
+  public static final int leftMotorID = 40;
 
   public static final boolean kUseFOC = true;
-  public static final boolean kUseMotionMagic = true;
+  public static final boolean kUseMotionMagic = false;
   public static final int flashConfigRetries = 5;
   public static final double stowPosition = 0; // dk yet
   public static final double intakePosition = 0; // dk yet
@@ -46,7 +40,7 @@ public class LinearSlideConstants {
               new Slot0Configs()
                   .withKS(0.1)
                   .withKV(0.12)
-                  .withKP(10)
+                  .withKP(30)
                   .withKI(0)
                   .withKD(0)
                   .withKA(0)
@@ -56,19 +50,20 @@ public class LinearSlideConstants {
               new Slot1Configs()
                   .withKS(0)
                   .withKV(0)
-                  .withKP(0) // change
+                  .withKP(30) // change
                   .withKI(0)
                   .withKD(0) // change
                   .withKA(0)
                   .withKG(0))
+          .withSlot2(new Slot2Configs().withKP(4))
           .withMotorOutput(
               new MotorOutputConfigs()
                   .withNeutralMode(NeutralModeValue.Brake)
                   .withInverted(InvertedValue.Clockwise_Positive))
           .withMotionMagic(
               new MotionMagicConfigs()
-                  .withMotionMagicAcceleration(0)
-                  .withMotionMagicCruiseVelocity(0))
+                  .withMotionMagicAcceleration(100)
+                  .withMotionMagicCruiseVelocity(10))
           .withCurrentLimits(
               // how do u get these values actually i need to learn
               new CurrentLimitsConfigs()
@@ -78,11 +73,10 @@ public class LinearSlideConstants {
                   .withSupplyCurrentLimitEnable(true)
                   .withSupplyCurrentLowerTime(.1)
                   .withSupplyCurrentLowerLimit(20))
-          .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(85.46));
+          .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(30));
 
   public static final TalonFXConfiguration leftMotorConfigs =
-      new TalonFXConfiguration()
-          .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(85.46));
+      new TalonFXConfiguration().withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(30));
 
   public static final DifferentialMotorConstants<TalonFXConfiguration> differentialConstants =
       new DifferentialMotorConstants<TalonFXConfiguration>()
@@ -97,13 +91,11 @@ public class LinearSlideConstants {
   public static final class LinearSlideSim {
     public static final double slideSimGearing = 30;
 
-    public static final Distance linearSlideLength = Inches.of(10);
     public static final Distance linearSlideDrumRadius = Inches.of(10);
     // elevator sim parameter so i added it but claire doesn't know soooooooo
-    public static final Distance linearSlideMinLength = Inches.of(5);
-    public static final Distance linearSlideMaxLength = Inches.of(20);
-    public static final Mass LinearSlideMass = Kilograms.of(1);
-    public static final double jkGMetersSquared = 1;
-    public static final Distance startingHeight = Inches.of(12);
+    public static final Distance linearSlideMinLength = Meters.of(0);
+    public static final Distance linearSlideMaxLength = Meters.of(20);
+    public static final Mass carriageMass = Kilograms.of(.1);
+    public static final Distance startingHeight = linearSlideMinLength;
   }
 }
