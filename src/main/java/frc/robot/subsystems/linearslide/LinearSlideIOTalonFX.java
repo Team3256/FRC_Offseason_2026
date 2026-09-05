@@ -30,9 +30,13 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
           .withAverageSlot(0)
           .withDifferentialSlot(2)
           .withEnableFOC(LinearSlideConstants.kUseFOC);
-  // apparently target slot doesn't exist but it does in c++
-  private final TalonFX leftSlideMotor = new TalonFX(LinearSlideConstants.leftMotorID);
-  private final TalonFX rightSlideMotor = new TalonFX(LinearSlideConstants.rightMotorID);
+
+  private final SimpleDifferentialMechanism<TalonFX> differentialMechanism =
+      new SimpleDifferentialMechanism<TalonFX>(
+          TalonFX::new, LinearSlideConstants.differentialConstants);
+
+  private final TalonFX rightSlideMotor = differentialMechanism.getLeader();
+  private final TalonFX leftSlideMotor = differentialMechanism.getFollower();
 
   private final StatusSignal<Voltage> leftMotorVoltage = leftSlideMotor.getMotorVoltage();
   private final StatusSignal<AngularVelocity> leftMotorVelocity = leftSlideMotor.getVelocity();
@@ -45,10 +49,6 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
   private final StatusSignal<Angle> rightMotorPosition = rightSlideMotor.getPosition();
   private final StatusSignal<Current> rightMotorStatorCurrent = rightSlideMotor.getStatorCurrent();
   private final StatusSignal<Current> rightMotorSupplyCurrent = rightSlideMotor.getSupplyCurrent();
-
-  private final SimpleDifferentialMechanism<TalonFX> differentialMechanism =
-      new SimpleDifferentialMechanism<TalonFX>(
-          TalonFX::new, LinearSlideConstants.differentialConstants);
 
   // private final MotionMagicVoltage motionMagicRequest =
   // new MotionMagicVoltage(0).withSlot(0).withEnableFOC(LinearSlideConstants.kUseFOC);
