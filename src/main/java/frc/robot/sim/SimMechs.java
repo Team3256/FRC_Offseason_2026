@@ -7,7 +7,6 @@
 
 package frc.robot.sim;
 
-import static edu.wpi.first.units.Units.*;
 import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.Meters;
@@ -25,6 +24,17 @@ public final class SimMechs {
 
   public final Mechanism2d mech =
       new Mechanism2d(Constants.SimulationConstants.kDrivebaseWidth.in(Meters), 1.0);
+
+  private final MechanismRoot2d groundIntakeRoot =
+      mech.getRoot(
+          "Ground Intake",
+          Constants.SimulationConstants.kDrivebaseWidth.in(Meters) / 2 - 0.15,
+          Inches.of(2).in(Meters));
+
+  private final MechanismLigament2d groundIntakeRollerViz =
+      groundIntakeRoot.append(
+          new MechanismLigament2d(
+              "Intake Roller", Inches.of(2).in(Meters), 0.0, 3, new Color8Bit(Color.kRed)));
 
   private final MechanismRoot2d feederRoot =
       mech.getRoot(
@@ -72,6 +82,10 @@ public final class SimMechs {
       instance = new SimMechs();
     }
     return instance;
+  }
+
+  public void updateRollers(Angle x) {
+    groundIntakeRollerViz.setAngle(groundIntakeRollerViz.getAngle() + x.in(Degrees));
   }
 
   public void updateFeeder(Angle x) {
