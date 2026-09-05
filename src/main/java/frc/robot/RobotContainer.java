@@ -13,6 +13,8 @@ import static frc.robot.subsystems.swerve.SwerveConstants.*;
 import choreo.auto.AutoChooser;
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.swerve.SwerveRequest;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -33,6 +35,7 @@ import frc.robot.subsystems.shooter.ShooterIOTalonFX;
 import frc.robot.subsystems.shooterpivot.ShooterPivot;
 import frc.robot.subsystems.shooterpivot.ShooterPivotIOSim;
 import frc.robot.subsystems.shooterpivot.ShooterPivotIOTalonFX;
+import frc.robot.subsystems.sotm.ShotCalculator;
 import frc.robot.subsystems.swerve.CommandSwerveDrivetrain;
 import frc.robot.subsystems.swerve.SwerveConstants.AzimuthTargets;
 import frc.robot.subsystems.swerve.generated.TunerConstants;
@@ -65,6 +68,15 @@ public class RobotContainer {
       new Indexer(true, Utils.isSimulation() ? new IndexerIOSim() : new IndexerIOTalonFX());
 
   private final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+
+  private static final Transform2d robotToShooterTransform =
+      new Transform2d(0, 0, Rotation2d.kZero);
+
+  private final ShotCalculator shotCalculator =
+      new ShotCalculator(
+          () -> drivetrain.getState().Pose,
+          drivetrain::getFieldRelativeSpeeds,
+          robotToShooterTransform);
 
   /// sim file for intakepivot needs to be added -- seems like its not been merged yet
 
@@ -103,6 +115,18 @@ public class RobotContainer {
 
     SmartDashboard.putData("Auto Visualizer", autoVisualizer);
     SmartDashboard.putData("Field Visualize", field2d);
+  }
+
+  private double vxSupplier() {
+    return -(Math.signum(m_driverController.getLeftY())
+            * Math.pow(m_driverController.getLeftY(), 2))
+        * MaxSpeed;
+  }
+
+  private double vySupplier() {
+    return -(Math.signum(m_driverController.getLeftX())
+            * Math.pow(m_driverController.getLeftX(), 2))
+        * MaxSpeed;
   }
 
   private void configureSwerve() {
@@ -165,9 +189,15 @@ public class RobotContainer {
 
     m_driverController.povRight().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
     drivetrain.registerTelemetry(logger::telemeterize);
+
+    m_driverController
+        .a()
+        .whileTrue(
+            drivetrain.rotateToLookahead(shotCalculator, this::vxSupplier, this::vySupplier));
   }
 
   public void periodic() {
     field2d.setRobotPose(drivetrain.getState().Pose);
+    shotCalculator.periodic();
   }
 }
