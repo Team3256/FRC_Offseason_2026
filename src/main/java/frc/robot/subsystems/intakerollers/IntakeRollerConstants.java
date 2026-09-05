@@ -45,8 +45,10 @@ public class IntakeRollerConstants {
   // these aren't updated (motor configs.withCurrentLimits")
 
   public static final class SimulationConstants {
-    public static double rollerGearingRatio = 1;
-    public static double rollerMomentOfInertia = 0.1;
+
+    public static double rollerGearingRatio = 2.0; // 2:1 gearing ratio from motor to roller
+    public static double rollerMomentOfInertia = 2.227;
+
     // above two not updated
 
     // Scale down the angular velocity so we can actually see what is happening
