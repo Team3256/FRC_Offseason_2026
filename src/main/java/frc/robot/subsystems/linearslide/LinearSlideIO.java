@@ -25,6 +25,9 @@ public interface LinearSlideIO {
     public double leftMotorPosition = 0.0;
     public double leftMotorStatorCurrent = 0.0;
     public double leftMotorSupplyCurrent = 0.0;
+
+    public double avgPosition = 0.0;
+    public double diffPosition = 0.0;
   }
 
   public default TalonFX getRightMotor() {

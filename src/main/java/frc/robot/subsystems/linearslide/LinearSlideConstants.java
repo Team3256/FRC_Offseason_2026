@@ -25,8 +25,8 @@ import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.Mass;
 
 public class LinearSlideConstants {
-  public static final int rightMotorID = 0;
-  public static final int leftMotorID = 0;
+  public static final int rightMotorID = 3;
+  public static final int leftMotorID = 4;
 
   public static final boolean kUseFOC = true;
   public static final boolean kUseMotionMagic = true;
@@ -40,7 +40,7 @@ public class LinearSlideConstants {
   public static final double differenceTarget = 0.0;
   // get when tuning
   public static double updateFrequency = 50;
-  public static final TalonFXConfiguration rightMotorConfigs =
+  public static final TalonFXConfiguration rightMotorConfigs = // leader
       new TalonFXConfiguration()
           .withSlot0(
               new Slot0Configs()
@@ -82,41 +82,6 @@ public class LinearSlideConstants {
 
   public static final TalonFXConfiguration leftMotorConfigs =
       new TalonFXConfiguration()
-          .withSlot0(
-              new Slot0Configs()
-                  .withKS(0.1)
-                  .withKV(0.12)
-                  .withKP(10)
-                  .withKI(0)
-                  .withKD(0)
-                  .withKA(0)
-                  .withKG(0.3)
-                  .withGravityType(GravityTypeValue.Elevator_Static))
-          .withSlot1(
-              new Slot1Configs()
-                  .withKS(0)
-                  .withKV(0)
-                  .withKP(0) // change
-                  .withKI(0)
-                  .withKD(0) // change
-                  .withKA(0)
-                  .withKG(0))
-          .withMotorOutput(
-              new MotorOutputConfigs()
-                  .withNeutralMode(NeutralModeValue.Brake)
-                  .withInverted(InvertedValue.Clockwise_Positive))
-          .withMotionMagic(
-              new MotionMagicConfigs()
-                  .withMotionMagicAcceleration(0)
-                  .withMotionMagicCruiseVelocity(0))
-          .withCurrentLimits(
-              new CurrentLimitsConfigs()
-                  .withStatorCurrentLimitEnable(true)
-                  .withStatorCurrentLimit(40)
-                  .withSupplyCurrentLimit(50)
-                  .withSupplyCurrentLimitEnable(true)
-                  .withSupplyCurrentLowerTime(.1)
-                  .withSupplyCurrentLowerLimit(20))
           .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(85.46));
 
   public static final DifferentialMotorConstants<TalonFXConfiguration> differentialConstants =
@@ -124,10 +89,10 @@ public class LinearSlideConstants {
           .withLeaderId(LinearSlideConstants.rightMotorID) // or whichever side is leader
           .withFollowerId(LinearSlideConstants.leftMotorID)
           .withAlignment(MotorAlignmentValue.Aligned)
-          .withSensorToDifferentialRatio(
-              1.0) // set to actual diff gear ratio <-- idk what this is im so srory
+          .withSensorToDifferentialRatio(1.0) // set to actual diff gear ratio <-- idk what this
           .withLeaderInitialConfigs(rightMotorConfigs)
-          .withFollowerInitialConfigs(leftMotorConfigs);
+          .withFollowerInitialConfigs(leftMotorConfigs)
+          .withFollowerUsesCommonLeaderConfigs(true);
 
   public static final class LinearSlideSim {
     public static final double slideSimGearing = 30;

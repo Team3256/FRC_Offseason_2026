@@ -50,8 +50,10 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
   private final StatusSignal<Current> rightMotorStatorCurrent = rightSlideMotor.getStatorCurrent();
   private final StatusSignal<Current> rightMotorSupplyCurrent = rightSlideMotor.getSupplyCurrent();
 
-  // private final MotionMagicVoltage motionMagicRequest =
-  // new MotionMagicVoltage(0).withSlot(0).withEnableFOC(LinearSlideConstants.kUseFOC);
+  private final StatusSignal<Angle> avgPosition = differentialMechanism.getAveragePosition();
+  private final StatusSignal<Angle> diffPosition = differentialMechanism.getDifferentialPosition();
+  // do you want me to keep it as var
+
   private final DifferentialMotionMagicVoltage motionMagicRequest =
       new DifferentialMotionMagicVoltage(0.0, LinearSlideConstants.differenceTarget)
           .withAverageSlot(0)
@@ -87,7 +89,9 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
         leftMotorVelocity,
         leftMotorPosition,
         leftMotorStatorCurrent,
-        leftMotorSupplyCurrent);
+        leftMotorSupplyCurrent,
+        avgPosition,
+        diffPosition);
 
     PhoenixUtil.registerSignals(
         false,
@@ -100,7 +104,9 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
         leftMotorVelocity,
         leftMotorPosition,
         leftMotorStatorCurrent,
-        leftMotorSupplyCurrent);
+        leftMotorSupplyCurrent,
+        avgPosition,
+        diffPosition);
   }
 
   @Override
@@ -116,20 +122,26 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
     inputs.leftMotorPosition = leftMotorPosition.getValueAsDouble();
     inputs.leftMotorStatorCurrent = leftMotorStatorCurrent.getValue().in(Amps);
     inputs.leftMotorSupplyCurrent = leftMotorSupplyCurrent.getValue().in(Amps);
+
+    inputs.avgPosition = avgPosition.getValueAsDouble();
+    inputs.avgPosition = diffPosition.getValueAsDouble();
   }
 
   @Override
   public void setPosition(double target) {
-    differentialMechanism.setControl(
-        motionMagicRequest
-            .withAveragePosition(target)
-            .withAverageSlot(0)
-            .withDifferentialPosition(LinearSlideConstants.differenceTarget));
-    differentialMechanism.setControl(
-        positionRequest
-            .withAveragePosition(target)
-            .withAverageSlot(0)
-            .withDifferentialPosition(LinearSlideConstants.differenceTarget));
+    if (LinearSlideConstants.kUseMotionMagic) {
+      differentialMechanism.setControl(
+          motionMagicRequest
+              .withAveragePosition(target)
+              .withAverageSlot(0)
+              .withDifferentialPosition(LinearSlideConstants.differenceTarget));
+    } else {
+      differentialMechanism.setControl(
+          positionRequest
+              .withAveragePosition(target)
+              .withAverageSlot(0)
+              .withDifferentialPosition(LinearSlideConstants.differenceTarget));
+    }
   }
 
   @Override
