@@ -34,6 +34,7 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.subsystems.sotm.ShotCalculator;
 import frc.robot.subsystems.swerve.generated.TunerConstants;
 import frc.robot.subsystems.swerve.generated.TunerConstants.TunerSwerveDrivetrain;
 import frc.robot.utils.LoggedTracer;
@@ -184,6 +185,24 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
 
   public void trajLogger(Trajectory<SwerveSample> sample, boolean isStart) {
     Logger.recordOutput(this.getClass().getSimpleName() + "/Choreo/TrajPoses", sample.getPoses());
+  }
+
+  public Command rotateToLookahead(
+      ShotCalculator shotCalculator, DoubleSupplier vxSupplier, DoubleSupplier vySupplier) {
+    headingController.enableContinuousInput(-Math.PI, Math.PI);
+    headingController.setTolerance(Math.toRadians(1));
+    return run(() -> {
+          double omega =
+              headingController.calculate(
+                  getState().Pose.getRotation().getRadians(),
+                  shotCalculator.getDriveAngle().getRadians());
+          Logger.recordOutput("AutoAlign/TargetAngle", shotCalculator.getDriveAngle());
+          Logger.recordOutput("AutoAlign/Running", true);
+          setControl(
+              m_pathApplyFieldSpeeds.withSpeeds(
+                  new ChassisSpeeds(vxSupplier.getAsDouble(), vySupplier.getAsDouble(), omega)));
+        })
+        .finallyDo(() -> Logger.recordOutput("AutoAlign/Running", false));
   }
 
   /**
