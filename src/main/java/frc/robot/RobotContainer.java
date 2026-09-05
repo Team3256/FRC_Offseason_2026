@@ -9,10 +9,10 @@ package frc.robot;
 
 import choreo.auto.AutoChooser;
 import com.ctre.phoenix6.Utils;
-import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.sim.SimMechs;
 import frc.robot.subsystems.feeder.Feeder;
@@ -24,6 +24,10 @@ import frc.robot.subsystems.indexer.IndexerIOTalonFX;
 import frc.robot.subsystems.linearslide.LinearSlide;
 import frc.robot.subsystems.linearslide.LinearSlideIOSim;
 import frc.robot.subsystems.linearslide.LinearSlideIOTalonFX;
+import frc.robot.subsystems.intakerollers.IntakeRollerConstants;
+import frc.robot.subsystems.intakerollers.IntakeRollers;
+import frc.robot.subsystems.intakerollers.IntakeRollersIOSim;
+import frc.robot.subsystems.intakerollers.IntakeRollersIOTalonFX;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.shooter.ShooterIOSim;
 import frc.robot.subsystems.shooter.ShooterIOTalonFX;
@@ -42,6 +46,20 @@ public class RobotContainer {
   public final MappedXboxController m_operatorController =
       new MappedXboxController(ControllerConstants.kOperatorControllerPort, "Operator");
 
+  private final IntakeRollers intakeRollers =
+      new IntakeRollers(
+          true, Utils.isSimulation() ? new IntakeRollersIOSim() : new IntakeRollersIOTalonFX());
+
+  private final Shooter shooter =
+      new Shooter(true, Utils.isSimulation() ? new ShooterIOSim() : new ShooterIOTalonFX());
+  private final ShooterPivot shooterPivot =
+      new ShooterPivot(
+          true, Utils.isSimulation() ? new ShooterPivotIOSim() : new ShooterPivotIOTalonFX());
+  private final Feeder feeder =
+      new Feeder(true, Utils.isSimulation() ? new FeederIOSim() : new FeederIOTalonFX());
+  private final Indexer indexer =
+      new Indexer(true, Utils.isSimulation() ? new IndexerIOSim() : new IndexerIOTalonFX());
+
   /// sim file for intakepivot needs to be added -- seems like its not been merged yet
   public final LinearSlide linearSlide =
       new LinearSlide(
@@ -54,15 +72,8 @@ public class RobotContainer {
   private SendableChooser<AutoConfig> autoVisualizer = new SendableChooser<AutoConfig>();
   private Field2d field2d = new Field2d();
 
-  private final Shooter shooter =
-      new Shooter(true, Utils.isSimulation() ? new ShooterIOSim() : new ShooterIOTalonFX());
-  private final ShooterPivot shooterPivot =
-      new ShooterPivot(
-          true, Utils.isSimulation() ? new ShooterPivotIOSim() : new ShooterPivotIOTalonFX());
-
   public RobotContainer() {
 
-    configureSwerve();
     configureChoreoAutoChooser();
     configureOperatorBinds();
     configureAutoVisualizer();
@@ -71,15 +82,9 @@ public class RobotContainer {
     }
   }
 
-  private final Feeder feeder =
-      new Feeder(true, Utils.isSimulation() ? new FeederIOSim() : new FeederIOTalonFX());
-
-  private final Indexer indexer =
-      new Indexer(true, Utils.isSimulation() ? new IndexerIOSim() : new IndexerIOTalonFX());
-
   private void configureOperatorBinds() {
-    // TODO UPDATE W real BINDINGS
-
+    RobotModeTriggers.teleop()
+        .onTrue(intakeRollers.setVelocity(IntakeRollerConstants.kIntakeVoltage));
   }
 
   private void configureChoreoAutoChooser() {}
@@ -97,10 +102,6 @@ public class RobotContainer {
 
     SmartDashboard.putData("Auto Visualizer", autoVisualizer);
     SmartDashboard.putData("Field Visualize", field2d);
-  }
-
-  private void configureSwerve() {
-    SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric();
   }
 
   public void periodic() {}
