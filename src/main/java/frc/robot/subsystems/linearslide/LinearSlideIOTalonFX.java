@@ -65,7 +65,7 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
           .withDifferentialSlot(2)
           .withEnableFOC(LinearSlideConstants.kUseFOC);
 
-  public StatusCode statusCode = StatusCode.OK;
+  public StatusCode controlStatus = StatusCode.OK;
 
   public LinearSlideIOTalonFX() {
 
@@ -102,7 +102,11 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
 
   @Override
   public void updateInputs(LinearSlideIOInputs inputs) {
-    inputs.statusCode = statusCode.getDescription();
+
+    inputs.controlStatus = controlStatus.getDescription();
+    inputs.disabledReason = differentialMechanism.getDisabledReason().toString();
+    inputs.requiresUserReason = differentialMechanism.getRequiresUserReason().toString();
+    
     inputs.rightMotorVoltage = rightMotorVoltage.getValue().in(Volts);
     inputs.rightMotorVelocity = rightMotorVelocity.getValue().in(RotationsPerSecond);
     inputs.rightMotorPosition = rightMotorPosition.getValueAsDouble();

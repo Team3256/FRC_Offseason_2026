@@ -26,8 +26,8 @@ import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.Mass;
 
 public class LinearSlideConstants {
-  public static final int rightMotorID = 3;
-  public static final int leftMotorID = 4;
+  public static final int rightMotorID = 17;
+  public static final int leftMotorID = 18;
 
   public static final boolean kUseFOC = true;
   public static final boolean kUseMotionMagic = true;
