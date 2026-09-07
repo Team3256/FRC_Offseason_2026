@@ -9,6 +9,7 @@ package frc.robot.subsystems.linearslide;
 
 import static edu.wpi.first.units.Units.*;
 
+import com.ctre.phoenix6.sim.ChassisReference;
 import com.ctre.phoenix6.sim.TalonFXSimState;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.RobotController;
@@ -26,19 +27,21 @@ public class LinearSlideIOSim extends LinearSlideIOTalonFX {
 
   private final ElevatorSim slideSimModel =
       new ElevatorSim(
-          DCMotor.getKrakenX60(2),
+          DCMotor.getKrakenX44(2),
           LinearSlideConstants.LinearSlideSim.slideSimGearing,
-          LinearSlideConstants.LinearSlideSim.jkGMetersSquared,
+          LinearSlideConstants.LinearSlideSim.LinearSlideMass.in(Kilograms),
           LinearSlideConstants.LinearSlideSim.linearSlideDrumRadius.in(Meters),
           LinearSlideConstants.LinearSlideSim.linearSlideMinLength.in(Meters),
           LinearSlideConstants.LinearSlideSim.linearSlideMaxLength.in(Meters),
-          true,
+          false,
           LinearSlideConstants.LinearSlideSim.startingHeight.in(Meters));
 
   public LinearSlideIOSim() {
     super();
     this.rightMotorSim = super.getRightMotor().getSimState();
     this.leftMotorSim = super.getLeftMotor().getSimState();
+    rightMotorSim.Orientation = ChassisReference.Clockwise_Positive;
+    leftMotorSim.Orientation = ChassisReference.Clockwise_Positive;
     // slideSimState.Orientation = ChassisReference.Clockwise_Positive;
   }
 
@@ -47,8 +50,9 @@ public class LinearSlideIOSim extends LinearSlideIOTalonFX {
     rightMotorSim.setSupplyVoltage(RobotController.getBatteryVoltage());
     leftMotorSim.setSupplyVoltage(RobotController.getBatteryVoltage());
 
-    slideSimModel.setInputVoltage(rightMotorSim.getMotorVoltage());
-    slideSimModel.setInputVoltage(leftMotorSim.getMotorVoltage());
+    slideSimModel.setInputVoltage(
+        (rightMotorSim.getMotorVoltage() + leftMotorSim.getMotorVoltage()) / 2.0);
+
     slideSimModel.update(TimedRobot.kDefaultPeriod);
 
     rightMotorSim.setRawRotorPosition(

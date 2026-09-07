@@ -13,7 +13,7 @@ import org.littletonrobotics.junction.AutoLog;
 public interface LinearSlideIO {
   @AutoLog
   public class LinearSlideIOInputs {
-
+    public String statusCode = "";
     public double rightMotorVoltage = 0.0;
     public double rightMotorVelocity = 0.0;
     public double rightMotorPosition = 0.0;

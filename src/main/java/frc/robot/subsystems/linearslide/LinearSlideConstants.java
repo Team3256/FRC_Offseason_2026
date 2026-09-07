@@ -15,12 +15,13 @@ import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.Slot1Configs;
+import com.ctre.phoenix6.configs.Slot2Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.mechanisms.DifferentialMotorConstants;
-import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.Mass;
 
@@ -45,15 +46,24 @@ public class LinearSlideConstants {
           .withSlot0(
               new Slot0Configs()
                   .withKS(0.1)
-                  .withKV(0.12)
-                  .withKP(10)
+                  .withKV(1.5)
+                  .withKP(20)
                   .withKI(0)
                   .withKD(0)
-                  .withKA(0)
-                  .withKG(0.3)
-                  .withGravityType(GravityTypeValue.Elevator_Static))
+                  .withKA(0.41)
+                  .withKG(0))
+          // .withGravityType(GravityTypeValue.Elevator_Static))
           .withSlot1(
               new Slot1Configs()
+                  .withKS(0)
+                  .withKV(0)
+                  .withKP(10) // change
+                  .withKI(0)
+                  .withKD(5) // change
+                  .withKA(0)
+                  .withKG(0))
+          .withSlot2(
+              new Slot2Configs()
                   .withKS(0)
                   .withKV(0)
                   .withKP(0) // change
@@ -67,8 +77,8 @@ public class LinearSlideConstants {
                   .withInverted(InvertedValue.Clockwise_Positive))
           .withMotionMagic(
               new MotionMagicConfigs()
-                  .withMotionMagicAcceleration(0)
-                  .withMotionMagicCruiseVelocity(0))
+                  .withMotionMagicAcceleration(30)
+                  .withMotionMagicCruiseVelocity(30))
           .withCurrentLimits(
               // how do u get these values actually i need to learn
               new CurrentLimitsConfigs()
@@ -78,11 +88,10 @@ public class LinearSlideConstants {
                   .withSupplyCurrentLimitEnable(true)
                   .withSupplyCurrentLowerTime(.1)
                   .withSupplyCurrentLowerLimit(20))
-          .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(85.46));
+          .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(6));
 
   public static final TalonFXConfiguration leftMotorConfigs =
-      new TalonFXConfiguration()
-          .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(85.46));
+      new TalonFXConfiguration().withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(6));
 
   public static final DifferentialMotorConstants<TalonFXConfiguration> differentialConstants =
       new DifferentialMotorConstants<TalonFXConfiguration>()
@@ -95,15 +104,24 @@ public class LinearSlideConstants {
           .withFollowerUsesCommonLeaderConfigs(true);
 
   public static final class LinearSlideSim {
-    public static final double slideSimGearing = 30;
+    public static final double slideSimGearing = 6.67;
 
     public static final Distance linearSlideLength = Inches.of(10);
-    public static final Distance linearSlideDrumRadius = Inches.of(10);
+    public static final Distance linearSlideDrumRadius = Inches.of(3);
     // elevator sim parameter so i added it but claire doesn't know soooooooo
     public static final Distance linearSlideMinLength = Inches.of(5);
     public static final Distance linearSlideMaxLength = Inches.of(20);
     public static final Mass LinearSlideMass = Kilograms.of(1);
-    public static final double jkGMetersSquared = 1;
-    public static final Distance startingHeight = Inches.of(12);
+    public static final double jkGMetersSquared = 10;
+    public static final Distance startingHeight = Inches.of(1);
+
+    public static Distance convertRotationsToMeters(Angle rotations) {
+      return LinearSlideSim.linearSlideDrumRadius.times(2 * Math.PI * rotations.in(Rotations));
+    }
+
+    public static double convertMetersToRotations(double dist) {
+      return Inches.of(dist).in(Meters)
+          / (LinearSlideSim.linearSlideDrumRadius.in(Meters) * (2 * Math.PI));
+    }
   }
 }

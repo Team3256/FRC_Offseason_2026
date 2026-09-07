@@ -10,6 +10,7 @@ package frc.robot.subsystems.linearslide;
 import static edu.wpi.first.units.Units.*;
 
 import com.ctre.phoenix6.BaseStatusSignal;
+import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.controls.DifferentialMotionMagicVoltage;
 import com.ctre.phoenix6.controls.DifferentialPositionVoltage;
@@ -52,7 +53,6 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
 
   private final StatusSignal<Angle> avgPosition = differentialMechanism.getAveragePosition();
   private final StatusSignal<Angle> diffPosition = differentialMechanism.getDifferentialPosition();
-  // do you want me to keep it as var
 
   private final DifferentialMotionMagicVoltage motionMagicRequest =
       new DifferentialMotionMagicVoltage(0.0, LinearSlideConstants.differenceTarget)
@@ -65,18 +65,9 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
           .withDifferentialSlot(2)
           .withEnableFOC(LinearSlideConstants.kUseFOC);
 
+  public StatusCode statusCode = StatusCode.OK;
+
   public LinearSlideIOTalonFX() {
-    PhoenixUtil.applyMotorConfigs(
-        rightSlideMotor,
-        LinearSlideConstants.rightMotorConfigs,
-        LinearSlideConstants.flashConfigRetries);
-
-    PhoenixUtil.applyMotorConfigs(
-        leftSlideMotor,
-        LinearSlideConstants.leftMotorConfigs,
-        LinearSlideConstants.flashConfigRetries);
-
-    // apply configs is private in differentialmechanisms class???
 
     BaseStatusSignal.setUpdateFrequencyForAll(
         LinearSlideConstants.updateFrequency,
@@ -111,6 +102,7 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
 
   @Override
   public void updateInputs(LinearSlideIOInputs inputs) {
+    inputs.statusCode = statusCode.getDescription();
     inputs.rightMotorVoltage = rightMotorVoltage.getValue().in(Volts);
     inputs.rightMotorVelocity = rightMotorVelocity.getValue().in(RotationsPerSecond);
     inputs.rightMotorPosition = rightMotorPosition.getValueAsDouble();
