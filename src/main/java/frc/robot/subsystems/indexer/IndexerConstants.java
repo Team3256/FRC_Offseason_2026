@@ -18,8 +18,8 @@ public class IndexerConstants {
 
   public static final boolean KUseFOC = true;
 
-  public static final int indexerMotorLeft = 1;
-  public static final int indexerMotorRight = 2;
+  public static final int indexerMotorLeft = 3;
+  public static final int indexerMotorRight = 4;
 
   public static double updateFrequency = 50;
 
