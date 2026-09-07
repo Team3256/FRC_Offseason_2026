@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.sim.SimMechs;
+import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.feeder.Feeder;
 import frc.robot.subsystems.feeder.FeederIOSim;
 import frc.robot.subsystems.feeder.FeederIOTalonFX;
@@ -35,6 +36,7 @@ import frc.robot.subsystems.shooter.ShooterIOTalonFX;
 import frc.robot.subsystems.shooterpivot.ShooterPivot;
 import frc.robot.subsystems.shooterpivot.ShooterPivotIOSim;
 import frc.robot.subsystems.shooterpivot.ShooterPivotIOTalonFX;
+import frc.robot.subsystems.sotm.ShotCalculator;
 import frc.robot.subsystems.sotm.ShotCalculator;
 import frc.robot.subsystems.swerve.CommandSwerveDrivetrain;
 import frc.robot.subsystems.swerve.SwerveConstants.AzimuthTargets;
@@ -87,6 +89,8 @@ public class RobotContainer {
   private SendableChooser<AutoConfig> autoVisualizer = new SendableChooser<AutoConfig>();
   private Field2d field2d = new Field2d();
 
+  private final Superstructure superstructure = new Superstructure(indexer, shooterPivot, shooter, intakeRollers, feeder, shotCalculator, shotCalculator.getRobotPoseSupplier());
+
   public RobotContainer() {
 
     configureChoreoAutoChooser();
@@ -98,7 +102,9 @@ public class RobotContainer {
     }
   }
 
-  private void configureOperatorBinds() {}
+  private void configureOperatorBinds() {
+    m_operatorController.b().onTrue(superstructure.setState(Superstructure.StructureState.CANCEL_ALL));
+  }
 
   private void configureChoreoAutoChooser() {}
 
