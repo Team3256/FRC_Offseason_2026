@@ -41,7 +41,6 @@ public class Superstructure {
     SHOOT_AND_INTAKE,
     REV_AND_INTAKE,
     JITTER,
-    JITTER_AND_INTAKE,
     JITTER_AND_SHOOT,
   }
 
@@ -119,13 +118,13 @@ public class Superstructure {
 
     targetBlueHub.or(targetRedHub).onTrue(this.setState(StructureState.REV));
 
-    targetBlueHub
-        .or(targetRedHub)
+    (targetBlueHub
+        .or(targetRedHub))
         .negate()
         .and(stateTriggers.get(StructureState.REV))
         .onTrue(this.setState(StructureState.IDLE));
-    targetBlueHub
-        .or(targetRedHub)
+    (targetBlueHub
+        .or(targetRedHub))
         .negate()
         .and(stateTriggers.get(StructureState.REV_AND_INTAKE))
         .onTrue(this.setState(StructureState.INTAKE));
@@ -179,17 +178,12 @@ public class Superstructure {
             stateTriggers
                 .get(StructureState.SHOOT)
                 .and(prevStateTriggers.get(StructureState.REV_AND_INTAKE)))
-        .or(
-            stateTriggers
-                .get(StructureState.SHOOT)
-                .and(prevStateTriggers.get(StructureState.JITTER_AND_INTAKE)))
         .onTrue(this.setState(StructureState.SHOOT_AND_INTAKE));
 
     stateTriggers
         .get(StructureState.INTAKE)
         .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
         .or(stateTriggers.get(StructureState.REV_AND_INTAKE))
-        .or(stateTriggers.get(StructureState.JITTER_AND_INTAKE))
         .onTrue(intakeRollers.setVoltage(8));
         //.onTrue(linearSlide.goToGroundIntake());
 
@@ -209,19 +203,23 @@ public class Superstructure {
         .onTrue(intakeRollers.off())
         //.onTrue(linearSlide.off())
         .onTrue(shooter.off())
-        .onTrue(shooterPivot.off())
         .onTrue(indexer.off())
         .onTrue(feeder.off());
 
     stateTriggers
         .get(StructureState.HOME)
         //.onTrue(linearSlide.goToStow())
-        .onTrue(shooterPivot.setPosition(0));
+        .onTrue(shooterPivot.setPosition(0))
+            .onTrue(shooter.off())
+            .onTrue(intakeRollers.off())
+            .onTrue(indexer.off())
+            .onTrue(feeder.off());
+
+
 
     stateTriggers
         .get(StructureState.JITTER)
-        .or(stateTriggers.get(StructureState.JITTER_AND_SHOOT))
-        .or(stateTriggers.get(StructureState.JITTER_AND_INTAKE));
+        .or(stateTriggers.get(StructureState.JITTER_AND_SHOOT));
         //.onTrue(linearSlide.jitterIntake());
 
     stateTriggers
@@ -230,11 +228,8 @@ public class Superstructure {
             prevStateTriggers
                 .get(StructureState.SHOOT)
                 .or(prevStateTriggers.get(StructureState.SHOOT_AND_INTAKE)))
+            .or((stateTriggers.get(StructureState.SHOOT).or(prevStateTriggers.get(StructureState.SHOOT_AND_INTAKE))).and(prevStateTriggers.get(StructureState.JITTER)))
         .onTrue(this.setState(StructureState.JITTER_AND_SHOOT));
-    stateTriggers
-        .get(StructureState.JITTER)
-        .and(prevStateTriggers.get(StructureState.INTAKE))
-        .onTrue(this.setState(StructureState.JITTER_AND_INTAKE));
 
     stateTriggers
         .get(StructureState.REV)
@@ -256,7 +251,6 @@ public class Superstructure {
         .or(stateTriggers.get(StructureState.REV))
         .or(stateTriggers.get(StructureState.REV_AND_INTAKE))
         .or(stateTriggers.get(StructureState.JITTER))
-        .or(stateTriggers.get(StructureState.JITTER_AND_INTAKE))
         .onTrue(shooterPivot.setPosition(0));
   }
 
@@ -293,11 +287,11 @@ public class Superstructure {
         .equals(DriverStation.Alliance.Blue);
   }
 
-  private boolean targetBlueHub() {
+  public boolean targetBlueHub() {
     return (robotPoseSupplier.get().getX() < 4 && getAllianceBlue());
   }
 
-  private boolean targetRedHub() {
+  public boolean targetRedHub() {
     return (robotPoseSupplier.get().getX() > 12.5 && !getAllianceBlue());
   }
 
@@ -311,6 +305,7 @@ public class Superstructure {
           this.prevState = this.state == state ? this.prevState : this.state;
           this.state = state;
           this.stateTimer.restart();
+          System.out.println(prevState.toString() + "->" + state.toString());
         });
   }
 

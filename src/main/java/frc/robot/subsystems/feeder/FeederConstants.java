@@ -55,7 +55,7 @@ public class FeederConstants {
 
   public static final class SimulationConstants {
     public static double rollerGearingRatio = 1.0;
-    public static double rollerMomentOfInertia = 1.0;
-    public static double kAngularVelocityScalar = 10.0;
+    public static double rollerMomentOfInertia = 0.03;
+    public static double kAngularVelocityScalar = 1;
   }
 }

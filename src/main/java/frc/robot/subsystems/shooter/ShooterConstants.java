@@ -36,7 +36,7 @@ public final class ShooterConstants {
   public static TalonFXConfiguration motorConfigs =
       new TalonFXConfiguration()
           .withSlot0(
-              new Slot0Configs().withKS(0.2).withKV(.12).withKA(0).withKP(.4).withKI(0).withKD(0))
+              new Slot0Configs().withKS(0).withKV(.12).withKA(0).withKP(.1).withKI(0).withKD(0))
           // For regenerative braking
           .withMotorOutput(
               new MotorOutputConfigs()
@@ -95,7 +95,7 @@ public final class ShooterConstants {
 
   public static final class SimulationConstants {
     public static double kLeftGearingRatio = 1; // TODO: Update this value
-    public static double kLeftMomentOfInertia = 0.01; // TODO: Update this value
+    public static double kLeftMomentOfInertia = 0.001; // TODO: Update this value
     public static double kAngularVelocityScalar = .03;
   }
 
