@@ -44,7 +44,9 @@ public class LinearSlide extends DisableSubsystem {
 
   public Command setPosition(double position) {
     return this.run(
+        
         () -> {
+            reqPosition = position;
           if (isExtended()) {
             linearSlideIO.setExtendedPosition(position);
           } else {

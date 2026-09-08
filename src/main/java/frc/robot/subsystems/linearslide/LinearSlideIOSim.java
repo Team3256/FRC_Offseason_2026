@@ -56,17 +56,31 @@ public class LinearSlideIOSim extends LinearSlideIOTalonFX {
     slideSimModel.update(TimedRobot.kDefaultPeriod);
 
     rightMotorSim.setRawRotorPosition(
-        slideSimModel.getPositionMeters() * LinearSlideConstants.LinearSlideSim.slideSimGearing);
+        slideSimModel.getPositionMeters() * (LinearSlideConstants.LinearSlideSim.slideSimGearing/ (2.0
+                * Math.PI
+                * LinearSlideConstants.LinearSlideSim.linearSlideDrumRadius.in(Meters))));
     rightMotorSim.setRotorVelocity(
-        slideSimModel.getVelocityMetersPerSecond()
-            * LinearSlideConstants.LinearSlideSim.slideSimGearing);
+        slideSimModel.getVelocityMetersPerSecond() *
+            (LinearSlideConstants.LinearSlideSim.slideSimGearing/ (2.0
+                * Math.PI
+                * LinearSlideConstants.LinearSlideSim.linearSlideDrumRadius.in(Meters))));
 
+    leftMotorSim.setRawRotorPosition(
+        slideSimModel.getPositionMeters() * (LinearSlideConstants.LinearSlideSim.slideSimGearing/ (2.0
+                * Math.PI
+                * LinearSlideConstants.LinearSlideSim.linearSlideDrumRadius.in(Meters))));
+    leftMotorSim.setRotorVelocity(
+        slideSimModel.getVelocityMetersPerSecond() *
+            (LinearSlideConstants.LinearSlideSim.slideSimGearing/ (2.0
+                * Math.PI
+                * LinearSlideConstants.LinearSlideSim.linearSlideDrumRadius.in(Meters))));
+/* 
     leftMotorSim.setRawRotorPosition(
         slideSimModel.getPositionMeters() * LinearSlideConstants.LinearSlideSim.slideSimGearing);
     leftMotorSim.setRotorVelocity(
         slideSimModel.getVelocityMetersPerSecond()
             * LinearSlideConstants.LinearSlideSim.slideSimGearing);
-
+*/
     RoboRioSim.setVInVoltage(
         BatterySim.calculateDefaultBatteryLoadedVoltage(slideSimModel.getCurrentDrawAmps()));
     super.updateInputs(inputs);
