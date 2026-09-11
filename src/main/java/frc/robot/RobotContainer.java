@@ -7,7 +7,6 @@
 
 package frc.robot;
 
-import static edu.wpi.first.units.Units.*;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static frc.robot.subsystems.swerve.SwerveConstants.*;
 
@@ -21,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.sim.SimMechs;
+import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.feeder.Feeder;
 import frc.robot.subsystems.feeder.FeederIOSim;
 import frc.robot.subsystems.feeder.FeederIOTalonFX;
@@ -31,7 +31,6 @@ import frc.robot.subsystems.intakerollers.IntakeRollers;
 import frc.robot.subsystems.intakerollers.IntakeRollersIOSim;
 import frc.robot.subsystems.intakerollers.IntakeRollersIOTalonFX;
 import frc.robot.subsystems.linearslide.LinearSlide;
-import frc.robot.subsystems.linearslide.LinearSlideConstants;
 import frc.robot.subsystems.linearslide.LinearSlideIOSim;
 import frc.robot.subsystems.linearslide.LinearSlideIOTalonFX;
 import frc.robot.subsystems.shooter.Shooter;
@@ -67,6 +66,9 @@ public class RobotContainer {
   private final ShooterPivot shooterPivot =
       new ShooterPivot(
           true, Utils.isSimulation() ? new ShooterPivotIOSim() : new ShooterPivotIOTalonFX());
+  private final LinearSlide linearSlide =
+      new LinearSlide(
+          true, Utils.isSimulation() ? new LinearSlideIOSim() : new LinearSlideIOTalonFX());
   private final Feeder feeder =
       new Feeder(true, Utils.isSimulation() ? new FeederIOSim() : new FeederIOTalonFX());
   private final Indexer indexer =
@@ -84,9 +86,6 @@ public class RobotContainer {
           robotToShooterTransform);
 
   /// sim file for intakepivot needs to be added -- seems like its not been merged yet
-  public final LinearSlide linearSlide =
-      new LinearSlide(
-          true, Utils.isSimulation() ? new LinearSlideIOSim() : new LinearSlideIOTalonFX());
 
   private AutoChooser autoChooser = new AutoChooser();
 
@@ -94,6 +93,17 @@ public class RobotContainer {
 
   private SendableChooser<AutoConfig> autoVisualizer = new SendableChooser<AutoConfig>();
   private Field2d field2d = new Field2d();
+
+  private final Superstructure superstructure =
+      new Superstructure(
+          indexer,
+          shooterPivot,
+          shooter,
+          intakeRollers,
+          linearSlide,
+          feeder,
+          shotCalculator,
+          shotCalculator.getRobotPoseSupplier());
 
   public RobotContainer() {
 
@@ -107,11 +117,10 @@ public class RobotContainer {
   }
 
   private void configureOperatorBinds() {
-    m_driverController
-        .a()
-        .onTrue(
-            linearSlide.setPosition(
-                LinearSlideConstants.LinearSlideSim.convertMetersToRotations(10)));
+    m_operatorController.a().onTrue(superstructure.setState(Superstructure.StructureState.INTAKE));
+    m_operatorController.b().onTrue(superstructure.setState(Superstructure.StructureState.SHOOT));
+    m_operatorController.x().onTrue(superstructure.setState(Superstructure.StructureState.JITTER));
+    m_operatorController.y().onTrue(superstructure.setState(Superstructure.StructureState.HOME));
   }
 
   private void configureChoreoAutoChooser() {}

@@ -45,7 +45,7 @@ public class IndexerConstants {
 
   public static final class SimulationConstants {
     public static double indexerGearingRatio = 1.5;
-    public static double indexerMomentOfInertia = 1.045254;
+    public static double indexerMomentOfInertia = 0.05;
 
     public static double kAngularVelocityScalar = 5;
   }

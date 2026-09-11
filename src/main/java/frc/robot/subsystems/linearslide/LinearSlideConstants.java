@@ -34,10 +34,10 @@ public class LinearSlideConstants {
   public static final boolean kUseMotionMagic = false;
   public static final int flashConfigRetries = 5;
   public static final double stowPosition = 0; // dk yet
-  public static final double intakePosition = 0; // dk yet
+  public static final double intakePosition = 0.3; // dk yet
 
   public static final double jitterPosition = 0; // dk yet
-  public static final double jitterIntermediate = 0; // dk yet
+  public static final double jitterIntermediate = 0.2; // dk yet
 
   public static final double differenceTarget = 0.0;
   // get when tuning
@@ -102,7 +102,7 @@ public class LinearSlideConstants {
     public static final Distance linearSlideLength = Inches.of(10);
     public static final Distance linearSlideDrumRadius = Inches.of(3);
     // elevator sim parameter so i added it but claire doesn't know soooooooo
-    public static final Distance linearSlideMinLength = Inches.of(0);
+    public static final Distance linearSlideMinLength = Inches.of(1);
     public static final Distance linearSlideMaxLength = Inches.of(20);
     public static final Mass LinearSlideMass = Kilograms.of(0.1);
     public static final double jkGMetersSquared = 10;

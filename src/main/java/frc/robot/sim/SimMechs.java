@@ -88,7 +88,9 @@ public final class SimMechs {
               LinearSlideConstants.LinearSlideSim.linearSlideMinLength
                   .plus(Inches.of(6))
                   .in(Meters),
-              180));
+              180,
+              4,
+              new Color8Bit(Color.kOrange)));
 
   private static SimMechs instance = null;
 
