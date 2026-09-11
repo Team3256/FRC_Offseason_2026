@@ -47,11 +47,11 @@ public class IntakeRollerConstants {
   public static final class SimulationConstants {
 
     public static double rollerGearingRatio = 2.0; // 2:1 gearing ratio from motor to roller
-    public static double rollerMomentOfInertia = 2.227;
+    public static double rollerMomentOfInertia = 10;
 
     // above two not updated
 
     // Scale down the angular velocity so we can actually see what is happening
-    public static double kAngularVelocityScalar = 5;
+    public static double kAngularVelocityScalar = 1000;
   }
 }

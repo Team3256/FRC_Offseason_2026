@@ -61,6 +61,10 @@ public class ShotCalculator {
   private final Supplier<ChassisSpeeds> robotVelocitySupplier;
   private final Transform2d robotToShooter;
 
+  public Supplier<Pose2d> getRobotPoseSupplier() {
+    return robotPoseSupplier;
+  }
+
   private Pose2d lookaheadPose;
 
   private Translation2d target = FieldConstants.Hub.topCenterPoint.toTranslation2d();

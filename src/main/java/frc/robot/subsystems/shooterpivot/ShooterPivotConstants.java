@@ -47,7 +47,7 @@ public class ShooterPivotConstants {
           .withMotorOutput(
               new MotorOutputConfigs()
                   .withNeutralMode(NeutralModeValue.Brake)
-                  .withInverted(InvertedValue.CounterClockwise_Positive))
+                  .withInverted(InvertedValue.Clockwise_Positive))
           .withMotionMagic(
               new MotionMagicConfigs()
                   .withMotionMagicAcceleration(8)
@@ -96,10 +96,10 @@ public class ShooterPivotConstants {
     public static final double pivotSimGearing = 4;
 
     public static final Distance shooterPivotLength = Inches.of(11.083714);
-    public static final Mass shooterPivotMass = Kilograms.of(1);
+    public static final Mass shooterPivotMass = Kilograms.of(0.01);
     public static final double jkGMetersSquared = 1;
 
-    public static final Rotation2d minAngle = Rotation2d.fromDegrees(0.0);
+    public static final Rotation2d minAngle = Rotation2d.fromDegrees(0);
     public static final Rotation2d maxAngle = Rotation2d.fromDegrees(42.152);
     public static final Rotation2d startingAngle = Rotation2d.fromDegrees(0);
   }
