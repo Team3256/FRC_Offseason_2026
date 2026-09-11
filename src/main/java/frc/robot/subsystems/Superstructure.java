@@ -21,6 +21,7 @@ import frc.robot.subsystems.feeder.Feeder;
 import frc.robot.subsystems.indexer.Indexer;
 import frc.robot.subsystems.intakerollers.IntakeRollers;
 //import frc.robot.subsystems.linearslide.LinearSlide;
+import frc.robot.subsystems.linearslide.LinearSlide;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.shooterpivot.ShooterPivot;
 import frc.robot.subsystems.sotm.ShotCalculator;
@@ -57,7 +58,7 @@ public class Superstructure {
   private final ShooterPivot shooterPivot;
   private final Shooter shooter;
   private final IntakeRollers intakeRollers;
-  //private final LinearSlide linearSlide;
+  private final LinearSlide linearSlide;
   private final Feeder feeder;
 
   private final ShotCalculator shotCalculator;
@@ -85,7 +86,7 @@ public class Superstructure {
       ShooterPivot shooterPivot,
       Shooter shooter,
       IntakeRollers intakeRollers,
-      //LinearSlide linearSlide,
+      LinearSlide linearSlide,
       Feeder feeder,
       ShotCalculator shotCalculator,
       Supplier<Pose2d> robotPoseSupplier) {
@@ -93,7 +94,7 @@ public class Superstructure {
     this.shooterPivot = shooterPivot;
     this.shooter = shooter;
     this.intakeRollers = intakeRollers;
-    //this.linearSlide = linearSlide;
+    this.linearSlide = linearSlide;
     this.feeder = feeder;
     this.shotCalculator = shotCalculator;
     this.robotPoseSupplier = robotPoseSupplier;
@@ -184,8 +185,8 @@ public class Superstructure {
         .get(StructureState.INTAKE)
         .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
         .or(stateTriggers.get(StructureState.REV_AND_INTAKE))
-        .onTrue(intakeRollers.setVoltage(8));
-        //.onTrue(linearSlide.goToGroundIntake());
+        .onTrue(intakeRollers.setVoltage(8))
+        .onTrue(linearSlide.goToGroundIntake());
 
     stateTriggers.get(StructureState.SHOOT).debounce(0.1);//.onTrue(linearSlide.goToStow());
 
@@ -194,21 +195,21 @@ public class Superstructure {
         .onTrue(intakeRollers.off())
         .onTrue(shooter.off())
         .onTrue(indexer.off())
-        .onTrue(feeder.off());
-        //.onTrue(linearSlide.off());
+        .onTrue(feeder.off())
+        .onTrue(linearSlide.off());
 
     // Kills all subsystems
     stateTriggers
         .get(StructureState.CANCEL_ALL)
         .onTrue(intakeRollers.off())
-        //.onTrue(linearSlide.off())
+        .onTrue(linearSlide.off())
         .onTrue(shooter.off())
         .onTrue(indexer.off())
         .onTrue(feeder.off());
 
     stateTriggers
         .get(StructureState.HOME)
-        //.onTrue(linearSlide.goToStow())
+        .onTrue(linearSlide.goToStow())
         .onTrue(shooterPivot.setPosition(0))
             .onTrue(shooter.off())
             .onTrue(intakeRollers.off())
@@ -219,8 +220,8 @@ public class Superstructure {
 
     stateTriggers
         .get(StructureState.JITTER)
-        .or(stateTriggers.get(StructureState.JITTER_AND_SHOOT));
-        //.onTrue(linearSlide.jitterIntake());
+        .or(stateTriggers.get(StructureState.JITTER_AND_SHOOT))
+        .onTrue(linearSlide.jitterIntake());
 
     stateTriggers
         .get(StructureState.JITTER)

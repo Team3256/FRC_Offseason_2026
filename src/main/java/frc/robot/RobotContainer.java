@@ -32,6 +32,9 @@ import frc.robot.subsystems.indexer.IndexerIOTalonFX;
 import frc.robot.subsystems.intakerollers.IntakeRollers;
 import frc.robot.subsystems.intakerollers.IntakeRollersIOSim;
 import frc.robot.subsystems.intakerollers.IntakeRollersIOTalonFX;
+import frc.robot.subsystems.linearslide.LinearSlide;
+import frc.robot.subsystems.linearslide.LinearSlideIOSim;
+import frc.robot.subsystems.linearslide.LinearSlideIOTalonFX;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.shooter.ShooterIOSim;
 import frc.robot.subsystems.shooter.ShooterIOTalonFX;
@@ -66,6 +69,8 @@ public class RobotContainer {
   private final ShooterPivot shooterPivot =
       new ShooterPivot(
           true, Utils.isSimulation() ? new ShooterPivotIOSim() : new ShooterPivotIOTalonFX());
+  private final LinearSlide linearSlide =
+          new LinearSlide(true, Utils.isSimulation() ? new LinearSlideIOSim() : new LinearSlideIOTalonFX());
   private final Feeder feeder =
       new Feeder(true, Utils.isSimulation() ? new FeederIOSim() : new FeederIOTalonFX());
   private final Indexer indexer =
@@ -91,7 +96,7 @@ public class RobotContainer {
   private SendableChooser<AutoConfig> autoVisualizer = new SendableChooser<AutoConfig>();
   private Field2d field2d = new Field2d();
 
-  private final Superstructure superstructure = new Superstructure(indexer, shooterPivot, shooter, intakeRollers, feeder, shotCalculator, shotCalculator.getRobotPoseSupplier());
+  private final Superstructure superstructure = new Superstructure(indexer, shooterPivot, shooter, intakeRollers, linearSlide, feeder, shotCalculator, shotCalculator.getRobotPoseSupplier());
 
   public RobotContainer() {
 
