@@ -20,7 +20,7 @@ import frc.robot.FieldConstants;
 import frc.robot.subsystems.feeder.Feeder;
 import frc.robot.subsystems.indexer.Indexer;
 import frc.robot.subsystems.intakerollers.IntakeRollers;
-//import frc.robot.subsystems.linearslide.LinearSlide;
+// import frc.robot.subsystems.linearslide.LinearSlide;
 import frc.robot.subsystems.linearslide.LinearSlide;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.shooterpivot.ShooterPivot;
@@ -119,13 +119,11 @@ public class Superstructure {
 
     targetBlueHub.or(targetRedHub).onTrue(this.setState(StructureState.REV));
 
-    (targetBlueHub
-        .or(targetRedHub))
+    (targetBlueHub.or(targetRedHub))
         .negate()
         .and(stateTriggers.get(StructureState.REV))
         .onTrue(this.setState(StructureState.IDLE));
-    (targetBlueHub
-        .or(targetRedHub))
+    (targetBlueHub.or(targetRedHub))
         .negate()
         .and(stateTriggers.get(StructureState.REV_AND_INTAKE))
         .onTrue(this.setState(StructureState.INTAKE));
@@ -188,7 +186,7 @@ public class Superstructure {
         .onTrue(intakeRollers.setVoltage(8))
         .onTrue(linearSlide.goToGroundIntake());
 
-    stateTriggers.get(StructureState.SHOOT).debounce(0.1);//.onTrue(linearSlide.goToStow());
+    stateTriggers.get(StructureState.SHOOT).debounce(0.1); // .onTrue(linearSlide.goToStow());
 
     stateTriggers
         .get(StructureState.IDLE)
@@ -211,12 +209,10 @@ public class Superstructure {
         .get(StructureState.HOME)
         .onTrue(linearSlide.goToStow())
         .onTrue(shooterPivot.setPosition(0))
-            .onTrue(shooter.off())
-            .onTrue(intakeRollers.off())
-            .onTrue(indexer.off())
-            .onTrue(feeder.off());
-
-
+        .onTrue(shooter.off())
+        .onTrue(intakeRollers.off())
+        .onTrue(indexer.off())
+        .onTrue(feeder.off());
 
     stateTriggers
         .get(StructureState.JITTER)
@@ -229,7 +225,11 @@ public class Superstructure {
             prevStateTriggers
                 .get(StructureState.SHOOT)
                 .or(prevStateTriggers.get(StructureState.SHOOT_AND_INTAKE)))
-            .or((stateTriggers.get(StructureState.SHOOT).or(prevStateTriggers.get(StructureState.SHOOT_AND_INTAKE))).and(prevStateTriggers.get(StructureState.JITTER)))
+        .or(
+            (stateTriggers
+                    .get(StructureState.SHOOT)
+                    .or(prevStateTriggers.get(StructureState.SHOOT_AND_INTAKE)))
+                .and(prevStateTriggers.get(StructureState.JITTER)))
         .onTrue(this.setState(StructureState.JITTER_AND_SHOOT));
 
     stateTriggers

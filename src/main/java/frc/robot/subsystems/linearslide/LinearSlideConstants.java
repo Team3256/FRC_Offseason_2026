@@ -34,10 +34,10 @@ public class LinearSlideConstants {
   public static final boolean kUseMotionMagic = false;
   public static final int flashConfigRetries = 5;
   public static final double stowPosition = 0; // dk yet
-  public static final double intakePosition = 0; // dk yet
+  public static final double intakePosition = 0.3; // dk yet
 
   public static final double jitterPosition = 0; // dk yet
-  public static final double jitterIntermediate = 0.1; // dk yet
+  public static final double jitterIntermediate = 0.2; // dk yet
 
   public static final double differenceTarget = 0.0;
   // get when tuning
