@@ -27,8 +27,8 @@ import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.Mass;
 
 public class LinearSlideConstants {
-  public static final int rightMotorID = 17;
-  public static final int leftMotorID = 18;
+  public static final int rightMotorID = 39;
+  public static final int leftMotorID = 40;
 
   public static final boolean kUseFOC = true;
   public static final boolean kUseMotionMagic = false;
@@ -47,31 +47,23 @@ public class LinearSlideConstants {
           .withSlot0(
               new Slot0Configs()
                   .withKS(0.1)
-                  .withKV(0.12)
-                  .withKP(30)
+                  .withKV(2)
+                  .withKP(3)
                   .withKI(0)
                   .withKD(0)
                   .withKA(0)
                   .withKG(0.3)
-           .withGravityType(GravityTypeValue.Elevator_Static))
+                  .withGravityType(GravityTypeValue.Elevator_Static))
           .withSlot1(
               new Slot1Configs()
                   .withKS(0)
                   .withKV(0)
-                  .withKP(30) // change
+                  .withKP(5) // change
                   .withKI(0)
                   .withKD(0) // change
                   .withKA(0)
                   .withKG(0))
-          .withSlot2(
-              new Slot2Configs()
-                  .withKS(0)
-                  .withKV(0)
-                  .withKP(4) // change
-                  .withKI(0)
-                  .withKD(0) // change
-                  .withKA(0)
-                  .withKG(0))
+          .withSlot2(new Slot2Configs().withKP(4))
           .withMotorOutput(
               new MotorOutputConfigs()
                   .withNeutralMode(NeutralModeValue.Brake)
@@ -105,7 +97,7 @@ public class LinearSlideConstants {
           .withFollowerUsesCommonLeaderConfigs(true);
 
   public static final class LinearSlideSim {
-    public static final double slideSimGearing = 6.67;
+    public static final double slideSimGearing = 30;
 
     public static final Distance linearSlideLength = Inches.of(10);
     public static final Distance linearSlideDrumRadius = Inches.of(3);

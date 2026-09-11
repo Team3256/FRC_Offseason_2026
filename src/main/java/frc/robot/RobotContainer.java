@@ -7,10 +7,9 @@
 
 package frc.robot;
 
+import static edu.wpi.first.units.Units.*;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static frc.robot.subsystems.swerve.SwerveConstants.*;
-
-import static edu.wpi.first.units.Units.*;
 
 import choreo.auto.AutoChooser;
 import com.ctre.phoenix6.Utils;
@@ -112,7 +111,7 @@ public class RobotContainer {
         .a()
         .onTrue(
             linearSlide.setPosition(
-                LinearSlideConstants.LinearSlideSim.convertMetersToRotations(5)));
+                LinearSlideConstants.LinearSlideSim.convertMetersToRotations(10)));
   }
 
   private void configureChoreoAutoChooser() {}
