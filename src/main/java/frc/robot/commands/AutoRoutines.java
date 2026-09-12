@@ -9,12 +9,15 @@ package frc.robot.commands;
 
 import choreo.Choreo;
 import choreo.auto.AutoFactory;
+import choreo.auto.AutoRoutine;
+import choreo.auto.AutoTrajectory;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import frc.robot.subsystems.Superstructure;
+import frc.robot.subsystems.Superstructure.StructureState;
 import frc.robot.subsystems.swerve.CommandSwerveDrivetrain;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +35,31 @@ public class AutoRoutines {
     m_factory = factory;
     m_drivetrain = drivetrain; // subsystems
     m_superstructure = superstructure;
+  }
+
+  public AutoRoutine topTrenchSweepDepot() {
+    final AutoRoutine routine = m_factory.newRoutine("topTrenchSweepDepot");
+    final AutoTrajectory topTrenchSweepDepotAuto = routine.trajectory("topTrenchSweepDepotPt1");
+    final AutoTrajectory topTrenchSweepDepotPt2 = routine.trajectory("topTrenchSweepDepotPt2");
+
+    routine
+        .active()
+        .onTrue(topTrenchSweepDepotAuto.resetOdometry().andThen(topTrenchSweepDepotAuto.cmd()));
+
+    topTrenchSweepDepotAuto
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    topTrenchSweepDepotAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
+    topTrenchSweepDepotAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    topTrenchSweepDepotAuto.doneDelayed(2).onTrue(topTrenchSweepDepotPt2.cmd());
+
+    topTrenchSweepDepotPt2
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    topTrenchSweepDepotPt2.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
   }
 
   public Pose2d getInitialPose(String trajectoryName) {
