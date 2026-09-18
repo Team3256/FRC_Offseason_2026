@@ -9,12 +9,15 @@ package frc.robot.commands;
 
 import choreo.Choreo;
 import choreo.auto.AutoFactory;
+import choreo.auto.AutoRoutine;
+import choreo.auto.AutoTrajectory;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import frc.robot.subsystems.Superstructure;
+import frc.robot.subsystems.Superstructure.StructureState;
 import frc.robot.subsystems.swerve.CommandSwerveDrivetrain;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +35,35 @@ public class AutoRoutines {
     m_factory = factory;
     m_drivetrain = drivetrain; // subsystems
     m_superstructure = superstructure;
+  }
+
+  public AutoRoutine stealAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("stealAuto");
+    final AutoTrajectory stealAuto = routine.trajectory("steal");
+    final AutoTrajectory stealP2 = routine.trajectory("stealp2");
+
+    routine.active().onTrue(stealAuto.resetOdometry().andThen(stealAuto.cmd()));
+
+    stealAuto.atTime("Intake 1").onTrue(m_superstructure.setState(StructureState.INTAKE));
+
+    stealAuto.doneDelayed(2).onTrue(stealP2.cmd());
+
+    stealP2
+        .atTime("Intake 5")
+        .onTrue(
+            m_superstructure
+                .setState(StructureState.IDLE)
+                .andThen(m_superstructure.setState(StructureState.REV)));
+
+    stealP2
+        .atTime("Shoot")
+        .onTrue(
+            Commands.waitSeconds(1.5)
+                .andThen(m_superstructure.setState(StructureState.SHOOT))
+                .andThen(Commands.waitSeconds(1))
+                .andThen(m_superstructure.setState(StructureState.JITTER_AND_SHOOT)));
+
+    return routine;
   }
 
   public Pose2d getInitialPose(String trajectoryName) {
