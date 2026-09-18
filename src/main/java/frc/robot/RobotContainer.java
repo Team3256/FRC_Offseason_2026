@@ -11,6 +11,7 @@ import static edu.wpi.first.units.Units.MetersPerSecond;
 import static frc.robot.subsystems.swerve.SwerveConstants.*;
 
 import choreo.auto.AutoChooser;
+import choreo.auto.AutoFactory;
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -18,7 +19,9 @@ import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.Constants.ControllerConstants;
+import frc.robot.commands.AutoRoutines;
 import frc.robot.sim.SimMechs;
 import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.feeder.Feeder;
@@ -86,6 +89,7 @@ public class RobotContainer {
           robotToShooterTransform);
 
   /// sim file for intakepivot needs to be added -- seems like its not been merged yet
+  private final AutoRoutines m_autoRoutines;
 
   private AutoChooser autoChooser = new AutoChooser();
 
@@ -107,6 +111,9 @@ public class RobotContainer {
 
   public RobotContainer() {
 
+    AutoFactory autoFactory = drivetrain.createAutoFactory(drivetrain::trajLogger);
+    m_autoRoutines = new AutoRoutines(autoFactory, drivetrain, superstructure);
+
     configureChoreoAutoChooser();
     configureSwerve();
     configureOperatorBinds();
@@ -123,7 +130,17 @@ public class RobotContainer {
     m_operatorController.y().onTrue(superstructure.setState(Superstructure.StructureState.HOME));
   }
 
-  private void configureChoreoAutoChooser() {}
+  private void configureChoreoAutoChooser() {
+    autos = List.of(new AutoConfig("Egg", m_autoRoutines::egg, List.of("egg")));
+    for (AutoConfig auto : autos) {
+      autoChooser.addRoutine(auto.name, auto.routine);
+    }
+
+    autoChooser.addCmd("Wheel Radius Change", () -> drivetrain.wheelRadiusCharacterization(1));
+
+    SmartDashboard.putData("auto chooser", autoChooser);
+    RobotModeTriggers.autonomous().onTrue(autoChooser.selectedCommandScheduler());
+  }
 
   private void configureAutoVisualizer() {
 
