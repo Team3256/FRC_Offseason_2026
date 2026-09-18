@@ -11,6 +11,7 @@ import static edu.wpi.first.units.Units.MetersPerSecond;
 import static frc.robot.subsystems.swerve.SwerveConstants.*;
 
 import choreo.auto.AutoChooser;
+import choreo.auto.AutoFactory;
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -18,7 +19,10 @@ import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.Constants.ControllerConstants;
+import frc.robot.commands.AutoRoutines;
 import frc.robot.sim.SimMechs;
 import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.feeder.Feeder;
@@ -105,7 +109,12 @@ public class RobotContainer {
           shotCalculator,
           shotCalculator.getRobotPoseSupplier());
 
+  private final AutoRoutines m_autoRoutines;
+
   public RobotContainer() {
+    AutoFactory autoFactory = drivetrain.createAutoFactory(drivetrain::trajLogger);
+    CommandScheduler.getInstance().schedule(autoFactory.warmupCmd());
+    m_autoRoutines = new AutoRoutines(autoFactory, drivetrain, superstructure);
 
     configureChoreoAutoChooser();
     configureSwerve();
@@ -123,7 +132,19 @@ public class RobotContainer {
     m_operatorController.y().onTrue(superstructure.setState(Superstructure.StructureState.HOME));
   }
 
-  private void configureChoreoAutoChooser() {}
+  private void configureChoreoAutoChooser() {
+    autos =
+        List.of(
+            new AutoConfig(
+                "Steal Auto", m_autoRoutines::stealAuto, List.of("steal", "stealp2")));
+
+    for (AutoConfig auto : autos) {
+      autoChooser.addRoutine(auto.name, auto.routine);
+    }
+
+    SmartDashboard.putData("auto chooser", autoChooser);
+    RobotModeTriggers.autonomous().onTrue(autoChooser.selectedCommandScheduler());
+  }
 
   private void configureAutoVisualizer() {
 
