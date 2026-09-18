@@ -135,8 +135,7 @@ public class RobotContainer {
   private void configureChoreoAutoChooser() {
     autos =
         List.of(
-            new AutoConfig(
-                "Steal Auto", m_autoRoutines::stealAuto, List.of("steal", "stealp2")));
+            new AutoConfig("Steal Auto", m_autoRoutines::stealAuto, List.of("steal", "stealp2")));
 
     for (AutoConfig auto : autos) {
       autoChooser.addRoutine(auto.name, auto.routine);
