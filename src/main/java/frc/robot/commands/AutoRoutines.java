@@ -41,6 +41,7 @@ public class AutoRoutines {
     final AutoRoutine routine = m_factory.newRoutine("topTrenchSweepDepot");
     final AutoTrajectory topTrenchSweepDepotAuto = routine.trajectory("topTrenchSweepDepotPt1");
     final AutoTrajectory topTrenchSweepDepotPt2 = routine.trajectory("topTrenchSweepDepotPt2");
+    final AutoTrajectory topTrenchSweepDepotPt3 = routine.trajectory("topTrenchSweepDepotPt3");
 
     routine
         .active()
@@ -58,6 +59,10 @@ public class AutoRoutines {
         .atTime("intake")
         .onTrue(m_superstructure.setState(StructureState.INTAKE));
     topTrenchSweepDepotPt2.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    topTrenchSweepDepotPt2.doneDelayed(2).onTrue(topTrenchSweepDepotPt3.cmd());
+
+    topTrenchSweepDepotPt3.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
 
     return routine;
   }
