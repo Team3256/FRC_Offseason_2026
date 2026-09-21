@@ -9,12 +9,16 @@ package frc.robot.commands;
 
 import choreo.Choreo;
 import choreo.auto.AutoFactory;
+import choreo.auto.AutoRoutine;
+import choreo.auto.AutoTrajectory;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.Superstructure;
+import frc.robot.subsystems.Superstructure.StructureState;
 import frc.robot.subsystems.swerve.CommandSwerveDrivetrain;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +69,47 @@ public class AutoRoutines {
     }
 
     field2d.getObject("traj").setPoses(poseList);
+  }
+
+  public AutoRoutine bottomInverseAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("bottomInverseAuto");
+    final AutoTrajectory bottomInverseAuto = routine.trajectory("bottomInverseAuto");
+    final AutoTrajectory bottomInverseAutopt2 = routine.trajectory("bottomInverseAutopt2");
+    final AutoTrajectory bottomInverseAutopt3 = routine.trajectory("bottomInverseAutopt3");
+
+    routine.active().onTrue(bottomInverseAuto.resetOdometry().andThen(bottomInverseAuto.cmd()));
+
+    bottomInverseAuto.atTime("Intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
+    bottomInverseAuto.atTime("StopIntake").onTrue(m_superstructure.setState(StructureState.IDLE));
+    bottomInverseAuto
+        .atTime("Shoot")
+        .onTrue(
+            m_superstructure
+                .setState(StructureState.SHOOT)
+                .andThen(Commands.waitSeconds(1))
+                .andThen(m_superstructure.setState(StructureState.JITTER_AND_SHOOT))
+                .andThen(Commands.waitSeconds(3)));
+
+    bottomInverseAuto.done().onTrue(bottomInverseAutopt2.cmd());
+
+    bottomInverseAutopt2.atTime("Intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
+    bottomInverseAutopt2
+        .atTime("StopIntake")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
+    bottomInverseAutopt2
+        .atTime("Shoot")
+        .onTrue(
+            m_superstructure
+                .setState(StructureState.SHOOT)
+                .andThen(Commands.waitSeconds(1))
+                .andThen(m_superstructure.setState(StructureState.JITTER_AND_SHOOT))
+                .andThen(Commands.waitSeconds(3)));
+
+    bottomInverseAutopt2.done().onTrue(bottomInverseAutopt3.cmd());
+
+    bottomInverseAutopt3.atTime("Intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
+
+    return routine;
   }
 
   private boolean isRedAlliance() {
