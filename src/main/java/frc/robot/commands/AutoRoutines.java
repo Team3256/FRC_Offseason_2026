@@ -53,16 +53,12 @@ public class AutoRoutines {
     topTrenchSweepDepotAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
     topTrenchSweepDepotAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
 
-    topTrenchSweepDepotAuto.doneDelayed(2).onTrue(topTrenchSweepDepotPt2.cmd());
+    topTrenchSweepDepotAuto.doneDelayed(3).onTrue(topTrenchSweepDepotPt2.cmd());
 
     topTrenchSweepDepotPt2
         .atTime("intake")
         .onTrue(m_superstructure.setState(StructureState.INTAKE));
     topTrenchSweepDepotPt2.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
-
-    topTrenchSweepDepotPt2.doneDelayed(2).onTrue(topTrenchSweepDepotPt3.cmd());
-
-    topTrenchSweepDepotPt3.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
 
     return routine;
   }
