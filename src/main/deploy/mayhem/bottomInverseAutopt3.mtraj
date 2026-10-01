@@ -265,7 +265,7 @@
  },
  "folder": null,
  "output": {
-  "inputHash": "3ce3f9865defeaea",
+  "inputHash": "44bfebc984a83bf2",
   "samples": [
    {
     "t": 0.0,
@@ -2681,7 +2681,7 @@
   "stats": {
    "success": true,
    "totalTime": 3.38735584037848,
-   "solveSeconds": 0.1910945419804193,
+   "solveSeconds": 0.18979841703549027,
    "iterations": 28,
    "candidate": 0,
    "attempts": [

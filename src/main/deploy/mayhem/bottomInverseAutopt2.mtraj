@@ -415,7 +415,7 @@
  },
  "folder": null,
  "output": {
-  "inputHash": "1eb89164d44d3972",
+  "inputHash": "6fb062a16d64d508",
   "samples": [
    {
     "t": 0.0,
@@ -3266,7 +3266,15 @@
     "mustHit": false
    }
   ],
-  "terrain": [],
+  "terrain": [
+   {
+    "t": 5.577124677742324,
+    "endT": 5.91610231498378,
+    "expectedSpeed": 0.7,
+    "feedbackScale": 0.3,
+    "expectedDelay": 0.14527613024633826
+   }
+  ],
   "intake": [],
   "recovery": {
    "bumper": [
@@ -4509,12 +4517,12 @@
   "stats": {
    "success": true,
    "totalTime": 6.445754873173546,
-   "solveSeconds": 1.2679558329982683,
+   "solveSeconds": 1.2956289169960655,
    "iterations": 114,
    "candidate": 0,
    "attempts": [
     "candidate 0: direct: Solved_To_Acceptable_Level (25 it, 0.29s)",
-    "candidate 1: direct: Solved_To_Acceptable_Level (89 it, 1.04s)"
+    "candidate 1: direct: Solved_To_Acceptable_Level (89 it, 1.06s)"
    ]
   }
  }
