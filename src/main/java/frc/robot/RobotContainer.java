@@ -46,6 +46,9 @@ import frc.robot.subsystems.sotm.ShotCalculator;
 import frc.robot.subsystems.swerve.CommandSwerveDrivetrain;
 import frc.robot.subsystems.swerve.SwerveConstants.AzimuthTargets;
 import frc.robot.subsystems.swerve.generated.TunerConstants;
+import frc.robot.subsystems.vision.Vision;
+import frc.robot.subsystems.vision.VisionConstants;
+import frc.robot.subsystems.vision.VisionIOPhotonVision;
 import frc.robot.utils.AutoConfig;
 import frc.robot.utils.MappedXboxController;
 import java.util.ArrayList;
@@ -79,6 +82,15 @@ public class RobotContainer {
       new Indexer(true, Utils.isSimulation() ? new IndexerIOSim() : new IndexerIOTalonFX());
 
   private final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+
+  private final Vision vision =
+      new Vision(
+          drivetrain::addVisionMeasurement,
+          new VisionIOPhotonVision(
+              VisionConstants.frontRightCam, VisionConstants.robotToFrontRightCam),
+          new VisionIOPhotonVision(
+              VisionConstants.frontLeftCam, VisionConstants.robotToFrontLeftCam),
+          new VisionIOPhotonVision(VisionConstants.backCam, VisionConstants.robotToBackCam));
 
   private static final Transform2d robotToShooterTransform =
       new Transform2d(0, 0, Rotation2d.kZero);
