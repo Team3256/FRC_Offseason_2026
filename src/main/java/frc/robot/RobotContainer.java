@@ -125,6 +125,9 @@ public class RobotContainer {
           shotCalculator,
           shotCalculator.getRobotPoseSupplier());
 
+  private final AutoRoutines m_autoRoutines;
+  private final SweepDepotMayhemAutos m_mayhemAutos;
+
   public RobotContainer() {
 
     AutoFactory autoFactory = drivetrain.createAutoFactory(drivetrain::trajLogger);
