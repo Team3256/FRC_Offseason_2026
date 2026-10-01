@@ -11,6 +11,7 @@ import static edu.wpi.first.units.Units.MetersPerSecond;
 import static frc.robot.subsystems.swerve.SwerveConstants.*;
 
 import choreo.auto.AutoChooser;
+import choreo.auto.AutoFactory;
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -18,7 +19,10 @@ import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.Constants.ControllerConstants;
+import frc.robot.commands.AutoRoutines;
+import frc.robot.commands.SweepMayhemAutos;
 import frc.robot.sim.SimMechs;
 import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.feeder.Feeder;
@@ -47,6 +51,7 @@ import frc.robot.utils.AutoConfig;
 import frc.robot.utils.MappedXboxController;
 import java.util.ArrayList;
 import java.util.List;
+import mayhemlib.ctre.CtreSwerve;
 
 public class RobotContainer {
 
@@ -105,7 +110,15 @@ public class RobotContainer {
           shotCalculator,
           shotCalculator.getRobotPoseSupplier());
 
+  private final AutoRoutines m_autoRoutines;
+  private final SweepMayhemAutos m_mayhemAutos;
+
   public RobotContainer() {
+    AutoFactory autoFactory = drivetrain.createAutoFactory(drivetrain::trajLogger);
+    m_autoRoutines = new AutoRoutines(autoFactory, drivetrain, superstructure);
+    m_mayhemAutos =
+        new SweepMayhemAutos(
+            CtreSwerve.autoFactory(drivetrain).withTelemetry(true), superstructure);
 
     configureChoreoAutoChooser();
     configureSwerve();
@@ -123,7 +136,36 @@ public class RobotContainer {
     m_operatorController.y().onTrue(superstructure.setState(Superstructure.StructureState.HOME));
   }
 
-  private void configureChoreoAutoChooser() {}
+  private void configureChoreoAutoChooser() {
+    autos =
+        List.of(
+            new AutoConfig(
+                "Top Trench Sweep",
+                m_autoRoutines::topTrenchSweepAuto,
+                List.of("topTrenchSweepBump")),
+            new AutoConfig(
+                "Bottom Trench Sweep",
+                m_autoRoutines::bottomTrenchSweepAuto,
+                List.of("bottomTrenchSweepBump")),
+            new AutoConfig(
+                "Top Trench Sweep 2x",
+                m_autoRoutines::topTrenchSweep2xAuto,
+                List.of("topTrenchSweepBump2xPt1", "topTrenchSweepBump2xPt2")));
+
+    for (AutoConfig auto : autos) {
+      autoChooser.addRoutine(auto.name, auto.routine);
+    }
+
+    // Same autos, driven by MayhemLib (paths in src/main/deploy/mayhem)
+    autoChooser.addCmd("Top Trench Sweep (Mayhem)", () -> m_mayhemAutos.topTrenchSweepAuto().cmd());
+    autoChooser.addCmd(
+        "Bottom Trench Sweep (Mayhem)", () -> m_mayhemAutos.bottomTrenchSweepAuto().cmd());
+    autoChooser.addCmd(
+        "Top Trench Sweep 2x (Mayhem)", () -> m_mayhemAutos.topTrenchSweep2xAuto().cmd());
+
+    SmartDashboard.putData("auto chooser", autoChooser);
+    RobotModeTriggers.autonomous().onTrue(autoChooser.selectedCommandScheduler());
+  }
 
   private void configureAutoVisualizer() {
 
