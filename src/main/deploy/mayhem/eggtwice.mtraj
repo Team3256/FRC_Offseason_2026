@@ -422,7 +422,7 @@
  },
  "folder": null,
  "output": {
-  "inputHash": "5028dab645756b9d",
+  "inputHash": "11e5d09d7f1bdb2d",
   "samples": [
    {
     "t": 0.0,
@@ -4663,7 +4663,22 @@
     "mustHit": false
    }
   ],
-  "terrain": [],
+  "terrain": [
+   {
+    "t": 0.3067665991563827,
+    "endT": 0.6371306290171024,
+    "expectedSpeed": 0.7,
+    "feedbackScale": 0.3,
+    "expectedDelay": 0.1415845842260227
+   },
+   {
+    "t": 2.939319400466726,
+    "endT": 3.2199004383167393,
+    "expectedSpeed": 0.7,
+    "feedbackScale": 0.3,
+    "expectedDelay": 0.12024901622143438
+   }
+  ],
   "intake": [],
   "recovery": {
    "bumper": [
@@ -5906,13 +5921,13 @@
   "stats": {
    "success": true,
    "totalTime": 10.49684690121702,
-   "solveSeconds": 2.045731583959423,
+   "solveSeconds": 2.1488846670254134,
    "iterations": 178,
    "candidate": 1,
    "attempts": [
-    "candidate 0: direct: Solved_To_Acceptable_Level (40 it, 0.67s)",
-    "candidate 1: direct: Solved_To_Acceptable_Level (57 it, 0.93s)",
-    "candidate 2: direct: Solved_To_Acceptable_Level (81 it, 1.77s)"
+    "candidate 0: direct: Solved_To_Acceptable_Level (40 it, 0.71s)",
+    "candidate 1: direct: Solved_To_Acceptable_Level (57 it, 0.97s)",
+    "candidate 2: direct: Solved_To_Acceptable_Level (81 it, 1.81s)"
    ]
   }
  }
