@@ -65,7 +65,8 @@ public class ShotCalculator {
     return robotPoseSupplier;
   }
 
-  private Pose2d lookaheadPose;
+  // Non-null so getDistance() is safe before the first periodic() (the scheduler runs first).
+  private Pose2d lookaheadPose = Pose2d.kZero;
 
   private Translation2d target = FieldConstants.Hub.topCenterPoint.toTranslation2d();
 
@@ -93,13 +94,15 @@ public class ShotCalculator {
     Pose2d robotPose = robotPoseSupplier.get();
     ChassisSpeeds robotVelocity = robotVelocitySupplier.get();
 
-    // Phase delay
+    // Phase delay. robotVelocity is field-relative but Pose2d.exp wants a robot-relative twist.
+    ChassisSpeeds robotRelativeVelocity =
+        ChassisSpeeds.fromFieldRelativeSpeeds(robotVelocity, robotPose.getRotation());
     Pose2d estimatedPose =
         robotPose.exp(
             new Twist2d(
-                robotVelocity.vxMetersPerSecond * phaseDelay,
-                robotVelocity.vyMetersPerSecond * phaseDelay,
-                robotVelocity.omegaRadiansPerSecond * phaseDelay));
+                robotRelativeVelocity.vxMetersPerSecond * phaseDelay,
+                robotRelativeVelocity.vyMetersPerSecond * phaseDelay,
+                robotRelativeVelocity.omegaRadiansPerSecond * phaseDelay));
 
     Pose2d shooterPosition = estimatedPose.transformBy(robotToShooter);
 
@@ -113,15 +116,15 @@ public class ShotCalculator {
     double shooterVelocityX =
         robotVelocity.vxMetersPerSecond
             + robotVelocity.omegaRadiansPerSecond
-                * (robotToShooter.getY() * Math.cos(robotAngle)
-                    - robotToShooter.getX() * Math.sin(robotAngle));
+                * -(robotToShooter.getY() * Math.cos(robotAngle)
+                    + robotToShooter.getX() * Math.sin(robotAngle));
     double shooterVelocityY =
         robotVelocity.vyMetersPerSecond
             + robotVelocity.omegaRadiansPerSecond
                 * (robotToShooter.getX() * Math.cos(robotAngle)
                     - robotToShooter.getY() * Math.sin(robotAngle));
 
-    Pose2d lookaheadPose = shooterPosition;
+    lookaheadPose = shooterPosition;
     double currentDistance = shooterToTargetDistance; // starting estimate
 
     for (int i = 0; i < 20; i++) {
@@ -139,8 +142,6 @@ public class ShotCalculator {
       // let's update the distance this time guys...
       currentDistance = target.getDistance(lookaheadPose.getTranslation());
     }
-
-    this.lookaheadPose = lookaheadPose;
 
     Logger.recordOutput("ShotCalculator/LookaheadPose", lookaheadPose);
     Logger.recordOutput("ShotCalculator/ShooterToTargetDistance", shooterToTargetDistance);
