@@ -1,0 +1,24 @@
+{
+    "fileName": "MayhemLib.json",
+    "name": "MayhemLib",
+    "version": "2026.3.0",
+    "frcYear": "2026",
+    "uuid": "e3b1f4c2-6d2a-4c55-9a3e-6d6179686d31",
+    "mavenUrls": [
+        "https://ryanabraham1.github.io/Mayhem/maven/"
+    ],
+    "jsonUrl": "https://ryanabraham1.github.io/Mayhem/MayhemLib.json",
+    "javaDependencies": [
+        {
+            "groupId": "mayhemlib",
+            "artifactId": "MayhemLib-java",
+            "version": "2026.3.0"
+        }
+    ],
+    "jniDependencies": [
+        
+    ],
+    "cppDependencies": [
+        
+    ]
+}

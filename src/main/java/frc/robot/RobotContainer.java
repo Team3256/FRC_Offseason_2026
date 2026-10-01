@@ -50,6 +50,7 @@ import frc.robot.utils.AutoConfig;
 import frc.robot.utils.MappedXboxController;
 import java.util.ArrayList;
 import java.util.List;
+import mayhemlib.ctre.CtreSwerve;
 
 public class RobotContainer {
 
@@ -91,6 +92,9 @@ public class RobotContainer {
   /// sim file for intakepivot needs to be added -- seems like its not been merged yet
   private final AutoRoutines m_autoRoutines;
 
+  // MayhemLib auto factory: Mayhem autos (paths in src/main/deploy/mayhem) are built from this.
+  private final mayhemlib.auto.AutoFactory m_mayhemAutoFactory;
+
   private AutoChooser autoChooser = new AutoChooser();
 
   private List<AutoConfig> autos = new ArrayList<>();
@@ -113,6 +117,7 @@ public class RobotContainer {
 
     AutoFactory autoFactory = drivetrain.createAutoFactory(drivetrain::trajLogger);
     m_autoRoutines = new AutoRoutines(autoFactory, drivetrain, superstructure);
+    m_mayhemAutoFactory = CtreSwerve.autoFactory(drivetrain).withTelemetry(true);
 
     configureChoreoAutoChooser();
     configureSwerve();
@@ -131,7 +136,6 @@ public class RobotContainer {
   }
 
   private void configureChoreoAutoChooser() {
-    autos = List.of(new AutoConfig("Egg", m_autoRoutines::egg, List.of("egg")));
     for (AutoConfig auto : autos) {
       autoChooser.addRoutine(auto.name, auto.routine);
     }
