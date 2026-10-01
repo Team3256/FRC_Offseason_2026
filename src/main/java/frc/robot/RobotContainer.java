@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.AutoRoutines;
+import frc.robot.commands.MaxFuelMayhemAutos;
 import frc.robot.sim.SimMechs;
 import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.feeder.Feeder;
@@ -106,6 +107,7 @@ public class RobotContainer {
 
   // MayhemLib auto factory: Mayhem autos (paths in src/main/deploy/mayhem) are built from this.
   private final mayhemlib.auto.AutoFactory m_mayhemAutoFactory;
+  private final MaxFuelMayhemAutos m_maxFuelAutos;
 
   private AutoChooser autoChooser = new AutoChooser();
 
@@ -130,6 +132,7 @@ public class RobotContainer {
     AutoFactory autoFactory = drivetrain.createAutoFactory(drivetrain::trajLogger);
     m_autoRoutines = new AutoRoutines(autoFactory, drivetrain, superstructure);
     m_mayhemAutoFactory = CtreSwerve.autoFactory(drivetrain).withTelemetry(true);
+    m_maxFuelAutos = new MaxFuelMayhemAutos(m_mayhemAutoFactory, superstructure);
 
     configureChoreoAutoChooser();
     configureSwerve();
@@ -153,6 +156,14 @@ public class RobotContainer {
     }
 
     autoChooser.addCmd("Wheel Radius Change", () -> drivetrain.wheelRadiusCharacterization(1));
+
+    // Max-fuel autos, driven by MayhemLib (paths in src/main/deploy/mayhem)
+    autoChooser.addCmd("NZ Double Top (Mayhem)", () -> m_maxFuelAutos.nzDoubleTop().cmd());
+    autoChooser.addCmd("NZ Double Bottom (Mayhem)", () -> m_maxFuelAutos.nzDoubleBottom().cmd());
+    autoChooser.addCmd(
+        "Depot Trench Sweep (Mayhem)", () -> m_maxFuelAutos.depotTrenchSweep().cmd());
+    autoChooser.addCmd("Depot Bump Sweep (Mayhem)", () -> m_maxFuelAutos.depotBumpSweep().cmd());
+    autoChooser.addCmd("Depot Only (Mayhem)", () -> m_maxFuelAutos.depotOnly().cmd());
 
     SmartDashboard.putData("auto chooser", autoChooser);
     RobotModeTriggers.autonomous().onTrue(autoChooser.selectedCommandScheduler());
