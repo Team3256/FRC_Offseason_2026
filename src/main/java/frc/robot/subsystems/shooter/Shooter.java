@@ -67,7 +67,9 @@ public class Shooter extends DisableSubsystem {
   }
 
   public boolean reachedVelocity() {
-    return Util.epsilonEquals(shooterIOAutoLogged.shooterMotorVelocitys[0], reqVelocity, 5);
+    // A shooter that has not been asked to spin up is not "at speed" just because it is stopped
+    return reqVelocity > 0
+        && Util.epsilonEquals(shooterIOAutoLogged.shooterMotorVelocitys[0], reqVelocity, 5);
   }
 
   public Command off() {
