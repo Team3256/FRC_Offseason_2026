@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.AutoRoutines;
+import frc.robot.commands.StealMayhemAutos;
 import frc.robot.sim.SimMechs;
 import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.feeder.Feeder;
@@ -51,6 +52,7 @@ import frc.robot.utils.AutoConfig;
 import frc.robot.utils.MappedXboxController;
 import java.util.ArrayList;
 import java.util.List;
+import mayhemlib.ctre.CtreSwerve;
 
 public class RobotContainer {
 
@@ -110,11 +112,15 @@ public class RobotContainer {
           shotCalculator.getRobotPoseSupplier());
 
   private final AutoRoutines m_autoRoutines;
+  private final StealMayhemAutos m_mayhemAutos;
 
   public RobotContainer() {
     AutoFactory autoFactory = drivetrain.createAutoFactory(drivetrain::trajLogger);
     CommandScheduler.getInstance().schedule(autoFactory.warmupCmd());
     m_autoRoutines = new AutoRoutines(autoFactory, drivetrain, superstructure);
+    m_mayhemAutos =
+        new StealMayhemAutos(
+            CtreSwerve.autoFactory(drivetrain).withTelemetry(true), superstructure);
 
     configureChoreoAutoChooser();
     configureSwerve();
@@ -140,6 +146,9 @@ public class RobotContainer {
     for (AutoConfig auto : autos) {
       autoChooser.addRoutine(auto.name, auto.routine);
     }
+
+    // Same autos, driven by MayhemLib (paths in src/main/deploy/mayhem)
+    autoChooser.addCmd("Steal Auto (Mayhem)", () -> m_mayhemAutos.stealAuto().cmd());
 
     SmartDashboard.putData("auto chooser", autoChooser);
     RobotModeTriggers.autonomous().onTrue(autoChooser.selectedCommandScheduler());
