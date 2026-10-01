@@ -1,0 +1,5735 @@
+{
+  "formatVersion": 1,
+  "name": "FRC Offseason 2026",
+  "robot": {
+    "mass": 68.0388555,
+    "moi": 6.0,
+    "bumper": {
+      "front": 0.4064,
+      "back": 0.4064,
+      "left": 0.4064,
+      "right": 0.4064
+    },
+    "modules": [
+      [
+        0.27663139999999997,
+        0.27663139999999997
+      ],
+      [
+        0.27663139999999997,
+        -0.27663139999999997
+      ],
+      [
+        -0.27663139999999997,
+        0.27663139999999997
+      ],
+      [
+        -0.27663139999999997,
+        -0.27663139999999997
+      ]
+    ],
+    "wheelRadius": 0.0508,
+    "wheelCof": 0.8,
+    "motor": {
+      "type": "krakenX60",
+      "gearing": 7.03125,
+      "currentLimit": 70.0,
+      "efficiency": 0.9
+    },
+    "batteryVoltage": 11.0,
+    "cogHeight": 0.0,
+    "intake": {
+      "side": "front",
+      "extension": 0.3,
+      "width": 0.0,
+      "offset": 0.0
+    }
+  },
+  "field": {
+    "id": "rebuilt-2026",
+    "name": "2026 REBUILT",
+    "length": 16.541,
+    "width": 8.0692,
+    "symmetry": "rotational",
+    "wallMargin": 0.02,
+    "obstacles": [
+      {
+        "id": "hub-blue",
+        "name": "Blue Hub",
+        "kind": "polygon",
+        "points": [
+          [
+            4.0284,
+            3.4377
+          ],
+          [
+            5.2229,
+            3.4377
+          ],
+          [
+            5.2229,
+            4.6315
+          ],
+          [
+            4.0284,
+            4.6315
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.5,
+        "margin": 0.0,
+        "enabled": true,
+        "fuelCollision": "paths"
+      },
+      {
+        "id": "bump-blue-l",
+        "name": "Blue Bump (left)",
+        "kind": "polygon",
+        "points": [
+          [
+            4.0618,
+            4.6286
+          ],
+          [
+            5.1878,
+            4.6286
+          ],
+          [
+            5.1878,
+            6.4849
+          ],
+          [
+            4.0618,
+            6.4849
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.5,
+        "margin": 0.0,
+        "enabled": false,
+        "fuelCollision": "block"
+      },
+      {
+        "id": "bump-blue-r",
+        "name": "Blue Bump (right)",
+        "kind": "polygon",
+        "points": [
+          [
+            4.0618,
+            3.4406
+          ],
+          [
+            5.1878,
+            3.4406
+          ],
+          [
+            5.1878,
+            1.5843
+          ],
+          [
+            4.0618,
+            1.5843
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.5,
+        "margin": 0.0,
+        "enabled": false,
+        "fuelCollision": "block"
+      },
+      {
+        "id": "trenchwall-blue-l",
+        "name": "Blue Trench Wall (left)",
+        "kind": "polygon",
+        "points": [
+          [
+            4.0279,
+            6.4849
+          ],
+          [
+            5.2217,
+            6.4849
+          ],
+          [
+            5.2217,
+            6.7905
+          ],
+          [
+            4.0279,
+            6.7905
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.5,
+        "margin": 0.0,
+        "enabled": true,
+        "fuelCollision": "paths"
+      },
+      {
+        "id": "trenchwall-blue-r",
+        "name": "Blue Trench Wall (right)",
+        "kind": "polygon",
+        "points": [
+          [
+            4.0279,
+            1.5843
+          ],
+          [
+            5.2217,
+            1.5843
+          ],
+          [
+            5.2217,
+            1.2787
+          ],
+          [
+            4.0279,
+            1.2787
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.5,
+        "margin": 0.0,
+        "enabled": true,
+        "fuelCollision": "paths"
+      },
+      {
+        "id": "trench-blue-l",
+        "name": "Blue Trench (left, overhead)",
+        "kind": "polygon",
+        "points": [
+          [
+            4.0279,
+            6.7905
+          ],
+          [
+            5.2217,
+            6.7905
+          ],
+          [
+            5.2217,
+            8.0692
+          ],
+          [
+            4.0279,
+            8.0692
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.5,
+        "margin": 0.0,
+        "enabled": false,
+        "fuelCollision": "paths"
+      },
+      {
+        "id": "trench-blue-r",
+        "name": "Blue Trench (right, overhead)",
+        "kind": "polygon",
+        "points": [
+          [
+            4.0279,
+            1.2787
+          ],
+          [
+            5.2217,
+            1.2787
+          ],
+          [
+            5.2217,
+            0.0
+          ],
+          [
+            4.0279,
+            0.0
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.5,
+        "margin": 0.0,
+        "enabled": false,
+        "fuelCollision": "paths"
+      },
+      {
+        "id": "tower-blue",
+        "name": "Blue Tower",
+        "kind": "polygon",
+        "points": [
+          [
+            0.0,
+            3.2504
+          ],
+          [
+            1.1446,
+            3.2504
+          ],
+          [
+            1.1446,
+            4.241
+          ],
+          [
+            0.0,
+            4.241
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.5,
+        "margin": 0.0,
+        "enabled": true,
+        "fuelCollision": "paths"
+      },
+      {
+        "id": "hub-red",
+        "name": "Red Hub",
+        "kind": "polygon",
+        "points": [
+          [
+            12.5126,
+            4.6315
+          ],
+          [
+            11.3181,
+            4.6315
+          ],
+          [
+            11.3181,
+            3.4377
+          ],
+          [
+            12.5126,
+            3.4377
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.5,
+        "margin": 0.0,
+        "enabled": true,
+        "fuelCollision": "paths"
+      },
+      {
+        "id": "bump-red-l",
+        "name": "Red Bump (left)",
+        "kind": "polygon",
+        "points": [
+          [
+            12.4792,
+            3.4406
+          ],
+          [
+            11.3532,
+            3.4406
+          ],
+          [
+            11.3532,
+            1.5843
+          ],
+          [
+            12.4792,
+            1.5843
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.5,
+        "margin": 0.0,
+        "enabled": false,
+        "fuelCollision": "block"
+      },
+      {
+        "id": "bump-red-r",
+        "name": "Red Bump (right)",
+        "kind": "polygon",
+        "points": [
+          [
+            12.4792,
+            4.6286
+          ],
+          [
+            11.3532,
+            4.6286
+          ],
+          [
+            11.3532,
+            6.4849
+          ],
+          [
+            12.4792,
+            6.4849
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.5,
+        "margin": 0.0,
+        "enabled": false,
+        "fuelCollision": "block"
+      },
+      {
+        "id": "trenchwall-red-l",
+        "name": "Red Trench Wall (left)",
+        "kind": "polygon",
+        "points": [
+          [
+            12.5131,
+            1.5843
+          ],
+          [
+            11.3193,
+            1.5843
+          ],
+          [
+            11.3193,
+            1.2787
+          ],
+          [
+            12.5131,
+            1.2787
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.5,
+        "margin": 0.0,
+        "enabled": true,
+        "fuelCollision": "paths"
+      },
+      {
+        "id": "trenchwall-red-r",
+        "name": "Red Trench Wall (right)",
+        "kind": "polygon",
+        "points": [
+          [
+            12.5131,
+            6.4849
+          ],
+          [
+            11.3193,
+            6.4849
+          ],
+          [
+            11.3193,
+            6.7905
+          ],
+          [
+            12.5131,
+            6.7905
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.5,
+        "margin": 0.0,
+        "enabled": true,
+        "fuelCollision": "paths"
+      },
+      {
+        "id": "trench-red-l",
+        "name": "Red Trench (left, overhead)",
+        "kind": "polygon",
+        "points": [
+          [
+            12.5131,
+            1.2787
+          ],
+          [
+            11.3193,
+            1.2787
+          ],
+          [
+            11.3193,
+            0.0
+          ],
+          [
+            12.5131,
+            0.0
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.5,
+        "margin": 0.0,
+        "enabled": false,
+        "fuelCollision": "paths"
+      },
+      {
+        "id": "trench-red-r",
+        "name": "Red Trench (right, overhead)",
+        "kind": "polygon",
+        "points": [
+          [
+            12.5131,
+            6.7905
+          ],
+          [
+            11.3193,
+            6.7905
+          ],
+          [
+            11.3193,
+            8.0692
+          ],
+          [
+            12.5131,
+            8.0692
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.5,
+        "margin": 0.0,
+        "enabled": false,
+        "fuelCollision": "paths"
+      },
+      {
+        "id": "tower-red",
+        "name": "Red Tower",
+        "kind": "polygon",
+        "points": [
+          [
+            16.541,
+            4.8188
+          ],
+          [
+            15.3964,
+            4.8188
+          ],
+          [
+            15.3964,
+            3.8282
+          ],
+          [
+            16.541,
+            3.8282
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.5,
+        "margin": 0.0,
+        "enabled": true,
+        "fuelCollision": "paths"
+      }
+    ],
+    "decorations": [
+      {
+        "kind": "polygon",
+        "points": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            4.0033,
+            0.0
+          ],
+          [
+            4.0033,
+            8.0692
+          ],
+          [
+            0.0,
+            8.0692
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "blueZone",
+        "width": 0.05
+      },
+      {
+        "kind": "line",
+        "points": [
+          [
+            4.0033,
+            0.0
+          ],
+          [
+            4.0033,
+            8.0692
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "blueTape",
+        "width": 0.0508
+      },
+      {
+        "kind": "polygon",
+        "points": [
+          [
+            0.0,
+            5.4316
+          ],
+          [
+            0.6852,
+            5.4316
+          ],
+          [
+            0.6852,
+            6.4984
+          ],
+          [
+            0.0,
+            6.4984
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "blue",
+        "width": 0.05
+      },
+      {
+        "kind": "polygon",
+        "points": [
+          [
+            0.0,
+            0.2596
+          ],
+          [
+            0.08,
+            0.2596
+          ],
+          [
+            0.08,
+            1.0724
+          ],
+          [
+            0.0,
+            1.0724
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "blue",
+        "width": 0.05
+      },
+      {
+        "kind": "polygon",
+        "points": [
+          [
+            4.0284,
+            3.4377
+          ],
+          [
+            5.2229,
+            3.4377
+          ],
+          [
+            5.2229,
+            4.6315
+          ],
+          [
+            4.0284,
+            4.6315
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "structure",
+        "width": 0.05
+      },
+      {
+        "kind": "polygon",
+        "points": [
+          [
+            4.0618,
+            4.6286
+          ],
+          [
+            5.1878,
+            4.6286
+          ],
+          [
+            5.1878,
+            6.4849
+          ],
+          [
+            4.0618,
+            6.4849
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "blue",
+        "width": 0.05
+      },
+      {
+        "kind": "polygon",
+        "points": [
+          [
+            4.0618,
+            3.4406
+          ],
+          [
+            5.1878,
+            3.4406
+          ],
+          [
+            5.1878,
+            1.5843
+          ],
+          [
+            4.0618,
+            1.5843
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "blue",
+        "width": 0.05
+      },
+      {
+        "kind": "polygon",
+        "points": [
+          [
+            4.0279,
+            6.4849
+          ],
+          [
+            5.2217,
+            6.4849
+          ],
+          [
+            5.2217,
+            6.7905
+          ],
+          [
+            4.0279,
+            6.7905
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "structure",
+        "width": 0.05
+      },
+      {
+        "kind": "polygon",
+        "points": [
+          [
+            4.0279,
+            1.5843
+          ],
+          [
+            5.2217,
+            1.5843
+          ],
+          [
+            5.2217,
+            1.2787
+          ],
+          [
+            4.0279,
+            1.2787
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "structure",
+        "width": 0.05
+      },
+      {
+        "kind": "line",
+        "points": [
+          [
+            4.6249,
+            6.7905
+          ],
+          [
+            4.6249,
+            8.0692
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "blue",
+        "width": 0.1524
+      },
+      {
+        "kind": "line",
+        "points": [
+          [
+            4.6249,
+            0.0
+          ],
+          [
+            4.6249,
+            1.2787
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "blue",
+        "width": 0.1524
+      },
+      {
+        "kind": "polygon",
+        "points": [
+          [
+            0.0,
+            3.2504
+          ],
+          [
+            1.1446,
+            3.2504
+          ],
+          [
+            1.1446,
+            4.241
+          ],
+          [
+            0.0,
+            4.241
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "structure",
+        "width": 0.05
+      },
+      {
+        "kind": "polygon",
+        "points": [
+          [
+            16.541,
+            8.0692
+          ],
+          [
+            12.5377,
+            8.0692
+          ],
+          [
+            12.5377,
+            0.0
+          ],
+          [
+            16.541,
+            0.0
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "redZone",
+        "width": 0.05
+      },
+      {
+        "kind": "line",
+        "points": [
+          [
+            12.5377,
+            8.0692
+          ],
+          [
+            12.5377,
+            0.0
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "redTape",
+        "width": 0.0508
+      },
+      {
+        "kind": "polygon",
+        "points": [
+          [
+            16.541,
+            2.6376
+          ],
+          [
+            15.8558,
+            2.6376
+          ],
+          [
+            15.8558,
+            1.5708
+          ],
+          [
+            16.541,
+            1.5708
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "red",
+        "width": 0.05
+      },
+      {
+        "kind": "polygon",
+        "points": [
+          [
+            16.541,
+            7.8096
+          ],
+          [
+            16.461,
+            7.8096
+          ],
+          [
+            16.461,
+            6.9968
+          ],
+          [
+            16.541,
+            6.9968
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "red",
+        "width": 0.05
+      },
+      {
+        "kind": "polygon",
+        "points": [
+          [
+            12.5126,
+            4.6315
+          ],
+          [
+            11.3181,
+            4.6315
+          ],
+          [
+            11.3181,
+            3.4377
+          ],
+          [
+            12.5126,
+            3.4377
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "structure",
+        "width": 0.05
+      },
+      {
+        "kind": "polygon",
+        "points": [
+          [
+            12.4792,
+            3.4406
+          ],
+          [
+            11.3532,
+            3.4406
+          ],
+          [
+            11.3532,
+            1.5843
+          ],
+          [
+            12.4792,
+            1.5843
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "red",
+        "width": 0.05
+      },
+      {
+        "kind": "polygon",
+        "points": [
+          [
+            12.4792,
+            4.6286
+          ],
+          [
+            11.3532,
+            4.6286
+          ],
+          [
+            11.3532,
+            6.4849
+          ],
+          [
+            12.4792,
+            6.4849
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "red",
+        "width": 0.05
+      },
+      {
+        "kind": "polygon",
+        "points": [
+          [
+            12.5131,
+            1.5843
+          ],
+          [
+            11.3193,
+            1.5843
+          ],
+          [
+            11.3193,
+            1.2787
+          ],
+          [
+            12.5131,
+            1.2787
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "structure",
+        "width": 0.05
+      },
+      {
+        "kind": "polygon",
+        "points": [
+          [
+            12.5131,
+            6.4849
+          ],
+          [
+            11.3193,
+            6.4849
+          ],
+          [
+            11.3193,
+            6.7905
+          ],
+          [
+            12.5131,
+            6.7905
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "structure",
+        "width": 0.05
+      },
+      {
+        "kind": "line",
+        "points": [
+          [
+            11.9161,
+            1.2787
+          ],
+          [
+            11.9161,
+            0.0
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "red",
+        "width": 0.1524
+      },
+      {
+        "kind": "line",
+        "points": [
+          [
+            11.9161,
+            8.0692
+          ],
+          [
+            11.9161,
+            6.7905
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "red",
+        "width": 0.1524
+      },
+      {
+        "kind": "polygon",
+        "points": [
+          [
+            16.541,
+            4.8188
+          ],
+          [
+            15.3964,
+            4.8188
+          ],
+          [
+            15.3964,
+            3.8282
+          ],
+          [
+            16.541,
+            3.8282
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "structure",
+        "width": 0.05
+      },
+      {
+        "kind": "line",
+        "points": [
+          [
+            8.2705,
+            0.0
+          ],
+          [
+            8.2705,
+            8.0692
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "tape",
+        "width": 0.0508
+      },
+      {
+        "kind": "line",
+        "points": [
+          [
+            0.0,
+            4.0346
+          ],
+          [
+            16.541,
+            4.0346
+          ]
+        ],
+        "center": [
+          0.0,
+          0.0
+        ],
+        "radius": 0.1,
+        "style": "tape",
+        "width": 0.0254
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          4.136
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          4.2884
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          4.4408
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          4.5932
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          4.7456
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          4.898
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          5.0504
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          5.2028
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          5.3552
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          5.5076
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          5.66
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          5.8124
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          5.9648
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          6.1172
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          6.2696
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          4.136
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          4.2884
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          4.4408
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          4.5932
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          4.7456
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          4.898
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          5.0504
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          5.2028
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          5.3552
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          5.5076
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          5.66
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          5.8124
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          5.9648
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          6.1172
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          6.2696
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          4.136
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          4.2884
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          4.4408
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          4.5932
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          4.7456
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          4.898
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          5.0504
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          5.2028
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          5.3552
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          5.5076
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          5.66
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          5.8124
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          5.9648
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          6.1172
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          6.2696
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          4.136
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          4.2884
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          4.4408
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          4.5932
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          4.7456
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          4.898
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          5.0504
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          5.2028
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          5.3552
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          5.5076
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          5.66
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          5.8124
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          5.9648
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          6.1172
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          6.2696
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          4.136
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          4.2884
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          4.4408
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          4.5932
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          4.7456
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          4.898
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          5.0504
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          5.2028
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          5.3552
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          5.5076
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          5.66
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          5.8124
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          5.9648
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          6.1172
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          6.2696
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          4.136
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          4.2884
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          4.4408
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          4.5932
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          4.7456
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          4.898
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          5.0504
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          5.2028
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          5.3552
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          5.5076
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          5.66
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          5.8124
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          5.9648
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          6.1172
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          6.2696
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          4.136
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          4.2884
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          4.4408
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          4.5932
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          4.7456
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          4.898
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          5.0504
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          5.2028
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          5.3552
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          5.5076
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          5.66
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          5.8124
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          5.9648
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          6.1172
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          6.2696
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          4.136
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          4.2884
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          4.4408
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          4.5932
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          4.7456
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          4.898
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          5.0504
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          5.2028
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          5.3552
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          5.5076
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          5.66
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          5.8124
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          5.9648
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          6.1172
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          6.2696
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          4.136
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          4.2884
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          4.4408
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          4.5932
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          4.7456
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          4.898
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          5.0504
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          5.2028
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          5.3552
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          5.5076
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          5.66
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          5.8124
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          5.9648
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          6.1172
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          6.2696
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          4.136
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          4.2884
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          4.4408
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          4.5932
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          4.7456
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          4.898
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          5.0504
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          5.2028
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          5.3552
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          5.5076
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          5.66
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          5.8124
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          5.9648
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          6.1172
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          6.2696
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          4.136
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          4.2884
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          4.4408
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          4.5932
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          4.7456
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          4.898
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          5.0504
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          5.2028
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          5.3552
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          5.5076
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          5.66
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          5.8124
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          5.9648
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          6.1172
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          6.2696
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          4.136
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          4.2884
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          4.4408
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          4.5932
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          4.7456
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          4.898
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          5.0504
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          5.2028
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          5.3552
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          5.5076
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          5.66
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          5.8124
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          5.9648
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          6.1172
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          6.2696
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          1.8
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          1.9524
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          2.1048
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          2.2572
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          2.4096
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          2.562
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          2.7144
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          2.8668
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          3.0192
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          3.1716
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          3.324
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          3.4764
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          3.6288
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          3.7812
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.4321,
+          3.9336
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          1.8
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          1.9524
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          2.1048
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          2.2572
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          2.4096
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          2.562
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          2.7144
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          2.8668
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          3.0192
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          3.1716
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          3.324
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          3.4764
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          3.6288
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          3.7812
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.5845,
+          3.9336
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          1.8
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          1.9524
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          2.1048
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          2.2572
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          2.4096
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          2.562
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          2.7144
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          2.8668
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          3.0192
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          3.1716
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          3.324
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          3.4764
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          3.6288
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          3.7812
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.7369,
+          3.9336
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          1.8
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          1.9524
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          2.1048
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          2.2572
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          2.4096
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          2.562
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          2.7144
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          2.8668
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          3.0192
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          3.1716
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          3.324
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          3.4764
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          3.6288
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          3.7812
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          7.8893,
+          3.9336
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          1.8
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          1.9524
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          2.1048
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          2.2572
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          2.4096
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          2.562
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          2.7144
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          2.8668
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          3.0192
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          3.1716
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          3.324
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          3.4764
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          3.6288
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          3.7812
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.0417,
+          3.9336
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          1.8
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          1.9524
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          2.1048
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          2.2572
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          2.4096
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          2.562
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          2.7144
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          2.8668
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          3.0192
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          3.1716
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          3.324
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          3.4764
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          3.6288
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          3.7812
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.1941,
+          3.9336
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          1.8
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          1.9524
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          2.1048
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          2.2572
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          2.4096
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          2.562
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          2.7144
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          2.8668
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          3.0192
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          3.1716
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          3.324
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          3.4764
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          3.6288
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          3.7812
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.3465,
+          3.9336
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          1.8
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          1.9524
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          2.1048
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          2.2572
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          2.4096
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          2.562
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          2.7144
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          2.8668
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          3.0192
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          3.1716
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          3.324
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          3.4764
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          3.6288
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          3.7812
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.4989,
+          3.9336
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          1.8
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          1.9524
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          2.1048
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          2.2572
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          2.4096
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          2.562
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          2.7144
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          2.8668
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          3.0192
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          3.1716
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          3.324
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          3.4764
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          3.6288
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          3.7812
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.6513,
+          3.9336
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          1.8
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          1.9524
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          2.1048
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          2.2572
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          2.4096
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          2.562
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          2.7144
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          2.8668
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          3.0192
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          3.1716
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          3.324
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          3.4764
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          3.6288
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          3.7812
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.8037,
+          3.9336
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          1.8
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          1.9524
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          2.1048
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          2.2572
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          2.4096
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          2.562
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          2.7144
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          2.8668
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          3.0192
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          3.1716
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          3.324
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          3.4764
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          3.6288
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          3.7812
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          8.9561,
+          3.9336
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          1.8
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          1.9524
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          2.1048
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          2.2572
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          2.4096
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          2.562
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          2.7144
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          2.8668
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          3.0192
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          3.1716
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          3.324
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          3.4764
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          3.6288
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          3.7812
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          9.1085,
+          3.9336
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.076,
+          5.5838
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.076,
+          5.7362
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.076,
+          5.8886
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.076,
+          6.041
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.076,
+          6.1934
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.076,
+          6.3458
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.2284,
+          5.5838
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.2284,
+          5.7362
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.2284,
+          5.8886
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.2284,
+          6.041
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.2284,
+          6.1934
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.2284,
+          6.3458
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.3808,
+          5.5838
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.3808,
+          5.7362
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.3808,
+          5.8886
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.3808,
+          6.041
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.3808,
+          6.1934
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.3808,
+          6.3458
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.5332,
+          5.5838
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.5332,
+          5.7362
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.5332,
+          5.8886
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.5332,
+          6.041
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.5332,
+          6.1934
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          0.5332,
+          6.3458
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.465,
+          2.4854
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.465,
+          2.333
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.465,
+          2.1806
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.465,
+          2.0282
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.465,
+          1.8758
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.465,
+          1.7234
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.3126,
+          2.4854
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.3126,
+          2.333
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.3126,
+          2.1806
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.3126,
+          2.0282
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.3126,
+          1.8758
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.3126,
+          1.7234
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.1602,
+          2.4854
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.1602,
+          2.333
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.1602,
+          2.1806
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.1602,
+          2.0282
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.1602,
+          1.8758
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.1602,
+          1.7234
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.0078,
+          2.4854
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.0078,
+          2.333
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.0078,
+          2.1806
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.0078,
+          2.0282
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.0078,
+          1.8758
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      },
+      {
+        "kind": "circle",
+        "points": [],
+        "center": [
+          16.0078,
+          1.7234
+        ],
+        "radius": 0.075,
+        "style": "fuel",
+        "width": 0.05
+      }
+    ],
+    "notes": "Geometry from the 2026 field drawings (via Choreo's field image). Bumps and the overhead trench openings are drivable for most robots, so they are disabled by default; enable the trenches if your robot is taller than 22.25 in. Edit anything to match your venue."
+  },
+  "commands": [
+    "Intake",
+    "Intake 1",
+    "Intake 2",
+    "Intake 3",
+    "Intake 4",
+    "Intake 5",
+    "Shoot",
+    "Start",
+    "StopIntake",
+    "idle",
+    "idle2",
+    "intake",
+    "intake2",
+    "jitter",
+    "shoot",
+    "shoot2"
+  ],
+  "deployDir": "",
+  "poses": [],
+  "folders": [],
+  "fuelSim": {
+    "intakeRate": 10.0,
+    "capacity": 0,
+    "robots": []
+  }
+}

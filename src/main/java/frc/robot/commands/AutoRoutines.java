@@ -71,55 +71,42 @@ public class AutoRoutines {
 
   public AutoRoutine egg() {
     final AutoRoutine routine = m_factory.newRoutine("egg");
-    final AutoTrajectory eggAuto =
-            routine.trajectory("egg");
-    routine
-            .active()
-            .onTrue(
-                    eggAuto
-                            .resetOdometry()
-                            .andThen(eggAuto.cmd()));
+    final AutoTrajectory eggAuto = routine.trajectory("egg");
+    routine.active().onTrue(eggAuto.resetOdometry().andThen(eggAuto.cmd()));
 
     eggAuto
-            .atTime("intake")
-            .onTrue(m_superstructure.setState(Superstructure.StructureState.INTAKE));
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(Superstructure.StructureState.INTAKE));
 
     eggAuto
-            .atTime("jitter")
-            .onTrue(m_superstructure.setState(Superstructure.StructureState.JITTER_AND_SHOOT));
+        .atTime("jitter")
+        .onTrue(m_superstructure.setState(Superstructure.StructureState.JITTER_AND_SHOOT));
 
-    eggAuto
-            .atTime("shoot")
-            .onTrue(m_superstructure.setState(Superstructure.StructureState.SHOOT));
+    eggAuto.atTime("shoot").onTrue(m_superstructure.setState(Superstructure.StructureState.SHOOT));
 
     return routine;
   }
 
   public AutoRoutine eggTwice() {
     final AutoRoutine routine = m_factory.newRoutine("eggTwice");
-    final AutoTrajectory eggTwiceAuto =
-            routine.trajectory("eggtwice");
-    routine
-            .active()
-            .onTrue(
-                    eggTwiceAuto
-                            .resetOdometry()
-                            .andThen(eggTwiceAuto.cmd()));
+    final AutoTrajectory eggTwiceAuto = routine.trajectory("eggtwice");
+    routine.active().onTrue(eggTwiceAuto.resetOdometry().andThen(eggTwiceAuto.cmd()));
 
     eggTwiceAuto
-            .atTime("intake")
-            .onTrue(m_superstructure.setState(Superstructure.StructureState.INTAKE));
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(Superstructure.StructureState.INTAKE));
 
     eggTwiceAuto
-            .atTime("jitter")
-            .onTrue(m_superstructure.setState(Superstructure.StructureState.JITTER_AND_SHOOT));
+        .atTime("jitter")
+        .onTrue(m_superstructure.setState(Superstructure.StructureState.JITTER_AND_SHOOT));
 
     eggTwiceAuto
-            .atTime("shoot")
-            .onTrue(m_superstructure.setState(Superstructure.StructureState.SHOOT));
+        .atTime("shoot")
+        .onTrue(m_superstructure.setState(Superstructure.StructureState.SHOOT));
 
     return routine;
   }
+
   private boolean isRedAlliance() {
     return DriverStation.getAlliance().orElse(Alliance.Blue).equals(Alliance.Red);
   }
