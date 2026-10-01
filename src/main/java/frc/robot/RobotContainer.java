@@ -136,7 +136,6 @@ public class RobotContainer {
   }
 
   private void configureChoreoAutoChooser() {
-    autos = List.of(new AutoConfig("Egg", m_autoRoutines::egg, List.of("egg")));
     for (AutoConfig auto : autos) {
       autoChooser.addRoutine(auto.name, auto.routine);
     }
