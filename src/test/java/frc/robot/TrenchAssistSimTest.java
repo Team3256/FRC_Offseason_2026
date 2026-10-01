@@ -35,10 +35,9 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
  * Runs the real RobotContainer and the CTRE swerve simulation.
  *
  * <p>The always-on tests check the assist's decisions through the real drivetrain (auto, the
- * dashboard switch, red and blue alliance), which are deterministic. The tests that drive the
- * simulated robot physically through the trenches are opt-in ({@code TRENCH_SIM=true ./gradlew
- * test}): the sim drivetrain yaws on its own at speed and its pose estimate glitches now and then,
- * so those runs vary a lot and can fail without the assist being wrong.
+ * dashboard switch, red and blue alliance). The tests that drive the simulated robot physically
+ * through the trenches are opt-in because they take a while ({@code TRENCH_SIM=true ./gradlew
+ * test}).
  */
 class TrenchAssistSimTest {
   private static final int kDriverPort = Constants.ControllerConstants.kDriverControllerPort;
@@ -121,26 +120,15 @@ class TrenchAssistSimTest {
   }
 
   /**
-   * The sim drivetrain yaws by itself at speed (about -1.2 rad/s at full stick with nothing
-   * commanded, growing with speed), which a real driver would simply steer against. So the scripted
-   * driver holds the field-aligned heading with a gentle right stick.
-   */
-  private static double driverSteering(Pose2d pose) {
-    double heading = pose.getRotation().getRadians();
-    double error = MathUtil.angleModulus(Math.round(heading / Math.PI) * Math.PI - heading);
-    return MathUtil.clamp(-4.0 * error / SwerveConstants.MaxAngularRate, -0.5, 0.5);
-  }
-
-  /**
    * Drives with the stick straight forward. The robot first gets up to speed in a clear lane
    * (a start from rest is not what a driver does), then at {@code perturbX} it is nudged to {@code
    * perturbed} while still moving, as if the driver had lined up badly. Returns the worst lateral
-   * offset (90th percentile of the samples, because the sim's pose estimate glitches for a single
-   * sample now and then) while the robot is between the walls of {@code trenchX}.
+   * offset (90th percentile of the samples) and the most its heading moved from the nudged one,
+   * while the robot is between the walls of {@code trenchX}.
    *
    * <p>Only lateral centering is checked here; heading is covered by TrenchAssistTest.
    */
-  private static double driveForward(
+  private static double[] driveForward(
       Pose2d rollStart, double perturbX, Pose2d perturbed, double trenchX, double laneY)
       throws InterruptedException {
     stick(0, 0, 0);
@@ -155,11 +143,11 @@ class TrenchAssistSimTest {
     boolean perturbedYet = false;
     boolean reachedTrench = false;
     List<Double> offsets = new ArrayList<>();
+    double headingDrift = 0;
     for (int i = 0; i < 8.0 / kLoopSeconds; i++) {
       loop();
       Pose2d pose = drivetrain.getState().Pose;
-      stick(0, kStick, driverSteering(pose));
-      if (!perturbedYet) {
+            if (!perturbedYet) {
         if (forwardIsPlusX ? pose.getX() >= perturbX : pose.getX() <= perturbX) {
           drivetrain.resetPose(perturbed);
           perturbedYet = true;
@@ -169,6 +157,12 @@ class TrenchAssistSimTest {
       if (inTrench(pose, trenchX)) {
         reachedTrench = true;
         offsets.add(Math.abs(pose.getY() - laneY));
+        headingDrift =
+            Math.max(
+                headingDrift,
+                Math.abs(
+                    MathUtil.angleModulus(
+                        pose.getRotation().getRadians() - perturbed.getRotation().getRadians())));
       } else if (reachedTrench) {
         break; // through and out the other side
       }
@@ -179,9 +173,9 @@ class TrenchAssistSimTest {
     Collections.sort(offsets);
     double offset = offsets.get((int) Math.min(offsets.size() - 1, offsets.size() * 0.9));
     System.out.printf(
-        "TRENCH-SIM nudged to %s, trench x=%.2f: offset %.3f m over %d samples (clearance %.3f)%n",
-        perturbed, trenchX, offset, offsets.size(), kClearance);
-    return offset;
+        "TRENCH-SIM nudged to %s, trench x=%.2f: offset %.3f m, heading changed up to %.0f deg (%d samples)%n",
+        perturbed, trenchX, offset, Math.toDegrees(headingDrift), offsets.size());
+    return new double[] {offset, headingDrift};
   }
 
   @Test
@@ -196,10 +190,10 @@ class TrenchAssistSimTest {
     for (double laneY : laneYs) {
       for (double offset : reachableOffsets(laneY)) {
         Pose2d perturbed = new Pose2d(6.5, laneY + offset, Rotation2d.fromDegrees(offset * 80));
-        double worst =
+        double[] worst =
             driveForward(
                 new Pose2d(0.8, laneY, Rotation2d.kZero), 6.5, perturbed, trenchXs[1], laneY);
-        assertTrue(worst < kClearance, "blue: offset " + worst);
+        assertTrue(worst[0] < kClearance, "blue: offset " + worst[0]);
       }
     }
 
@@ -209,10 +203,10 @@ class TrenchAssistSimTest {
       for (double offset : reachableOffsets(laneY)) {
         Pose2d perturbed =
             new Pose2d(10.0, laneY + offset, Rotation2d.fromDegrees(180 + offset * 80));
-        double worst =
+        double[] worst =
             driveForward(
                 new Pose2d(15.7, laneY, Rotation2d.k180deg), 10.0, perturbed, trenchXs[0], laneY);
-        assertTrue(worst < kClearance, "red: offset " + worst);
+        assertTrue(worst[0] < kClearance, "red: offset " + worst[0]);
       }
     }
   }
@@ -228,12 +222,12 @@ class TrenchAssistSimTest {
 
     // Same stick, but the assist must not run: the robot just keeps its offset
     SmartDashboard.putBoolean("TrenchAssist/Enabled", false);
-    double off = driveForward(rollStart, 6.5, perturbed, trenchX, laneY);
+    double off = driveForward(rollStart, 6.5, perturbed, trenchX, laneY)[0];
     SmartDashboard.putBoolean("TrenchAssist/Enabled", true);
     assertTrue(off > 0.3, "assist ran while disabled on the dashboard: " + off);
 
     // Control: same run with the assist on does center
-    double on = driveForward(rollStart, 6.5, perturbed, trenchX, laneY);
+    double on = driveForward(rollStart, 6.5, perturbed, trenchX, laneY)[0];
     assertTrue(on < kClearance, "control run did not center: " + on);
   }
 
@@ -247,7 +241,7 @@ class TrenchAssistSimTest {
     // Lined up to go through a trench, off-center, driver pushing forward
     stick(0, 0, 0);
     enable(false);
-    drivetrain.resetPose(new Pose2d(trenchX - 3.0, laneY + 0.35, Rotation2d.kZero));
+    drivetrain.resetPose(new Pose2d(trenchX - 1.8, laneY + 0.35, Rotation2d.kZero));
     for (int i = 0; i < 10; i++) {
       loop();
     }
@@ -271,6 +265,27 @@ class TrenchAssistSimTest {
           "assist modified the speeds in auto: " + auto);
     }
     disable();
+  }
+
+  @Test
+  @EnabledIfEnvironmentVariable(named = "TRENCH_SIM", matches = "true")
+  void aSidewaysRobotGoesThroughCenteredWithoutBeingTurned() throws Exception {
+    double[] laneYs = TrenchAssist.laneCenterYs();
+    double[] trenchXs = TrenchAssist.trenchCenterXs();
+    setAlliance(AllianceStationID.Blue1);
+    for (double laneY : laneYs) {
+      for (double heading : new double[] {90, -90}) {
+        double offset = reachableOffsets(laneY)[0];
+        Pose2d perturbed = new Pose2d(6.5, laneY + offset, Rotation2d.fromDegrees(heading));
+        double[] worst =
+            driveForward(
+                new Pose2d(0.8, laneY, Rotation2d.kZero), 6.5, perturbed, trenchXs[1], laneY);
+        assertTrue(worst[0] < kClearance, "sideways: offset " + worst[0]);
+        assertTrue(
+            worst[1] < Math.toRadians(10),
+            "sideways robot was turned by " + Math.toDegrees(worst[1]) + " deg");
+      }
+    }
   }
 
   /** Puts the (idle) robot at a pose and waits for the pose estimate to settle there. */

@@ -23,22 +23,28 @@ import org.junit.jupiter.api.Test;
 class TrenchAssistTest {
   private static final double kDt = 0.005;
   // The drivetrain does not track a command instantly
-  private static final double kDriveLag = 0.25;
+  private static final double kDriveLag = 0.12;
   private static final double kRobotHalfWidth = Units.inchesToMeters(16.5);
-  // Room each side of the robot when it is dead center in the lane; touching a wall is not a
-  // crash, so a centimeter of tolerance keeps wall contact from tripping float rounding
-  private static final double kClearance =
-      FieldConstants.LeftTrench.openingWidth / 2.0 - kRobotHalfWidth + 0.01;
+  private static final double kLaneHalfWidth = FieldConstants.LeftTrench.openingWidth / 2.0;
+  // Touching a wall is not a crash, so a centimeter of tolerance keeps wall contact from tripping
+  // float rounding
+  private static final double kTolerance = 0.01;
+
+  /** Half the width the (square) robot takes up across the lane at this heading. */
+  private static double footprintHalf(double heading) {
+    return kRobotHalfWidth * (Math.abs(Math.cos(heading)) + Math.abs(Math.sin(heading)));
+  }
 
   private static ChassisSpeeds driver(double vx, double vy) {
     return new ChassisSpeeds(vx, vy, 0);
   }
 
   /**
-   * Drives the robot at constant stick input past one trench; returns the worst lateral offset and
-   * the worst heading error (from 0 or 180 degrees) while the robot overlaps that trench.
+   * Drives the robot at constant stick input past one trench; returns how far the robot pokes into
+   * the walls at worst while it overlaps that trench (negative means it clears them), counting both
+   * its offset from the centerline and its footprint at its current heading.
    */
-  private static double[] worstInTrench(
+  private static double worstWallOverlap(
       double startX,
       double startY,
       double startHeading,
@@ -48,8 +54,7 @@ class TrenchAssistTest {
       double laneY) {
     Pose2d pose = new Pose2d(startX, startY, Rotation2d.fromRadians(startHeading));
     ChassisSpeeds actual = new ChassisSpeeds(vx, 0, 0);
-    double worstOffset = 0;
-    double worstHeading = 0;
+    double worst = -1.0;
     for (int i = 0; i < 4000; i++) {
       ChassisSpeeds cmd = TrenchAssist.apply(pose, driver(vx, vy)).speeds();
       double alpha = kDt / (kDriveLag + kDt);
@@ -74,28 +79,29 @@ class TrenchAssistTest {
       // Only the part where the robot is actually between the walls matters
       if (Math.abs(pose.getX() - trenchX)
           <= FieldConstants.LeftTrench.depth / 2.0 + TrenchAssistConstants.kRobotHalfLength) {
-        worstOffset = Math.max(worstOffset, Math.abs(pose.getY() - laneY));
-        double heading = pose.getRotation().getRadians();
-        worstHeading =
-            Math.max(
-                worstHeading,
-                Math.abs(MathUtil.angleModulus(heading - Math.round(heading / Math.PI) * Math.PI)));
+        double overlap =
+            Math.abs(pose.getY() - laneY)
+                + footprintHalf(pose.getRotation().getRadians())
+                - kLaneHalfWidth;
+        worst = Math.max(worst, overlap);
       }
     }
-    return new double[] {worstOffset, worstHeading};
+    return worst;
   }
 
   @Test
-  void centersFromAnyOffsetAndDirection() {
+  void clearsTheWallsFromAnyOffsetHeadingAndDirection() {
     double reach = 6.0;
+    // Includes sideways (90 degrees) and in-between headings: the robot is square, so those fit
+    double[] headings = {0, 0.5, -0.5, Math.PI, Math.PI + 0.4, Math.PI / 2, Math.PI / 2 + 0.3, 0.8};
     for (double centerX : TrenchAssist.trenchCenterXs()) {
       for (double laneY : TrenchAssist.laneCenterYs()) {
         for (double offset : new double[] {-0.5, -0.25, 0.25, 0.5}) {
-          for (double heading : new double[] {0, 0.5, -0.5, Math.PI, Math.PI + 0.4}) {
+          for (double heading : headings) {
             for (double dir : new double[] {1, -1}) {
               for (double speed : new double[] {1.5, 3.0, 5.0}) {
-                double[] worst =
-                    worstInTrench(
+                double worst =
+                    worstWallOverlap(
                         centerX - dir * reach,
                         laneY + offset,
                         heading,
@@ -103,13 +109,11 @@ class TrenchAssistTest {
                         0,
                         centerX,
                         laneY);
-                String where =
-                    String.format(
-                        "x=%.2f lane=%.2f off=%.2f hdg=%.2f dir=%.0f v=%.1f",
-                        centerX, laneY, offset, heading, dir, speed);
-                assertTrue(worst[0] < kClearance * 0.5, where + ": offset " + worst[0] + " m");
                 assertTrue(
-                    worst[1] < Math.toRadians(15), where + ": heading error " + worst[1] + " rad");
+                    worst < kTolerance,
+                    String.format(
+                        "x=%.2f lane=%.2f off=%.2f hdg=%.2f dir=%.0f v=%.1f: hits the wall by %.3f m",
+                        centerX, laneY, offset, heading, dir, speed, worst));
               }
             }
           }
@@ -119,25 +123,40 @@ class TrenchAssistTest {
   }
 
   @Test
-  void centersWhenDriverApproachesAtAnAngle() {
+  void clearsTheWallsWhenDriverApproachesAtAnAngle() {
     double vx = 3.5;
+    double entranceDistance =
+        5.0 - FieldConstants.LeftTrench.depth / 2.0 - TrenchAssistConstants.kRobotHalfLength;
     for (double centerX : TrenchAssist.trenchCenterXs()) {
       for (double laneY : TrenchAssist.laneCenterYs()) {
-        // Sloppy aim (+/- 0.3 m) is fine up to ~16 degrees off the trench axis; at ~27 degrees the
-        // driver has to be within +/- 0.1 m, since the capture funnel is only so wide
+        // Up to ~27 degrees off the trench axis, aimed at the trench entrance give or take 0.2 m
         for (double vy : new double[] {-1.75, -1.0, -0.5, 0.5, 1.0, 1.75}) {
-          double maxAimError = Math.abs(vy) > 1.0 ? 0.1 : 0.3;
-          for (double aimError : new double[] {-maxAimError, 0, maxAimError}) {
-            double startY = laneY - vy * 5.0 / vx + aimError;
+          for (double aimError : new double[] {-0.2, 0, 0.2}) {
+            double startY = laneY - vy * entranceDistance / vx + aimError;
             if (startY < kRobotHalfWidth || startY > FieldConstants.fieldWidth - kRobotHalfWidth) {
               continue;
             }
-            double[] worst = worstInTrench(centerX - 5.0, startY, 0, vx, vy, centerX, laneY);
-            String where = String.format("vy=%.2f lane=%.2f aim error=%.1f", vy, laneY, aimError);
-            assertTrue(worst[0] < kClearance, where + ": offset " + worst[0] + " m");
+            double worst = worstWallOverlap(centerX - 5.0, startY, 0, vx, vy, centerX, laneY);
+            assertTrue(
+                worst < kTolerance,
+                String.format(
+                    "vy=%.2f lane=%.2f aim error=%.1f: hits the wall by %.3f m",
+                    vy, laneY, aimError, worst));
           }
         }
       }
+    }
+  }
+
+  @Test
+  void leavesASidewaysRobotAlone() {
+    double laneY = TrenchAssist.laneCenterYs()[0];
+    double centerX = TrenchAssist.trenchCenterXs()[0];
+    // Lined up sideways (or close to it) to shoot from the trench, driver pushing through it
+    for (double degrees : new double[] {90, 270, -90, 80, 100, 0, 180, 10, 170}) {
+      var pose = new Pose2d(centerX, laneY, Rotation2d.fromDegrees(degrees));
+      var out = TrenchAssist.apply(pose, driver(3.0, 0.0));
+      assertEquals(0.0, out.speeds().omegaRadiansPerSecond, 1e-9, "turned the robot at " + degrees);
     }
   }
 
@@ -213,5 +232,59 @@ class TrenchAssistTest {
       previous = weight;
     }
     assertEquals(0.0, previous);
+  }
+
+  @Test
+  void squaresUpARobotThatWouldNotFit() {
+    double laneY = TrenchAssist.laneCenterYs()[0];
+    double centerX = TrenchAssist.trenchCenterXs()[0];
+    // Near a diagonal the robot is too wide for the lane, so it is turned to the nearest 90
+    var cw = TrenchAssist.apply(new Pose2d(centerX, laneY, Rotation2d.fromDegrees(40)), driver(3, 0));
+    assertTrue(cw.speeds().omegaRadiansPerSecond < 0, "40 degrees should turn back toward 0");
+    var ccw =
+        TrenchAssist.apply(new Pose2d(centerX, laneY, Rotation2d.fromDegrees(50)), driver(3, 0));
+    assertTrue(ccw.speeds().omegaRadiansPerSecond > 0, "50 degrees should turn on toward 90");
+  }
+
+  @Test
+  void doesNotEngageFarFromTheTrench() {
+    double laneY = TrenchAssist.laneCenterYs()[0];
+    double entranceX =
+        TrenchAssist.trenchCenterXs()[0]
+            - FieldConstants.LeftTrench.depth / 2.0
+            - TrenchAssistConstants.kRobotHalfLength;
+    // Perfectly lined up, but still a long way out: the driver keeps full control
+    for (double speed : new double[] {1.5, 3.0, 5.0}) {
+      double reach =
+          TrenchAssistConstants.kBaseApproachDistance
+              + TrenchAssistConstants.kApproachLookahead * speed;
+      var far =
+          TrenchAssist.apply(
+              new Pose2d(entranceX - reach - 0.2, laneY + 0.3, Rotation2d.kZero), driver(speed, 0));
+      assertEquals(0.0, far.weight(), "engaged " + (reach + 0.2) + " m out at " + speed + " m/s");
+      var near =
+          TrenchAssist.apply(
+              new Pose2d(entranceX - 0.3, laneY + 0.3, Rotation2d.kZero), driver(speed, 0));
+      assertTrue(near.weight() > 0.5, "should be engaged 0.3 m out at " + speed + " m/s");
+    }
+  }
+
+  @Test
+  void doesNotPullInADriverHeadingForTheBumpOrPassingBy() {
+    double laneY = TrenchAssist.laneCenterYs()[0];
+    double entranceX =
+        TrenchAssist.trenchCenterXs()[0]
+            - FieldConstants.LeftTrench.depth / 2.0
+            - TrenchAssistConstants.kRobotHalfLength;
+    // Just beside the lane, but steering away from it (toward the bump)
+    var away =
+        TrenchAssist.apply(
+            new Pose2d(entranceX - 0.8, laneY + 0.9, Rotation2d.kZero), driver(3.0, 1.2));
+    assertEquals(0.0, away.weight());
+    // Driving past the entrance with no intent to go in: far off to the side
+    var past =
+        TrenchAssist.apply(
+            new Pose2d(entranceX - 0.8, laneY + 1.6, Rotation2d.kZero), driver(3.0, 0.0));
+    assertEquals(0.0, past.weight());
   }
 }

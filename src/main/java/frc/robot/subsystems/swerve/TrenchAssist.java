@@ -27,7 +27,9 @@ import frc.robot.FieldConstants;
  *
  * <p>The assist only engages for a driver actually driving through: moving along the trench axis at
  * speed. A robot that is stopped or creeping under the trench (to shoot, say), or strafing, is left
- * completely alone, and so is a driver who is turning the robot themselves.
+ * completely alone, and so is a driver who is turning the robot themselves. Heading is only touched
+ * when the robot would not clear the walls at its current angle, so a robot that is sideways (or at
+ * any other angle that fits) keeps it.
  */
 public final class TrenchAssist {
   private TrenchAssist() {}
@@ -91,15 +93,24 @@ public final class TrenchAssist {
 
     double omega = driverSpeeds.omegaRadiansPerSecond;
     if (Math.abs(omega) < kDriverTurnOverrideRate) {
-      // Square up to the walls: nearest of 0 or 180 degrees.
+      // The robot is square, so any multiple of 90 degrees fits equally well. Only turn it if it
+      // would not clear the walls where it is (near a diagonal), so a robot that is sideways to
+      // shoot is left alone.
       double heading = pose.getRotation().getRadians();
-      double target = Math.round(heading / Math.PI) * Math.PI;
+      double footprintHalf =
+          kRobotHalfLength * (Math.abs(Math.cos(heading)) + Math.abs(Math.sin(heading)));
+      double slack = kLaneHalfWidth - footprintHalf;
+      double snapWeight =
+          1.0
+              - smoothstep(
+                  (slack - kHeadingFullSnapSlack) / (kHeadingFreeSlack - kHeadingFullSnapSlack));
+      double target = Math.round(heading / (Math.PI / 2.0)) * (Math.PI / 2.0);
       double squareOmega =
           MathUtil.clamp(
               kHeadingKP * MathUtil.angleModulus(target - heading),
               -SwerveConstants.MaxAngularRate,
               SwerveConstants.MaxAngularRate);
-      omega = MathUtil.interpolate(omega, squareOmega, bestWeight);
+      omega = MathUtil.interpolate(omega, squareOmega, bestWeight * snapWeight);
     }
 
     return new Result(new ChassisSpeeds(driverSpeeds.vxMetersPerSecond, vy, omega), bestWeight);
@@ -126,16 +137,15 @@ public final class TrenchAssist {
     double outside = Math.abs(dx) - kOverlapHalfDepth;
     boolean approaching = outside > 0.0 && driverVx * dx < 0.0;
 
-    // How far from the lane centerline we still count as lined up with it. On approach this
-    // widens with distance, so a driver coming in at an angle gets captured early enough.
-    double dy = y - lane.centerY();
-    double captureHalfWidth = kLaneHalfWidth;
-    if (approaching && driverVy * dy <= 0.0) {
-      // Only when the driver is actually steering toward the lane, so a driver heading for the
-      // bump next to the trench is not pulled in.
-      captureHalfWidth += kApproachAngleTan * outside;
+    // Is the driver lined up with this lane? Judged by where they are heading: on approach, how far
+    // off the centerline they will be when they reach the entrance. So a driver heading for the
+    // bump next to the trench, or just passing by, is not pulled in, while one coming in at a
+    // slight angle is.
+    double lateralError = Math.abs(y - lane.centerY());
+    if (approaching) {
+      lateralError = Math.abs(y - lane.centerY() + driverVy * outside / speed);
     }
-    double lateralWeight = 1.0 - smoothstep((Math.abs(dy) - captureHalfWidth) / kCaptureMargin);
+    double lateralWeight = 1.0 - smoothstep((lateralError - kLaneHalfWidth) / kCaptureMargin);
     if (lateralWeight <= 0.0) {
       return 0.0;
     }

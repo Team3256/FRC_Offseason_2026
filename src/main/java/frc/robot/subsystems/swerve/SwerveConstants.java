@@ -75,7 +75,10 @@ public final class SwerveConstants {
     /** Default for the dashboard toggle; false disables trench assist entirely. */
     public static final boolean kUseTrenchAssist = true;
 
-    /** Half the robot's length (bumpers included) along the trench axis. */
+    /**
+     * Half the robot's size (bumpers included). The chassis is square, so this is both the length
+     * along and the width across the trench, whichever way the robot faces.
+     */
     public static final double kRobotHalfLength = Units.inchesToMeters(16.5);
 
     /** Lateral distance from the lane centerline within which the assist is at full strength. */
@@ -87,8 +90,8 @@ public final class SwerveConstants {
     public static final double kCaptureMargin = Units.inchesToMeters(8.0);
 
     /**
-     * Angle off the trench axis the driver can approach from and still be captured: the lateral
-     * capture band widens by tan(angle) per meter of distance from the trench.
+     * The driver must be heading within this angle of the trench axis to be treated as driving
+     * through (more sideways than this is not an approach, so it is left alone).
      */
     public static final double kApproachAngleTan = Math.tan(Math.toRadians(30.0));
 
@@ -102,13 +105,13 @@ public final class SwerveConstants {
     public static final double kAssistSpeedBlend = 0.75;
 
     /** The assist starts this far before the trench entrance, plus the lookahead below. */
-    public static final double kBaseApproachDistance = 1.0;
+    public static final double kBaseApproachDistance = 0.4;
 
     /** Extra approach distance per m/s of driver speed, so fast drivers are captured earlier. */
-    public static final double kApproachLookahead = 1.0;
+    public static final double kApproachLookahead = 0.45;
 
     /** The assist is at full strength this many seconds (of travel) before the entrance. */
-    public static final double kFullStrengthLeadTime = 0.6;
+    public static final double kFullStrengthLeadTime = 0.25;
 
     /** Distance after leaving the trench over which the assist fades out. */
     public static final double kExitFadeDistance = 0.3;
@@ -118,7 +121,17 @@ public final class SwerveConstants {
 
     public static final double kMaxCenteringSpeed = 3.0;
 
-    /** Heading controller used to square the robot to the trench walls (0 or 180 degrees). */
+    /**
+     * The robot is only turned when its footprint would not clear the walls at its current angle:
+     * with this much room (or more) between the robot and the walls, its heading is left alone, so
+     * a robot lined up sideways to shoot is not turned.
+     */
+    public static final double kHeadingFreeSlack = 0.14;
+
+    /** Room between the robot and the walls at or below which heading is fully squared up. */
+    public static final double kHeadingFullSnapSlack = 0.07;
+
+    /** Heading controller used to square the robot to the trench walls (nearest 90 degrees). */
     public static final double kHeadingKP = 6.0;
 
     /** Driver turn rate (rad/s) above which the driver keeps control of heading. */
