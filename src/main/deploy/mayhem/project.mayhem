@@ -5756,7 +5756,7 @@
   "poses": [],
   "folders": [],
   "fuelSim": {
-    "intakeRate": 10.0,
+    "intakeRate": 50.0,
     "capacity": 0,
     "robots": []
   }
