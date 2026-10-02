@@ -22,7 +22,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.AutoRoutines;
-import frc.robot.commands.InverseMayhemAutos;
 import frc.robot.sim.SimMechs;
 import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.feeder.Feeder;
@@ -47,6 +46,9 @@ import frc.robot.subsystems.sotm.ShotCalculator;
 import frc.robot.subsystems.swerve.CommandSwerveDrivetrain;
 import frc.robot.subsystems.swerve.SwerveConstants.AzimuthTargets;
 import frc.robot.subsystems.swerve.generated.TunerConstants;
+import frc.robot.subsystems.vision.Vision;
+import frc.robot.subsystems.vision.VisionConstants;
+import frc.robot.subsystems.vision.VisionIOPhotonVision;
 import frc.robot.utils.AutoConfig;
 import frc.robot.utils.MappedXboxController;
 import java.util.ArrayList;
@@ -81,6 +83,15 @@ public class RobotContainer {
 
   private final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
+  private final Vision vision =
+      new Vision(
+          drivetrain::addVisionMeasurement,
+          new VisionIOPhotonVision(
+              VisionConstants.frontRightCam, VisionConstants.robotToFrontRightCam),
+          new VisionIOPhotonVision(
+              VisionConstants.frontLeftCam, VisionConstants.robotToFrontLeftCam),
+          new VisionIOPhotonVision(VisionConstants.backCam, VisionConstants.robotToBackCam));
+
   private static final Transform2d robotToShooterTransform =
       new Transform2d(0, 0, Rotation2d.kZero);
 
@@ -91,6 +102,10 @@ public class RobotContainer {
           robotToShooterTransform);
 
   /// sim file for intakepivot needs to be added -- seems like its not been merged yet
+  private final AutoRoutines m_autoRoutines;
+
+  // MayhemLib auto factory: Mayhem autos (paths in src/main/deploy/mayhem) are built from this.
+  private final mayhemlib.auto.AutoFactory m_mayhemAutoFactory;
 
   private AutoChooser autoChooser = new AutoChooser();
 
@@ -120,6 +135,10 @@ public class RobotContainer {
         new InverseMayhemAutos(
             CtreSwerve.autoFactory(drivetrain).withTelemetry(true), superstructure);
 
+    AutoFactory autoFactory = drivetrain.createAutoFactory(drivetrain::trajLogger);
+    m_autoRoutines = new AutoRoutines(autoFactory, drivetrain, superstructure);
+    m_mayhemAutoFactory = CtreSwerve.autoFactory(drivetrain).withTelemetry(true);
+
     configureChoreoAutoChooser();
     configureSwerve();
     configureOperatorBinds();
@@ -137,20 +156,11 @@ public class RobotContainer {
   }
 
   private void configureChoreoAutoChooser() {
-    autos =
-        List.of(
-            new AutoConfig(
-                "Bottom Inverse Auto",
-                m_autoRoutines::bottomInverseAuto,
-                List.of("bottomInverseAuto", "bottomInverseAutopt2", "bottomInverseAutopt3")));
-
     for (AutoConfig auto : autos) {
       autoChooser.addRoutine(auto.name, auto.routine);
     }
 
-    // Same autos, driven by MayhemLib (paths in src/main/deploy/mayhem)
-    autoChooser.addCmd(
-        "Bottom Inverse Auto (Mayhem)", () -> m_mayhemAutos.bottomInverseAuto().cmd());
+    autoChooser.addCmd("Wheel Radius Change", () -> drivetrain.wheelRadiusCharacterization(1));
 
     SmartDashboard.putData("auto chooser", autoChooser);
     RobotModeTriggers.autonomous().onTrue(autoChooser.selectedCommandScheduler());

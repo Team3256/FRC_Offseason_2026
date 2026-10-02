@@ -113,11 +113,7 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": false,
-        "fuelCollision": "block",
-        "terrain": {
-          "expectedSpeed": 0.7,
-          "feedbackScale": 0.3
-        }
+        "fuelCollision": "block"
       },
       {
         "id": "bump-blue-r",
@@ -148,11 +144,7 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": false,
-        "fuelCollision": "block",
-        "terrain": {
-          "expectedSpeed": 0.7,
-          "feedbackScale": 0.3
-        }
+        "fuelCollision": "block"
       },
       {
         "id": "trenchwall-blue-l",
@@ -369,11 +361,7 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": false,
-        "fuelCollision": "block",
-        "terrain": {
-          "expectedSpeed": 0.7,
-          "feedbackScale": 0.3
-        }
+        "fuelCollision": "block"
       },
       {
         "id": "bump-red-r",
@@ -404,11 +392,7 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": false,
-        "fuelCollision": "block",
-        "terrain": {
-          "expectedSpeed": 0.7,
-          "feedbackScale": 0.3
-        }
+        "fuelCollision": "block"
       },
       {
         "id": "trenchwall-red-l",
