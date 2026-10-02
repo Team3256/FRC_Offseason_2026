@@ -313,6 +313,70 @@
     "type": "maxAngularVelocity",
     "value": 0.0
    }
+  },
+  {
+   "id": "co5mapv2h1",
+   "enabled": true,
+   "scope": {
+    "kind": "zone",
+    "from": 0,
+    "to": 10,
+    "region": [
+     [
+      4.082579612731934,
+      6.47517204284668
+     ],
+     [
+      5.175650119781494,
+      6.474662780761719
+     ],
+     [
+      5.171975135803223,
+      4.638121604919434
+     ],
+     [
+      4.082523345947266,
+      4.657176494598389
+     ]
+    ]
+   },
+   "data": {
+    "type": "roughTerrain",
+    "expectedSpeed": 0.7,
+    "feedbackScale": 0.3
+   }
+  },
+  {
+   "id": "ck95lce959",
+   "enabled": true,
+   "scope": {
+    "kind": "zone",
+    "from": 0,
+    "to": 10,
+    "region": [
+     [
+      4.064316749572754,
+      3.4402225017547607
+     ],
+     [
+      5.190124988555908,
+      3.434511661529541
+     ],
+     [
+      5.200019836425781,
+      1.5762581825256348
+     ],
+     [
+      4.031692028045654,
+      1.5923161506652832
+     ]
+    ]
+   },
+   "data": {
+    "type": "roughTerrain",
+    "expectedSpeed": 0.7,
+    "feedbackScale": 0.3
+   }
   }
  ],
  "markers": [
@@ -359,7 +423,7 @@
  },
  "folder": null,
  "output": {
-  "inputHash": "96e08f57da2d7aee",
+  "inputHash": "2d2450b337cce325",
   "samples": [
    {
     "t": 0.0,
@@ -5877,11 +5941,11 @@
   "stats": {
    "success": true,
    "totalTime": 6.1114039979455566,
-   "solveSeconds": 0.5745774999959394,
+   "solveSeconds": 1.5827295000199229,
    "iterations": 37,
    "candidate": 0,
    "attempts": [
-    "candidate 0: direct: Solved_To_Acceptable_Level (37 it, 0.49s)"
+    "candidate 0: direct: Solved_To_Acceptable_Level (37 it, 1.25s)"
    ]
   }
  }
