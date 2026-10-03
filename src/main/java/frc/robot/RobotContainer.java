@@ -7,52 +7,31 @@
 
 package frc.robot;
 
-import static edu.wpi.first.units.Units.MetersPerSecond;
-import static frc.robot.subsystems.swerve.SwerveConstants.*;
-
 import choreo.auto.AutoChooser;
-import choreo.auto.AutoFactory;
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.swerve.SwerveRequest;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.Constants.ControllerConstants;
-import frc.robot.commands.AutoRoutines;
-import frc.robot.commands.StealMayhemAutos;
 import frc.robot.sim.SimMechs;
-import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.feeder.Feeder;
 import frc.robot.subsystems.feeder.FeederIOSim;
 import frc.robot.subsystems.feeder.FeederIOTalonFX;
 import frc.robot.subsystems.indexer.Indexer;
 import frc.robot.subsystems.indexer.IndexerIOSim;
 import frc.robot.subsystems.indexer.IndexerIOTalonFX;
-import frc.robot.subsystems.intakerollers.IntakeRollers;
-import frc.robot.subsystems.intakerollers.IntakeRollersIOSim;
-import frc.robot.subsystems.intakerollers.IntakeRollersIOTalonFX;
-import frc.robot.subsystems.linearslide.LinearSlide;
-import frc.robot.subsystems.linearslide.LinearSlideIOSim;
-import frc.robot.subsystems.linearslide.LinearSlideIOTalonFX;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.shooter.ShooterIOSim;
 import frc.robot.subsystems.shooter.ShooterIOTalonFX;
 import frc.robot.subsystems.shooterpivot.ShooterPivot;
 import frc.robot.subsystems.shooterpivot.ShooterPivotIOSim;
 import frc.robot.subsystems.shooterpivot.ShooterPivotIOTalonFX;
-import frc.robot.subsystems.sotm.ShotCalculator;
-import frc.robot.subsystems.swerve.CommandSwerveDrivetrain;
-import frc.robot.subsystems.swerve.SwerveConstants.AzimuthTargets;
-import frc.robot.subsystems.swerve.generated.TunerConstants;
 import frc.robot.utils.AutoConfig;
 import frc.robot.utils.MappedXboxController;
 import java.util.ArrayList;
 import java.util.List;
-import mayhemlib.ctre.CtreSwerve;
 
 public class RobotContainer {
 
@@ -61,35 +40,9 @@ public class RobotContainer {
   public final MappedXboxController m_operatorController =
       new MappedXboxController(ControllerConstants.kOperatorControllerPort, "Operator");
 
-  private final Telemetry logger =
-      new Telemetry(TunerConstants.kSpeedAt12Volts.in(MetersPerSecond));
   private final IntakeRollers intakeRollers =
       new IntakeRollers(
-          true, Utils.isSimulation() ? new IntakeRollersIOSim() : new IntakeRollersIOTalonFX());
-
-  private final Shooter shooter =
-      new Shooter(true, Utils.isSimulation() ? new ShooterIOSim() : new ShooterIOTalonFX());
-  private final ShooterPivot shooterPivot =
-      new ShooterPivot(
-          true, Utils.isSimulation() ? new ShooterPivotIOSim() : new ShooterPivotIOTalonFX());
-  private final LinearSlide linearSlide =
-      new LinearSlide(
-          true, Utils.isSimulation() ? new LinearSlideIOSim() : new LinearSlideIOTalonFX());
-  private final Feeder feeder =
-      new Feeder(true, Utils.isSimulation() ? new FeederIOSim() : new FeederIOTalonFX());
-  private final Indexer indexer =
-      new Indexer(true, Utils.isSimulation() ? new IndexerIOSim() : new IndexerIOTalonFX());
-
-  private final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
-
-  private static final Transform2d robotToShooterTransform =
-      new Transform2d(0, 0, Rotation2d.kZero);
-
-  private final ShotCalculator shotCalculator =
-      new ShotCalculator(
-          () -> drivetrain.getState().Pose,
-          drivetrain::getFieldRelativeSpeeds,
-          robotToShooterTransform);
+          Utils.isSimulation() ? new IntakeRollersIOSim() : new IntakeRollersIOTalonFX());
 
   /// sim file for intakepivot needs to be added -- seems like its not been merged yet
 
@@ -100,30 +53,16 @@ public class RobotContainer {
   private SendableChooser<AutoConfig> autoVisualizer = new SendableChooser<AutoConfig>();
   private Field2d field2d = new Field2d();
 
-  private final Superstructure superstructure =
-      new Superstructure(
-          indexer,
-          shooterPivot,
-          shooter,
-          intakeRollers,
-          linearSlide,
-          feeder,
-          shotCalculator,
-          shotCalculator.getRobotPoseSupplier());
-
-  private final AutoRoutines m_autoRoutines;
-  private final StealMayhemAutos m_mayhemAutos;
+  private final Shooter shooter =
+      new Shooter(true, Utils.isSimulation() ? new ShooterIOSim() : new ShooterIOTalonFX());
+  private final ShooterPivot shooterPivot =
+      new ShooterPivot(
+          true, Utils.isSimulation() ? new ShooterPivotIOSim() : new ShooterPivotIOTalonFX());
 
   public RobotContainer() {
-    AutoFactory autoFactory = drivetrain.createAutoFactory(drivetrain::trajLogger);
-    CommandScheduler.getInstance().schedule(autoFactory.warmupCmd());
-    m_autoRoutines = new AutoRoutines(autoFactory, drivetrain, superstructure);
-    m_mayhemAutos =
-        new StealMayhemAutos(
-            CtreSwerve.autoFactory(drivetrain).withTelemetry(true), superstructure);
 
-    configureChoreoAutoChooser();
     configureSwerve();
+    configureChoreoAutoChooser();
     configureOperatorBinds();
     configureAutoVisualizer();
     if (Utils.isSimulation()) {
@@ -131,28 +70,18 @@ public class RobotContainer {
     }
   }
 
+  private final Feeder feeder =
+      new Feeder(true, Utils.isSimulation() ? new FeederIOSim() : new FeederIOTalonFX());
+
+  private final Indexer indexer =
+      new Indexer(true, Utils.isSimulation() ? new IndexerIOSim() : new IndexerIOTalonFX());
+
   private void configureOperatorBinds() {
-    m_operatorController.a().onTrue(superstructure.setState(Superstructure.StructureState.INTAKE));
-    m_operatorController.b().onTrue(superstructure.setState(Superstructure.StructureState.SHOOT));
-    m_operatorController.x().onTrue(superstructure.setState(Superstructure.StructureState.JITTER));
-    m_operatorController.y().onTrue(superstructure.setState(Superstructure.StructureState.HOME));
+    // TODO UPDATE W real BINDINGS
+
   }
 
-  private void configureChoreoAutoChooser() {
-    autos =
-        List.of(
-            new AutoConfig("Steal Auto", m_autoRoutines::stealAuto, List.of("steal", "stealp2")));
-
-    for (AutoConfig auto : autos) {
-      autoChooser.addRoutine(auto.name, auto.routine);
-    }
-
-    // Same autos, driven by MayhemLib (paths in src/main/deploy/mayhem)
-    autoChooser.addCmd("Steal Auto (Mayhem)", () -> m_mayhemAutos.stealAuto().cmd());
-
-    SmartDashboard.putData("auto chooser", autoChooser);
-    RobotModeTriggers.autonomous().onTrue(autoChooser.selectedCommandScheduler());
-  }
+  private void configureChoreoAutoChooser() {}
 
   private void configureAutoVisualizer() {
 
@@ -169,87 +98,9 @@ public class RobotContainer {
     SmartDashboard.putData("Field Visualize", field2d);
   }
 
-  private double vxSupplier() {
-    return -(Math.signum(m_driverController.getLeftY())
-            * Math.pow(m_driverController.getLeftY(), 2))
-        * MaxSpeed;
-  }
-
-  private double vySupplier() {
-    return -(Math.signum(m_driverController.getLeftX())
-            * Math.pow(m_driverController.getLeftX(), 2))
-        * MaxSpeed;
-  }
-
   private void configureSwerve() {
-    SwerveRequest.FieldCentric drive =
-        new SwerveRequest.FieldCentric()
-            .withDeadband(deadbandMultiplier * MaxSpeed)
-            .withRotationalRate(deadbandMultiplier * MaxAngularRate);
-
-    SwerveRequest.FieldCentricFacingAngle azimuth =
-        new SwerveRequest.FieldCentricFacingAngle().withDeadband(deadbandMultiplier * MaxSpeed);
-
-    azimuth.HeadingController.enableContinuousInput(-Math.PI, Math.PI);
-    azimuth.HeadingController.setPID(
-        AzimuthTargets.aziKP, AzimuthTargets.aziKi, AzimuthTargets.aziKD);
-
-    drivetrain.setDefaultCommand(
-        drivetrain.applyRequest(
-            () ->
-                drive
-                    .withVelocityX(
-                        -(Math.signum(m_driverController.getLeftY())
-                                * Math.pow(m_driverController.getLeftY(), 2))
-                            * MaxSpeed)
-                    .withVelocityY(
-                        -(Math.signum(m_driverController.getLeftX())
-                                * Math.pow(m_driverController.getLeftX(), 2))
-                            * MaxSpeed)
-                    .withRotationalRate(-m_driverController.getRightX() * MaxAngularRate)));
-
-    m_driverController
-        .leftBumper()
-        .whileTrue(
-            drivetrain.applyRequest(
-                () ->
-                    drive
-                        .withVelocityX(
-                            -(Math.signum(m_driverController.getLeftY())
-                                    * Math.pow(m_driverController.getLeftY(), 2))
-                                * SlowMaxSpeed)
-                        .withVelocityY(
-                            -(Math.signum(m_driverController.getLeftX())
-                                    * Math.pow(m_driverController.getLeftX(), 2))
-                                * SlowMaxSpeed)
-                        .withRotationalRate(-m_driverController.getRightX() * SlowMaxAngular)));
-    m_driverController
-        .rightBumper()
-        .whileTrue(
-            drivetrain.applyRequest(
-                () ->
-                    drive
-                        .withVelocityX(
-                            -(Math.signum(m_driverController.getLeftY())
-                                    * Math.pow(m_driverController.getLeftY(), 2))
-                                * SuperSlowMaxSpeed)
-                        .withVelocityY(
-                            -(Math.signum(m_driverController.getLeftX())
-                                    * Math.pow(m_driverController.getLeftX(), 2))
-                                * SuperSlowMaxSpeed)
-                        .withRotationalRate(-m_driverController.getRightX() * SlowMaxAngular)));
-
-    m_driverController.povRight().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
-    drivetrain.registerTelemetry(logger::telemeterize);
-
-    m_driverController
-        .a()
-        .whileTrue(
-            drivetrain.rotateToLookahead(shotCalculator, this::vxSupplier, this::vySupplier));
+    SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric();
   }
 
-  public void periodic() {
-    field2d.setRobotPose(drivetrain.getState().Pose);
-    shotCalculator.periodic();
-  }
+  public void periodic() {}
 }
