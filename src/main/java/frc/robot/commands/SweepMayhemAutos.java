@@ -80,4 +80,41 @@ public class SweepMayhemAutos {
 
     return routine;
   }
+
+  public AutoRoutine bottomTrenchSweep2xAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("bottomTrenchSweep2xAuto");
+    final AutoTrajectory bottomTrenchSweep2xAutoPt1 =
+        routine.trajectory("bottomTrenchSweepBump2xPt1");
+    final AutoTrajectory bottomTrenchSweep2xAutoPt2 =
+        routine.trajectory("bottomTrenchSweepBump2xPt2");
+    routine
+        .active()
+        .onTrue(
+            bottomTrenchSweep2xAutoPt1.resetOdometry().andThen(bottomTrenchSweep2xAutoPt1.cmd()));
+    bottomTrenchSweep2xAutoPt1
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    bottomTrenchSweep2xAutoPt1
+        .atTime("idle")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
+    bottomTrenchSweep2xAutoPt1
+        .atTime("shoot")
+        .onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    bottomTrenchSweep2xAutoPt1
+        .done()
+        .onTrue(Commands.waitSeconds(1).andThen(bottomTrenchSweep2xAutoPt2.cmd()));
+
+    bottomTrenchSweep2xAutoPt2
+        .atTime("intake2")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    bottomTrenchSweep2xAutoPt2
+        .atTime("idle2")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
+    bottomTrenchSweep2xAutoPt2
+        .atTime("shoot2")
+        .onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
+  }
 }

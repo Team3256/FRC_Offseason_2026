@@ -362,6 +362,17 @@
    "endOffset": 0.0,
    "recoveryPolicy": "fireAtJoin",
    "mustHit": false
+  },
+  {
+   "id": "mimwuvib4p",
+   "name": "shoot",
+   "command": "shoot",
+   "waypoint": 8,
+   "offset": 0.0,
+   "endWaypoint": null,
+   "endOffset": 0.0,
+   "recoveryPolicy": "fireAtJoin",
+   "mustHit": false
   }
  ],
  "settings": {
@@ -373,7 +384,7 @@
  },
  "folder": null,
  "output": {
-  "inputHash": "badb19c538edf07e",
+  "inputHash": "8742feda5617832c",
   "samples": [
    {
     "t": 0.0,
@@ -2708,6 +2719,14 @@
     "endT": null,
     "recoveryPolicy": "fireAtJoin",
     "mustHit": false
+   },
+   {
+    "name": "shoot",
+    "command": "shoot",
+    "t": 5.040163096651059,
+    "endT": null,
+    "recoveryPolicy": "fireAtJoin",
+    "mustHit": false
    }
   ],
   "terrain": [
@@ -3966,12 +3985,12 @@
   "stats": {
    "success": true,
    "totalTime": 5.040163096651051,
-   "solveSeconds": 1.136834125034511,
+   "solveSeconds": 1.6682907911017537,
    "iterations": 52,
    "candidate": 1,
    "attempts": [
-    "candidate 0: direct: Solved_To_Acceptable_Level (31 it, 0.64s)",
-    "candidate 1: direct: Solved_To_Acceptable_Level (21 it, 0.45s)"
+    "candidate 0: direct: Solved_To_Acceptable_Level (31 it, 0.99s)",
+    "candidate 1: direct: Solved_To_Acceptable_Level (21 it, 0.71s)"
    ]
   }
  }

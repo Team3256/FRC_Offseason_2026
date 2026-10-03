@@ -390,8 +390,8 @@
  "markers": [
   {
    "id": "m0",
-   "name": "intake",
-   "command": "intake",
+   "name": "intake2",
+   "command": "intake2",
    "waypoint": 2,
    "offset": 0.0,
    "endWaypoint": null,
@@ -409,6 +409,17 @@
    "endOffset": 0.0,
    "recoveryPolicy": "fireAtJoin",
    "mustHit": false
+  },
+  {
+   "id": "m5ptydnz7r",
+   "name": "shoot2",
+   "command": "shoot2",
+   "waypoint": 9,
+   "offset": 0.0,
+   "endWaypoint": null,
+   "endOffset": 0.0,
+   "recoveryPolicy": "fireAtJoin",
+   "mustHit": false
   }
  ],
  "settings": {
@@ -420,7 +431,7 @@
  },
  "folder": null,
  "output": {
-  "inputHash": "bde9e12aeffce22c",
+  "inputHash": "02444daf4943681f",
   "samples": [
    {
     "t": 0.0,
@@ -2862,8 +2873,8 @@
   "splits": [],
   "events": [
    {
-    "name": "intake",
-    "command": "intake",
+    "name": "intake2",
+    "command": "intake2",
     "t": 1.6994582990797944,
     "endT": null,
     "recoveryPolicy": "fireAtJoin",
@@ -2872,6 +2883,14 @@
    {
     "name": "idle",
     "command": "idle",
+    "t": 5.780105085593342,
+    "endT": null,
+    "recoveryPolicy": "fireAtJoin",
+    "mustHit": false
+   },
+   {
+    "name": "shoot2",
+    "command": "shoot2",
     "t": 5.780105085593342,
     "endT": null,
     "recoveryPolicy": "fireAtJoin",
@@ -4134,11 +4153,11 @@
   "stats": {
    "success": true,
    "totalTime": 5.780105085593348,
-   "solveSeconds": 1.5064048329368234,
+   "solveSeconds": 2.18982620886527,
    "iterations": 58,
    "candidate": 0,
    "attempts": [
-    "candidate 0: direct: Solved_To_Acceptable_Level (58 it, 1.27s)"
+    "candidate 0: direct: Solved_To_Acceptable_Level (58 it, 1.95s)"
    ]
   }
  }

@@ -5973,11 +5973,11 @@
   "stats": {
    "success": true,
    "totalTime": 6.149506026649808,
-   "solveSeconds": 1.3526920001022518,
+   "solveSeconds": 1.9461119999177754,
    "iterations": 35,
    "candidate": 0,
    "attempts": [
-    "candidate 0: direct: Solved_To_Acceptable_Level (35 it, 1.13s)"
+    "candidate 0: direct: Solved_To_Acceptable_Level (35 it, 1.56s)"
    ]
   }
  }
