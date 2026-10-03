@@ -125,7 +125,15 @@ public class RobotContainer {
           shotCalculator,
           shotCalculator.getRobotPoseSupplier());
 
+  private final AutoRoutines m_autoRoutines;
+  private final InverseMayhemAutos m_mayhemAutos;
+
   public RobotContainer() {
+    AutoFactory autoFactory = drivetrain.createAutoFactory(drivetrain::trajLogger);
+    m_autoRoutines = new AutoRoutines(autoFactory, drivetrain, superstructure);
+    m_mayhemAutos =
+        new InverseMayhemAutos(
+            CtreSwerve.autoFactory(drivetrain).withTelemetry(true), superstructure);
 
     AutoFactory autoFactory = drivetrain.createAutoFactory(drivetrain::trajLogger);
     m_autoRoutines = new AutoRoutines(autoFactory, drivetrain, superstructure);
