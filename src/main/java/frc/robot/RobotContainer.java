@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.AutoRoutines;
+import frc.robot.commands.SweepDepotMayhemAutos;
 import frc.robot.sim.SimMechs;
 import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.feeder.Feeder;
@@ -125,19 +126,21 @@ public class RobotContainer {
           shotCalculator,
           shotCalculator.getRobotPoseSupplier());
 
-  private final AutoRoutines m_autoRoutines;
   private final SweepDepotMayhemAutos m_mayhemAutos;
 
   public RobotContainer() {
 
     AutoFactory autoFactory = drivetrain.createAutoFactory(drivetrain::trajLogger);
     m_autoRoutines = new AutoRoutines(autoFactory, drivetrain, superstructure);
+
     m_mayhemAutoFactory = CtreSwerve.autoFactory(drivetrain).withTelemetry(true);
+    m_mayhemAutos = new SweepDepotMayhemAutos(m_mayhemAutoFactory, superstructure);
 
     configureChoreoAutoChooser();
     configureSwerve();
     configureOperatorBinds();
     configureAutoVisualizer();
+
     if (Utils.isSimulation()) {
       SimMechs.getInstance().publishToNT();
     }
