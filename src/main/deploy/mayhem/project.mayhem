@@ -82,7 +82,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       },
       {
         "id": "bump-blue-l",
@@ -183,7 +184,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       },
       {
         "id": "trenchwall-blue-r",
@@ -214,7 +216,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       },
       {
         "id": "trench-blue-l",
@@ -245,7 +248,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": false,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       },
       {
         "id": "trench-blue-r",
@@ -276,7 +280,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": false,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       },
       {
         "id": "tower-blue",
@@ -307,7 +312,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       },
       {
         "id": "hub-red",
@@ -338,7 +344,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       },
       {
         "id": "bump-red-l",
@@ -439,7 +446,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       },
       {
         "id": "trenchwall-red-r",
@@ -470,7 +478,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       },
       {
         "id": "trench-red-l",
@@ -501,7 +510,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": false,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       },
       {
         "id": "trench-red-r",
@@ -532,7 +542,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": false,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       },
       {
         "id": "tower-red",
@@ -563,7 +574,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       }
     ],
     "decorations": [
@@ -5746,6 +5758,34 @@
   "fuelSim": {
     "intakeRate": 10.0,
     "capacity": 0,
-    "robots": []
+    "robots": [
+      {
+        "id": "rbe4utdw7o",
+        "name": "Opponent 1",
+        "alliance": "red",
+        "points": [
+          [
+            12.537334075927735,
+            0.6266522972106934
+          ],
+          [
+            8.787342071533203,
+            0.6690887212753296
+          ],
+          [
+            8.406296730041504,
+            6.185794830322266
+          ]
+        ],
+        "maxVelocity": 10.0,
+        "maxAcceleration": 3.0,
+        "startDelay": 0.0,
+        "size": 0.9,
+        "intake": true,
+        "intakeRate": 10.0,
+        "capacity": 0,
+        "enabled": true
+      }
+    ]
   }
 }
