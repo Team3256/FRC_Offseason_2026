@@ -82,8 +82,7 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths",
-        "terrain": null
+        "fuelCollision": "paths"
       },
       {
         "id": "bump-blue-l",
@@ -184,8 +183,7 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths",
-        "terrain": null
+        "fuelCollision": "paths"
       },
       {
         "id": "trenchwall-blue-r",
@@ -216,8 +214,7 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths",
-        "terrain": null
+        "fuelCollision": "paths"
       },
       {
         "id": "trench-blue-l",
@@ -248,8 +245,7 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": false,
-        "fuelCollision": "paths",
-        "terrain": null
+        "fuelCollision": "paths"
       },
       {
         "id": "trench-blue-r",
@@ -280,8 +276,7 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": false,
-        "fuelCollision": "paths",
-        "terrain": null
+        "fuelCollision": "paths"
       },
       {
         "id": "tower-blue",
@@ -312,8 +307,7 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths",
-        "terrain": null
+        "fuelCollision": "paths"
       },
       {
         "id": "hub-red",
@@ -344,8 +338,7 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths",
-        "terrain": null
+        "fuelCollision": "paths"
       },
       {
         "id": "bump-red-l",
@@ -446,8 +439,7 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths",
-        "terrain": null
+        "fuelCollision": "paths"
       },
       {
         "id": "trenchwall-red-r",
@@ -478,8 +470,7 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths",
-        "terrain": null
+        "fuelCollision": "paths"
       },
       {
         "id": "trench-red-l",
@@ -510,8 +501,7 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": false,
-        "fuelCollision": "paths",
-        "terrain": null
+        "fuelCollision": "paths"
       },
       {
         "id": "trench-red-r",
@@ -542,8 +532,7 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": false,
-        "fuelCollision": "paths",
-        "terrain": null
+        "fuelCollision": "paths"
       },
       {
         "id": "tower-red",
@@ -574,8 +563,7 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths",
-        "terrain": null
+        "fuelCollision": "paths"
       }
     ],
     "decorations": [

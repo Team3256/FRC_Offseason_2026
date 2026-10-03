@@ -12,6 +12,7 @@ import static frc.robot.subsystems.swerve.SwerveConstants.*;
 
 import choreo.auto.AutoChooser;
 import choreo.auto.AutoFactory;
+import choreo.auto.AutoFactory;
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -20,7 +21,10 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
+import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.Constants.ControllerConstants;
+import frc.robot.commands.AutoRoutines;
+import frc.robot.commands.SweepDepotMayhemAutos;
 import frc.robot.commands.AutoRoutines;
 import frc.robot.commands.SweepDepotMayhemAutos;
 import frc.robot.sim.SimMechs;
@@ -54,6 +58,7 @@ import frc.robot.utils.AutoConfig;
 import frc.robot.utils.MappedXboxController;
 import java.util.ArrayList;
 import java.util.List;
+import mayhemlib.ctre.CtreSwerve;
 import mayhemlib.ctre.CtreSwerve;
 
 public class RobotContainer {
