@@ -134,9 +134,7 @@ public class AutoRoutines {
     topInverseAuto.done().onTrue(topInverseAutopt2.cmd());
 
     topInverseAutopt2.atTime("Intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
-    topInverseAutopt2
-        .atTime("StopIntake")
-        .onTrue(m_superstructure.setState(StructureState.IDLE));
+    topInverseAutopt2.atTime("StopIntake").onTrue(m_superstructure.setState(StructureState.IDLE));
     topInverseAutopt2
         .atTime("Shoot")
         .onTrue(
