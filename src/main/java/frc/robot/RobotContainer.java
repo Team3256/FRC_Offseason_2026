@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.AutoRoutines;
+import frc.robot.commands.InverseMayhemAutos;
 import frc.robot.sim.SimMechs;
 import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.feeder.Feeder;
@@ -102,7 +103,7 @@ public class RobotContainer {
           robotToShooterTransform);
 
   /// sim file for intakepivot needs to be added -- seems like its not been merged yet
-  private final AutoRoutines m_autoRoutines;
+  // private final AutoRoutines m_autoRoutines;
 
   // MayhemLib auto factory: Mayhem autos (paths in src/main/deploy/mayhem) are built from this.
   private final mayhemlib.auto.AutoFactory m_mayhemAutoFactory;
@@ -125,10 +126,18 @@ public class RobotContainer {
           shotCalculator,
           shotCalculator.getRobotPoseSupplier());
 
-  public RobotContainer() {
+  private final AutoRoutines m_autoRoutines;
+  private final InverseMayhemAutos m_mayhemAutos;
 
+  public RobotContainer() {
     AutoFactory autoFactory = drivetrain.createAutoFactory(drivetrain::trajLogger);
     m_autoRoutines = new AutoRoutines(autoFactory, drivetrain, superstructure);
+    m_mayhemAutos =
+        new InverseMayhemAutos(
+            CtreSwerve.autoFactory(drivetrain).withTelemetry(true), superstructure);
+
+    // AutoFactory autoFactory = drivetrain.createAutoFactory(drivetrain::trajLogger);
+    // m_autoRoutines = new AutoRoutines(autoFactory, drivetrain, superstructure);
     m_mayhemAutoFactory = CtreSwerve.autoFactory(drivetrain).withTelemetry(true);
 
     configureChoreoAutoChooser();
