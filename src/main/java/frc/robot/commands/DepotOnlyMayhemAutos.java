@@ -18,39 +18,65 @@ import mayhemlib.auto.AutoTrajectory;
  * src/main/deploy/mayhem} (open that folder as a project in the Mayhem app); the routine logic is
  * the same as the Choreo version in {@link AutoRoutines}.
  */
-public class TrenchDepotOnlyMayhemAutos {
+public class DepotOnlyMayhemAutos {
 
   private final AutoFactory m_factory;
   private final Superstructure m_superstructure;
 
-  public TrenchDepotOnlyMayhemAutos(AutoFactory factory, Superstructure superstructure) {
+  public DepotOnlyMayhemAutos(AutoFactory factory, Superstructure superstructure) {
     m_factory = factory;
     m_superstructure = superstructure;
   }
 
-  public AutoRoutine trenchDepotOnlyMayhemAutos() {
-    final AutoRoutine routine = m_factory.newRoutine("topTrenchSweepDepot");
-    final AutoTrajectory topTrenchSweepDepotAuto = routine.trajectory("topTrenchSweepDepotPt1");
-    final AutoTrajectory topTrenchSweepDepotPt2 = routine.trajectory("topTrenchSweepDepotPt2");
-    // The Choreo version also loads "topTrenchSweepDepotPt3", but that path was deleted, and
-    // MayhemLib throws if a trajectory file is missing, so it is left out here.
+  public AutoRoutine trenchDepotOnlyMayhemAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("trenchDepotOnly");
+    final AutoTrajectory trenchDepotOnlyMayhemAuto = routine.trajectory("trenchDepotOnly");
 
     routine
-            .active()
-            .onTrue(topTrenchSweepDepotAuto.resetOdometry().andThen(topTrenchSweepDepotAuto.cmd()));
+        .active()
+        .onTrue(trenchDepotOnlyMayhemAuto.resetOdometry().andThen(trenchDepotOnlyMayhemAuto.cmd()));
 
-    topTrenchSweepDepotAuto
-            .atTime("intake")
-            .onTrue(m_superstructure.setState(StructureState.INTAKE));
-    topTrenchSweepDepotAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
-    topTrenchSweepDepotAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
+    trenchDepotOnlyMayhemAuto
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    trenchDepotOnlyMayhemAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
+    trenchDepotOnlyMayhemAuto
+        .atTime("shoot")
+        .onTrue(m_superstructure.setState(StructureState.SHOOT));
 
-    topTrenchSweepDepotAuto.doneDelayed(3).onTrue(topTrenchSweepDepotPt2.cmd());
+    return routine;
+  }
 
-    topTrenchSweepDepotPt2
-            .atTime("intake")
-            .onTrue(m_superstructure.setState(StructureState.INTAKE));
-    topTrenchSweepDepotPt2.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
+  public AutoRoutine bumpDepotOnlyMayhemAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("bumpDepotOnly");
+    final AutoTrajectory bumpDepotOnlyMayhemAuto = routine.trajectory("bumpDepotOnly");
+
+    routine
+        .active()
+        .onTrue(bumpDepotOnlyMayhemAuto.resetOdometry().andThen(bumpDepotOnlyMayhemAuto.cmd()));
+
+    bumpDepotOnlyMayhemAuto
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    bumpDepotOnlyMayhemAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
+    bumpDepotOnlyMayhemAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
+  }
+
+  public AutoRoutine hubDepotOnlyMayhemAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("hubDepotOnly");
+    final AutoTrajectory hubDepotOnlyMayhemAuto = routine.trajectory("hubDepotOnly");
+
+    routine
+        .active()
+        .onTrue(hubDepotOnlyMayhemAuto.resetOdometry().andThen(hubDepotOnlyMayhemAuto.cmd()));
+
+    hubDepotOnlyMayhemAuto
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    hubDepotOnlyMayhemAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
+    hubDepotOnlyMayhemAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
 
     return routine;
   }

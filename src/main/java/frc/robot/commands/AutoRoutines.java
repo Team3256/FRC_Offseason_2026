@@ -9,12 +9,15 @@ package frc.robot.commands;
 
 import choreo.Choreo;
 import choreo.auto.AutoFactory;
+import choreo.auto.AutoRoutine;
+import choreo.auto.AutoTrajectory;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import frc.robot.subsystems.Superstructure;
+import frc.robot.subsystems.Superstructure.StructureState;
 import frc.robot.subsystems.swerve.CommandSwerveDrivetrain;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +35,59 @@ public class AutoRoutines {
     m_factory = factory;
     m_drivetrain = drivetrain; // subsystems
     m_superstructure = superstructure;
+  }
+
+  public AutoRoutine trenchDepotOnlyMayhemAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("trenchDepotOnly");
+    final AutoTrajectory trenchDepotOnlyMayhemAuto = routine.trajectory("trenchDepotOnly");
+
+    routine
+        .active()
+        .onTrue(trenchDepotOnlyMayhemAuto.resetOdometry().andThen(trenchDepotOnlyMayhemAuto.cmd()));
+
+    trenchDepotOnlyMayhemAuto
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    trenchDepotOnlyMayhemAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
+    trenchDepotOnlyMayhemAuto
+        .atTime("shoot")
+        .onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
+  }
+
+  public AutoRoutine bumpDepotOnlyMayhemAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("bumpDepotOnly");
+    final AutoTrajectory bumpDepotOnlyMayhemAuto = routine.trajectory("bumpDepotOnly");
+
+    routine
+        .active()
+        .onTrue(bumpDepotOnlyMayhemAuto.resetOdometry().andThen(bumpDepotOnlyMayhemAuto.cmd()));
+
+    bumpDepotOnlyMayhemAuto
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    bumpDepotOnlyMayhemAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
+    bumpDepotOnlyMayhemAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
+  }
+
+  public AutoRoutine hubDepotOnlyMayhemAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("hubDepotOnly");
+    final AutoTrajectory hubDepotOnlyMayhemAuto = routine.trajectory("hubDepotOnly");
+
+    routine
+        .active()
+        .onTrue(hubDepotOnlyMayhemAuto.resetOdometry().andThen(hubDepotOnlyMayhemAuto.cmd()));
+
+    hubDepotOnlyMayhemAuto
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    hubDepotOnlyMayhemAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
+    hubDepotOnlyMayhemAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
   }
 
   public Pose2d getInitialPose(String trajectoryName) {
