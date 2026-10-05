@@ -69,4 +69,45 @@ public class InverseMayhemAutos {
 
     return routine;
   }
+
+  public AutoRoutine topInverseAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("topInverseAuto");
+    final AutoTrajectory topInverseAuto = routine.trajectory("topInverseAuto");
+    final AutoTrajectory topInverseAutopt2 = routine.trajectory("topInverseAutopt2");
+    final AutoTrajectory topInverseAutopt3 = routine.trajectory("topInverseAutopt3");
+
+    routine.active().onTrue(topInverseAuto.resetOdometry().andThen(topInverseAuto.cmd()));
+
+    topInverseAuto.atTime("Intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
+    topInverseAuto.atTime("StopIntake").onTrue(m_superstructure.setState(StructureState.IDLE));
+    topInverseAuto
+        .atTime("Shoot")
+        .onTrue(
+            m_superstructure
+                .setState(StructureState.SHOOT)
+                .andThen(Commands.waitSeconds(1))
+                .andThen(m_superstructure.setState(StructureState.JITTER_AND_SHOOT))
+                .andThen(Commands.waitSeconds(3)));
+
+    topInverseAuto.done().onTrue(topInverseAutopt2.cmd());
+
+    topInverseAutopt2.atTime("Intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
+    topInverseAutopt2
+        .atTime("StopIntake")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
+    topInverseAutopt2
+        .atTime("Shoot")
+        .onTrue(
+            m_superstructure
+                .setState(StructureState.SHOOT)
+                .andThen(Commands.waitSeconds(1))
+                .andThen(m_superstructure.setState(StructureState.JITTER_AND_SHOOT))
+                .andThen(Commands.waitSeconds(3)));
+
+    topInverseAutopt2.done().onTrue(topInverseAutopt3.cmd());
+
+    topInverseAutopt3.atTime("Intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
+
+    return routine;
+  }
 }
