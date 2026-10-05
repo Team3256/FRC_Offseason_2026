@@ -53,7 +53,7 @@ public class IntakeRollersIOSim extends IntakeRollersIOTalonFX {
     motorSimLeft.setRotorVelocity(motorRPS);
     motorSimLeft.addRotorPosition(motorRPS * LoggedRobot.defaultPeriodSecs);
 
-    // Follower - same magnitude, opposite direction (MotorAlignmentValue.Opposed)
+    // Follower — same magnitude, opposite direction (MotorAlignmentValue.Opposed)
     motorSimRight.setRotorVelocity(-motorRPS);
     motorSimRight.addRotorPosition(-motorRPS * LoggedRobot.defaultPeriodSecs);
 
