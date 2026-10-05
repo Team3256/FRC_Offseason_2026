@@ -1,39 +1,39 @@
 {
   "formatVersion": 1,
-  "name": "FRC Offseason 2026",
+  "name": "Mayhem Project",
   "robot": {
-    "mass": 68.0388555,
+    "mass": 60.0,
     "moi": 6.0,
     "bumper": {
-      "front": 0.4064,
-      "back": 0.4064,
-      "left": 0.4064,
-      "right": 0.4064
+      "front": 0.45,
+      "back": 0.45,
+      "left": 0.45,
+      "right": 0.45
     },
     "modules": [
       [
-        0.27663139999999997,
-        0.27663139999999997
+        0.28,
+        0.28
       ],
       [
-        0.27663139999999997,
-        -0.27663139999999997
+        0.28,
+        -0.28
       ],
       [
-        -0.27663139999999997,
-        0.27663139999999997
+        -0.28,
+        0.28
       ],
       [
-        -0.27663139999999997,
-        -0.27663139999999997
+        -0.28,
+        -0.28
       ]
     ],
     "wheelRadius": 0.0508,
-    "wheelCof": 0.8,
+    "wheelCof": 1.2,
     "motor": {
       "type": "krakenX60",
-      "gearing": 7.03125,
-      "currentLimit": 70.0,
+      "gearing": 6.75,
+      "currentLimit": 80.0,
       "efficiency": 0.9
     },
     "batteryVoltage": 11.0,
@@ -5732,31 +5732,14 @@
         "width": 0.05
       }
     ],
-    "notes": "Geometry from the 2026 field drawings (via Choreo's field image). Bumps and the overhead trench openings are drivable for most robots, so they are disabled by default; enable the trenches if your robot is taller than 22.25 in. Edit anything to match your venue."
+    "notes": "Geometry from the 2026 field drawings (via Choreo's field image). Bumps and the overhead trench openings are drivable for most robots, so they are disabled by default (the bumps are also rough terrain on every path); enable the trenches if your robot is taller than 22.25 in. Edit anything to match your venue."
   },
-  "commands": [
-    "Intake",
-    "Intake 1",
-    "Intake 2",
-    "Intake 3",
-    "Intake 4",
-    "Intake 5",
-    "Shoot",
-    "Start",
-    "StopIntake",
-    "idle",
-    "idle2",
-    "intake",
-    "intake2",
-    "jitter",
-    "shoot",
-    "shoot2"
-  ],
+  "commands": [],
   "deployDir": "",
   "poses": [],
   "folders": [],
   "fuelSim": {
-    "intakeRate": 50.0,
+    "intakeRate": 10.0,
     "capacity": 0,
     "robots": []
   }
