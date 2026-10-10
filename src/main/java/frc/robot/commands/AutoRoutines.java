@@ -17,8 +17,8 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import frc.robot.subsystems.Superstructure;
+import frc.robot.subsystems.Superstructure.StructureState;
 import frc.robot.subsystems.swerve.CommandSwerveDrivetrain;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,27 +44,58 @@ public class AutoRoutines {
     return initialPose;
   }
 
+  public AutoRoutine followTrenchShallowFriendly() {
+    final AutoRoutine routine = m_factory.newRoutine("followTrenchShallowFriendly");
+    final AutoTrajectory followTrenchAuto = routine.trajectory("followTrenchShallowFriendly");
 
-  public AutoRoutine trenchDepotOnlyMayhemAutos() {
-    final AutoRoutine routine = m_factory.newRoutine("followTrench");
-    final AutoTrajectory followTrenchAuto = routine.trajectory("followTrench");
-    // The Choreo version also loads "topTrenchSweepDepotPt3", but that path was deleted, and
-    // MayhemLib throws if a trajectory file is missing, so it is left out here.
+    routine.active().onTrue(followTrenchAuto.resetOdometry().andThen(followTrenchAuto.cmd()));
 
-    routine
-            .active()
-            .onTrue(followTrenchAuto.resetOdometry().andThen(followTrenchAuto.cmd()));
-
-    followTrenchAuto
-            .atTime("intake")
-            .onTrue(m_superstructure.setState(Superstructure.StructureState.INTAKE));
-    followTrenchAuto.atTime("idle").onTrue(m_superstructure.setState(Superstructure.StructureState.IDLE));
-    followTrenchAuto.atTime("shoot").onTrue(m_superstructure.setState(Superstructure.StructureState.SHOOT));
-
-
+    followTrenchAuto.atTime("intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
+    followTrenchAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
+    followTrenchAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
 
     return routine;
   }
+
+  public AutoRoutine followTrenchShallowAggressive() {
+    final AutoRoutine routine = m_factory.newRoutine("followTrenchShallowAggressive");
+    final AutoTrajectory followTrenchAuto = routine.trajectory("followTrenchShallowAggressive");
+
+    routine.active().onTrue(followTrenchAuto.resetOdometry().andThen(followTrenchAuto.cmd()));
+
+    followTrenchAuto.atTime("intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
+    followTrenchAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
+    followTrenchAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
+  }
+
+  public AutoRoutine followTrenchDeepFriendly() {
+    final AutoRoutine routine = m_factory.newRoutine("followTrenchDeepFriendly");
+    final AutoTrajectory followTrenchAuto = routine.trajectory("followTrenchDeepFriendly");
+
+    routine.active().onTrue(followTrenchAuto.resetOdometry().andThen(followTrenchAuto.cmd()));
+
+    followTrenchAuto.atTime("intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
+    followTrenchAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
+    followTrenchAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
+  }
+
+  public AutoRoutine followTrenchDeepAggressive() {
+    final AutoRoutine routine = m_factory.newRoutine("followTrenchDeepAggressive");
+    final AutoTrajectory followTrenchAuto = routine.trajectory("followTrenchDeepAggressive");
+
+    routine.active().onTrue(followTrenchAuto.resetOdometry().andThen(followTrenchAuto.cmd()));
+
+    followTrenchAuto.atTime("intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
+    followTrenchAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
+    followTrenchAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
+  }
+
   public void updateField2d(Field2d field2d, List<String> trajectoryNames) {
 
     ArrayList<Pose2d> poseList = new ArrayList<>();
