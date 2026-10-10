@@ -117,4 +117,177 @@ public class SweepMayhemAutos {
 
     return routine;
   }
+
+  public AutoRoutine deepFriendlyBottomSweepAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("deepFriendlyBottomSweepAuto");
+    final AutoTrajectory deepFriendlyBottomSweepAuto =
+        routine.trajectory("deepFriendlyBottomTrenchSweepBump");
+    routine
+        .active()
+        .onTrue(
+            deepFriendlyBottomSweepAuto.resetOdometry().andThen(deepFriendlyBottomSweepAuto.cmd()));
+    deepFriendlyBottomSweepAuto
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    deepFriendlyBottomSweepAuto
+        .atTime("idle")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
+    deepFriendlyBottomSweepAuto
+        .atTime("shoot")
+        .onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
+  }
+
+  public AutoRoutine deepFriendlyTopSweepAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("deepFriendlyTopSweepAuto");
+    final AutoTrajectory deepFriendlyTopSweepAuto =
+        routine.trajectory("deepFriendlyTopTrenchSweepBump");
+    routine
+        .active()
+        .onTrue(deepFriendlyTopSweepAuto.resetOdometry().andThen(deepFriendlyTopSweepAuto.cmd()));
+    deepFriendlyTopSweepAuto
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    deepFriendlyTopSweepAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
+    deepFriendlyTopSweepAuto
+        .atTime("shoot")
+        .onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
+  }
+
+  public AutoRoutine shallowFriendlyBottomSweepAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("shallowFriendlyBottomSweepAuto");
+    final AutoTrajectory shallowFriendlyBottomSweepAuto =
+        routine.trajectory("shallowFriendlyBottomTrenchSweepBump");
+    routine
+        .active()
+        .onTrue(
+            shallowFriendlyBottomSweepAuto
+                .resetOdometry()
+                .andThen(shallowFriendlyBottomSweepAuto.cmd()));
+    shallowFriendlyBottomSweepAuto
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    shallowFriendlyBottomSweepAuto
+        .atTime("idle")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
+    shallowFriendlyBottomSweepAuto
+        .atTime("shoot")
+        .onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
+  }
+
+  public AutoRoutine shallowFriendlyTopSweepAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("shallowFriendlyTopSweepAuto");
+    final AutoTrajectory shallowFriendlyTopSweepAuto =
+        routine.trajectory("shallowFriendlyTopTrenchSweepBump");
+    routine
+        .active()
+        .onTrue(
+            shallowFriendlyTopSweepAuto.resetOdometry().andThen(shallowFriendlyTopSweepAuto.cmd()));
+    shallowFriendlyTopSweepAuto
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    shallowFriendlyTopSweepAuto
+        .atTime("idle")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
+    shallowFriendlyTopSweepAuto
+        .atTime("shoot")
+        .onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
+  }
+
+  public AutoRoutine deepAggressiveBottomSweepAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("deepAggressiveBottomSweepAuto");
+    final AutoTrajectory deepAggressiveBottomSweepAuto =
+        routine.trajectory("deepAggressiveBottomTrenchSweepBump");
+    routine
+        .active()
+        .onTrue(
+            deepAggressiveBottomSweepAuto
+                .resetOdometry()
+                .andThen(deepAggressiveBottomSweepAuto.cmd()));
+    deepAggressiveBottomSweepAuto
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    deepAggressiveBottomSweepAuto
+        .atTime("idle")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
+    deepAggressiveBottomSweepAuto
+        .atTime("shoot")
+        .onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
+  }
+
+  public AutoRoutine deepAggressiveTopSweepAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("deepAggressiveTopSweepAuto");
+    final AutoTrajectory deepAggressiveTopSweepAuto =
+        routine.trajectory("deepAggressiveTopTrenchSweepBump");
+    routine
+        .active()
+        .onTrue(
+            deepAggressiveTopSweepAuto.resetOdometry().andThen(deepAggressiveTopSweepAuto.cmd()));
+    deepAggressiveTopSweepAuto
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    deepAggressiveTopSweepAuto
+        .atTime("idle")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
+    deepAggressiveTopSweepAuto
+        .atTime("shoot")
+        .onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
+  }
+
+  public AutoRoutine shallowAggressiveBottomSweepAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("shallowAggressiveBottomSweepAuto");
+    final AutoTrajectory shallowAggressiveBottomSweepAuto =
+        routine.trajectory("shallowAggressiveBottomTrenchSweepAuto");
+    routine
+        .active()
+        .onTrue(
+            shallowAggressiveBottomSweepAuto
+                .resetOdometry()
+                .andThen(shallowAggressiveBottomSweepAuto.cmd()));
+    shallowAggressiveBottomSweepAuto
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    shallowAggressiveBottomSweepAuto
+        .atTime("idle")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
+    shallowAggressiveBottomSweepAuto
+        .atTime("shoot")
+        .onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
+  }
+
+  public AutoRoutine shallowAggressiveTopSweepAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("shallowAggressiveTopSweepAuto");
+    final AutoTrajectory shallowAggressiveTopSweepAuto =
+        routine.trajectory("shallowAggressiveTopTrenchSweepAuto");
+    routine
+        .active()
+        .onTrue(
+            shallowAggressiveTopSweepAuto
+                .resetOdometry()
+                .andThen(shallowAggressiveTopSweepAuto.cmd()));
+    shallowAggressiveTopSweepAuto
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    shallowAggressiveTopSweepAuto
+        .atTime("idle")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
+    shallowAggressiveTopSweepAuto
+        .atTime("shoot")
+        .onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
+  }
 }
