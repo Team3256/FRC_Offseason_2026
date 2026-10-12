@@ -41,7 +41,6 @@ public class AutoRoutines {
     final AutoRoutine routine = m_factory.newRoutine("topTrenchSweepDepot");
     final AutoTrajectory topTrenchSweepDepotAuto = routine.trajectory("topTrenchSweepDepotPt1");
     final AutoTrajectory topTrenchSweepDepotPt2 = routine.trajectory("topTrenchSweepDepotPt2");
-    final AutoTrajectory topTrenchSweepDepotPt3 = routine.trajectory("topTrenchSweepDepotPt3");
 
     routine
         .active()
@@ -54,6 +53,29 @@ public class AutoRoutines {
     topTrenchSweepDepotAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
 
     topTrenchSweepDepotAuto.doneDelayed(3).onTrue(topTrenchSweepDepotPt2.cmd());
+
+    topTrenchSweepDepotPt2
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    topTrenchSweepDepotPt2.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
+  }
+
+  public AutoRoutine topTrenchSweepDepotSA() {
+    final AutoRoutine routine = m_factory.newRoutine("topTrenchSweepDepotSA");
+    final AutoTrajectory topTrenchSweepDepotSA = routine.trajectory("topTrenchSweepDepotPt1SA");
+    final AutoTrajectory topTrenchSweepDepotPt2 = routine.trajectory("topTrenchSweepDepotPt2");
+
+    routine
+        .active()
+        .onTrue(topTrenchSweepDepotSA.resetOdometry().andThen(topTrenchSweepDepotSA.cmd()));
+
+    topTrenchSweepDepotSA.atTime("intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
+    topTrenchSweepDepotSA.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
+    topTrenchSweepDepotSA.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    topTrenchSweepDepotSA.doneDelayed(3).onTrue(topTrenchSweepDepotPt2.cmd());
 
     topTrenchSweepDepotPt2
         .atTime("intake")
