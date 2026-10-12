@@ -76,10 +76,14 @@ public class InverseMayhemAutos {
     final AutoTrajectory bottomInverseAutoDeeppt2 = routine.trajectory("bottomInverseAutoDeeppt2");
     final AutoTrajectory bottomInverseAutoDeeppt3 = routine.trajectory("bottomInverseAutoDeeppt3");
 
-    routine.active().onTrue(bottomInverseAutoDeep.resetOdometry().andThen(bottomInverseAutoDeep.cmd()));
+    routine
+        .active()
+        .onTrue(bottomInverseAutoDeep.resetOdometry().andThen(bottomInverseAutoDeep.cmd()));
 
     bottomInverseAutoDeep.atTime("Intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
-    bottomInverseAutoDeep.atTime("StopIntake").onTrue(m_superstructure.setState(StructureState.IDLE));
+    bottomInverseAutoDeep
+        .atTime("StopIntake")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
     bottomInverseAutoDeep
         .atTime("Shoot")
         .onTrue(
@@ -91,7 +95,9 @@ public class InverseMayhemAutos {
 
     bottomInverseAutoDeep.done().onTrue(bottomInverseAutoDeeppt2.cmd());
 
-    bottomInverseAutoDeeppt2.atTime("Intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
+    bottomInverseAutoDeeppt2
+        .atTime("Intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
     bottomInverseAutoDeeppt2
         .atTime("StopIntake")
         .onTrue(m_superstructure.setState(StructureState.IDLE));
@@ -106,21 +112,33 @@ public class InverseMayhemAutos {
 
     bottomInverseAutoDeeppt2.done().onTrue(bottomInverseAutoDeeppt3.cmd());
 
-    bottomInverseAutoDeeppt3.atTime("Intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
+    bottomInverseAutoDeeppt3
+        .atTime("Intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
 
     return routine;
   }
 
   public AutoRoutine bottomInverseAutoAggressive() {
     final AutoRoutine routine = m_factory.newRoutine("bottomInverseAutoAggressive");
-    final AutoTrajectory bottomInverseAutoAggressive = routine.trajectory("bottomInverseAutoAggressive");
-    final AutoTrajectory bottomInverseAutoAggressivept2 = routine.trajectory("bottomInverseAutoAggressivept2");
-    final AutoTrajectory bottomInverseAutoAggressivept3 = routine.trajectory("bottomInverseAutoAggressivept3");
+    final AutoTrajectory bottomInverseAutoAggressive =
+        routine.trajectory("bottomInverseAutoAggressive");
+    final AutoTrajectory bottomInverseAutoAggressivept2 =
+        routine.trajectory("bottomInverseAutoAggressivept2");
+    final AutoTrajectory bottomInverseAutoAggressivept3 =
+        routine.trajectory("bottomInverseAutoAggressivept3");
 
-    routine.active().onTrue(bottomInverseAutoAggressive.resetOdometry().andThen(bottomInverseAutoAggressive.cmd()));
+    routine
+        .active()
+        .onTrue(
+            bottomInverseAutoAggressive.resetOdometry().andThen(bottomInverseAutoAggressive.cmd()));
 
-    bottomInverseAutoAggressive.atTime("Intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
-    bottomInverseAutoAggressive.atTime("StopIntake").onTrue(m_superstructure.setState(StructureState.IDLE));
+    bottomInverseAutoAggressive
+        .atTime("Intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    bottomInverseAutoAggressive
+        .atTime("StopIntake")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
     bottomInverseAutoAggressive
         .atTime("Shoot")
         .onTrue(
@@ -132,7 +150,9 @@ public class InverseMayhemAutos {
 
     bottomInverseAutoAggressive.done().onTrue(bottomInverseAutoAggressivept2.cmd());
 
-    bottomInverseAutoAggressivept2.atTime("Intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
+    bottomInverseAutoAggressivept2
+        .atTime("Intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
     bottomInverseAutoAggressivept2
         .atTime("StopIntake")
         .onTrue(m_superstructure.setState(StructureState.IDLE));
@@ -147,21 +167,35 @@ public class InverseMayhemAutos {
 
     bottomInverseAutoAggressivept2.done().onTrue(bottomInverseAutoAggressivept3.cmd());
 
-    bottomInverseAutoAggressivept3.atTime("Intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
+    bottomInverseAutoAggressivept3
+        .atTime("Intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
 
     return routine;
   }
 
   public AutoRoutine bottomInverseAutoDeepAggressive() {
     final AutoRoutine routine = m_factory.newRoutine("bottomInverseAutoDeepAggressive");
-    final AutoTrajectory bottomInverseAutoDeepAggressive = routine.trajectory("bottomInverseAutoDeepAggressive");
-    final AutoTrajectory bottomInverseAutoDeepAggressivept2 = routine.trajectory("bottomInverseAutoDeepAggressivept2");
-    final AutoTrajectory bottomInverseAutoDeepAggressivept3 = routine.trajectory("bottomInverseAutoDeepAggressivept3");
+    final AutoTrajectory bottomInverseAutoDeepAggressive =
+        routine.trajectory("bottomInverseAutoDeepAggressive");
+    final AutoTrajectory bottomInverseAutoDeepAggressivept2 =
+        routine.trajectory("bottomInverseAutoDeepAggressivept2");
+    final AutoTrajectory bottomInverseAutoDeepAggressivept3 =
+        routine.trajectory("bottomInverseAutoDeepAggressivept3");
 
-    routine.active().onTrue(bottomInverseAutoDeepAggressive.resetOdometry().andThen(bottomInverseAutoDeepAggressive.cmd()));
+    routine
+        .active()
+        .onTrue(
+            bottomInverseAutoDeepAggressive
+                .resetOdometry()
+                .andThen(bottomInverseAutoDeepAggressive.cmd()));
 
-    bottomInverseAutoDeepAggressive.atTime("Intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
-    bottomInverseAutoDeepAggressive.atTime("StopIntake").onTrue(m_superstructure.setState(StructureState.IDLE));
+    bottomInverseAutoDeepAggressive
+        .atTime("Intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    bottomInverseAutoDeepAggressive
+        .atTime("StopIntake")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
     bottomInverseAutoDeepAggressive
         .atTime("Shoot")
         .onTrue(
@@ -173,7 +207,9 @@ public class InverseMayhemAutos {
 
     bottomInverseAutoDeepAggressive.done().onTrue(bottomInverseAutoDeepAggressivept2.cmd());
 
-    bottomInverseAutoDeepAggressivept2.atTime("Intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
+    bottomInverseAutoDeepAggressivept2
+        .atTime("Intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
     bottomInverseAutoDeepAggressivept2
         .atTime("StopIntake")
         .onTrue(m_superstructure.setState(StructureState.IDLE));
@@ -188,11 +224,12 @@ public class InverseMayhemAutos {
 
     bottomInverseAutoDeepAggressivept2.done().onTrue(bottomInverseAutoDeepAggressivept3.cmd());
 
-    bottomInverseAutoDeepAggressivept3.atTime("Intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
+    bottomInverseAutoDeepAggressivept3
+        .atTime("Intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
 
     return routine;
   }
-
 
   public AutoRoutine topInverseAuto() {
     final AutoRoutine routine = m_factory.newRoutine("topInverseAuto");
@@ -233,7 +270,7 @@ public class InverseMayhemAutos {
     return routine;
   }
 
-    public AutoRoutine topInverseAutoDeep() {
+  public AutoRoutine topInverseAutoDeep() {
     final AutoRoutine routine = m_factory.newRoutine("topInverseAutoDeep");
     final AutoTrajectory topInverseAutoDeep = routine.trajectory("topInverseAutoDeep");
     final AutoTrajectory topInverseAutoDeeppt2 = routine.trajectory("topInverseAutoDeeppt2");
@@ -277,13 +314,21 @@ public class InverseMayhemAutos {
   public AutoRoutine topInverseAutoAggressive() {
     final AutoRoutine routine = m_factory.newRoutine("topInverseAutoAggressive");
     final AutoTrajectory topInverseAutoAggressive = routine.trajectory("topInverseAutoAggressive");
-    final AutoTrajectory topInverseAutoAggressivept2 = routine.trajectory("topInverseAutoAggressivept2");
-    final AutoTrajectory topInverseAutoAggressivept3 = routine.trajectory("topInverseAutoAggressivept3");
+    final AutoTrajectory topInverseAutoAggressivept2 =
+        routine.trajectory("topInverseAutoAggressivept2");
+    final AutoTrajectory topInverseAutoAggressivept3 =
+        routine.trajectory("topInverseAutoAggressivept3");
 
-    routine.active().onTrue(topInverseAutoAggressive.resetOdometry().andThen(topInverseAutoAggressive.cmd()));
+    routine
+        .active()
+        .onTrue(topInverseAutoAggressive.resetOdometry().andThen(topInverseAutoAggressive.cmd()));
 
-    topInverseAutoAggressive.atTime("Intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
-    topInverseAutoAggressive.atTime("StopIntake").onTrue(m_superstructure.setState(StructureState.IDLE));
+    topInverseAutoAggressive
+        .atTime("Intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    topInverseAutoAggressive
+        .atTime("StopIntake")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
     topInverseAutoAggressive
         .atTime("Shoot")
         .onTrue(
@@ -295,7 +340,9 @@ public class InverseMayhemAutos {
 
     topInverseAutoAggressive.done().onTrue(topInverseAutoAggressivept2.cmd());
 
-    topInverseAutoAggressivept2.atTime("Intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
+    topInverseAutoAggressivept2
+        .atTime("Intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
     topInverseAutoAggressivept2
         .atTime("StopIntake")
         .onTrue(m_superstructure.setState(StructureState.IDLE));
@@ -310,22 +357,35 @@ public class InverseMayhemAutos {
 
     topInverseAutoAggressivept2.done().onTrue(topInverseAutoAggressivept3.cmd());
 
-    topInverseAutoAggressivept3.atTime("Intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
+    topInverseAutoAggressivept3
+        .atTime("Intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
 
     return routine;
   }
 
-
   public AutoRoutine topInverseAutoDeepAggressive() {
     final AutoRoutine routine = m_factory.newRoutine("topInverseAutoDeepAggressive");
-    final AutoTrajectory topInverseAutoDeepAggressive = routine.trajectory("topInverseAutoDeepAggressive");
-    final AutoTrajectory topInverseAutoDeepAggressivept2 = routine.trajectory("topInverseAutoDeepAggressivept2");
-    final AutoTrajectory topInverseAutoDeepAggressivept3 = routine.trajectory("topInverseAutoDeepAggressivept3");
+    final AutoTrajectory topInverseAutoDeepAggressive =
+        routine.trajectory("topInverseAutoDeepAggressive");
+    final AutoTrajectory topInverseAutoDeepAggressivept2 =
+        routine.trajectory("topInverseAutoDeepAggressivept2");
+    final AutoTrajectory topInverseAutoDeepAggressivept3 =
+        routine.trajectory("topInverseAutoDeepAggressivept3");
 
-    routine.active().onTrue(topInverseAutoDeepAggressive.resetOdometry().andThen(topInverseAutoDeepAggressive.cmd()));
+    routine
+        .active()
+        .onTrue(
+            topInverseAutoDeepAggressive
+                .resetOdometry()
+                .andThen(topInverseAutoDeepAggressive.cmd()));
 
-    topInverseAutoDeepAggressive.atTime("Intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
-    topInverseAutoDeepAggressive.atTime("StopIntake").onTrue(m_superstructure.setState(StructureState.IDLE));
+    topInverseAutoDeepAggressive
+        .atTime("Intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    topInverseAutoDeepAggressive
+        .atTime("StopIntake")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
     topInverseAutoDeepAggressive
         .atTime("Shoot")
         .onTrue(
@@ -337,7 +397,9 @@ public class InverseMayhemAutos {
 
     topInverseAutoDeepAggressive.done().onTrue(topInverseAutoDeepAggressivept2.cmd());
 
-    topInverseAutoDeepAggressivept2.atTime("Intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
+    topInverseAutoDeepAggressivept2
+        .atTime("Intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
     topInverseAutoDeepAggressivept2
         .atTime("StopIntake")
         .onTrue(m_superstructure.setState(StructureState.IDLE));
@@ -352,7 +414,9 @@ public class InverseMayhemAutos {
 
     topInverseAutoDeepAggressivept2.done().onTrue(topInverseAutoDeepAggressivept3.cmd());
 
-    topInverseAutoDeepAggressivept3.atTime("Intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
+    topInverseAutoDeepAggressivept3
+        .atTime("Intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
 
     return routine;
   }
