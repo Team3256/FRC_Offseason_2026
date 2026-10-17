@@ -18,11 +18,8 @@ public class IndexerConstants {
 
   public static final boolean KUseFOC = true;
 
-  // Keep these out of 1-8 (swerve) and unique: a second TalonFX on an ID (the right motor used to
-  // share ID 4 with the swerve front right drive motor) makes the sim wheel readback flip and the
-  // pose jump around
-  public static final int indexerMotorLeft = 22;
-  public static final int indexerMotorRight = 23;
+  public static final int indexerMotorLeft = 3;
+  public static final int indexerMotorRight = 4;
 
   public static double updateFrequency = 50;
 

@@ -82,7 +82,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       },
       {
         "id": "bump-blue-l",
@@ -113,7 +114,11 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": false,
-        "fuelCollision": "block"
+        "fuelCollision": "block",
+        "terrain": {
+          "expectedSpeed": 0.7,
+          "feedbackScale": 0.3
+        }
       },
       {
         "id": "bump-blue-r",
@@ -144,7 +149,11 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": false,
-        "fuelCollision": "block"
+        "fuelCollision": "block",
+        "terrain": {
+          "expectedSpeed": 0.7,
+          "feedbackScale": 0.3
+        }
       },
       {
         "id": "trenchwall-blue-l",
@@ -175,7 +184,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       },
       {
         "id": "trenchwall-blue-r",
@@ -206,7 +216,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       },
       {
         "id": "trench-blue-l",
@@ -237,7 +248,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": false,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       },
       {
         "id": "trench-blue-r",
@@ -268,7 +280,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": false,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       },
       {
         "id": "tower-blue",
@@ -299,7 +312,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       },
       {
         "id": "hub-red",
@@ -330,7 +344,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       },
       {
         "id": "bump-red-l",
@@ -361,7 +376,11 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": false,
-        "fuelCollision": "block"
+        "fuelCollision": "block",
+        "terrain": {
+          "expectedSpeed": 0.7,
+          "feedbackScale": 0.3
+        }
       },
       {
         "id": "bump-red-r",
@@ -392,7 +411,11 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": false,
-        "fuelCollision": "block"
+        "fuelCollision": "block",
+        "terrain": {
+          "expectedSpeed": 0.7,
+          "feedbackScale": 0.3
+        }
       },
       {
         "id": "trenchwall-red-l",
@@ -423,7 +446,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       },
       {
         "id": "trenchwall-red-r",
@@ -454,7 +478,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       },
       {
         "id": "trench-red-l",
@@ -485,7 +510,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": false,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       },
       {
         "id": "trench-red-r",
@@ -516,7 +542,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": false,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       },
       {
         "id": "tower-red",
@@ -547,7 +574,8 @@
         "radius": 0.5,
         "margin": 0.0,
         "enabled": true,
-        "fuelCollision": "paths"
+        "fuelCollision": "paths",
+        "terrain": null
       }
     ],
     "decorations": [
@@ -5728,7 +5756,7 @@
   "poses": [],
   "folders": [],
   "fuelSim": {
-    "intakeRate": 10.0,
+    "intakeRate": 50.0,
     "capacity": 0,
     "robots": []
   }

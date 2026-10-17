@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.AutoRoutines;
+import frc.robot.commands.SweepMayhemAutos;
 import frc.robot.sim.SimMechs;
 import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.feeder.Feeder;
@@ -46,9 +47,6 @@ import frc.robot.subsystems.sotm.ShotCalculator;
 import frc.robot.subsystems.swerve.CommandSwerveDrivetrain;
 import frc.robot.subsystems.swerve.SwerveConstants.AzimuthTargets;
 import frc.robot.subsystems.swerve.generated.TunerConstants;
-import frc.robot.subsystems.vision.Vision;
-import frc.robot.subsystems.vision.VisionConstants;
-import frc.robot.subsystems.vision.VisionIOPhotonVision;
 import frc.robot.utils.AutoConfig;
 import frc.robot.utils.MappedXboxController;
 import java.util.ArrayList;
@@ -83,15 +81,6 @@ public class RobotContainer {
 
   private final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
-  private final Vision vision =
-      new Vision(
-          drivetrain::addVisionMeasurement,
-          new VisionIOPhotonVision(
-              VisionConstants.frontRightCam, VisionConstants.robotToFrontRightCam),
-          new VisionIOPhotonVision(
-              VisionConstants.frontLeftCam, VisionConstants.robotToFrontLeftCam),
-          new VisionIOPhotonVision(VisionConstants.backCam, VisionConstants.robotToBackCam));
-
   private static final Transform2d robotToShooterTransform =
       new Transform2d(0, 0, Rotation2d.kZero);
 
@@ -102,10 +91,6 @@ public class RobotContainer {
           robotToShooterTransform);
 
   /// sim file for intakepivot needs to be added -- seems like its not been merged yet
-  private final AutoRoutines m_autoRoutines;
-
-  // MayhemLib auto factory: Mayhem autos (paths in src/main/deploy/mayhem) are built from this.
-  private final mayhemlib.auto.AutoFactory m_mayhemAutoFactory;
 
   private AutoChooser autoChooser = new AutoChooser();
 
@@ -125,11 +110,15 @@ public class RobotContainer {
           shotCalculator,
           shotCalculator.getRobotPoseSupplier());
 
-  public RobotContainer() {
+  private final AutoRoutines m_autoRoutines;
+  private final SweepMayhemAutos m_mayhemAutos;
 
+  public RobotContainer() {
     AutoFactory autoFactory = drivetrain.createAutoFactory(drivetrain::trajLogger);
     m_autoRoutines = new AutoRoutines(autoFactory, drivetrain, superstructure);
-    m_mayhemAutoFactory = CtreSwerve.autoFactory(drivetrain).withTelemetry(true);
+    m_mayhemAutos =
+        new SweepMayhemAutos(
+            CtreSwerve.autoFactory(drivetrain).withTelemetry(true), superstructure);
 
     configureChoreoAutoChooser();
     configureSwerve();
@@ -148,11 +137,31 @@ public class RobotContainer {
   }
 
   private void configureChoreoAutoChooser() {
+    autos =
+        List.of(
+            new AutoConfig(
+                "Top Trench Sweep",
+                m_autoRoutines::topTrenchSweepAuto,
+                List.of("topTrenchSweepBump")),
+            new AutoConfig(
+                "Bottom Trench Sweep",
+                m_autoRoutines::bottomTrenchSweepAuto,
+                List.of("bottomTrenchSweepBump")),
+            new AutoConfig(
+                "Top Trench Sweep 2x",
+                m_autoRoutines::topTrenchSweep2xAuto,
+                List.of("topTrenchSweepBump2xPt1", "topTrenchSweepBump2xPt2")));
+
     for (AutoConfig auto : autos) {
       autoChooser.addRoutine(auto.name, auto.routine);
     }
 
-    autoChooser.addCmd("Wheel Radius Change", () -> drivetrain.wheelRadiusCharacterization(1));
+    // Same autos, driven by MayhemLib (paths in src/main/deploy/mayhem)
+    autoChooser.addCmd("Top Trench Sweep (Mayhem)", () -> m_mayhemAutos.topTrenchSweepAuto().cmd());
+    autoChooser.addCmd(
+        "Bottom Trench Sweep (Mayhem)", () -> m_mayhemAutos.bottomTrenchSweepAuto().cmd());
+    autoChooser.addCmd(
+        "Top Trench Sweep 2x (Mayhem)", () -> m_mayhemAutos.topTrenchSweep2xAuto().cmd());
 
     SmartDashboard.putData("auto chooser", autoChooser);
     RobotModeTriggers.autonomous().onTrue(autoChooser.selectedCommandScheduler());

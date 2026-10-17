@@ -13,7 +13,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -77,9 +76,6 @@ public class Superstructure {
   private final Translation2d topCorner = new Translation2d(1.5, 6.8);
   private final Translation2d bottomCorner = new Translation2d(1.5, 1.5);
 
-  /** How far the robot's heading can be from the shot's drive angle and still count as aimed. */
-  private static final double kAimToleranceRad = Math.toRadians(5);
-
   private double velMultiplier = 1;
 
   private Pose2d target =
@@ -104,10 +100,6 @@ public class Superstructure {
     this.robotPoseSupplier = robotPoseSupplier;
 
     stateTimer.start();
-
-    // Lets the pit/driver turn off the aim requirement from the dashboard, for when the driver is
-    // not holding the aim button
-    SmartDashboard.setDefaultBoolean("Superstructure/RequireAimToShoot", true);
 
     for (StructureState state : StructureState.values()) {
       stateTriggers.put(state, new Trigger(() -> this.state == state));
@@ -169,7 +161,7 @@ public class Superstructure {
         .get(StructureState.SHOOT)
         .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
         .or(stateTriggers.get(StructureState.JITTER_AND_SHOOT))
-        .and(new Trigger(this::readyToShoot))
+        .and(shooter.reachedVelocity)
         .debounce(.02)
         .onTrue(indexer.setIndexVel())
         .onTrue(feeder.setFeedVel());
@@ -288,28 +280,6 @@ public class Superstructure {
               shotCalculator.setTarget(target.get());
             })
         .ignoringDisable(true);
-  }
-
-  /**
-   * Whether a shot would go where it is meant to: flywheels up to the requested speed, the hood at
-   * its requested angle, and (unless switched off on the dashboard) the robot facing the target.
-   */
-  private boolean readyToShoot() {
-    boolean flywheelReady = shooter.reachedVelocity();
-    boolean pivotReady = shooterPivot.reachedPosition();
-    boolean aimed =
-        !SmartDashboard.getBoolean("Superstructure/RequireAimToShoot", true)
-            || ShotCalculator.isAimed(
-                robotPoseSupplier.get().getRotation(),
-                shotCalculator.getDriveAngle(),
-                kAimToleranceRad);
-    boolean ready = flywheelReady && pivotReady && aimed;
-
-    Logger.recordOutput("Superstructure/ReadyToShoot/Flywheel", flywheelReady);
-    Logger.recordOutput("Superstructure/ReadyToShoot/Pivot", pivotReady);
-    Logger.recordOutput("Superstructure/ReadyToShoot/Aimed", aimed);
-    Logger.recordOutput("Superstructure/ReadyToShoot", ready);
-    return ready;
   }
 
   private boolean getAllianceBlue() {
