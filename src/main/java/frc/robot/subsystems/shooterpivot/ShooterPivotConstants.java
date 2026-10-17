@@ -51,7 +51,9 @@ public class ShooterPivotConstants {
           .withMotionMagic(
               new MotionMagicConfigs()
                   .withMotionMagicAcceleration(6.2)
-                  .withMotionMagicCruiseVelocity(1.304).withMotionMagicExpo_kV(0.119999).withMotionMagicExpo_kA(0.1))
+                  .withMotionMagicCruiseVelocity(1.304)
+                  .withMotionMagicExpo_kV(0.119999)
+                  .withMotionMagicExpo_kA(0.1))
           .withCurrentLimits(
               new CurrentLimitsConfigs()
                   .withStatorCurrentLimitEnable(true)
