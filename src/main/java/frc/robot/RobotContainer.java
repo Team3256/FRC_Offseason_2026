@@ -129,7 +129,7 @@ public class RobotContainer {
 
     AutoFactory autoFactory = drivetrain.createAutoFactory(drivetrain::trajLogger);
     m_autoRoutines = new AutoRoutines(autoFactory, drivetrain, superstructure);
-    m_mayhemAutoFactory = CtreSwerve.autoFactory(drivetrain).withTelemetry(true);
+    m_mayhemAutoFactory = CtreSwerve.autoFactory(drivetrain).withTelemetry(true).withUnbeach();
 
     configureChoreoAutoChooser();
     configureSwerve();
