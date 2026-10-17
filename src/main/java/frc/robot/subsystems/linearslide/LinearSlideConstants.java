@@ -46,9 +46,9 @@ public class LinearSlideConstants {
       new TalonFXConfiguration()
           .withSlot0(
               new Slot0Configs()
-                  .withKS(0.1)
-                  .withKV(2)
-                  .withKP(3)
+                  .withKS(0.39)
+                  .withKV(2.7)
+                  .withKP(20)
                   .withKI(0)
                   .withKD(0)
                   .withKA(0)
@@ -58,25 +58,28 @@ public class LinearSlideConstants {
               new Slot1Configs()
                   .withKS(0)
                   .withKV(0)
-                  .withKP(5) // change
+                  .withKP(0) // change
                   .withKI(0)
                   .withKD(0) // change
                   .withKA(0)
                   .withKG(0))
-          .withSlot2(new Slot2Configs().withKP(4))
+          .withSlot2(new Slot2Configs().withKP(100))
           .withMotorOutput(
               new MotorOutputConfigs()
                   .withNeutralMode(NeutralModeValue.Brake)
                   .withInverted(InvertedValue.Clockwise_Positive))
           .withMotionMagic(
               new MotionMagicConfigs()
-                  .withMotionMagicAcceleration(100)
-                  .withMotionMagicCruiseVelocity(10))
+                  .withMotionMagicAcceleration(30)
+                  .withMotionMagicCruiseVelocity(4.3)
+                  .withMotionMagicJerk(450)
+                  .withMotionMagicExpo_kV(0.11999999731779099)
+                  .withMotionMagicExpo_kA(0.1))
           .withCurrentLimits(
               // how do u get these values actually i need to learn
               new CurrentLimitsConfigs()
                   .withStatorCurrentLimitEnable(true)
-                  .withStatorCurrentLimit(40)
+                  .withStatorCurrentLimit(15)
                   .withSupplyCurrentLimit(50)
                   .withSupplyCurrentLimitEnable(true)
                   .withSupplyCurrentLowerTime(.1)
@@ -91,7 +94,7 @@ public class LinearSlideConstants {
           .withLeaderId(LinearSlideConstants.rightMotorID) // or whichever side is leader
           .withFollowerId(LinearSlideConstants.leftMotorID)
           .withAlignment(MotorAlignmentValue.Aligned)
-          .withSensorToDifferentialRatio(1.0) // set to actual diff gear ratio <-- idk what this
+          .withSensorToDifferentialRatio(1.0)
           .withLeaderInitialConfigs(rightMotorConfigs)
           .withFollowerInitialConfigs(leftMotorConfigs)
           .withFollowerUsesCommonLeaderConfigs(true);
