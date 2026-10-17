@@ -24,7 +24,7 @@ import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.Mass;
 
 public class ShooterPivotConstants {
-  public static final int pivotMotorId = 36;
+  public static final int pivotMotorId = 51;
 
   public static final boolean kUseFOC = false;
   public static final boolean kUseMotionMagic = false;
@@ -85,12 +85,12 @@ public class ShooterPivotConstants {
   public static final InterpolatingDoubleTreeMap feedLUT =
       new InterpolatingDoubleTreeMap() {
         {
-          put(4.38, 0.083);
-          put(6.11, 0.083);
-          put(8.0, 0.083);
-          put(9.42, 0.083);
-          put(10.8, 0.083);
-          put(12.834, 0.083);
+          put(4.38, 0.01);
+          put(6.11, 0.01);
+          put(8.0, 0.01);
+          put(9.42, 0.01);
+          put(10.8, 0.01);
+          put(12.834, 0.01);
         }
       };
 

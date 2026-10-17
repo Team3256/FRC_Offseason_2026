@@ -141,10 +141,10 @@ public class RobotContainer {
   }
 
   private void configureOperatorBinds() {
-    m_operatorController.a().onTrue(superstructure.setState(Superstructure.StructureState.INTAKE));
-    m_operatorController.b().onTrue(superstructure.setState(Superstructure.StructureState.SHOOT));
-    m_operatorController.x().onTrue(superstructure.setState(Superstructure.StructureState.JITTER));
-    m_operatorController.y().onTrue(superstructure.setState(Superstructure.StructureState.HOME));
+    m_driverController.a().onTrue(superstructure.setState(Superstructure.StructureState.SHOOT));
+    m_driverController.b().onTrue(superstructure.setState(Superstructure.StructureState.INTAKE));
+    m_driverController.x().onTrue(superstructure.setState(Superstructure.StructureState.JITTER));
+    m_driverController.y().onTrue(superstructure.setState(Superstructure.StructureState.HOME));
   }
 
   private void configureChoreoAutoChooser() {
@@ -254,6 +254,7 @@ public class RobotContainer {
 
   public void periodic() {
     field2d.setRobotPose(drivetrain.getState().Pose);
+    superstructure.periodic();
     shotCalculator.periodic();
   }
 }

@@ -36,8 +36,8 @@ public class IntakeRollerConstants {
           .withCurrentLimits(
               new CurrentLimitsConfigs()
                   .withStatorCurrentLimitEnable(true)
-                  .withStatorCurrentLimit(0)
-                  .withSupplyCurrentLimit(0)
+                  .withStatorCurrentLimit(80)
+                  .withSupplyCurrentLimit(50)
                   .withSupplyCurrentLimitEnable(true)
                   .withSupplyCurrentLowerLimit(0)
                   .withSupplyCurrentLowerTime(0));
