@@ -5772,7 +5772,7 @@
         "intake": true,
         "intakeRate": 10.0,
         "capacity": 0,
-        "enabled": true
+        "enabled": false
       },
       {
         "id": "ro0od7sa3p",
@@ -5799,7 +5799,7 @@
         "intake": true,
         "intakeRate": 10.0,
         "capacity": 0,
-        "enabled": true
+        "enabled": false
       }
     ]
   }
