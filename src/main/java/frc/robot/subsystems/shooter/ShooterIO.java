@@ -12,7 +12,7 @@ import org.littletonrobotics.junction.AutoLog;
 
 public interface ShooterIO {
   public final boolean[] motorOpposed = {
-    false, false, true, true
+    false, true, false, true 
   }; // set what motors are opposed to leader motor
 
   public final int NUM_MOTORS = 4;
