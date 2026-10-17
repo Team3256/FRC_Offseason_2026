@@ -28,24 +28,24 @@ public class VisionConstants {
   // (Not used by Limelight, configure in web UI instead)
   public static Transform3d robotToFrontRightCam =
       new Transform3d(
-          Units.inchesToMeters(-2.500),
-          Units.inchesToMeters(-13.667),
-          Units.inchesToMeters(7.677),
-          new Rotation3d(0.0, Units.degreesToRadians(-20), Units.degreesToRadians(-90)));
+          Units.inchesToMeters(14.367),
+          Units.inchesToMeters(2.014),
+          Units.inchesToMeters(8.170),
+          new Rotation3d(0.0, Units.degreesToRadians(65), Units.degreesToRadians(90)));
 
   public static Transform3d robotToFrontLeftCam =
       new Transform3d(
-          Units.inchesToMeters(-2.500),
-          Units.inchesToMeters(13.677),
-          Units.inchesToMeters(7.677),
-          new Rotation3d(0.0, Units.degreesToRadians(-15), Units.degreesToRadians(90)));
+          Units.inchesToMeters(-14.367),
+          Units.inchesToMeters(0.000),
+          Units.inchesToMeters(7.152),
+          new Rotation3d(0.0, Units.degreesToRadians(65), Units.degreesToRadians(-90)));
 
   public static Transform3d robotToBackCam =
       new Transform3d(
-          Units.inchesToMeters(-13.783),
-          Units.inchesToMeters(0),
-          Units.inchesToMeters(-9.802),
-          new Rotation3d(0.0, Units.degreesToRadians(-15), Units.degreesToRadians(180)));
+          Units.inchesToMeters(0.063),
+          Units.inchesToMeters(13.667),
+          Units.inchesToMeters(7.678),
+          new Rotation3d(0.0, Units.degreesToRadians(65), Units.degreesToRadians(180)));
 
   // Basic filtering thresholds
   public static double maxAmbiguity = 0.3;
