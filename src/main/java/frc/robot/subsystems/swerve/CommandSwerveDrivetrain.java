@@ -40,6 +40,7 @@ import frc.robot.subsystems.swerve.generated.TunerConstants.TunerSwerveDrivetrai
 import frc.robot.utils.LoggedTracer;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
+import mayhemlib.follow.FollowerConfig;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
@@ -217,6 +218,17 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
         () -> this.getState().Pose, this::resetPose, this::followPath, true, this, trajLogger);
   }
 
+  public mayhemlib.auto.AutoFactory createAutoFactoryMayhem(
+      TrajectoryLogger<SwerveSample> trajLogger) {
+    return mayhemlib.ctre.CtreSwerve.autoFactory(this)
+        .withFollowerConfig(
+            new FollowerConfig()
+                .withTranslationKp(5)
+                .withRotationKp(5)
+                .withForceFeedforward(true)
+                .withMaxVelocity(TunerConstants.kSpeedAt12Volts.in(MetersPerSecond)));
+  }
+
   /**
    * Returns a command that applies the specified control request to this swerve drivetrain.
    *
@@ -249,12 +261,6 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
 
     Logger.recordOutput("Choreo/targetSpeeds", sample.getChassisSpeeds());
     Logger.recordOutput("Choreo/targetPose", sample.getPose());
-
-    setControl(
-        m_pathApplyFieldSpeeds
-            .withSpeeds(targetSpeeds)
-            .withWheelForceFeedforwardsX(sample.moduleForcesX())
-            .withWheelForceFeedforwardsY(sample.moduleForcesY()));
   }
 
   @Override

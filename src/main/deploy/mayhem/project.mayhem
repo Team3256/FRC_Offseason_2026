@@ -5763,7 +5763,7 @@
     "2910 - Bottom - HP Station"
   ],
   "fuelSim": {
-    "intakeRate": 10.0,
+    "intakeRate": 40.0,
     "capacity": 0,
     "robots": []
   }

@@ -7,8 +7,6 @@
 
 package frc.robot.commands;
 
-import choreo.Choreo;
-import choreo.auto.AutoFactory;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -18,6 +16,10 @@ import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.swerve.CommandSwerveDrivetrain;
 import java.util.ArrayList;
 import java.util.List;
+import mayhemlib.auto.AutoFactory;
+import mayhemlib.auto.AutoRoutine;
+import mayhemlib.auto.AutoTrajectory;
+import mayhemlib.trajectory.TrajectoryLoader;
 
 public class AutoRoutines {
 
@@ -34,9 +36,23 @@ public class AutoRoutines {
     m_superstructure = superstructure;
   }
 
+  public AutoRoutine testAutoRoutine() {
+    final AutoRoutine routine = m_factory.newRoutine("Test Auto Routine");
+    final AutoTrajectory traj = routine.trajectory("DepotAggroFirstLeg");
+    final AutoTrajectory traj2 = routine.trajectory("DepotAggroSecondLeg");
+    final AutoTrajectory traj3 = routine.trajectory("DepotHalfLeg");
+
+    routine.active().onTrue(traj.resetOdometry().andThen(traj.cmd()));
+    traj.done().onTrue(traj2.cmd());
+    traj2.done().onTrue(traj3.cmd());
+    return routine;
+  }
+
   public Pose2d getInitialPose(String trajectoryName) {
-    var trajectory = Choreo.loadTrajectory(trajectoryName);
-    Pose2d initialPose = trajectory.get().getInitialPose(false).get();
+
+    var trajectory = TrajectoryLoader.load(trajectoryName);
+
+    Pose2d initialPose = trajectory.initialPose();
 
     return initialPose;
   }
@@ -45,15 +61,17 @@ public class AutoRoutines {
 
     ArrayList<Pose2d> poseList = new ArrayList<>();
     for (String t : trajectoryNames) {
-      var trajectory = Choreo.loadTrajectory(t);
+      var trajectory = TrajectoryLoader.load(t);
 
-      if (trajectory.isEmpty()) {
+      if (trajectory == null) {
         poseList.add(new Pose2d(0, 0, Rotation2d.kZero));
       } else {
-        var poses = trajectory.get().getPoses();
 
-        for (int i = 0; i < poses.length; i += 5) {
-          poseList.add(poses[i]);
+        var samples = trajectory.samples();
+        //        var poses = trajectory.get().getPoses();
+
+        for (int i = 0; i < samples.size(); i += 5) {
+          poseList.add(samples.get(i).getPose());
         }
       }
     }
