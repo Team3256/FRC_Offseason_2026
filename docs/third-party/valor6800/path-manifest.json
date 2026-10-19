@@ -1,0 +1,4762 @@
+[
+  {
+    "name": "DepotAggroFirstLeg",
+    "folder": "6800 - Top - Depot",
+    "source": "src/main/deploy/choreo/aggrofirstleg.traj",
+    "adaptations": [
+      {
+        "constraint": "source-3",
+        "sourceTolerance": 0.057042559351424056,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "constraint": "source-6",
+        "sourceTolerance": 0.01,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      }
+    ],
+    "snapshot": {
+      "waypoints": [
+        {
+          "x": 4.475192070007324,
+          "y": 0.5300326347351074,
+          "heading": -1.5707963267948966,
+          "intervals": 33,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.746584415435791,
+          "y": 1.2420639991760254,
+          "heading": -1.3252884098941562,
+          "intervals": 28,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.770393848419189,
+          "y": 4.2628350257873535,
+          "heading": -1.3252884098941562,
+          "intervals": 37,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.809569358825684,
+          "y": 2.674907922744751,
+          "heading": 0.7853981633974483,
+          "intervals": 31,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.316290855407715,
+          "y": 2.6776368618011475,
+          "heading": 0.7853981633974483,
+          "intervals": 40,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        }
+      ],
+      "constraints": [
+        {
+          "from": "first",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "last",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "first",
+          "to": "last",
+          "data": {
+            "type": "KeepInRectangle",
+            "props": {
+              "x": 0.0,
+              "y": 0.0,
+              "w": 16.541,
+              "h": 8.0692
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.057042559351424056
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 0,
+          "to": 1,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.3272051439418491
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 2.0
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 3.0
+            }
+          },
+          "enabled": true
+        }
+      ],
+      "targetDt": 0.05
+    }
+  },
+  {
+    "name": "HPAggroFirstLeg",
+    "folder": "6800 - Bottom - HP Station",
+    "source": "src/main/deploy/choreo/aggrofirstleg.traj",
+    "adaptations": [
+      {
+        "constraint": "source-3",
+        "sourceTolerance": 0.057042559351424056,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "constraint": "source-6",
+        "sourceTolerance": 0.01,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      }
+    ],
+    "snapshot": {
+      "waypoints": [
+        {
+          "x": 4.475192070007324,
+          "y": 0.5300326347351074,
+          "heading": -1.5707963267948966,
+          "intervals": 33,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.746584415435791,
+          "y": 1.2420639991760254,
+          "heading": -1.3252884098941562,
+          "intervals": 28,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.770393848419189,
+          "y": 4.2628350257873535,
+          "heading": -1.3252884098941562,
+          "intervals": 37,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.809569358825684,
+          "y": 2.674907922744751,
+          "heading": 0.7853981633974483,
+          "intervals": 31,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.316290855407715,
+          "y": 2.6776368618011475,
+          "heading": 0.7853981633974483,
+          "intervals": 40,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        }
+      ],
+      "constraints": [
+        {
+          "from": "first",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "last",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "first",
+          "to": "last",
+          "data": {
+            "type": "KeepInRectangle",
+            "props": {
+              "x": 0.0,
+              "y": 0.0,
+              "w": 16.541,
+              "h": 8.0692
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.057042559351424056
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 0,
+          "to": 1,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.3272051439418491
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 2.0
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 3.0
+            }
+          },
+          "enabled": true
+        }
+      ],
+      "targetDt": 0.05
+    }
+  },
+  {
+    "name": "DepotAggroSecondLeg",
+    "folder": "6800 - Top - Depot",
+    "source": "src/main/deploy/choreo/aggrosecondleg.traj",
+    "adaptations": [
+      {
+        "constraint": "source-3",
+        "sourceTolerance": 0.07549099380971765,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "constraint": "source-6",
+        "sourceTolerance": 0.022860037947189688,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "constraint": "source-7",
+        "sourceTolerance": 0.01,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      }
+    ],
+    "snapshot": {
+      "waypoints": [
+        {
+          "x": 3.316290855407715,
+          "y": 2.6776368618011475,
+          "heading": 0.7853981633974483,
+          "intervals": 35,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.155223608016968,
+          "y": 0.63,
+          "heading": -3.141592653589793,
+          "intervals": 21,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.28135347366333,
+          "y": 0.6005193591117859,
+          "heading": -3.141592653589793,
+          "intervals": 23,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.130993366241455,
+          "y": 1.2842600345611572,
+          "heading": 0.0,
+          "intervals": 22,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": false,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.840245342254638,
+          "y": 2.1385927200317383,
+          "heading": -1.5707963267948966,
+          "intervals": 16,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.834250450134277,
+          "y": 3.255000114440918,
+          "heading": -1.5707963267948966,
+          "intervals": 19,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.029150485992432,
+          "y": 4.151540279388428,
+          "heading": -1.9127464777368304,
+          "intervals": 26,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.906200408935547,
+          "y": 4.833690166473389,
+          "heading": -3.141591897288289,
+          "intervals": 27,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.745769500732422,
+          "y": 3.9910051822662354,
+          "heading": 1.588650721365828,
+          "intervals": 17,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.738472938537598,
+          "y": 2.6994471549987793,
+          "heading": 1.5896618440107173,
+          "intervals": 25,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.573121070861816,
+          "y": 1.427739500999451,
+          "heading": 0.7402680988874657,
+          "intervals": 23,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.906970977783203,
+          "y": 2.576108455657959,
+          "heading": 0.7853981633974483,
+          "intervals": 32,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.3033883571624756,
+          "y": 2.570011615753174,
+          "heading": 0.7853981633974483,
+          "intervals": 40,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        }
+      ],
+      "constraints": [
+        {
+          "from": "first",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "last",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "first",
+          "to": "last",
+          "data": {
+            "type": "KeepInRectangle",
+            "props": {
+              "x": 0.0,
+              "y": 0.0,
+              "w": 16.541,
+              "h": 8.0692
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.07549099380971765
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 2,
+          "to": 3,
+          "data": {
+            "type": "KeepOutCircle",
+            "props": {
+              "x": 5.134695153683424,
+              "y": 1.3980898894369602,
+              "r": 0.23915778335431864
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 4,
+          "to": 5,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.022860037947189688
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 2.0
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.02
+            }
+          },
+          "enabled": true
+        }
+      ],
+      "targetDt": 0.05
+    }
+  },
+  {
+    "name": "HPAggroSecondLeg",
+    "folder": "6800 - Bottom - HP Station",
+    "source": "src/main/deploy/choreo/aggrosecondleg.traj",
+    "adaptations": [
+      {
+        "constraint": "source-3",
+        "sourceTolerance": 0.07549099380971765,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "constraint": "source-6",
+        "sourceTolerance": 0.022860037947189688,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "constraint": "source-7",
+        "sourceTolerance": 0.01,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      }
+    ],
+    "snapshot": {
+      "waypoints": [
+        {
+          "x": 3.316290855407715,
+          "y": 2.6776368618011475,
+          "heading": 0.7853981633974483,
+          "intervals": 35,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.155223608016968,
+          "y": 0.63,
+          "heading": -3.141592653589793,
+          "intervals": 21,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.28135347366333,
+          "y": 0.6005193591117859,
+          "heading": -3.141592653589793,
+          "intervals": 23,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.130993366241455,
+          "y": 1.2842600345611572,
+          "heading": 0.0,
+          "intervals": 22,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": false,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.840245342254638,
+          "y": 2.1385927200317383,
+          "heading": -1.5707963267948966,
+          "intervals": 16,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.834250450134277,
+          "y": 3.255000114440918,
+          "heading": -1.5707963267948966,
+          "intervals": 19,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.029150485992432,
+          "y": 4.151540279388428,
+          "heading": -1.9127464777368304,
+          "intervals": 26,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.906200408935547,
+          "y": 4.833690166473389,
+          "heading": -3.141591897288289,
+          "intervals": 27,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.745769500732422,
+          "y": 3.9910051822662354,
+          "heading": 1.588650721365828,
+          "intervals": 17,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.738472938537598,
+          "y": 2.6994471549987793,
+          "heading": 1.5896618440107173,
+          "intervals": 25,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.573121070861816,
+          "y": 1.427739500999451,
+          "heading": 0.7402680988874657,
+          "intervals": 23,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.906970977783203,
+          "y": 2.576108455657959,
+          "heading": 0.7853981633974483,
+          "intervals": 32,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.3033883571624756,
+          "y": 2.570011615753174,
+          "heading": 0.7853981633974483,
+          "intervals": 40,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        }
+      ],
+      "constraints": [
+        {
+          "from": "first",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "last",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "first",
+          "to": "last",
+          "data": {
+            "type": "KeepInRectangle",
+            "props": {
+              "x": 0.0,
+              "y": 0.0,
+              "w": 16.541,
+              "h": 8.0692
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.07549099380971765
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 2,
+          "to": 3,
+          "data": {
+            "type": "KeepOutCircle",
+            "props": {
+              "x": 5.134695153683424,
+              "y": 1.3980898894369602,
+              "r": 0.23915778335431864
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 4,
+          "to": 5,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.022860037947189688
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 2.0
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 11,
+          "to": 12,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.02
+            }
+          },
+          "enabled": true
+        }
+      ],
+      "targetDt": 0.05
+    }
+  },
+  {
+    "name": "DepotOptimizedFirstLeg",
+    "folder": "6800 - Top - Depot",
+    "source": "src/main/deploy/choreo/optimizefirstleg.traj",
+    "adaptations": [
+      {
+        "constraint": "source-5",
+        "sourceTolerance": 0.01,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      }
+    ],
+    "snapshot": {
+      "waypoints": [
+        {
+          "x": 4.475192070007324,
+          "y": 0.5300326347351074,
+          "heading": -1.5707963267948966,
+          "intervals": 34,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 8.066737174987793,
+          "y": 1.2712572813034058,
+          "heading": -1.3583878322396532,
+          "intervals": 216,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.692552089691162,
+          "y": 3.47113037109375,
+          "heading": 0.0,
+          "intervals": 30,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": false,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.88147497177124,
+          "y": 2.6804537773132324,
+          "heading": 0.7853981633974483,
+          "intervals": 33,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.1,
+          "y": 2.6804537773132324,
+          "heading": 0.7853981633974483,
+          "intervals": 40,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        }
+      ],
+      "constraints": [
+        {
+          "from": "first",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "last",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "first",
+          "to": "last",
+          "data": {
+            "type": "KeepInRectangle",
+            "props": {
+              "x": 0.0,
+              "y": 0.0,
+              "w": 16.541,
+              "h": 8.0692
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 0,
+          "to": 1,
+          "data": {
+            "type": "KeepOutCircle",
+            "props": {
+              "x": 5.152269791811705,
+              "y": 1.3337963856756687,
+              "r": 0.16029003740512449
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 0,
+          "to": 1,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.2889054325645042
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 2.0
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.7071285108047239
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.34193497115942323
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 2.25
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.2
+            }
+          },
+          "enabled": true
+        }
+      ],
+      "targetDt": 0.05
+    }
+  },
+  {
+    "name": "HPOptimizedFirstLeg",
+    "folder": "6800 - Bottom - HP Station",
+    "source": "src/main/deploy/choreo/optimizefirstleg.traj",
+    "adaptations": [
+      {
+        "constraint": "source-5",
+        "sourceTolerance": 0.01,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      }
+    ],
+    "snapshot": {
+      "waypoints": [
+        {
+          "x": 4.475192070007324,
+          "y": 0.5300326347351074,
+          "heading": -1.5707963267948966,
+          "intervals": 34,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 8.066737174987793,
+          "y": 1.2712572813034058,
+          "heading": -1.3583878322396532,
+          "intervals": 216,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.692552089691162,
+          "y": 3.47113037109375,
+          "heading": 0.0,
+          "intervals": 30,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": false,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.88147497177124,
+          "y": 2.6804537773132324,
+          "heading": 0.7853981633974483,
+          "intervals": 33,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.1,
+          "y": 2.6804537773132324,
+          "heading": 0.7853981633974483,
+          "intervals": 40,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        }
+      ],
+      "constraints": [
+        {
+          "from": "first",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "last",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "first",
+          "to": "last",
+          "data": {
+            "type": "KeepInRectangle",
+            "props": {
+              "x": 0.0,
+              "y": 0.0,
+              "w": 16.541,
+              "h": 8.0692
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 0,
+          "to": 1,
+          "data": {
+            "type": "KeepOutCircle",
+            "props": {
+              "x": 5.152269791811705,
+              "y": 1.3337963856756687,
+              "r": 0.16029003740512449
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 0,
+          "to": 1,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.2889054325645042
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 2.0
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.7071285108047239
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.34193497115942323
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 2.25
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.2
+            }
+          },
+          "enabled": true
+        }
+      ],
+      "targetDt": 0.05
+    }
+  },
+  {
+    "name": "DepotOptimizedSecondLeg",
+    "folder": "6800 - Top - Depot",
+    "source": "src/main/deploy/choreo/optimizesecondleg.traj",
+    "adaptations": [
+      {
+        "constraint": "source-3",
+        "sourceTolerance": 0.01,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "constraint": "source-6",
+        "sourceTolerance": 0.02531576156616211,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      }
+    ],
+    "snapshot": {
+      "waypoints": [
+        {
+          "x": 3.316290855407715,
+          "y": 2.6776368618011475,
+          "heading": 0.7853981633974483,
+          "intervals": 35,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.155223608016968,
+          "y": 0.63,
+          "heading": -3.141592653589793,
+          "intervals": 17,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 4.522230625152588,
+          "y": 0.63,
+          "heading": -3.141592653589793,
+          "intervals": 36,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.200066089630127,
+          "y": 0.989176630973816,
+          "heading": -1.4399709175275996,
+          "intervals": 31,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.8263068199157715,
+          "y": 4.003263473510742,
+          "heading": -1.2358464131152642,
+          "intervals": 29,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.73777961730957,
+          "y": 4.564342021942139,
+          "heading": 0.8468584284518562,
+          "intervals": 20,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.372575283050537,
+          "y": 3.697253465652466,
+          "heading": 1.311166139913327,
+          "intervals": 23,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.886958122253418,
+          "y": 2.534987449645996,
+          "heading": 0.7853981633974483,
+          "intervals": 26,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.2507874965667725,
+          "y": 2.534987449645996,
+          "heading": 0.7853981633974483,
+          "intervals": 59,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        }
+      ],
+      "constraints": [
+        {
+          "from": "first",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "last",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "first",
+          "to": "last",
+          "data": {
+            "type": "KeepInRectangle",
+            "props": {
+              "x": 0.0,
+              "y": 0.0,
+              "w": 16.541,
+              "h": 8.0692
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 7,
+          "to": 8,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 7,
+          "to": 8,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 7,
+          "to": 8,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 3.0
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.02531576156616211
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 2,
+          "to": 3,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.20918567166886656
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.1
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        }
+      ],
+      "targetDt": 0.05
+    }
+  },
+  {
+    "name": "HPOptimizedSecondLeg",
+    "folder": "6800 - Bottom - HP Station",
+    "source": "src/main/deploy/choreo/optimizesecondleg.traj",
+    "adaptations": [
+      {
+        "constraint": "source-3",
+        "sourceTolerance": 0.01,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "constraint": "source-6",
+        "sourceTolerance": 0.02531576156616211,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      }
+    ],
+    "snapshot": {
+      "waypoints": [
+        {
+          "x": 3.316290855407715,
+          "y": 2.6776368618011475,
+          "heading": 0.7853981633974483,
+          "intervals": 35,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.155223608016968,
+          "y": 0.63,
+          "heading": -3.141592653589793,
+          "intervals": 17,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 4.522230625152588,
+          "y": 0.63,
+          "heading": -3.141592653589793,
+          "intervals": 36,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.200066089630127,
+          "y": 0.989176630973816,
+          "heading": -1.4399709175275996,
+          "intervals": 31,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.8263068199157715,
+          "y": 4.003263473510742,
+          "heading": -1.2358464131152642,
+          "intervals": 29,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.73777961730957,
+          "y": 4.564342021942139,
+          "heading": 0.8468584284518562,
+          "intervals": 20,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.372575283050537,
+          "y": 3.697253465652466,
+          "heading": 1.311166139913327,
+          "intervals": 23,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.886958122253418,
+          "y": 2.534987449645996,
+          "heading": 0.7853981633974483,
+          "intervals": 26,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.2507874965667725,
+          "y": 2.534987449645996,
+          "heading": 0.7853981633974483,
+          "intervals": 59,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        }
+      ],
+      "constraints": [
+        {
+          "from": "first",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "last",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "first",
+          "to": "last",
+          "data": {
+            "type": "KeepInRectangle",
+            "props": {
+              "x": 0.0,
+              "y": 0.0,
+              "w": 16.541,
+              "h": 8.0692
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 7,
+          "to": 8,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 7,
+          "to": 8,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 7,
+          "to": 8,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 3.0
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.02531576156616211
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 2,
+          "to": 3,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.20918567166886656
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.1
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        }
+      ],
+      "targetDt": 0.05
+    }
+  },
+  {
+    "name": "DepotHalfLeg",
+    "folder": "6800 - Top - Depot",
+    "source": "src/main/deploy/choreo/pointfive.traj",
+    "adaptations": [
+      {
+        "constraint": "source-3",
+        "sourceTolerance": 0.01,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      }
+    ],
+    "snapshot": {
+      "waypoints": [
+        {
+          "x": 3.3033883571624756,
+          "y": 2.570011615753174,
+          "heading": 0.7853981633974483,
+          "intervals": 34,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.155223608016968,
+          "y": 0.63,
+          "heading": -3.141592653589793,
+          "intervals": 22,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.328396320343018,
+          "y": 0.63,
+          "heading": -3.141592653589793,
+          "intervals": 28,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.153570652008057,
+          "y": 1.4298025369644165,
+          "heading": -2.4578832759943574,
+          "intervals": 15,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        }
+      ],
+      "constraints": [
+        {
+          "from": "first",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "last",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": false
+        },
+        {
+          "from": "first",
+          "to": "last",
+          "data": {
+            "type": "KeepInRectangle",
+            "props": {
+              "x": 0.0,
+              "y": 0.0,
+              "w": 16.541,
+              "h": 8.0692
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 2,
+          "to": 2,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 2.0
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 3,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.1
+            }
+          },
+          "enabled": true
+        }
+      ],
+      "targetDt": 0.05
+    }
+  },
+  {
+    "name": "HPHalfLeg",
+    "folder": "6800 - Bottom - HP Station",
+    "source": "src/main/deploy/choreo/pointfive.traj",
+    "adaptations": [
+      {
+        "constraint": "source-3",
+        "sourceTolerance": 0.01,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      }
+    ],
+    "snapshot": {
+      "waypoints": [
+        {
+          "x": 3.3033883571624756,
+          "y": 2.570011615753174,
+          "heading": 0.7853981633974483,
+          "intervals": 34,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.155223608016968,
+          "y": 0.63,
+          "heading": -3.141592653589793,
+          "intervals": 22,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.328396320343018,
+          "y": 0.63,
+          "heading": -3.141592653589793,
+          "intervals": 28,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.153570652008057,
+          "y": 1.4298025369644165,
+          "heading": -2.4578832759943574,
+          "intervals": 15,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        }
+      ],
+      "constraints": [
+        {
+          "from": "first",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "last",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": false
+        },
+        {
+          "from": "first",
+          "to": "last",
+          "data": {
+            "type": "KeepInRectangle",
+            "props": {
+              "x": 0.0,
+              "y": 0.0,
+              "w": 16.541,
+              "h": 8.0692
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 2,
+          "to": 2,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 2.0
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 3,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.1
+            }
+          },
+          "enabled": true
+        }
+      ],
+      "targetDt": 0.05
+    }
+  },
+  {
+    "name": "DepotSafeFirstLeg",
+    "folder": "6800 - Top - Depot",
+    "source": "src/main/deploy/choreo/safefirstleg.traj",
+    "adaptations": [
+      {
+        "constraint": "source-5",
+        "sourceTolerance": 0.01,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      }
+    ],
+    "snapshot": {
+      "waypoints": [
+        {
+          "x": 4.475192070007324,
+          "y": 0.5300326347351074,
+          "heading": -1.5707963267948966,
+          "intervals": 30,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.746584415435791,
+          "y": 1.2420639991760254,
+          "heading": -1.499064074709708,
+          "intervals": 40,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.6330513000488285,
+          "y": 3.303874969482422,
+          "heading": -0.9255022073568152,
+          "intervals": 31,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.9514749717712405,
+          "y": 2.6804537773132324,
+          "heading": 0.7853981633974483,
+          "intervals": 32,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.316290855407715,
+          "y": 2.6776368618011475,
+          "heading": 0.7853981633974483,
+          "intervals": 40,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        }
+      ],
+      "constraints": [
+        {
+          "from": "first",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "last",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "first",
+          "to": "last",
+          "data": {
+            "type": "KeepInRectangle",
+            "props": {
+              "x": 0.0,
+              "y": 0.0,
+              "w": 16.541,
+              "h": 8.0692
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 0,
+          "to": 1,
+          "data": {
+            "type": "KeepOutCircle",
+            "props": {
+              "x": 5.152269791811705,
+              "y": 1.3337963856756687,
+              "r": 0.16029003740512449
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 0,
+          "to": 1,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.2889054325645042
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 3.0
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.2184960776969198
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 2.5
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 1.75
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.08
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.22511472802894175
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.8
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 3.0
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.11676208876674904
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 2.0
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 2.15
+            }
+          },
+          "enabled": true
+        }
+      ],
+      "targetDt": 0.05
+    }
+  },
+  {
+    "name": "HPSafeFirstLeg",
+    "folder": "6800 - Bottom - HP Station",
+    "source": "src/main/deploy/choreo/safefirstleg.traj",
+    "adaptations": [
+      {
+        "constraint": "source-5",
+        "sourceTolerance": 0.01,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      }
+    ],
+    "snapshot": {
+      "waypoints": [
+        {
+          "x": 4.475192070007324,
+          "y": 0.5300326347351074,
+          "heading": -1.5707963267948966,
+          "intervals": 30,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.746584415435791,
+          "y": 1.2420639991760254,
+          "heading": -1.499064074709708,
+          "intervals": 40,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.6330513000488285,
+          "y": 3.303874969482422,
+          "heading": -0.9255022073568152,
+          "intervals": 31,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.9514749717712405,
+          "y": 2.6804537773132324,
+          "heading": 0.7853981633974483,
+          "intervals": 32,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.316290855407715,
+          "y": 2.6776368618011475,
+          "heading": 0.7853981633974483,
+          "intervals": 40,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        }
+      ],
+      "constraints": [
+        {
+          "from": "first",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "last",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "first",
+          "to": "last",
+          "data": {
+            "type": "KeepInRectangle",
+            "props": {
+              "x": 0.0,
+              "y": 0.0,
+              "w": 16.541,
+              "h": 8.0692
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 0,
+          "to": 1,
+          "data": {
+            "type": "KeepOutCircle",
+            "props": {
+              "x": 5.152269791811705,
+              "y": 1.3337963856756687,
+              "r": 0.16029003740512449
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 0,
+          "to": 1,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.2889054325645042
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 3.0
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.2184960776969198
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 2.5
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 1.75
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.08
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.22511472802894175
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.8
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 3.0
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.11676208876674904
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 2.0
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 2.15
+            }
+          },
+          "enabled": true
+        }
+      ],
+      "targetDt": 0.05
+    }
+  },
+  {
+    "name": "DepotPoofsSecondLeg",
+    "folder": "6800 - Top - Depot",
+    "source": "src/main/deploy/choreo/safepsecondleg.traj",
+    "adaptations": [
+      {
+        "constraint": "source-3",
+        "sourceTolerance": 0.0260404992103578,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "constraint": "source-4",
+        "sourceTolerance": 0.01,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "constraint": "source-8",
+        "sourceTolerance": 0.04663720881311035,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "constraint": "source-14",
+        "sourceTolerance": 0.02025805924053308,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "waypoint": 4,
+        "radius": 0.05,
+        "minimumShift": 0.0026870276676094207,
+        "reason": "destination bumper/intake collision clearance"
+      }
+    ],
+    "snapshot": {
+      "waypoints": [
+        {
+          "x": 3.316290855407715,
+          "y": 2.6776368618011475,
+          "heading": 0.7853981633974483,
+          "intervals": 35,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.155223608016968,
+          "y": 0.63,
+          "heading": -3.141592653589793,
+          "intervals": 21,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.28135347366333,
+          "y": 0.6005193591117859,
+          "heading": -3.141592653589793,
+          "intervals": 22,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.831587314605713,
+          "y": 1.3113690614700315,
+          "heading": 0.0,
+          "intervals": 20,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": false,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.777663230895996,
+          "y": 1.930704355239868,
+          "heading": -1.5707963267948966,
+          "intervals": 12,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.783561706542969,
+          "y": 2.5713565349578857,
+          "heading": -1.5707963267948966,
+          "intervals": 26,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.713922023773193,
+          "y": 2.6499319076538086,
+          "heading": 3.1208698798495953,
+          "intervals": 27,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.787418842315674,
+          "y": 2.178767204284668,
+          "heading": 1.5707963267948966,
+          "intervals": 15,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.804491996765137,
+          "y": 1.2781648635864258,
+          "heading": 1.5469913632789605,
+          "intervals": 30,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.051714897155762,
+          "y": 2.570230722427368,
+          "heading": 0.7853981633974483,
+          "intervals": 33,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.3033883571624756,
+          "y": 2.570011615753174,
+          "heading": 0.7853981633974483,
+          "intervals": 40,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        }
+      ],
+      "constraints": [
+        {
+          "from": "first",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "last",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "first",
+          "to": "last",
+          "data": {
+            "type": "KeepInRectangle",
+            "props": {
+              "x": 0.0,
+              "y": 0.0,
+              "w": 16.541,
+              "h": 8.0692
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.0260404992103578
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 9,
+          "to": 10,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 9,
+          "to": 10,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 9,
+          "to": 10,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 2.0
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 4,
+          "to": 5,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.04663720881311035
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 4,
+          "to": 5,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.0
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 7,
+          "to": 8,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.10318059535155746
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 5,
+          "to": 6,
+          "data": {
+            "type": "KeepInRectangle",
+            "props": {
+              "x": 3.6131221926771104,
+              "y": -0.48201528331264853,
+              "w": 5.359632285777479,
+              "h": 4.081028313841671
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 2,
+          "to": 3,
+          "data": {
+            "type": "KeepOutCircle",
+            "props": {
+              "x": 5.153197790961713,
+              "y": 1.3641614634543655,
+              "r": 0.2201800337311661
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 4,
+          "to": 5,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 4,
+          "to": 5,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.02025805924053308
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 5,
+          "to": 6,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.15844383419161037
+            }
+          },
+          "enabled": false
+        }
+      ],
+      "targetDt": 0.05
+    }
+  },
+  {
+    "name": "HPPoofsSecondLeg",
+    "folder": "6800 - Bottom - HP Station",
+    "source": "src/main/deploy/choreo/safepsecondleg.traj",
+    "adaptations": [
+      {
+        "constraint": "source-3",
+        "sourceTolerance": 0.0260404992103578,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "constraint": "source-4",
+        "sourceTolerance": 0.01,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "constraint": "source-8",
+        "sourceTolerance": 0.04663720881311035,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "constraint": "source-14",
+        "sourceTolerance": 0.02025805924053308,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "waypoint": 4,
+        "radius": 0.05,
+        "minimumShift": 0.0026870276676094207,
+        "reason": "destination bumper/intake collision clearance"
+      }
+    ],
+    "snapshot": {
+      "waypoints": [
+        {
+          "x": 3.316290855407715,
+          "y": 2.6776368618011475,
+          "heading": 0.7853981633974483,
+          "intervals": 35,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.155223608016968,
+          "y": 0.63,
+          "heading": -3.141592653589793,
+          "intervals": 21,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.28135347366333,
+          "y": 0.6005193591117859,
+          "heading": -3.141592653589793,
+          "intervals": 22,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.831587314605713,
+          "y": 1.3113690614700315,
+          "heading": 0.0,
+          "intervals": 20,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": false,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.777663230895996,
+          "y": 1.930704355239868,
+          "heading": -1.5707963267948966,
+          "intervals": 12,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.783561706542969,
+          "y": 2.5713565349578857,
+          "heading": -1.5707963267948966,
+          "intervals": 26,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.713922023773193,
+          "y": 2.6499319076538086,
+          "heading": 3.1208698798495953,
+          "intervals": 27,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.787418842315674,
+          "y": 2.178767204284668,
+          "heading": 1.5707963267948966,
+          "intervals": 15,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.804491996765137,
+          "y": 1.2781648635864258,
+          "heading": 1.5469913632789605,
+          "intervals": 30,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.051714897155762,
+          "y": 2.570230722427368,
+          "heading": 0.7853981633974483,
+          "intervals": 33,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.3033883571624756,
+          "y": 2.570011615753174,
+          "heading": 0.7853981633974483,
+          "intervals": 40,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        }
+      ],
+      "constraints": [
+        {
+          "from": "first",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "last",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "first",
+          "to": "last",
+          "data": {
+            "type": "KeepInRectangle",
+            "props": {
+              "x": 0.0,
+              "y": 0.0,
+              "w": 16.541,
+              "h": 8.0692
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.0260404992103578
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 9,
+          "to": 10,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 9,
+          "to": 10,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 9,
+          "to": 10,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 2.0
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 4,
+          "to": 5,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.04663720881311035
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 4,
+          "to": 5,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.0
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 7,
+          "to": 8,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.10318059535155746
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 5,
+          "to": 6,
+          "data": {
+            "type": "KeepInRectangle",
+            "props": {
+              "x": 3.6131221926771104,
+              "y": -0.48201528331264853,
+              "w": 5.359632285777479,
+              "h": 4.081028313841671
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 2,
+          "to": 3,
+          "data": {
+            "type": "KeepOutCircle",
+            "props": {
+              "x": 5.153197790961713,
+              "y": 1.3641614634543655,
+              "r": 0.2201800337311661
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 4,
+          "to": 5,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 4,
+          "to": 5,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.02025805924053308
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 5,
+          "to": 6,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.15844383419161037
+            }
+          },
+          "enabled": false
+        }
+      ],
+      "targetDt": 0.05
+    }
+  },
+  {
+    "name": "DepotSafeSecondLeg",
+    "folder": "6800 - Top - Depot",
+    "source": "src/main/deploy/choreo/safesecondleg.traj",
+    "adaptations": [
+      {
+        "constraint": "source-3",
+        "sourceTolerance": 0.0260404992103578,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "constraint": "source-4",
+        "sourceTolerance": 0.01,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "constraint": "source-8",
+        "sourceTolerance": 0.04663720881311035,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "constraint": "source-12",
+        "sourceTolerance": 0.02025805924053308,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      }
+    ],
+    "snapshot": {
+      "waypoints": [
+        {
+          "x": 3.316290855407715,
+          "y": 2.6776368618011475,
+          "heading": 0.7853981633974483,
+          "intervals": 35,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.155223608016968,
+          "y": 0.63,
+          "heading": -3.141592653589793,
+          "intervals": 23,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.49695348739624,
+          "y": 0.5981192588806152,
+          "heading": -3.141592653589793,
+          "intervals": 30,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.852139472961426,
+          "y": 2.1016643047332764,
+          "heading": -1.5707963267948966,
+          "intervals": 19,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.818413257598877,
+          "y": 2.945521593093872,
+          "heading": -1.9841273240616564,
+          "intervals": 26,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.453856468200684,
+          "y": 3.902424573898315,
+          "heading": 3.1208698798495953,
+          "intervals": 29,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.694839954376221,
+          "y": 3.1473684310913086,
+          "heading": 1.5707963267948966,
+          "intervals": 21,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.804491996765137,
+          "y": 1.2781648635864258,
+          "heading": 1.5469913632789605,
+          "intervals": 28,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.737936973571777,
+          "y": 1.569973707199097,
+          "heading": -0.4724969979525532,
+          "intervals": 26,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.051714897155762,
+          "y": 2.570230722427368,
+          "heading": 0.7853981633974483,
+          "intervals": 33,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.3033883571624756,
+          "y": 2.570011615753174,
+          "heading": 0.7853981633974483,
+          "intervals": 40,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        }
+      ],
+      "constraints": [
+        {
+          "from": "first",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "last",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "first",
+          "to": "last",
+          "data": {
+            "type": "KeepInRectangle",
+            "props": {
+              "x": 0.0,
+              "y": 0.0,
+              "w": 16.541,
+              "h": 8.0692
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.0260404992103578
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 9,
+          "to": 10,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 9,
+          "to": 10,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 9,
+          "to": 10,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 2.0
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.04663720881311035
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.0
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 6,
+          "to": 7,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.10318059535155746
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 2,
+          "to": 2,
+          "data": {
+            "type": "KeepOutCircle",
+            "props": {
+              "x": 5.153197790961713,
+              "y": 1.3641614634543655,
+              "r": 0.2201800337311661
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.02025805924053308
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 4,
+          "to": 5,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.15844383419161037
+            }
+          },
+          "enabled": false
+        }
+      ],
+      "targetDt": 0.05
+    }
+  },
+  {
+    "name": "HPSafeSecondLeg",
+    "folder": "6800 - Bottom - HP Station",
+    "source": "src/main/deploy/choreo/safesecondleg.traj",
+    "adaptations": [
+      {
+        "constraint": "source-3",
+        "sourceTolerance": 0.0260404992103578,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "constraint": "source-4",
+        "sourceTolerance": 0.01,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "constraint": "source-8",
+        "sourceTolerance": 0.04663720881311035,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "constraint": "source-12",
+        "sourceTolerance": 0.02025805924053308,
+        "tolerance": 0.1,
+        "reason": "corridor clearance for destination intake"
+      }
+    ],
+    "snapshot": {
+      "waypoints": [
+        {
+          "x": 3.316290855407715,
+          "y": 2.6776368618011475,
+          "heading": 0.7853981633974483,
+          "intervals": 35,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.155223608016968,
+          "y": 0.63,
+          "heading": -3.141592653589793,
+          "intervals": 23,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.49695348739624,
+          "y": 0.5981192588806152,
+          "heading": -3.141592653589793,
+          "intervals": 30,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.852139472961426,
+          "y": 2.1016643047332764,
+          "heading": -1.5707963267948966,
+          "intervals": 19,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.818413257598877,
+          "y": 2.945521593093872,
+          "heading": -1.9841273240616564,
+          "intervals": 26,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.453856468200684,
+          "y": 3.902424573898315,
+          "heading": 3.1208698798495953,
+          "intervals": 29,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.694839954376221,
+          "y": 3.1473684310913086,
+          "heading": 1.5707963267948966,
+          "intervals": 21,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.804491996765137,
+          "y": 1.2781648635864258,
+          "heading": 1.5469913632789605,
+          "intervals": 28,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.737936973571777,
+          "y": 1.569973707199097,
+          "heading": -0.4724969979525532,
+          "intervals": 26,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.051714897155762,
+          "y": 2.570230722427368,
+          "heading": 0.7853981633974483,
+          "intervals": 33,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.3033883571624756,
+          "y": 2.570011615753174,
+          "heading": 0.7853981633974483,
+          "intervals": 40,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        }
+      ],
+      "constraints": [
+        {
+          "from": "first",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "last",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "first",
+          "to": "last",
+          "data": {
+            "type": "KeepInRectangle",
+            "props": {
+              "x": 0.0,
+              "y": 0.0,
+              "w": 16.541,
+              "h": 8.0692
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.0260404992103578
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 9,
+          "to": 10,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 9,
+          "to": 10,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 9,
+          "to": 10,
+          "data": {
+            "type": "MaxVelocity",
+            "props": {
+              "max": 2.0
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.04663720881311035
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.0
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 6,
+          "to": 7,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.10318059535155746
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 2,
+          "to": 2,
+          "data": {
+            "type": "KeepOutCircle",
+            "props": {
+              "x": 5.153197790961713,
+              "y": 1.3641614634543655,
+              "r": 0.2201800337311661
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.02025805924053308
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 4,
+          "to": 5,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.15844383419161037
+            }
+          },
+          "enabled": false
+        }
+      ],
+      "targetDt": 0.05
+    }
+  },
+  {
+    "name": "DepotTrenchFirstLeg",
+    "folder": "6800 - Top - Depot",
+    "source": "src/main/deploy/choreo/trenchfirstleg.traj",
+    "adaptations": [
+      {
+        "constraint": "source-3",
+        "sourceTolerance": 0.01,
+        "tolerance": 0.3,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "waypoint": 1,
+        "radius": 0.2,
+        "minimumShift": 0.15719999999999956,
+        "reason": "destination bumper/intake collision clearance"
+      },
+      {
+        "waypoint": 6,
+        "radius": 0.24,
+        "minimumShift": 0.19700000000000006,
+        "reason": "destination bumper/intake collision clearance"
+      }
+    ],
+    "snapshot": {
+      "waypoints": [
+        {
+          "x": 4.447776794433594,
+          "y": 7.5,
+          "heading": 1.5707963267948966,
+          "intervals": 18,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.0,
+          "y": 7.5,
+          "heading": 1.5707963267948966,
+          "intervals": 20,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.804574012756348,
+          "y": 6.771343231201172,
+          "heading": 1.5707963267948966,
+          "intervals": 27,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.853309631347656,
+          "y": 4.806862831115723,
+          "heading": 1.0563809368213333,
+          "intervals": 32,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.758073806762695,
+          "y": 6.058832168579102,
+          "heading": -1.0198143130159252,
+          "intervals": 25,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.9,
+          "y": 7.3,
+          "heading": -1.5707963267948966,
+          "intervals": 20,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 4.088802814483643,
+          "y": 7.3,
+          "heading": -1.5707963267948966,
+          "intervals": 20,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.2879767417907715,
+          "y": 7.3,
+          "heading": -1.0899084755114017,
+          "intervals": 58,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        }
+      ],
+      "constraints": [
+        {
+          "from": "first",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "last",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "first",
+          "to": "last",
+          "data": {
+            "type": "KeepInRectangle",
+            "props": {
+              "x": 0.0,
+              "y": 0.0,
+              "w": 16.541,
+              "h": 8.0692
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 5,
+          "to": 6,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 5,
+          "to": 6,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        }
+      ],
+      "targetDt": 0.05
+    }
+  },
+  {
+    "name": "HPTrenchFirstLeg",
+    "folder": "6800 - Bottom - HP Station",
+    "source": "src/main/deploy/choreo/trenchfirstleg.traj",
+    "adaptations": [
+      {
+        "constraint": "source-3",
+        "sourceTolerance": 0.01,
+        "tolerance": 0.3,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "waypoint": 1,
+        "radius": 0.2,
+        "minimumShift": 0.15719999999999956,
+        "reason": "destination bumper/intake collision clearance"
+      },
+      {
+        "waypoint": 6,
+        "radius": 0.24,
+        "minimumShift": 0.1970000000000005,
+        "reason": "destination bumper/intake collision clearance"
+      }
+    ],
+    "snapshot": {
+      "waypoints": [
+        {
+          "x": 4.447776794433594,
+          "y": 7.5,
+          "heading": 1.5707963267948966,
+          "intervals": 18,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.0,
+          "y": 7.5,
+          "heading": 1.5707963267948966,
+          "intervals": 20,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.804574012756348,
+          "y": 6.771343231201172,
+          "heading": 1.5707963267948966,
+          "intervals": 27,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 7.853309631347656,
+          "y": 4.806862831115723,
+          "heading": 1.0563809368213333,
+          "intervals": 32,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.758073806762695,
+          "y": 6.058832168579102,
+          "heading": -1.0198143130159252,
+          "intervals": 25,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.9,
+          "y": 7.3,
+          "heading": -1.5707963267948966,
+          "intervals": 20,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 4.088802814483643,
+          "y": 7.3,
+          "heading": -1.5707963267948966,
+          "intervals": 20,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.2879767417907715,
+          "y": 7.3,
+          "heading": -1.0899084755114017,
+          "intervals": 58,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        }
+      ],
+      "constraints": [
+        {
+          "from": "first",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "last",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "first",
+          "to": "last",
+          "data": {
+            "type": "KeepInRectangle",
+            "props": {
+              "x": 0.0,
+              "y": 0.0,
+              "w": 16.541,
+              "h": 8.0692
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 5,
+          "to": 6,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 5,
+          "to": 6,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        }
+      ],
+      "targetDt": 0.05
+    }
+  },
+  {
+    "name": "DepotTrenchSecondLeg",
+    "folder": "6800 - Top - Depot",
+    "source": "src/main/deploy/choreo/trenchsecondleg.traj",
+    "adaptations": [
+      {
+        "constraint": "source-4",
+        "sourceTolerance": 0.1,
+        "tolerance": 0.3,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "constraint": "source-6",
+        "sourceTolerance": 0.01,
+        "tolerance": 0.3,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "waypoint": 10,
+        "radius": 0.24,
+        "minimumShift": 0.19700000000000006,
+        "reason": "destination bumper/intake collision clearance",
+        "sourceWaypoint": 6
+      },
+      {
+        "waypoint": 2,
+        "sourcePose": [
+          4.447776794433594,
+          7.5,
+          -1.5707963267948966
+        ],
+        "destinationPose": [
+          4.447776794433594,
+          7.54,
+          -1.5707963267948966
+        ],
+        "reason": "add 0.04 m post clearance at trench departure",
+        "sourceWaypoint": 1
+      },
+      {
+        "waypoint": 10,
+        "sourcePose": [
+          4.088802814483643,
+          7.3,
+          -1.5707963267948966
+        ],
+        "destinationPose": [
+          4.088802814483643,
+          7.52,
+          -1.5707963267948966
+        ],
+        "reason": "shift return anchor 0.22 m toward wall to clear trench post with intake",
+        "sourceWaypoint": 6
+      },
+      {
+        "waypoint": 1,
+        "destinationPose": [
+          3.2879767417907715,
+          7.54,
+          -1.5707963267948966
+        ],
+        "reason": "added clearance anchor to route around trench post before turning/crossing"
+      },
+      {
+        "waypoint": 3,
+        "destinationPose": [
+          5.65,
+          7.54,
+          -1.5707963267948966
+        ],
+        "reason": "added clearance anchor to route around trench post before turning/crossing"
+      },
+      {
+        "waypoint": 5,
+        "destinationPose": [
+          6.2,
+          7.4,
+          -1.5707963267948966
+        ],
+        "reason": "added clearance anchor to route around trench post before turning/crossing"
+      },
+      {
+        "waypoint": 9,
+        "destinationPose": [
+          5.75,
+          7.54,
+          -1.5707963267948966
+        ],
+        "reason": "added clearance anchor to route around trench post before turning/crossing"
+      },
+      {
+        "waypoint": 11,
+        "destinationPose": [
+          3.2879767417907715,
+          7.54,
+          -1.5707963267948966
+        ],
+        "reason": "added clearance anchor to route around trench post before turning/crossing"
+      }
+    ],
+    "snapshot": {
+      "waypoints": [
+        {
+          "x": 3.2879767417907715,
+          "y": 7.3,
+          "heading": -1.0899084755114017,
+          "intervals": 22,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 4.447776794433594,
+          "y": 7.5,
+          "heading": -1.5707963267948966,
+          "intervals": 17,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.765538692474365,
+          "y": 7.384273529052734,
+          "heading": -1.5707963267948966,
+          "intervals": 34,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.0371198654174805,
+          "y": 5.921441078186035,
+          "heading": 1.5707963267948966,
+          "intervals": 19,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.012430667877197,
+          "y": 4.21171760559082,
+          "heading": 1.5707963267948966,
+          "intervals": 43,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.406675338745117,
+          "y": 7.3,
+          "heading": -1.5707963267948966,
+          "intervals": 22,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 4.088802814483643,
+          "y": 7.3,
+          "heading": -1.5707963267948966,
+          "intervals": 20,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.2879767417907715,
+          "y": 7.3,
+          "heading": -1.0899084755114017,
+          "intervals": 58,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        }
+      ],
+      "constraints": [
+        {
+          "from": "first",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "last",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "first",
+          "to": "last",
+          "data": {
+            "type": "KeepInRectangle",
+            "props": {
+              "x": 0.0,
+              "y": 0.0,
+              "w": 16.541,
+              "h": 8.0692
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.1
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 5,
+          "to": 6,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 5,
+          "to": 6,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        }
+      ],
+      "targetDt": 0.05
+    }
+  },
+  {
+    "name": "HPTrenchSecondLeg",
+    "folder": "6800 - Bottom - HP Station",
+    "source": "src/main/deploy/choreo/trenchsecondleg.traj",
+    "adaptations": [
+      {
+        "constraint": "source-4",
+        "sourceTolerance": 0.1,
+        "tolerance": 0.3,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "constraint": "source-6",
+        "sourceTolerance": 0.01,
+        "tolerance": 0.3,
+        "reason": "corridor clearance for destination intake"
+      },
+      {
+        "waypoint": 10,
+        "radius": 0.24,
+        "minimumShift": 0.1970000000000005,
+        "reason": "destination bumper/intake collision clearance",
+        "sourceWaypoint": 6
+      },
+      {
+        "waypoint": 2,
+        "sourcePose": [
+          4.447776794433594,
+          0.5692000000000004,
+          1.5707963267948966
+        ],
+        "destinationPose": [
+          4.447776794433594,
+          0.5292000000000003,
+          1.5707963267948966
+        ],
+        "reason": "add 0.04 m post clearance at trench departure",
+        "sourceWaypoint": 1
+      },
+      {
+        "waypoint": 10,
+        "sourcePose": [
+          4.088802814483643,
+          0.7692000000000005,
+          1.5707963267948966
+        ],
+        "destinationPose": [
+          4.088802814483643,
+          0.5492000000000006,
+          1.5707963267948966
+        ],
+        "reason": "shift return anchor 0.22 m toward wall to clear trench post with intake",
+        "sourceWaypoint": 6
+      },
+      {
+        "waypoint": 1,
+        "destinationPose": [
+          3.2879767417907715,
+          0.5292000000000003,
+          1.5707963267948966
+        ],
+        "reason": "added clearance anchor to route around trench post before turning/crossing"
+      },
+      {
+        "waypoint": 3,
+        "destinationPose": [
+          5.65,
+          0.5292000000000003,
+          1.5707963267948966
+        ],
+        "reason": "added clearance anchor to route around trench post before turning/crossing"
+      },
+      {
+        "waypoint": 5,
+        "destinationPose": [
+          6.2,
+          0.6692,
+          1.5707963267948966
+        ],
+        "reason": "added clearance anchor to route around trench post before turning/crossing"
+      },
+      {
+        "waypoint": 9,
+        "destinationPose": [
+          5.75,
+          0.5292000000000003,
+          1.5707963267948966
+        ],
+        "reason": "added clearance anchor to route around trench post before turning/crossing"
+      },
+      {
+        "waypoint": 11,
+        "destinationPose": [
+          3.2879767417907715,
+          0.5292000000000003,
+          1.5707963267948966
+        ],
+        "reason": "added clearance anchor to route around trench post before turning/crossing"
+      }
+    ],
+    "snapshot": {
+      "waypoints": [
+        {
+          "x": 3.2879767417907715,
+          "y": 7.3,
+          "heading": -1.0899084755114017,
+          "intervals": 22,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 4.447776794433594,
+          "y": 7.5,
+          "heading": -1.5707963267948966,
+          "intervals": 17,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 5.765538692474365,
+          "y": 7.384273529052734,
+          "heading": -1.5707963267948966,
+          "intervals": 34,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.0371198654174805,
+          "y": 5.921441078186035,
+          "heading": 1.5707963267948966,
+          "intervals": 19,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.012430667877197,
+          "y": 4.21171760559082,
+          "heading": 1.5707963267948966,
+          "intervals": 43,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 6.406675338745117,
+          "y": 7.3,
+          "heading": -1.5707963267948966,
+          "intervals": 22,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 4.088802814483643,
+          "y": 7.3,
+          "heading": -1.5707963267948966,
+          "intervals": 20,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        },
+        {
+          "x": 3.2879767417907715,
+          "y": 7.3,
+          "heading": -1.0899084755114017,
+          "intervals": 58,
+          "split": false,
+          "fixTranslation": true,
+          "fixHeading": true,
+          "overrideIntervals": false
+        }
+      ],
+      "constraints": [
+        {
+          "from": "first",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "last",
+          "to": null,
+          "data": {
+            "type": "StopPoint",
+            "props": {}
+          },
+          "enabled": true
+        },
+        {
+          "from": "first",
+          "to": "last",
+          "data": {
+            "type": "KeepInRectangle",
+            "props": {
+              "x": 0.0,
+              "y": 0.0,
+              "w": 16.541,
+              "h": 8.0692
+            }
+          },
+          "enabled": false
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.1
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 5,
+          "to": 6,
+          "data": {
+            "type": "KeepInLane",
+            "props": {
+              "tolerance": 0.01
+            }
+          },
+          "enabled": true
+        },
+        {
+          "from": 5,
+          "to": 6,
+          "data": {
+            "type": "MaxAngularVelocity",
+            "props": {
+              "max": 0.01
+            }
+          },
+          "enabled": true
+        }
+      ],
+      "targetDt": 0.05
+    }
+  }
+]

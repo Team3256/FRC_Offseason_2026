@@ -1,0 +1,737 @@
+[
+  {
+    "name": "DepotNZFirstCycle",
+    "points": [
+      {
+        "pose": [
+          4.5,
+          7.6,
+          1.5707963267948966
+        ],
+        "speed": 4.572,
+        "tolerance": 0,
+        "hold": false,
+        "sourceCall": "starting/predecessor pose"
+      },
+      {
+        "pose": [
+          9.9,
+          7.0,
+          1.5707963267948966
+        ],
+        "speed": 4.572,
+        "tolerance": 3.5,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftFirstSweepEntry(alliance), DTP_FAST_VELOCITY_METERS, 3.5)"
+      },
+      {
+        "pose": [
+          8.1,
+          2.8,
+          1.5707963267948966
+        ],
+        "speed": 4.572,
+        "tolerance": 3.0,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftFirstSweepCenterpoint(alliance), DTP_FAST_VELOCITY_METERS, 3.0)"
+      },
+      {
+        "pose": [
+          8.1,
+          2.8,
+          3.141592653589793
+        ],
+        "speed": 4.572,
+        "tolerance": 1.0,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftFirstSweepCenterpointSecond(alliance), DTP_FAST_VELOCITY_METERS, 1.0)"
+      },
+      {
+        "pose": [
+          6.3,
+          5.3,
+          -2.356194490192345
+        ],
+        "speed": 3.3528,
+        "tolerance": 0.5,
+        "hold": false,
+        "sourceCall": "driveToPoint(FieldConstants.getLeftSweepExit(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)"
+      },
+      {
+        "pose": [
+          2.6,
+          5.6,
+          -1.5707963267948966
+        ],
+        "speed": 3.3528,
+        "tolerance": 1.0,
+        "hold": false,
+        "sourceCall": "driveToPoint(FieldConstants.getLeftFirstBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.0)"
+      },
+      {
+        "pose": [
+          2.6,
+          5.6,
+          -0.7853981633974483
+        ],
+        "speed": 3.3528,
+        "tolerance": 0.1524,
+        "hold": false,
+        "sourceCall": "driveToPoint(FieldConstants.getLeftSecondBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS)"
+      }
+    ],
+    "adaptations": [],
+    "sourceMethod": "createLeftNeutralZoneAuto"
+  },
+  {
+    "name": "DepotNZSecondCycle",
+    "points": [
+      {
+        "pose": [
+          2.6,
+          5.6,
+          -0.7853981633974483
+        ],
+        "speed": 3.3528,
+        "tolerance": 0,
+        "hold": false,
+        "sourceCall": "starting/predecessor pose"
+      },
+      {
+        "pose": [
+          2.8,
+          7.7,
+          3.141592653589793
+        ],
+        "speed": 3.3528,
+        "tolerance": 0.75,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftTrenchEnter(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.75)"
+      },
+      {
+        "pose": [
+          7.2,
+          7.7,
+          3.141592653589793
+        ],
+        "speed": 4.572,
+        "tolerance": 2.0,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getLeftSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getLeftTrenchEnter(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 2.0)"
+      },
+      {
+        "pose": [
+          7.2,
+          7.7,
+          1.7453292519943295
+        ],
+        "speed": 4.572,
+        "tolerance": 1.0,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getLeftSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getLeftSecondSweepCenterpoint(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 1.0)"
+      },
+      {
+        "pose": [
+          6.0,
+          3.3,
+          1.7453292519943295
+        ],
+        "speed": 3.3528,
+        "tolerance": 1.5,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftSecondSweepCenterpoint(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.5)"
+      },
+      {
+        "pose": [
+          8.3,
+          4.8,
+          -2.9670597283903604
+        ],
+        "speed": 3.3528,
+        "tolerance": 0.5,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftSecondSweepCurvepoint(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)"
+      },
+      {
+        "pose": [
+          6.3,
+          5.3,
+          -2.356194490192345
+        ],
+        "speed": 3.3528,
+        "tolerance": 0.5,
+        "hold": false,
+        "sourceCall": "driveToPoint(FieldConstants.getLeftSweepExit(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)"
+      },
+      {
+        "pose": [
+          2.6,
+          5.6,
+          -1.5707963267948966
+        ],
+        "speed": 3.3528,
+        "tolerance": 1.0,
+        "hold": false,
+        "sourceCall": "driveToPoint(FieldConstants.getLeftFirstBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.0)"
+      },
+      {
+        "pose": [
+          2.6,
+          5.6,
+          -0.7853981633974483
+        ],
+        "speed": 3.3528,
+        "tolerance": 0.1524,
+        "hold": false,
+        "sourceCall": "driveToPoint(FieldConstants.getLeftSecondBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS)"
+      }
+    ],
+    "adaptations": [
+      {
+        "waypoint": 1,
+        "reason": "wall clearance with destination robot/intake",
+        "radius": 0.09719999999999993,
+        "sourceTolerance": 0.75
+      },
+      {
+        "waypoint": 2,
+        "reason": "wall clearance with destination robot/intake",
+        "radius": 0.09719999999999993,
+        "sourceTolerance": 2.0
+      },
+      {
+        "waypoint": 3,
+        "reason": "wall clearance with destination robot/intake",
+        "radius": 0.45703881613166336,
+        "sourceTolerance": 1.0
+      }
+    ],
+    "sourceMethod": "createLeftNeutralZoneAuto"
+  },
+  {
+    "name": "DepotNZThirdIntake",
+    "points": [
+      {
+        "pose": [
+          2.6,
+          5.6,
+          -0.7853981633974483
+        ],
+        "speed": 3.3528,
+        "tolerance": 0,
+        "hold": false,
+        "sourceCall": "starting/predecessor pose"
+      },
+      {
+        "pose": [
+          2.8,
+          7.7,
+          3.141592653589793
+        ],
+        "speed": 3.3528,
+        "tolerance": 0.75,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftTrenchEnter(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.75)"
+      },
+      {
+        "pose": [
+          7.2,
+          7.7,
+          3.141592653589793
+        ],
+        "speed": 4.572,
+        "tolerance": 2.0,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getLeftSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getLeftTrenchEnter(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 2.0)"
+      },
+      {
+        "pose": [
+          7.2,
+          7.7,
+          1.7453292519943295
+        ],
+        "speed": 4.572,
+        "tolerance": 1.0,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getLeftSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getLeftSecondSweepCenterpoint(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 1.0)"
+      },
+      {
+        "pose": [
+          8.1,
+          2.8,
+          1.5707963267948966
+        ],
+        "speed": 3.3528,
+        "tolerance": 0.1524,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftFirstSweepCenterpoint(alliance), DTP_MEDIUM_VELOCITY_METERS)"
+      }
+    ],
+    "adaptations": [
+      {
+        "waypoint": 1,
+        "reason": "wall clearance with destination robot/intake",
+        "radius": 0.09719999999999993,
+        "sourceTolerance": 0.75
+      },
+      {
+        "waypoint": 2,
+        "reason": "wall clearance with destination robot/intake",
+        "radius": 0.09719999999999993,
+        "sourceTolerance": 2.0
+      },
+      {
+        "waypoint": 3,
+        "reason": "wall clearance with destination robot/intake",
+        "radius": 0.45703881613166336,
+        "sourceTolerance": 1.0
+      }
+    ],
+    "sourceMethod": "createLeftNeutralZoneAuto"
+  },
+  {
+    "name": "HPNZFirstCycle",
+    "points": [
+      {
+        "pose": [
+          4.5,
+          0.4690000000000012,
+          -1.5707963267948966
+        ],
+        "speed": 4.572,
+        "tolerance": 0,
+        "hold": false,
+        "sourceCall": "starting/predecessor pose"
+      },
+      {
+        "pose": [
+          9.9,
+          1.0690000000000008,
+          -1.5707963267948966
+        ],
+        "speed": 4.572,
+        "tolerance": 2.5,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightFirstSweepEntry(alliance), DTP_FAST_VELOCITY_METERS, 2.5)"
+      },
+      {
+        "pose": [
+          8.1,
+          5.269000000000001,
+          -1.5707963267948966
+        ],
+        "speed": 4.572,
+        "tolerance": 2.0,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightFirstSweepCenterpoint(alliance), DTP_FAST_VELOCITY_METERS, 2.0)"
+      },
+      {
+        "pose": [
+          8.1,
+          5.269000000000001,
+          -3.141592653589793
+        ],
+        "speed": 4.572,
+        "tolerance": 1.0,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightFirstSweepCenterpointSecond(alliance), DTP_FAST_VELOCITY_METERS, 1.0)"
+      },
+      {
+        "pose": [
+          6.3,
+          2.769000000000001,
+          2.356194490192345
+        ],
+        "speed": 3.3528,
+        "tolerance": 0.5,
+        "hold": false,
+        "sourceCall": "driveToPoint(FieldConstants.getRightSweepExit(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)"
+      },
+      {
+        "pose": [
+          2.6,
+          2.469000000000001,
+          1.5707963267948966
+        ],
+        "speed": 3.3528,
+        "tolerance": 1.0,
+        "hold": false,
+        "sourceCall": "driveToPoint(FieldConstants.getRightFirstBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.0)"
+      },
+      {
+        "pose": [
+          2.6,
+          2.469000000000001,
+          0.7853981633974483
+        ],
+        "speed": 3.3528,
+        "tolerance": 0.1524,
+        "hold": false,
+        "sourceCall": "driveToPoint(FieldConstants.getRightSecondBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS)"
+      }
+    ],
+    "adaptations": [],
+    "sourceMethod": "createRightNeutralZoneAuto"
+  },
+  {
+    "name": "HPNZSecondCycle",
+    "points": [
+      {
+        "pose": [
+          2.6,
+          2.469000000000001,
+          0.7853981633974483
+        ],
+        "speed": 3.3528,
+        "tolerance": 0,
+        "hold": false,
+        "sourceCall": "starting/predecessor pose"
+      },
+      {
+        "pose": [
+          2.8,
+          0.36900000000000066,
+          -3.141592653589793
+        ],
+        "speed": 3.3528,
+        "tolerance": 0.75,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightTrenchEnter(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.75)"
+      },
+      {
+        "pose": [
+          7.2,
+          0.36900000000000066,
+          -3.141592653589793
+        ],
+        "speed": 4.572,
+        "tolerance": 2.0,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getRightSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getRightTrenchEnter(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 2.0)"
+      },
+      {
+        "pose": [
+          7.2,
+          0.36900000000000066,
+          -1.7453292519943295
+        ],
+        "speed": 4.572,
+        "tolerance": 1.0,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getRightSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getRightSecondSweepCenterPoint(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 1.0)"
+      },
+      {
+        "pose": [
+          6.0,
+          4.769000000000001,
+          -1.7453292519943295
+        ],
+        "speed": 3.3528,
+        "tolerance": 1.5,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightSecondSweepCenterPoint(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.5)"
+      },
+      {
+        "pose": [
+          8.3,
+          3.269000000000001,
+          2.9670597283903604
+        ],
+        "speed": 3.3528,
+        "tolerance": 0.5,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightSecondSweepCurvepoint(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)"
+      },
+      {
+        "pose": [
+          6.3,
+          2.769000000000001,
+          2.356194490192345
+        ],
+        "speed": 3.3528,
+        "tolerance": 0.5,
+        "hold": false,
+        "sourceCall": "driveToPoint(FieldConstants.getRightSweepExit(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)"
+      },
+      {
+        "pose": [
+          2.6,
+          2.469000000000001,
+          1.5707963267948966
+        ],
+        "speed": 3.3528,
+        "tolerance": 1.0,
+        "hold": false,
+        "sourceCall": "driveToPoint(FieldConstants.getRightFirstBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.0)"
+      },
+      {
+        "pose": [
+          2.6,
+          2.469000000000001,
+          0.7853981633974483
+        ],
+        "speed": 3.3528,
+        "tolerance": 0.1524,
+        "hold": false,
+        "sourceCall": "driveToPoint(FieldConstants.getRightSecondBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS)"
+      }
+    ],
+    "adaptations": [
+      {
+        "waypoint": 1,
+        "reason": "wall clearance with destination robot/intake",
+        "radius": 0.09739999999999946,
+        "sourceTolerance": 0.75
+      },
+      {
+        "waypoint": 2,
+        "reason": "wall clearance with destination robot/intake",
+        "radius": 0.09739999999999946,
+        "sourceTolerance": 2.0
+      },
+      {
+        "waypoint": 3,
+        "reason": "wall clearance with destination robot/intake",
+        "radius": 0.45723881613166345,
+        "sourceTolerance": 1.0
+      }
+    ],
+    "sourceMethod": "createRightNeutralZoneAuto"
+  },
+  {
+    "name": "HPNZThirdIntake",
+    "points": [
+      {
+        "pose": [
+          2.6,
+          2.469000000000001,
+          0.7853981633974483
+        ],
+        "speed": 3.3528,
+        "tolerance": 0,
+        "hold": false,
+        "sourceCall": "starting/predecessor pose"
+      },
+      {
+        "pose": [
+          2.8,
+          0.36900000000000066,
+          -3.141592653589793
+        ],
+        "speed": 3.3528,
+        "tolerance": 0.75,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightTrenchEnter(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.75)"
+      },
+      {
+        "pose": [
+          7.2,
+          0.36900000000000066,
+          -3.141592653589793
+        ],
+        "speed": 4.572,
+        "tolerance": 2.0,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getRightSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getRightTrenchEnter(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 2.0)"
+      },
+      {
+        "pose": [
+          7.2,
+          0.36900000000000066,
+          -1.7453292519943295
+        ],
+        "speed": 4.572,
+        "tolerance": 1.0,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getRightSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getRightSecondSweepCenterPoint(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 1.0)"
+      },
+      {
+        "pose": [
+          8.1,
+          5.269000000000001,
+          -1.5707963267948966
+        ],
+        "speed": 3.3528,
+        "tolerance": 0.1524,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightFirstSweepCenterpoint(alliance), DTP_MEDIUM_VELOCITY_METERS)"
+      }
+    ],
+    "adaptations": [
+      {
+        "waypoint": 1,
+        "reason": "wall clearance with destination robot/intake",
+        "radius": 0.09739999999999946,
+        "sourceTolerance": 0.75
+      },
+      {
+        "waypoint": 2,
+        "reason": "wall clearance with destination robot/intake",
+        "radius": 0.09739999999999946,
+        "sourceTolerance": 2.0
+      },
+      {
+        "waypoint": 3,
+        "reason": "wall clearance with destination robot/intake",
+        "radius": 0.45723881613166345,
+        "sourceTolerance": 1.0
+      }
+    ],
+    "sourceMethod": "createRightNeutralZoneAuto"
+  },
+  {
+    "name": "DepotNZToDepot",
+    "points": [
+      {
+        "pose": [
+          2.6,
+          5.6,
+          -0.7853981633974483
+        ],
+        "speed": 3.3528,
+        "tolerance": 0,
+        "hold": false,
+        "sourceCall": "starting/predecessor pose"
+      },
+      {
+        "pose": [
+          0.65,
+          5.8,
+          -0.3490658503988659
+        ],
+        "speed": 3.3528,
+        "tolerance": 0.1524,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotRightPose(alliance), DTP_MEDIUM_VELOCITY_METERS)"
+      }
+    ],
+    "adaptations": [],
+    "sourceMethod": "createLeftNeutralZoneToDepotAuto"
+  },
+  {
+    "name": "DepotCollection",
+    "points": [
+      {
+        "pose": [
+          3.6,
+          4.0,
+          0.0
+        ],
+        "speed": 1.524,
+        "tolerance": 0,
+        "hold": false,
+        "sourceCall": "starting/predecessor pose"
+      },
+      {
+        "pose": [
+          0.65,
+          5.8,
+          -0.3490658503988659
+        ],
+        "speed": 1.524,
+        "tolerance": 0.1524,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotRightPose(alliance), DTP_SLOW_VELOCITY_METERS)"
+      },
+      {
+        "pose": [
+          1.5,
+          6.0,
+          0.0
+        ],
+        "speed": 3.3528,
+        "tolerance": 0.1524,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotMiddlePose(alliance), DTP_MEDIUM_VELOCITY_METERS)"
+      },
+      {
+        "pose": [
+          0.65,
+          6.2,
+          -0.17453292519943295
+        ],
+        "speed": 1.524,
+        "tolerance": 0.1524,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotLeftPose(alliance), DTP_SLOW_VELOCITY_METERS)"
+      },
+      {
+        "pose": [
+          1.4,
+          5.0,
+          -0.3490658503988659
+        ],
+        "speed": 3.3528,
+        "tolerance": 0.1524,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotScoringPose(alliance), DTP_MEDIUM_VELOCITY_METERS)"
+      }
+    ],
+    "adaptations": [],
+    "sourceMethod": "createDepotAuto"
+  },
+  {
+    "name": "DepotExit",
+    "points": [
+      {
+        "pose": [
+          1.4,
+          5.0,
+          -0.3490658503988659
+        ],
+        "speed": 1.524,
+        "tolerance": 0,
+        "hold": false,
+        "sourceCall": "starting/predecessor pose"
+      },
+      {
+        "pose": [
+          1.5,
+          6.0,
+          0.08726646259971647
+        ],
+        "speed": 1.524,
+        "tolerance": 0.1524,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotTrenchEnterIntermediary(alliance), DTP_SLOW_VELOCITY_METERS)"
+      },
+      {
+        "pose": [
+          1.4,
+          7.7,
+          3.141592653589793
+        ],
+        "speed": 1.524,
+        "tolerance": 0.1524,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotTrenchEnter(alliance), DTP_SLOW_VELOCITY_METERS)"
+      },
+      {
+        "pose": [
+          8.3,
+          7.7,
+          3.141592653589793
+        ],
+        "speed": 3.3528,
+        "tolerance": 0.1524,
+        "hold": false,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotNZCenter(alliance), DTP_MEDIUM_VELOCITY_METERS)"
+      }
+    ],
+    "adaptations": [
+      {
+        "waypoint": 2,
+        "reason": "wall clearance with destination robot/intake",
+        "radius": 0.09719999999999993,
+        "sourceTolerance": 0.1524
+      },
+      {
+        "waypoint": 3,
+        "reason": "wall clearance with destination robot/intake",
+        "radius": 0.09719999999999993,
+        "sourceTolerance": 0.1524
+      }
+    ],
+    "sourceMethod": "createDepotAuto"
+  }
+]

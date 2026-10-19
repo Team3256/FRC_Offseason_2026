@@ -1,0 +1,252 @@
+[
+  {
+    "name": "DepotAggroFirstLeg",
+    "headingOffsetRadians": 3.141592653589793,
+    "adaptations": []
+  },
+  {
+    "name": "DepotAggroSecondLeg",
+    "headingOffsetRadians": 3.141592653589793,
+    "adaptations": []
+  },
+  {
+    "name": "DepotHalfLeg",
+    "headingOffsetRadians": 3.141592653589793,
+    "adaptations": []
+  },
+  {
+    "name": "DepotOptimizedFirstLeg",
+    "headingOffsetRadians": 3.141592653589793,
+    "adaptations": []
+  },
+  {
+    "name": "DepotOptimizedSecondLeg",
+    "headingOffsetRadians": 3.141592653589793,
+    "adaptations": []
+  },
+  {
+    "name": "DepotPoofsSecondLeg",
+    "headingOffsetRadians": 3.141592653589793,
+    "adaptations": [
+      {
+        "waypoint": 3,
+        "radius": 0.29,
+        "minimumShift": 0.24876294395789245,
+        "reason": "destination bumper/intake collision clearance"
+      }
+    ]
+  },
+  {
+    "name": "DepotSafeFirstLeg",
+    "headingOffsetRadians": 3.141592653589793,
+    "adaptations": []
+  },
+  {
+    "name": "DepotSafeSecondLeg",
+    "headingOffsetRadians": 3.141592653589793,
+    "adaptations": []
+  },
+  {
+    "name": "DepotTrenchFirstLeg",
+    "headingOffsetRadians": 3.141592653589793,
+    "adaptations": [
+      {
+        "waypoint": 7,
+        "radius": 0.11,
+        "minimumShift": 0.06507037961283757,
+        "reason": "destination bumper/intake collision clearance"
+      }
+    ]
+  },
+  {
+    "name": "DepotTrenchSecondLeg",
+    "headingOffsetRadians": 3.141592653589793,
+    "adaptations": [
+      {
+        "waypoint": 0,
+        "radius": 0.11,
+        "minimumShift": 0.06507037961283757,
+        "reason": "destination bumper/intake collision clearance"
+      },
+      {
+        "waypoint": 1,
+        "radius": 0.24,
+        "minimumShift": 0.1971999999999996,
+        "reason": "destination bumper/intake collision clearance"
+      },
+      {
+        "waypoint": 2,
+        "radius": 0.24,
+        "minimumShift": 0.1971999999999996,
+        "reason": "destination bumper/intake collision clearance"
+      },
+      {
+        "waypoint": 3,
+        "radius": 0.24,
+        "minimumShift": 0.1971999999999996,
+        "reason": "destination bumper/intake collision clearance"
+      },
+      {
+        "waypoint": 4,
+        "radius": 0.09,
+        "minimumShift": 0.04147352905273394,
+        "reason": "destination bumper/intake collision clearance"
+      },
+      {
+        "waypoint": 5,
+        "radius": 0.1,
+        "minimumShift": 0.05719999999999992,
+        "reason": "destination bumper/intake collision clearance"
+      },
+      {
+        "waypoint": 9,
+        "radius": 0.24,
+        "minimumShift": 0.1971999999999996,
+        "reason": "destination bumper/intake collision clearance"
+      },
+      {
+        "waypoint": 10,
+        "radius": 0.22,
+        "minimumShift": 0.17719999999999914,
+        "reason": "destination bumper/intake collision clearance"
+      },
+      {
+        "waypoint": 11,
+        "radius": 0.24,
+        "minimumShift": 0.1971999999999996,
+        "reason": "destination bumper/intake collision clearance"
+      },
+      {
+        "waypoint": 12,
+        "radius": 0.11,
+        "minimumShift": 0.06507037961283757,
+        "reason": "destination bumper/intake collision clearance"
+      }
+    ]
+  },
+  {
+    "name": "HPAggroFirstLeg",
+    "headingOffsetRadians": 3.141592653589793,
+    "adaptations": []
+  },
+  {
+    "name": "HPAggroSecondLeg",
+    "headingOffsetRadians": 3.141592653589793,
+    "adaptations": []
+  },
+  {
+    "name": "HPHalfLeg",
+    "headingOffsetRadians": 3.141592653589793,
+    "adaptations": []
+  },
+  {
+    "name": "HPOptimizedFirstLeg",
+    "headingOffsetRadians": 3.141592653589793,
+    "adaptations": []
+  },
+  {
+    "name": "HPOptimizedSecondLeg",
+    "headingOffsetRadians": 3.141592653589793,
+    "adaptations": []
+  },
+  {
+    "name": "HPPoofsSecondLeg",
+    "headingOffsetRadians": 3.141592653589793,
+    "adaptations": [
+      {
+        "waypoint": 3,
+        "radius": 0.29,
+        "minimumShift": 0.24876294395789245,
+        "reason": "destination bumper/intake collision clearance"
+      }
+    ]
+  },
+  {
+    "name": "HPSafeFirstLeg",
+    "headingOffsetRadians": 3.141592653589793,
+    "adaptations": []
+  },
+  {
+    "name": "HPSafeSecondLeg",
+    "headingOffsetRadians": 3.141592653589793,
+    "adaptations": []
+  },
+  {
+    "name": "HPTrenchFirstLeg",
+    "headingOffsetRadians": 3.141592653589793,
+    "adaptations": [
+      {
+        "waypoint": 7,
+        "radius": 0.11,
+        "minimumShift": 0.06507037961283801,
+        "reason": "destination bumper/intake collision clearance"
+      }
+    ]
+  },
+  {
+    "name": "HPTrenchSecondLeg",
+    "headingOffsetRadians": 3.141592653589793,
+    "adaptations": [
+      {
+        "waypoint": 0,
+        "radius": 0.11,
+        "minimumShift": 0.06507037961283801,
+        "reason": "destination bumper/intake collision clearance"
+      },
+      {
+        "waypoint": 1,
+        "radius": 0.24,
+        "minimumShift": 0.1971999999999996,
+        "reason": "destination bumper/intake collision clearance"
+      },
+      {
+        "waypoint": 2,
+        "radius": 0.24,
+        "minimumShift": 0.1971999999999996,
+        "reason": "destination bumper/intake collision clearance"
+      },
+      {
+        "waypoint": 3,
+        "radius": 0.24,
+        "minimumShift": 0.1971999999999996,
+        "reason": "destination bumper/intake collision clearance"
+      },
+      {
+        "waypoint": 4,
+        "radius": 0.09,
+        "minimumShift": 0.04147352905273394,
+        "reason": "destination bumper/intake collision clearance"
+      },
+      {
+        "waypoint": 5,
+        "radius": 0.1,
+        "minimumShift": 0.05719999999999992,
+        "reason": "destination bumper/intake collision clearance"
+      },
+      {
+        "waypoint": 9,
+        "radius": 0.24,
+        "minimumShift": 0.1971999999999996,
+        "reason": "destination bumper/intake collision clearance"
+      },
+      {
+        "waypoint": 10,
+        "radius": 0.22,
+        "minimumShift": 0.17719999999999936,
+        "reason": "destination bumper/intake collision clearance"
+      },
+      {
+        "waypoint": 11,
+        "radius": 0.24,
+        "minimumShift": 0.1971999999999996,
+        "reason": "destination bumper/intake collision clearance"
+      },
+      {
+        "waypoint": 12,
+        "radius": 0.11,
+        "minimumShift": 0.06507037961283801,
+        "reason": "destination bumper/intake collision clearance"
+      }
+    ]
+  }
+]

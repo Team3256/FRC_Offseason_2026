@@ -1,0 +1,4753 @@
+{
+  "routines": [
+    {
+      "team": 2910,
+      "sourceMethod": "createLeftNeutralZoneAuto",
+      "sequence": [
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneAuto",
+          "sourceCommand": 1,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftFirstSweepEntry(alliance), DTP_FAST_VELOCITY_METERS, 3.5)",
+          "speed": 4.572,
+          "sourceArrivalRadius": 3.5,
+          "name": "DepotNZ-01",
+          "start": [
+            4.5,
+            7.6,
+            -1.5707963267948966
+          ],
+          "target": [
+            9.9,
+            7.0,
+            -1.5707963267948966
+          ],
+          "arrivalRadius": 3.5,
+          "endpoint": [
+            6.421406738072686,
+            7.3865087248847665,
+            -1.5707963267948966
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneAuto",
+          "sourceCommand": 2,
+          "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getLeftFirstSweepEntry(alliance) .getTranslation(), FieldConstants.getLeftFirstSweepCenterpoint(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 2.5)",
+          "speed": 4.572,
+          "sourceArrivalRadius": 2.5,
+          "name": "DepotNZ-02",
+          "start": [
+            6.421406738072686,
+            7.3865087248847665,
+            -1.5707963267948966
+          ],
+          "target": [
+            9.9,
+            7.0,
+            -1.5707963267948966
+          ],
+          "arrivalRadius": 2.5,
+          "endpoint": [
+            7.41529051087701,
+            7.2760774526394325,
+            -1.5707963267948966
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneAuto",
+          "sourceCommand": 3,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftFirstSweepCenterpoint(alliance), DTP_FAST_VELOCITY_METERS, 3.0)",
+          "speed": 4.572,
+          "sourceArrivalRadius": 3.0,
+          "name": "DepotNZ-03",
+          "start": [
+            7.41529051087701,
+            7.2760774526394325,
+            -1.5707963267948966
+          ],
+          "target": [
+            8.1,
+            2.8,
+            -1.5707963267948966
+          ],
+          "arrivalRadius": 3.0,
+          "endpoint": [
+            7.646364235574162,
+            5.765504105178725,
+            -1.5707963267948966
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneAuto",
+          "sourceCommand": 4,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftFirstSweepCenterpointSecond(alliance), DTP_FAST_VELOCITY_METERS, 1.0)",
+          "speed": 4.572,
+          "sourceArrivalRadius": 1.0,
+          "name": "DepotNZ-04",
+          "start": [
+            7.646364235574162,
+            5.765504105178725,
+            -1.5707963267948966
+          ],
+          "target": [
+            8.1,
+            2.8,
+            0.0
+          ],
+          "arrivalRadius": 1.0,
+          "endpoint": [
+            7.9501282274244245,
+            3.7887054489569043,
+            -8.470330173421749e-32
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneAuto",
+          "sourceCommand": 5,
+          "sourceCall": "driveToPoint(FieldConstants.getLeftSweepExit(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.5,
+          "name": "DepotNZ-05",
+          "start": [
+            7.9501282274244245,
+            3.7887054489569043,
+            -8.470330173421749e-32
+          ],
+          "target": [
+            6.3,
+            5.3,
+            0.7853981633974483
+          ],
+          "arrivalRadius": 0.5,
+          "endpoint": [
+            6.668763355067222,
+            4.962341003487793,
+            0.7853981633974482
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneAuto",
+          "sourceCommand": 6,
+          "sourceCall": "driveToPoint(FieldConstants.getLeftFirstBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.0)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 1.0,
+          "name": "DepotNZ-06",
+          "start": [
+            6.668763355067222,
+            4.962341003487793,
+            0.7853981633974482
+          ],
+          "target": [
+            2.6,
+            5.6,
+            1.5707963267948966
+          ],
+          "arrivalRadius": 1.0,
+          "endpoint": [
+            3.5879410239709206,
+            5.4451693083126935,
+            1.5707963267948966
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneAuto",
+          "sourceCommand": 7,
+          "sourceCall": "driveToPoint(FieldConstants.getLeftSecondBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.1524,
+          "name": "DepotNZ-07",
+          "start": [
+            3.5879410239709206,
+            5.4451693083126935,
+            1.5707963267948966
+          ],
+          "target": [
+            2.6,
+            5.6,
+            2.356194490192345
+          ],
+          "arrivalRadius": 0.1524,
+          "endpoint": [
+            2.7505370595468666,
+            5.5762436621574265,
+            2.356194490192345
+          ]
+        },
+        {
+          "kind": "score",
+          "note": "stationary scoring command; no driving path"
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneAuto",
+          "sourceCommand": 8,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftTrenchEnter(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.75)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.75,
+          "name": "DepotNZ-08",
+          "start": [
+            2.7505370595468666,
+            5.5762436621574265,
+            2.356194490192345
+          ],
+          "target": [
+            2.8,
+            7.7,
+            0.0
+          ],
+          "arrivalRadius": 0.75,
+          "endpoint": [
+            2.7855279010074203,
+            6.950139634593458,
+            1.5875412125315152e-23
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneAuto",
+          "sourceCommand": 9,
+          "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getLeftSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getLeftTrenchEnter(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 2.0)",
+          "speed": 4.572,
+          "sourceArrivalRadius": 2.0,
+          "clearanceAdaptation": "direct target ray intersects field geometry; solve a local obstacle-avoiding movement",
+          "name": "DepotNZ-09",
+          "start": [
+            2.7855279010074203,
+            6.950139634593458,
+            1.5875412125315152e-23
+          ],
+          "target": [
+            7.2,
+            7.7,
+            0.0
+          ],
+          "arrivalRadius": 2.0,
+          "endpoint": [
+            5.221182945265732,
+            7.409682891321627,
+            -4.5747580524458245e-29
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneAuto",
+          "sourceCommand": 10,
+          "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getLeftSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getLeftSecondSweepCenterpoint(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 1.0)",
+          "speed": 4.572,
+          "sourceArrivalRadius": 1.0,
+          "name": "DepotNZ-10",
+          "start": [
+            5.221182945265732,
+            7.409682891321627,
+            -4.5747580524458245e-29
+          ],
+          "target": [
+            7.2,
+            7.7,
+            -1.3962634015954638
+          ],
+          "arrivalRadius": 1.0,
+          "endpoint": [
+            6.214711427449495,
+            7.529101127507768,
+            -1.3962634015954638
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneAuto",
+          "sourceCommand": 11,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftSecondSweepCenterpoint(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.5)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 1.5,
+          "name": "DepotNZ-11",
+          "start": [
+            6.214711427449495,
+            7.529101127507768,
+            -1.3962634015954638
+          ],
+          "target": [
+            6.0,
+            3.3,
+            -1.3962634015954638
+          ],
+          "arrivalRadius": 1.5,
+          "endpoint": [
+            6.076057530619605,
+            4.798070513382244,
+            -1.3962634015954638
+          ]
+        },
+        {
+          "kind": "timedHold",
+          "sourceCommand": 12,
+          "duration": 0.5,
+          "sourceCall": "driveToPointWhileIntaking(FieldConstants.getLeftSecondSweepCurvepoint(alliance), 0.01)",
+          "target": [
+            8.3,
+            4.8,
+            0.17453292519943275
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneAuto",
+          "sourceCommand": 13,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftSecondSweepCurvepoint(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.5,
+          "name": "DepotNZ-12",
+          "start": [
+            6.076057530619605,
+            4.798070513382244,
+            -1.3962634015954638
+          ],
+          "target": [
+            8.3,
+            4.8,
+            0.17453292519943275
+          ],
+          "arrivalRadius": 0.5,
+          "endpoint": [
+            7.80000000163596,
+            4.799942637754201,
+            0.17453292519943275
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneAuto",
+          "sourceCommand": 14,
+          "sourceCall": "driveToPoint(FieldConstants.getLeftSweepExit(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.5,
+          "name": "DepotNZ-13",
+          "start": [
+            7.80000000163596,
+            4.799942637754201,
+            0.17453292519943275
+          ],
+          "target": [
+            6.3,
+            5.3,
+            0.7853981633974483
+          ],
+          "arrivalRadius": 0.5,
+          "endpoint": [
+            6.77433631315028,
+            5.141870078741391,
+            0.7853981633974483
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneAuto",
+          "sourceCommand": 15,
+          "sourceCall": "driveToPoint(FieldConstants.getLeftFirstBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.0)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 1.0,
+          "name": "DepotNZ-14",
+          "start": [
+            6.77433631315028,
+            5.141870078741391,
+            0.7853981633974483
+          ],
+          "target": [
+            2.6,
+            5.6,
+            1.5707963267948966
+          ],
+          "arrivalRadius": 1.0,
+          "endpoint": [
+            3.5940314327045564,
+            5.490905908829548,
+            1.5707963267948966
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneAuto",
+          "sourceCommand": 16,
+          "sourceCall": "driveToPoint(FieldConstants.getLeftSecondBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.1524,
+          "name": "DepotNZ-15",
+          "start": [
+            3.5940314327045564,
+            5.490905908829548,
+            1.5707963267948966
+          ],
+          "target": [
+            2.6,
+            5.6,
+            2.356194490192345
+          ],
+          "arrivalRadius": 0.1524,
+          "endpoint": [
+            2.7514691788635375,
+            5.583181685228683,
+            2.356194490192345
+          ]
+        },
+        {
+          "kind": "score",
+          "note": "stationary scoring command; no driving path"
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneAuto",
+          "sourceCommand": 17,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftTrenchEnter(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.75)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.75,
+          "name": "DepotNZ-16",
+          "start": [
+            2.7514691788635375,
+            5.583181685228683,
+            2.356194490192345
+          ],
+          "target": [
+            2.8,
+            7.7,
+            0.0
+          ],
+          "arrivalRadius": 0.75,
+          "endpoint": [
+            2.7856437174651183,
+            6.950137407992072,
+            3.221266469851359e-23
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneAuto",
+          "sourceCommand": 18,
+          "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getLeftSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getLeftTrenchEnter(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 2.0)",
+          "speed": 4.572,
+          "sourceArrivalRadius": 2.0,
+          "clearanceAdaptation": "direct target ray intersects field geometry; solve a local obstacle-avoiding movement",
+          "name": "DepotNZ-17",
+          "start": [
+            2.7856437174651183,
+            6.950137407992072,
+            3.221266469851359e-23
+          ],
+          "target": [
+            7.2,
+            7.7,
+            0.0
+          ],
+          "arrivalRadius": 2.0,
+          "endpoint": [
+            5.221206599472972,
+            7.409523963372393,
+            -1.754555693726263e-28
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneAuto",
+          "sourceCommand": 19,
+          "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getLeftSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getLeftSecondSweepCenterpoint(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 1.0)",
+          "speed": 4.572,
+          "sourceArrivalRadius": 1.0,
+          "name": "DepotNZ-18",
+          "start": [
+            5.221206599472972,
+            7.409523963372393,
+            -1.754555693726263e-28
+          ],
+          "target": [
+            7.2,
+            7.7,
+            -1.3962634015954638
+          ],
+          "arrivalRadius": 1.0,
+          "endpoint": [
+            6.214707432908992,
+            7.529124166010371,
+            -1.3962634015954638
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneAuto",
+          "sourceCommand": 20,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftFirstSweepCenterpoint(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.1524,
+          "name": "DepotNZ-19",
+          "start": [
+            6.214707432908992,
+            7.529124166010371,
+            -1.3962634015954638
+          ],
+          "target": [
+            8.1,
+            2.8,
+            -1.5707963267948966
+          ],
+          "arrivalRadius": 0.1524,
+          "endpoint": [
+            8.043564137280125,
+            2.941565403219887,
+            -1.5707963267948966
+          ]
+        }
+      ]
+    },
+    {
+      "team": 2910,
+      "sourceMethod": "createRightNeutralZoneAuto",
+      "sequence": [
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createRightNeutralZoneAuto",
+          "sourceCommand": 1,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightFirstSweepEntry(alliance), DTP_FAST_VELOCITY_METERS, 2.5)",
+          "speed": 4.572,
+          "sourceArrivalRadius": 2.5,
+          "name": "HPNZ-01",
+          "start": [
+            4.5,
+            0.4690000000000012,
+            1.5707963267948966
+          ],
+          "target": [
+            9.9,
+            1.0690000000000008,
+            1.5707963267948966
+          ],
+          "arrivalRadius": 2.5,
+          "endpoint": [
+            7.415290641580138,
+            0.7929213659179514,
+            1.5707963267948966
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createRightNeutralZoneAuto",
+          "sourceCommand": 2,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightFirstSweepCenterpoint(alliance), DTP_FAST_VELOCITY_METERS, 2.0)",
+          "speed": 4.572,
+          "sourceArrivalRadius": 2.0,
+          "name": "HPNZ-02",
+          "start": [
+            7.415290641580138,
+            0.7929213659179514,
+            1.5707963267948966
+          ],
+          "target": [
+            8.1,
+            5.269000000000001,
+            1.5707963267948966
+          ],
+          "arrivalRadius": 2.0,
+          "endpoint": [
+            7.797576270780089,
+            3.291997261062884,
+            1.5707963267948966
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createRightNeutralZoneAuto",
+          "sourceCommand": 3,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightFirstSweepCenterpointSecond(alliance), DTP_FAST_VELOCITY_METERS, 1.0)",
+          "speed": 4.572,
+          "sourceArrivalRadius": 1.0,
+          "name": "HPNZ-03",
+          "start": [
+            7.797576270780089,
+            3.291997261062884,
+            1.5707963267948966
+          ],
+          "target": [
+            8.1,
+            5.269000000000001,
+            0.0
+          ],
+          "arrivalRadius": 1.0,
+          "endpoint": [
+            7.941232182189462,
+            4.281684047548134,
+            -1.6311757416509817e-32
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createRightNeutralZoneAuto",
+          "sourceCommand": 4,
+          "sourceCall": "driveToPoint(FieldConstants.getRightSweepExit(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.5,
+          "name": "HPNZ-04",
+          "start": [
+            7.941232182189462,
+            4.281684047548134,
+            -1.6311757416509817e-32
+          ],
+          "target": [
+            6.3,
+            2.769000000000001,
+            -0.7853981633974492
+          ],
+          "arrivalRadius": 0.5,
+          "endpoint": [
+            6.667698977178619,
+            3.1078177565413694,
+            -0.7853981633974492
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createRightNeutralZoneAuto",
+          "sourceCommand": 5,
+          "sourceCall": "driveToPoint(FieldConstants.getRightFirstBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.0)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 1.0,
+          "name": "HPNZ-05",
+          "start": [
+            6.667698977178619,
+            3.1078177565413694,
+            -0.7853981633974492
+          ],
+          "target": [
+            2.6,
+            2.469000000000001,
+            -1.5707963267948966
+          ],
+          "arrivalRadius": 1.0,
+          "endpoint": [
+            3.5878917309048437,
+            2.6241448933846896,
+            -1.5707963267948966
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createRightNeutralZoneAuto",
+          "sourceCommand": 6,
+          "sourceCall": "driveToPoint(FieldConstants.getRightSecondBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.1524,
+          "name": "HPNZ-06",
+          "start": [
+            3.5878917309048437,
+            2.6241448933846896,
+            -1.5707963267948966
+          ],
+          "target": [
+            2.6,
+            2.469000000000001,
+            -2.356194490192345
+          ],
+          "arrivalRadius": 0.1524,
+          "endpoint": [
+            2.750529522527023,
+            2.492804010917875,
+            -2.356194490192345
+          ]
+        },
+        {
+          "kind": "score",
+          "note": "stationary scoring command; no driving path"
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createRightNeutralZoneAuto",
+          "sourceCommand": 7,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightTrenchEnter(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.75)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.75,
+          "name": "HPNZ-07",
+          "start": [
+            2.750529522527023,
+            2.492804010917875,
+            -2.356194490192345
+          ],
+          "target": [
+            2.8,
+            0.36900000000000066,
+            0.0
+          ],
+          "arrivalRadius": 0.75,
+          "endpoint": [
+            2.7855266807160053,
+            1.1188603419670462,
+            1.3638683233480268e-23
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createRightNeutralZoneAuto",
+          "sourceCommand": 8,
+          "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getRightSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getRightTrenchEnter(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 2.0)",
+          "speed": 4.572,
+          "sourceArrivalRadius": 2.0,
+          "clearanceAdaptation": "direct target ray intersects field geometry; solve a local obstacle-avoiding movement",
+          "name": "HPNZ-08",
+          "start": [
+            2.7855266807160053,
+            1.1188603419670462,
+            1.3638683233480268e-23
+          ],
+          "target": [
+            7.2,
+            0.36900000000000066,
+            0.0
+          ],
+          "arrivalRadius": 2.0,
+          "endpoint": [
+            5.221226657639256,
+            0.6596127564408641,
+            6.028550155153037e-29
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createRightNeutralZoneAuto",
+          "sourceCommand": 9,
+          "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getRightSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getRightSecondSweepCenterPoint(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 1.0)",
+          "speed": 4.572,
+          "sourceArrivalRadius": 1.0,
+          "name": "HPNZ-09",
+          "start": [
+            5.221226657639256,
+            0.6596127564408641,
+            6.028550155153037e-29
+          ],
+          "target": [
+            7.2,
+            0.36900000000000066,
+            1.3962634015954638
+          ],
+          "arrivalRadius": 1.0,
+          "endpoint": [
+            6.214738464948346,
+            0.5400546763098483,
+            1.3962634015954638
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createRightNeutralZoneAuto",
+          "sourceCommand": 10,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightSecondSweepCenterPoint(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.5)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 1.5,
+          "name": "HPNZ-10",
+          "start": [
+            6.214738464948346,
+            0.5400546763098483,
+            1.3962634015954638
+          ],
+          "target": [
+            6.0,
+            4.769000000000001,
+            1.3962634015954638
+          ],
+          "arrivalRadius": 1.5,
+          "endpoint": [
+            6.076070196104413,
+            3.270930127682061,
+            1.3962634015954638
+          ]
+        },
+        {
+          "kind": "timedHold",
+          "sourceCommand": 11,
+          "duration": 0.5,
+          "sourceCall": "driveToPointWhileIntaking(FieldConstants.getRightSecondSweepCurvepoint(alliance), 0.01)",
+          "target": [
+            8.3,
+            3.269000000000001,
+            -0.17453292519943275
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createRightNeutralZoneAuto",
+          "sourceCommand": 12,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightSecondSweepCurvepoint(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.5,
+          "name": "HPNZ-11",
+          "start": [
+            6.076070196104413,
+            3.270930127682061,
+            1.3962634015954638
+          ],
+          "target": [
+            8.3,
+            3.269000000000001,
+            -0.17453292519943275
+          ],
+          "arrivalRadius": 0.5,
+          "endpoint": [
+            7.800000008159982,
+            3.269057584740295,
+            -0.17453292519943273
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createRightNeutralZoneAuto",
+          "sourceCommand": 13,
+          "sourceCall": "driveToPoint(FieldConstants.getRightSweepExit(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.5,
+          "name": "HPNZ-12",
+          "start": [
+            7.800000008159982,
+            3.269057584740295,
+            -0.17453292519943273
+          ],
+          "target": [
+            6.3,
+            2.769000000000001,
+            -0.7853981633974492
+          ],
+          "arrivalRadius": 0.5,
+          "endpoint": [
+            6.77433629228115,
+            2.9271299838589293,
+            -0.7853981633974492
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createRightNeutralZoneAuto",
+          "sourceCommand": 14,
+          "sourceCall": "driveToPoint(FieldConstants.getRightFirstBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.0)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 1.0,
+          "name": "HPNZ-13",
+          "start": [
+            6.77433629228115,
+            2.9271299838589293,
+            -0.7853981633974492
+          ],
+          "target": [
+            2.6,
+            2.469000000000001,
+            -1.5707963267948966
+          ],
+          "arrivalRadius": 1.0,
+          "endpoint": [
+            3.594031425664395,
+            2.578094155318457,
+            -1.5707963267948966
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createRightNeutralZoneAuto",
+          "sourceCommand": 15,
+          "sourceCall": "driveToPoint(FieldConstants.getRightSecondBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.1524,
+          "name": "HPNZ-14",
+          "start": [
+            3.594031425664395,
+            2.578094155318457,
+            -1.5707963267948966
+          ],
+          "target": [
+            2.6,
+            2.469000000000001,
+            -2.356194490192345
+          ],
+          "arrivalRadius": 0.1524,
+          "endpoint": [
+            2.751469186732998,
+            2.4858183035432657,
+            -2.356194490192345
+          ]
+        },
+        {
+          "kind": "score",
+          "note": "stationary scoring command; no driving path"
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createRightNeutralZoneAuto",
+          "sourceCommand": 16,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightTrenchEnter(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.75)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.75,
+          "name": "HPNZ-15",
+          "start": [
+            2.751469186732998,
+            2.4858183035432657,
+            -2.356194490192345
+          ],
+          "target": [
+            2.8,
+            0.36900000000000066,
+            0.0
+          ],
+          "arrivalRadius": 0.75,
+          "endpoint": [
+            2.7856439572566027,
+            1.1188625967736188,
+            -1.6173315096497743e-24
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createRightNeutralZoneAuto",
+          "sourceCommand": 17,
+          "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getRightSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getRightTrenchEnter(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 2.0)",
+          "speed": 4.572,
+          "sourceArrivalRadius": 2.0,
+          "clearanceAdaptation": "direct target ray intersects field geometry; solve a local obstacle-avoiding movement",
+          "name": "HPNZ-16",
+          "start": [
+            2.7856439572566027,
+            1.1188625967736188,
+            -1.6173315096497743e-24
+          ],
+          "target": [
+            7.2,
+            0.36900000000000066,
+            0.0
+          ],
+          "arrivalRadius": 2.0,
+          "endpoint": [
+            5.221195878321924,
+            0.6594049853646875,
+            -4.246645840164789e-29
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createRightNeutralZoneAuto",
+          "sourceCommand": 18,
+          "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getRightSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getRightSecondSweepCenterPoint(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 1.0)",
+          "speed": 4.572,
+          "sourceArrivalRadius": 1.0,
+          "name": "HPNZ-17",
+          "start": [
+            5.221195878321924,
+            0.6594049853646875,
+            -4.246645840164789e-29
+          ],
+          "target": [
+            7.2,
+            0.36900000000000066,
+            1.3962634015954638
+          ],
+          "arrivalRadius": 1.0,
+          "endpoint": [
+            6.214743624536301,
+            0.5400843949995334,
+            1.3962634015954638
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createRightNeutralZoneAuto",
+          "sourceCommand": 19,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightFirstSweepCenterpoint(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.1524,
+          "name": "HPNZ-18",
+          "start": [
+            6.214743624536301,
+            0.5400843949995334,
+            1.3962634015954638
+          ],
+          "target": [
+            8.1,
+            5.269000000000001,
+            1.5707963267948966
+          ],
+          "arrivalRadius": 0.1524,
+          "endpoint": [
+            8.043562924457396,
+            5.127435080284897,
+            1.5707963267948966
+          ]
+        }
+      ]
+    },
+    {
+      "team": 2910,
+      "sourceMethod": "createLeftNeutralZoneToDepotAuto",
+      "sequence": [
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneToDepotAuto",
+          "sourceCommand": 1,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftFirstSweepEntry(alliance), DTP_FAST_VELOCITY_METERS, 3.5)",
+          "speed": 4.572,
+          "sourceArrivalRadius": 3.5,
+          "name": "DepotNZDepot-01",
+          "start": [
+            4.5,
+            7.6,
+            -1.5707963267948966
+          ],
+          "target": [
+            9.9,
+            7.0,
+            -1.5707963267948966
+          ],
+          "arrivalRadius": 3.5,
+          "endpoint": [
+            6.421406738072686,
+            7.3865087248847665,
+            -1.5707963267948966
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneToDepotAuto",
+          "sourceCommand": 2,
+          "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getLeftFirstSweepEntry(alliance) .getTranslation(), FieldConstants.getLeftFirstSweepCenterpoint(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 2.5)",
+          "speed": 4.572,
+          "sourceArrivalRadius": 2.5,
+          "name": "DepotNZDepot-02",
+          "start": [
+            6.421406738072686,
+            7.3865087248847665,
+            -1.5707963267948966
+          ],
+          "target": [
+            9.9,
+            7.0,
+            -1.5707963267948966
+          ],
+          "arrivalRadius": 2.5,
+          "endpoint": [
+            7.41529051087701,
+            7.2760774526394325,
+            -1.5707963267948966
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneToDepotAuto",
+          "sourceCommand": 3,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftFirstSweepCenterpoint(alliance), DTP_FAST_VELOCITY_METERS, 2.0)",
+          "speed": 4.572,
+          "sourceArrivalRadius": 2.0,
+          "name": "DepotNZDepot-03",
+          "start": [
+            7.41529051087701,
+            7.2760774526394325,
+            -1.5707963267948966
+          ],
+          "target": [
+            8.1,
+            2.8,
+            -1.5707963267948966
+          ],
+          "arrivalRadius": 2.0,
+          "endpoint": [
+            7.797576158706288,
+            4.777002738766431,
+            -1.5707963267948966
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneToDepotAuto",
+          "sourceCommand": 4,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftFirstSweepCenterpointSecond(alliance), DTP_FAST_VELOCITY_METERS, 1.0)",
+          "speed": 4.572,
+          "sourceArrivalRadius": 1.0,
+          "name": "DepotNZDepot-04",
+          "start": [
+            7.797576158706288,
+            4.777002738766431,
+            -1.5707963267948966
+          ],
+          "target": [
+            8.1,
+            2.8,
+            0.0
+          ],
+          "arrivalRadius": 1.0,
+          "endpoint": [
+            7.941232126346926,
+            3.787315943472042,
+            -5.617399998229479e-32
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneToDepotAuto",
+          "sourceCommand": 5,
+          "sourceCall": "driveToPoint(FieldConstants.getLeftSweepExit(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.5,
+          "name": "DepotNZDepot-05",
+          "start": [
+            7.941232126346926,
+            3.787315943472042,
+            -5.617399998229479e-32
+          ],
+          "target": [
+            6.3,
+            5.3,
+            0.7853981633974483
+          ],
+          "arrivalRadius": 0.5,
+          "endpoint": [
+            6.667698970438791,
+            4.961182236144293,
+            0.7853981633974482
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneToDepotAuto",
+          "sourceCommand": 6,
+          "sourceCall": "driveToPoint(FieldConstants.getLeftFirstBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.0)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 1.0,
+          "name": "DepotNZDepot-06",
+          "start": [
+            6.667698970438791,
+            4.961182236144293,
+            0.7853981633974482
+          ],
+          "target": [
+            2.6,
+            5.6,
+            1.5707963267948966
+          ],
+          "arrivalRadius": 1.0,
+          "endpoint": [
+            3.5878917134400212,
+            5.444854995408755,
+            1.5707963267948966
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneToDepotAuto",
+          "sourceCommand": 7,
+          "sourceCall": "driveToPoint(FieldConstants.getLeftSecondBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.1524,
+          "name": "DepotNZDepot-07",
+          "start": [
+            3.5878917134400212,
+            5.444854995408755,
+            1.5707963267948966
+          ],
+          "target": [
+            2.6,
+            5.6,
+            2.356194490192345
+          ],
+          "arrivalRadius": 0.1524,
+          "endpoint": [
+            2.750529528605112,
+            5.576195989792244,
+            2.356194490192345
+          ]
+        },
+        {
+          "kind": "score",
+          "note": "stationary scoring command; no driving path"
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneToDepotAuto",
+          "sourceCommand": 8,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftTrenchEnter(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.75)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.75,
+          "name": "DepotNZDepot-08",
+          "start": [
+            2.750529528605112,
+            5.576195989792244,
+            2.356194490192345
+          ],
+          "target": [
+            2.8,
+            7.7,
+            0.0
+          ],
+          "arrivalRadius": 0.75,
+          "endpoint": [
+            2.7855267118920555,
+            6.950139657526424,
+            1.732036582128564e-23
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneToDepotAuto",
+          "sourceCommand": 9,
+          "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getLeftSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getLeftTrenchEnter(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 2.0)",
+          "speed": 4.572,
+          "sourceArrivalRadius": 2.0,
+          "clearanceAdaptation": "direct target ray intersects field geometry; solve a local obstacle-avoiding movement",
+          "name": "DepotNZDepot-09",
+          "start": [
+            2.7855267118920555,
+            6.950139657526424,
+            1.732036582128564e-23
+          ],
+          "target": [
+            7.2,
+            7.7,
+            0.0
+          ],
+          "arrivalRadius": 2.0,
+          "endpoint": [
+            5.221212723019867,
+            7.409482188654135,
+            2.608342838187112e-30
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneToDepotAuto",
+          "sourceCommand": 10,
+          "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getLeftSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getLeftSecondSweepCenterpoint(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 1.0)",
+          "speed": 4.572,
+          "sourceArrivalRadius": 1.0,
+          "name": "DepotNZDepot-10",
+          "start": [
+            5.221212723019867,
+            7.409482188654135,
+            2.608342838187112e-30
+          ],
+          "target": [
+            7.2,
+            7.7,
+            -1.3962634015954638
+          ],
+          "arrivalRadius": 1.0,
+          "endpoint": [
+            6.214706469526688,
+            7.5291297238725665,
+            -1.3962634015954638
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneToDepotAuto",
+          "sourceCommand": 11,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftSecondSweepCenterpoint(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.5)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 1.5,
+          "name": "DepotNZDepot-11",
+          "start": [
+            6.214706469526688,
+            7.5291297238725665,
+            -1.3962634015954638
+          ],
+          "target": [
+            6.0,
+            3.3,
+            -1.3962634015954638
+          ],
+          "arrivalRadius": 1.5,
+          "endpoint": [
+            6.076055308403326,
+            4.798070626416214,
+            -1.3962634015954638
+          ]
+        },
+        {
+          "kind": "timedHold",
+          "sourceCommand": 12,
+          "duration": 0.5,
+          "sourceCall": "driveToPointWhileIntaking(FieldConstants.getLeftSecondSweepCurvepoint(alliance), 0.01)",
+          "target": [
+            8.3,
+            4.8,
+            0.17453292519943275
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneToDepotAuto",
+          "sourceCommand": 13,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftSecondSweepCurvepoint(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.5,
+          "name": "DepotNZDepot-12",
+          "start": [
+            6.076055308403326,
+            4.798070626416214,
+            -1.3962634015954638
+          ],
+          "target": [
+            8.3,
+            4.8,
+            0.17453292519943275
+          ],
+          "arrivalRadius": 0.5,
+          "endpoint": [
+            7.8000000073274665,
+            4.799942714647239,
+            0.17453292519943273
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneToDepotAuto",
+          "sourceCommand": 14,
+          "sourceCall": "driveToPoint(FieldConstants.getLeftSweepExit(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.5,
+          "name": "DepotNZDepot-13",
+          "start": [
+            7.8000000073274665,
+            4.799942714647239,
+            0.17453292519943273
+          ],
+          "target": [
+            6.3,
+            5.3,
+            0.7853981633974483
+          ],
+          "arrivalRadius": 0.5,
+          "endpoint": [
+            6.77433632061347,
+            5.141870101128442,
+            0.7853981633974483
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneToDepotAuto",
+          "sourceCommand": 15,
+          "sourceCall": "driveToPoint(FieldConstants.getLeftFirstBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.0)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 1.0,
+          "name": "DepotNZDepot-14",
+          "start": [
+            6.77433632061347,
+            5.141870101128442,
+            0.7853981633974483
+          ],
+          "target": [
+            2.6,
+            5.6,
+            1.5707963267948966
+          ],
+          "arrivalRadius": 1.0,
+          "endpoint": [
+            3.5940314333038192,
+            5.490905914289846,
+            1.5707963267948966
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneToDepotAuto",
+          "sourceCommand": 16,
+          "sourceCall": "driveToPoint(FieldConstants.getLeftSecondBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.1524,
+          "name": "DepotNZDepot-15",
+          "start": [
+            3.5940314333038192,
+            5.490905914289846,
+            1.5707963267948966
+          ],
+          "target": [
+            2.6,
+            5.6,
+            2.356194490192345
+          ],
+          "arrivalRadius": 0.1524,
+          "endpoint": [
+            2.7514691789555297,
+            5.583181686057185,
+            2.356194490192345
+          ]
+        },
+        {
+          "kind": "score",
+          "note": "stationary scoring command; no driving path"
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createLeftNeutralZoneToDepotAuto",
+          "sourceCommand": 17,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotRightPose(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.1524,
+          "wallClearanceAdaptation": "arrival radius enlarged to clear the field wall with our front intake",
+          "name": "DepotNZDepot-16",
+          "start": [
+            2.7514691789555297,
+            5.583181686057185,
+            2.356194490192345
+          ],
+          "target": [
+            0.65,
+            5.8,
+            2.7925268031909276
+          ],
+          "arrivalRadius": 0.22,
+          "endpoint": [
+            0.868838827711971,
+            5.777426177302692,
+            2.7925268031909276
+          ]
+        },
+        {
+          "kind": "score",
+          "note": "stationary scoring command; no driving path"
+        }
+      ]
+    },
+    {
+      "team": 2910,
+      "sourceMethod": "createDepotAuto",
+      "sequence": [
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createDepotAuto",
+          "sourceCommand": 1,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotRightPose(alliance), DTP_SLOW_VELOCITY_METERS)",
+          "speed": 1.524,
+          "sourceArrivalRadius": 0.1524,
+          "wallClearanceAdaptation": "arrival radius enlarged to clear the field wall with our front intake",
+          "name": "Depot-01",
+          "start": [
+            3.6,
+            4.0,
+            -3.141592653589793
+          ],
+          "target": [
+            0.65,
+            5.8,
+            2.7925268031909276
+          ],
+          "arrivalRadius": 0.22,
+          "endpoint": [
+            0.8378006613062803,
+            5.685409766532833,
+            -3.4906585039886577
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createDepotAuto",
+          "sourceCommand": 2,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotMiddlePose(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.1524,
+          "name": "Depot-02",
+          "start": [
+            0.8378006613062803,
+            5.685409766532833,
+            -3.4906585039886577
+          ],
+          "target": [
+            1.5,
+            6.0,
+            -3.141592653589793
+          ],
+          "arrivalRadius": 0.1524,
+          "endpoint": [
+            1.3623857322088098,
+            5.934516543743638,
+            3.141592653589793
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createDepotAuto",
+          "sourceCommand": 3,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotLeftPose(alliance), DTP_SLOW_VELOCITY_METERS)",
+          "speed": 1.524,
+          "sourceArrivalRadius": 0.1524,
+          "name": "Depot-03",
+          "start": [
+            1.3623857322088098,
+            5.934516543743638,
+            3.141592653589793
+          ],
+          "target": [
+            0.65,
+            6.2,
+            2.9670597283903604
+          ],
+          "arrivalRadius": 0.1524,
+          "endpoint": [
+            0.792806513600944,
+            6.1467828341896755,
+            2.9670597283903604
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createDepotAuto",
+          "sourceCommand": 4,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotScoringPose(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.1524,
+          "name": "Depot-04",
+          "start": [
+            0.792806513600944,
+            6.1467828341896755,
+            2.9670597283903604
+          ],
+          "target": [
+            1.4,
+            5.0,
+            2.7925268031909276
+          ],
+          "arrivalRadius": 0.1524,
+          "endpoint": [
+            1.3286870730603508,
+            5.134685694306489,
+            2.7925268031909276
+          ]
+        },
+        {
+          "kind": "score",
+          "note": "stationary scoring command; no driving path"
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createDepotAuto",
+          "sourceCommand": 5,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotTrenchEnterIntermediary(alliance), DTP_SLOW_VELOCITY_METERS)",
+          "speed": 1.524,
+          "sourceArrivalRadius": 0.1524,
+          "name": "Depot-05",
+          "start": [
+            1.3286870730603508,
+            5.134685694306489,
+            2.7925268031909276
+          ],
+          "target": [
+            1.5,
+            6.0,
+            -3.0543261909900767
+          ],
+          "arrivalRadius": 0.1524,
+          "endpoint": [
+            1.4704025366316045,
+            5.850501638278129,
+            3.2288591161895095
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createDepotAuto",
+          "sourceCommand": 6,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotTrenchEnter(alliance), DTP_SLOW_VELOCITY_METERS)",
+          "speed": 1.524,
+          "sourceArrivalRadius": 0.1524,
+          "name": "Depot-06",
+          "start": [
+            1.4704025366316045,
+            5.850501638278129,
+            3.2288591161895095
+          ],
+          "target": [
+            1.4,
+            7.7,
+            0.0
+          ],
+          "arrivalRadius": 0.1524,
+          "endpoint": [
+            1.4057970235403339,
+            7.5477102612992955,
+            -7.288531954013663e-32
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 2910,
+          "routine": "createDepotAuto",
+          "sourceCommand": 7,
+          "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotNZCenter(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+          "speed": 3.3528,
+          "sourceArrivalRadius": 0.1524,
+          "name": "Depot-07",
+          "start": [
+            1.4057970235403339,
+            7.5477102612992955,
+            -7.288531954013663e-32
+          ],
+          "target": [
+            8.3,
+            7.7,
+            0.0
+          ],
+          "arrivalRadius": 0.1524,
+          "endpoint": [
+            8.158741616591914,
+            7.642800008239117,
+            6.3379495480409275e-31
+          ]
+        }
+      ]
+    },
+    {
+      "team": 581,
+      "parentPath": "LeftNormalFirstCycle",
+      "sequence": [
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalFirstCycle",
+          "sourceWaypointId": "w1",
+          "editedGoal": {
+            "id": "w1",
+            "x": 6.052,
+            "y": 7.424500400000001,
+            "heading": -1.5707963267948968,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.75,
+            100.0
+          ],
+          "name": "LeftN1-01",
+          "start": [
+            4.441000000000001,
+            7.599000000000001,
+            -1.5707963267948968
+          ],
+          "target": [
+            6.052,
+            7.424500400000001,
+            -1.5707963267948968
+          ],
+          "arrivalRadius": 0.75,
+          "endpoint": [
+            5.306647467221417,
+            7.5078822825219635,
+            -1.5707963267948968
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalFirstCycle",
+          "sourceWaypointId": "w2",
+          "editedGoal": {
+            "id": "w2",
+            "x": 7.531000000000001,
+            "y": 6.652000000000001,
+            "heading": -1.0471975511965985,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.4,
+            100.0
+          ],
+          "name": "LeftN1-02",
+          "start": [
+            5.306647467221417,
+            7.5078822825219635,
+            -1.5707963267948968
+          ],
+          "target": [
+            7.531000000000001,
+            6.652000000000001,
+            -1.0471975511965985
+          ],
+          "arrivalRadius": 0.4,
+          "endpoint": [
+            7.179313356779425,
+            6.8425689161358845,
+            -1.0471975511965985
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalFirstCycle",
+          "sourceWaypointId": "w3",
+          "editedGoal": {
+            "id": "w3",
+            "x": 7.9879999999999995,
+            "y": 5.392000000000001,
+            "heading": -1.6580627893946132,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.4,
+            100.0
+          ],
+          "name": "LeftN1-03",
+          "start": [
+            7.179313356779425,
+            6.8425689161358845,
+            -1.0471975511965985
+          ],
+          "target": [
+            7.9879999999999995,
+            5.392000000000001,
+            -1.6580627893946132
+          ],
+          "arrivalRadius": 0.4,
+          "endpoint": [
+            7.7931453858543165,
+            5.741330343646598,
+            -1.6580627893946132
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalFirstCycle",
+          "sourceWaypointId": "w4",
+          "editedGoal": {
+            "id": "w4",
+            "x": 7.871,
+            "y": 4.699000000000001,
+            "heading": -2.617993877991495,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.4,
+            100.0
+          ],
+          "name": "LeftN1-04",
+          "start": [
+            7.7931453858543165,
+            5.741330343646598,
+            -1.6580627893946132
+          ],
+          "target": [
+            7.871,
+            4.699000000000001,
+            -2.617993877991495
+          ],
+          "arrivalRadius": 0.4,
+          "endpoint": [
+            7.842316392747202,
+            5.09797024993671,
+            -2.617993877991495
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalFirstCycle",
+          "sourceWaypointId": "w5",
+          "editedGoal": {
+            "id": "w5",
+            "x": 6.941000000000001,
+            "y": 4.4990000000000006,
+            "heading": 1.5707963267948966,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.4,
+            100.0
+          ],
+          "name": "LeftN1-05",
+          "start": [
+            7.842316392747202,
+            5.09797024993671,
+            -2.617993877991495
+          ],
+          "target": [
+            6.941000000000001,
+            4.4990000000000006,
+            1.5707963267948966
+          ],
+          "arrivalRadius": 0.4,
+          "endpoint": [
+            7.256290263177621,
+            4.745154544788847,
+            -4.71238898038469
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalFirstCycle",
+          "sourceWaypointId": "w6",
+          "editedGoal": {
+            "id": "w6",
+            "x": 6.841000000000001,
+            "y": 5.464024000000001,
+            "heading": 2.5830872929516078,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.3,
+            100.0
+          ],
+          "name": "LeftN1-06",
+          "start": [
+            7.256290263177621,
+            4.745154544788847,
+            -4.71238898038469
+          ],
+          "target": [
+            6.841000000000001,
+            5.464024000000001,
+            2.5830872929516078
+          ],
+          "arrivalRadius": 0.3,
+          "endpoint": [
+            6.991648854323112,
+            5.204592068978694,
+            2.5830872929516078
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalFirstCycle",
+          "sourceWaypointId": "w7",
+          "editedGoal": {
+            "id": "w7",
+            "x": 5.941000000000001,
+            "y": 5.464024000000001,
+            "heading": 3.141592653589793,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.3,
+            100.0
+          ],
+          "name": "LeftN1-07",
+          "start": [
+            6.991648854323112,
+            5.204592068978694,
+            2.5830872929516078
+          ],
+          "target": [
+            5.941000000000001,
+            5.464024000000001,
+            3.141592653589793
+          ],
+          "arrivalRadius": 0.3,
+          "endpoint": [
+            6.232268542238081,
+            5.392172444359515,
+            3.141592653589793
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalFirstCycle",
+          "sourceWaypointId": "w8",
+          "editedGoal": {
+            "id": "w8",
+            "x": 2.7110000000000003,
+            "y": 5.464024000000001,
+            "heading": 3.141592653589793,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": true,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.3,
+            100.0
+          ],
+          "name": "LeftN1-08",
+          "start": [
+            6.232268542238081,
+            5.392172444359515,
+            3.141592653589793
+          ],
+          "target": [
+            2.7110000000000003,
+            5.464024000000001,
+            3.141592653589793
+          ],
+          "arrivalRadius": 0.2,
+          "endpoint": [
+            2.910958394929892,
+            5.45994394336337,
+            3.141592653589794
+          ]
+        }
+      ]
+    },
+    {
+      "team": 581,
+      "parentPath": "LeftNormalSecondCycle",
+      "sequence": [
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalSecondCycle",
+          "sourceWaypointId": "w3",
+          "editedGoal": {
+            "id": "w3",
+            "x": 4.041,
+            "y": 7.424500400000001,
+            "heading": -2.4492935982947064e-16,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.2,
+            100.0
+          ],
+          "clearanceAdaptation": "direct target ray intersects field geometry; solve a local obstacle-avoiding movement",
+          "name": "LeftN2-01",
+          "start": [
+            2.7110000000000003,
+            5.464024000000001,
+            3.141592653589793
+          ],
+          "target": [
+            4.041,
+            7.424500400000001,
+            -2.4492935982947064e-16
+          ],
+          "arrivalRadius": 0.2,
+          "endpoint": [
+            3.880242628432907,
+            7.54348391768952,
+            6.283185307179586
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalSecondCycle",
+          "sourceWaypointId": "w4",
+          "editedGoal": {
+            "id": "w4",
+            "x": 5.041,
+            "y": 7.424500400000001,
+            "heading": -2.4492935982947064e-16,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.2,
+            100.0
+          ],
+          "name": "LeftN2-02",
+          "start": [
+            3.880242628432907,
+            7.54348391768952,
+            6.283185307179586
+          ],
+          "target": [
+            5.041,
+            7.424500400000001,
+            -2.4492935982947064e-16
+          ],
+          "arrivalRadius": 0.2,
+          "endpoint": [
+            4.842042495757414,
+            7.4448945534422775,
+            -2.449293598294706e-16
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalSecondCycle",
+          "sourceWaypointId": "w6",
+          "editedGoal": {
+            "id": "w6",
+            "x": 7.401,
+            "y": 6.652000000000001,
+            "heading": -0.8726646259971649,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.4,
+            100.0
+          ],
+          "name": "LeftN2-03",
+          "start": [
+            4.842042495757414,
+            7.4448945534422775,
+            -2.449293598294706e-16
+          ],
+          "target": [
+            7.401,
+            6.652000000000001,
+            -0.8726646259971649
+          ],
+          "arrivalRadius": 0.4,
+          "endpoint": [
+            7.0186649135541295,
+            6.769558002993108,
+            -0.8726646259971649
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalSecondCycle",
+          "sourceWaypointId": "w7",
+          "editedGoal": {
+            "id": "w7",
+            "x": 7.841000000000001,
+            "y": 5.5920000000000005,
+            "heading": -1.6580627893946132,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.4,
+            100.0
+          ],
+          "name": "LeftN2-04",
+          "start": [
+            7.0186649135541295,
+            6.769558002993108,
+            -0.8726646259971649
+          ],
+          "target": [
+            7.841000000000001,
+            5.5920000000000005,
+            -1.6580627893946132
+          ],
+          "arrivalRadius": 0.4,
+          "endpoint": [
+            7.611789761661475,
+            5.919815003133327,
+            -1.6580627893946132
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalSecondCycle",
+          "sourceWaypointId": "w8",
+          "editedGoal": {
+            "id": "w8",
+            "x": 8.041,
+            "y": 4.309000000000001,
+            "heading": -2.617993877991495,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.4,
+            100.0
+          ],
+          "name": "LeftN2-05",
+          "start": [
+            7.611789761661475,
+            5.919815003133327,
+            -1.6580627893946132
+          ],
+          "target": [
+            8.041,
+            4.309000000000001,
+            -2.617993877991495
+          ],
+          "arrivalRadius": 0.4,
+          "endpoint": [
+            7.937982108522318,
+            4.695506563589114,
+            -2.617993877991495
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalSecondCycle",
+          "sourceWaypointId": "w9",
+          "editedGoal": {
+            "id": "w9",
+            "x": 6.471,
+            "y": 4.299000000000001,
+            "heading": 2.8797932657906435,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.5,
+            100.0
+          ],
+          "name": "LeftN2-06",
+          "start": [
+            7.937982108522318,
+            4.695506563589114,
+            -2.617993877991495
+          ],
+          "target": [
+            6.471,
+            4.299000000000001,
+            2.8797932657906435
+          ],
+          "arrivalRadius": 0.5,
+          "endpoint": [
+            6.953641111857055,
+            4.429604621342171,
+            -3.403392041388942
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalSecondCycle",
+          "sourceWaypointId": "w10",
+          "editedGoal": {
+            "id": "w10",
+            "x": 6.341000000000001,
+            "y": 5.464024000000001,
+            "heading": 2.2689280275926285,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.1,
+            100.0
+          ],
+          "name": "LeftN2-07",
+          "start": [
+            6.953641111857055,
+            4.429604621342171,
+            -3.403392041388942
+          ],
+          "target": [
+            6.341000000000001,
+            5.464024000000001,
+            2.2689280275926285
+          ],
+          "arrivalRadius": 0.1,
+          "endpoint": [
+            6.3919191099218375,
+            5.377958594980813,
+            2.2689280275926285
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalSecondCycle",
+          "sourceWaypointId": "w11",
+          "editedGoal": {
+            "id": "w11",
+            "x": 2.7110000000000003,
+            "y": 5.464024000000001,
+            "heading": 3.141592653589793,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": true,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.3,
+            100.0
+          ],
+          "name": "LeftN2-08",
+          "start": [
+            6.3919191099218375,
+            5.377958594980813,
+            2.2689280275926285
+          ],
+          "target": [
+            2.7110000000000003,
+            5.464024000000001,
+            3.141592653589793
+          ],
+          "arrivalRadius": 0.2,
+          "endpoint": [
+            2.9109496409122606,
+            5.4595356080710955,
+            3.141592653589793
+          ]
+        }
+      ]
+    },
+    {
+      "team": 581,
+      "parentPath": "LeftNormalSecondCycleFar",
+      "sequence": [
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalSecondCycleFar",
+          "sourceWaypointId": "w3",
+          "editedGoal": {
+            "id": "w3",
+            "x": 4.041,
+            "y": 7.424500400000001,
+            "heading": -2.4492935982947064e-16,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.2,
+            100.0
+          ],
+          "clearanceAdaptation": "direct target ray intersects field geometry; solve a local obstacle-avoiding movement",
+          "name": "LeftN2Far-01",
+          "start": [
+            2.7110000000000003,
+            5.464024000000001,
+            3.141592653589793
+          ],
+          "target": [
+            4.041,
+            7.424500400000001,
+            -2.4492935982947064e-16
+          ],
+          "arrivalRadius": 0.2,
+          "endpoint": [
+            3.880242628432907,
+            7.54348391768952,
+            6.283185307179586
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalSecondCycleFar",
+          "sourceWaypointId": "w4",
+          "editedGoal": {
+            "id": "w4",
+            "x": 5.041,
+            "y": 7.424500400000001,
+            "heading": -2.4492935982947064e-16,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.2,
+            100.0
+          ],
+          "name": "LeftN2Far-02",
+          "start": [
+            3.880242628432907,
+            7.54348391768952,
+            6.283185307179586
+          ],
+          "target": [
+            5.041,
+            7.424500400000001,
+            -2.4492935982947064e-16
+          ],
+          "arrivalRadius": 0.2,
+          "endpoint": [
+            4.842042495757414,
+            7.4448945534422775,
+            -2.449293598294706e-16
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalSecondCycleFar",
+          "sourceWaypointId": "w6",
+          "editedGoal": {
+            "id": "w6",
+            "x": 7.401,
+            "y": 6.652000000000001,
+            "heading": -0.8726646259971649,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.4,
+            100.0
+          ],
+          "name": "LeftN2Far-03",
+          "start": [
+            4.842042495757414,
+            7.4448945534422775,
+            -2.449293598294706e-16
+          ],
+          "target": [
+            7.401,
+            6.652000000000001,
+            -0.8726646259971649
+          ],
+          "arrivalRadius": 0.4,
+          "endpoint": [
+            7.0186649135541295,
+            6.769558002993108,
+            -0.8726646259971649
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalSecondCycleFar",
+          "sourceWaypointId": "w7",
+          "editedGoal": {
+            "id": "w7",
+            "x": 8.258000000000001,
+            "y": 5.5920000000000005,
+            "heading": -1.6580627893946132,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.4,
+            100.0
+          ],
+          "name": "LeftN2Far-04",
+          "start": [
+            7.0186649135541295,
+            6.769558002993108,
+            -0.8726646259971649
+          ],
+          "target": [
+            8.258000000000001,
+            5.5920000000000005,
+            -1.6580627893946132
+          ],
+          "arrivalRadius": 0.4,
+          "endpoint": [
+            7.967955218347429,
+            5.867452335520573,
+            -1.6580627893946132
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalSecondCycleFar",
+          "sourceWaypointId": "w8",
+          "editedGoal": {
+            "id": "w8",
+            "x": 8.241,
+            "y": 4.309000000000001,
+            "heading": -2.617993877991495,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.4,
+            100.0
+          ],
+          "name": "LeftN2Far-05",
+          "start": [
+            7.967955218347429,
+            5.867452335520573,
+            -1.6580627893946132
+          ],
+          "target": [
+            8.241,
+            4.309000000000001,
+            -2.617993877991495
+          ],
+          "arrivalRadius": 0.4,
+          "endpoint": [
+            8.171986197060354,
+            4.703001401697965,
+            -2.617993877991495
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalSecondCycleFar",
+          "sourceWaypointId": "w9",
+          "editedGoal": {
+            "id": "w9",
+            "x": 6.841000000000001,
+            "y": 4.299000000000001,
+            "heading": 2.8797932657906435,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.5,
+            100.0
+          ],
+          "name": "LeftN2Far-06",
+          "start": [
+            8.171986197060354,
+            4.703001401697965,
+            -2.617993877991495
+          ],
+          "target": [
+            6.841000000000001,
+            4.299000000000001,
+            2.8797932657906435
+          ],
+          "arrivalRadius": 0.5,
+          "endpoint": [
+            7.319351190306614,
+            4.444533900334581,
+            -3.4033920413889436
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalSecondCycleFar",
+          "sourceWaypointId": "w10",
+          "editedGoal": {
+            "id": "w10",
+            "x": 6.341000000000001,
+            "y": 5.464024000000001,
+            "heading": 2.2689280275926285,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.1,
+            100.0
+          ],
+          "name": "LeftN2Far-07",
+          "start": [
+            7.319351190306614,
+            4.444533900334581,
+            -3.4033920413889436
+          ],
+          "target": [
+            6.341000000000001,
+            5.464024000000001,
+            2.2689280275926285
+          ],
+          "arrivalRadius": 0.1,
+          "endpoint": [
+            6.4102242245972105,
+            5.391857410742675,
+            2.2689280275926285
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalSecondCycleFar",
+          "sourceWaypointId": "w11",
+          "editedGoal": {
+            "id": "w11",
+            "x": 2.7110000000000003,
+            "y": 5.464024000000001,
+            "heading": 3.141592653589793,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": true,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.3,
+            100.0
+          ],
+          "name": "LeftN2Far-08",
+          "start": [
+            6.4102242245972105,
+            5.391857410742675,
+            2.2689280275926285
+          ],
+          "target": [
+            2.7110000000000003,
+            5.464024000000001,
+            3.141592653589793
+          ],
+          "arrivalRadius": 0.2,
+          "endpoint": [
+            2.9109653766704344,
+            5.460301350884786,
+            3.141592653589793
+          ]
+        }
+      ]
+    },
+    {
+      "team": 581,
+      "parentPath": "LeftNormalThirdCycle",
+      "sequence": [
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalThirdCycle",
+          "sourceWaypointId": "w3",
+          "editedGoal": {
+            "id": "w3",
+            "x": 4.041,
+            "y": 7.424500400000001,
+            "heading": -2.4492935982947064e-16,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.2,
+            100.0
+          ],
+          "clearanceAdaptation": "direct target ray intersects field geometry; solve a local obstacle-avoiding movement",
+          "name": "LeftN3-01",
+          "start": [
+            2.7110000000000003,
+            5.464024000000001,
+            3.141592653589793
+          ],
+          "target": [
+            4.041,
+            7.424500400000001,
+            -2.4492935982947064e-16
+          ],
+          "arrivalRadius": 0.2,
+          "endpoint": [
+            3.880242628432907,
+            7.54348391768952,
+            6.283185307179586
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalThirdCycle",
+          "sourceWaypointId": "w4",
+          "editedGoal": {
+            "id": "w4",
+            "x": 5.041,
+            "y": 7.424500400000001,
+            "heading": -2.4492935982947064e-16,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.2,
+            100.0
+          ],
+          "name": "LeftN3-02",
+          "start": [
+            3.880242628432907,
+            7.54348391768952,
+            6.283185307179586
+          ],
+          "target": [
+            5.041,
+            7.424500400000001,
+            -2.4492935982947064e-16
+          ],
+          "arrivalRadius": 0.2,
+          "endpoint": [
+            4.842042495757414,
+            7.4448945534422775,
+            -2.449293598294706e-16
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalThirdCycle",
+          "sourceWaypointId": "w5",
+          "editedGoal": {
+            "id": "w5",
+            "x": 6.941000000000001,
+            "y": 6.352,
+            "heading": -0.8726646259971649,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.4,
+            100.0
+          ],
+          "clearanceAdaptation": "direct target ray intersects field geometry; solve a local obstacle-avoiding movement",
+          "name": "LeftN3-03",
+          "start": [
+            4.842042495757414,
+            7.4448945534422775,
+            -2.449293598294706e-16
+          ],
+          "target": [
+            6.941000000000001,
+            6.352,
+            -0.8726646259971649
+          ],
+          "arrivalRadius": 0.4,
+          "endpoint": [
+            6.594084400016767,
+            6.551122012073941,
+            -0.872664625997165
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalThirdCycle",
+          "sourceWaypointId": "w6",
+          "editedGoal": {
+            "id": "w6",
+            "x": 7.841000000000001,
+            "y": 5.5920000000000005,
+            "heading": -1.5707963267948968,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.3,
+            100.0
+          ],
+          "name": "LeftN3-04",
+          "start": [
+            6.594084400016767,
+            6.551122012073941,
+            -0.872664625997165
+          ],
+          "target": [
+            7.841000000000001,
+            5.5920000000000005,
+            -1.5707963267948968
+          ],
+          "arrivalRadius": 0.3,
+          "endpoint": [
+            7.603162874632937,
+            5.774848329318812,
+            -1.5707963267948968
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalThirdCycle",
+          "sourceWaypointId": "w7",
+          "editedGoal": {
+            "id": "w7",
+            "x": 7.941000000000001,
+            "y": 4.309000000000001,
+            "heading": -1.5707963267948968,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.3,
+            100.0
+          ],
+          "name": "LeftN3-05",
+          "start": [
+            7.603162874632937,
+            5.774848329318812,
+            -1.5707963267948968
+          ],
+          "target": [
+            7.941000000000001,
+            4.309000000000001,
+            -1.5707963267948968
+          ],
+          "arrivalRadius": 0.3,
+          "endpoint": [
+            7.873624620457817,
+            4.601336395635472,
+            -1.5707963267948968
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalThirdCycle",
+          "sourceWaypointId": "w8",
+          "editedGoal": {
+            "id": "w8",
+            "x": 7.231,
+            "y": 4.299000000000001,
+            "heading": 2.5830872929516078,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.3,
+            100.0
+          ],
+          "name": "LeftN3-06",
+          "start": [
+            7.873624620457817,
+            4.601336395635472,
+            -1.5707963267948968
+          ],
+          "target": [
+            7.231,
+            4.299000000000001,
+            2.5830872929516078
+          ],
+          "arrivalRadius": 0.3,
+          "endpoint": [
+            7.496160389022275,
+            4.439320981615913,
+            -3.7000980142279776
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalThirdCycle",
+          "sourceWaypointId": "w9",
+          "editedGoal": {
+            "id": "w9",
+            "x": 6.841000000000001,
+            "y": 5.464024000000001,
+            "heading": 3.141592653589793,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.3,
+            100.0
+          ],
+          "name": "LeftN3-07",
+          "start": [
+            7.496160389022275,
+            4.439320981615913,
+            -3.7000980142279776
+          ],
+          "target": [
+            6.841000000000001,
+            5.464024000000001,
+            3.141592653589793
+          ],
+          "arrivalRadius": 0.3,
+          "endpoint": [
+            7.002548482673526,
+            5.211235358460124,
+            3.141592653589793
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalThirdCycle",
+          "sourceWaypointId": "w10",
+          "editedGoal": {
+            "id": "w10",
+            "x": 5.941000000000001,
+            "y": 5.464024000000001,
+            "heading": 3.141592653589793,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.3,
+            100.0
+          ],
+          "name": "LeftN3-08",
+          "start": [
+            7.002548482673526,
+            5.211235358460124,
+            3.141592653589793
+          ],
+          "target": [
+            5.941000000000001,
+            5.464024000000001,
+            3.141592653589793
+          ],
+          "arrivalRadius": 0.3,
+          "endpoint": [
+            6.2328394645100405,
+            5.394527691179975,
+            3.141592653589793
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "LeftNormalThirdCycle",
+          "sourceWaypointId": "w11",
+          "editedGoal": {
+            "id": "w11",
+            "x": 2.7110000000000003,
+            "y": 5.464024000000001,
+            "heading": 3.141592653589793,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": true,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.3,
+            100.0
+          ],
+          "name": "LeftN3-09",
+          "start": [
+            6.2328394645100405,
+            5.394527691179975,
+            3.141592653589793
+          ],
+          "target": [
+            2.7110000000000003,
+            5.464024000000001,
+            3.141592653589793
+          ],
+          "arrivalRadius": 0.5,
+          "endpoint": [
+            3.2109026905451894,
+            5.4541594967733635,
+            3.141592653589793
+          ]
+        }
+      ]
+    },
+    {
+      "team": 581,
+      "parentPath": "RightNormalFirstCycle",
+      "sequence": [
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalFirstCycle",
+          "sourceWaypointId": "w1",
+          "editedGoal": {
+            "id": "w1",
+            "x": 6.052,
+            "y": 0.6442244000000006,
+            "heading": 1.5707963267948966,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.75,
+            100.0
+          ],
+          "name": "RightN1-01",
+          "start": [
+            4.441000000000001,
+            0.4690000000000012,
+            1.5707963267948966
+          ],
+          "target": [
+            6.052,
+            0.6442244000000006,
+            1.5707963267948966
+          ],
+          "arrivalRadius": 0.75,
+          "endpoint": [
+            5.306694387556093,
+            0.5604076203979476,
+            1.5707963267948966
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalFirstCycle",
+          "sourceWaypointId": "w2",
+          "editedGoal": {
+            "id": "w2",
+            "x": 7.531000000000001,
+            "y": 1.4160000000000013,
+            "heading": 1.0471975511965979,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.4,
+            100.0
+          ],
+          "name": "RightN1-02",
+          "start": [
+            5.306694387556093,
+            0.5604076203979476,
+            1.5707963267948966
+          ],
+          "target": [
+            7.531000000000001,
+            1.4160000000000013,
+            1.0471975511965979
+          ],
+          "arrivalRadius": 0.4,
+          "endpoint": [
+            7.178509970012792,
+            1.2269212976246693,
+            1.0471975511965979
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalFirstCycle",
+          "sourceWaypointId": "w3",
+          "editedGoal": {
+            "id": "w3",
+            "x": 7.9879999999999995,
+            "y": 2.676000000000001,
+            "heading": 1.658062789394613,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.4,
+            100.0
+          ],
+          "name": "RightN1-03",
+          "start": [
+            7.178509970012792,
+            1.2269212976246693,
+            1.0471975511965979
+          ],
+          "target": [
+            7.9879999999999995,
+            2.676000000000001,
+            1.658062789394613
+          ],
+          "arrivalRadius": 0.4,
+          "endpoint": [
+            7.792844712459233,
+            2.326837540101286,
+            1.658062789394613
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalFirstCycle",
+          "sourceWaypointId": "w4",
+          "editedGoal": {
+            "id": "w4",
+            "x": 7.871,
+            "y": 3.3690000000000007,
+            "heading": 2.6179938779914944,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.4,
+            100.0
+          ],
+          "name": "RightN1-04",
+          "start": [
+            7.792844712459233,
+            2.326837540101286,
+            1.658062789394613
+          ],
+          "target": [
+            7.871,
+            3.3690000000000007,
+            2.6179938779914944
+          ],
+          "arrivalRadius": 0.4,
+          "endpoint": [
+            7.842196745487279,
+            2.9700383699483326,
+            2.6179938779914944
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalFirstCycle",
+          "sourceWaypointId": "w5",
+          "editedGoal": {
+            "id": "w5",
+            "x": 6.941000000000001,
+            "y": 3.569000000000001,
+            "heading": -1.5707963267948968,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.4,
+            100.0
+          ],
+          "name": "RightN1-05",
+          "start": [
+            7.842196745487279,
+            2.9700383699483326,
+            2.6179938779914944
+          ],
+          "target": [
+            6.941000000000001,
+            3.569000000000001,
+            -1.5707963267948968
+          ],
+          "arrivalRadius": 0.4,
+          "endpoint": [
+            7.256267955345692,
+            3.3228168846021893,
+            4.71238898038469
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalFirstCycle",
+          "sourceWaypointId": "w6",
+          "editedGoal": {
+            "id": "w6",
+            "x": 6.841000000000001,
+            "y": 2.6049759999999997,
+            "heading": -2.5830872929516078,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.3,
+            100.0
+          ],
+          "name": "RightN1-06",
+          "start": [
+            7.256267955345692,
+            3.3228168846021893,
+            4.71238898038469
+          ],
+          "target": [
+            6.841000000000001,
+            2.6049759999999997,
+            -2.5830872929516078
+          ],
+          "arrivalRadius": 0.3,
+          "endpoint": [
+            6.991814867377016,
+            2.8643114571664654,
+            -2.5830872929516078
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalFirstCycle",
+          "sourceWaypointId": "w7",
+          "editedGoal": {
+            "id": "w7",
+            "x": 5.941000000000001,
+            "y": 2.6049759999999997,
+            "heading": 3.141592653589793,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.3,
+            100.0
+          ],
+          "name": "RightN1-07",
+          "start": [
+            6.991814867377016,
+            2.8643114571664654,
+            -2.5830872929516078
+          ],
+          "target": [
+            5.941000000000001,
+            2.6049759999999997,
+            3.141592653589793
+          ],
+          "arrivalRadius": 0.3,
+          "endpoint": [
+            6.232277426160985,
+            2.6767915301250125,
+            -3.141592653589793
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalFirstCycle",
+          "sourceWaypointId": "w8",
+          "editedGoal": {
+            "id": "w8",
+            "x": 2.7110000000000003,
+            "y": 2.6049759999999997,
+            "heading": 3.141592653589793,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": true,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.3,
+            100.0
+          ],
+          "name": "RightN1-08",
+          "start": [
+            6.232277426160985,
+            2.6767915301250125,
+            -3.141592653589793
+          ],
+          "target": [
+            2.7110000000000003,
+            2.6049759999999997,
+            3.141592653589793
+          ],
+          "arrivalRadius": 0.2,
+          "endpoint": [
+            2.9109584348527533,
+            2.6090539709690956,
+            -3.141592653589793
+          ]
+        }
+      ]
+    },
+    {
+      "team": 581,
+      "parentPath": "RightNormalSecondCycle",
+      "sequence": [
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalSecondCycle",
+          "sourceWaypointId": "w3",
+          "editedGoal": {
+            "id": "w3",
+            "x": 4.041,
+            "y": 0.6442244000000006,
+            "heading": -2.4492935982947064e-16,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.2,
+            100.0
+          ],
+          "clearanceAdaptation": "direct target ray intersects field geometry; solve a local obstacle-avoiding movement",
+          "name": "RightN2-01",
+          "start": [
+            2.7110000000000003,
+            2.6049759999999997,
+            3.141592653589793
+          ],
+          "target": [
+            4.041,
+            0.6442244000000006,
+            -2.4492935982947064e-16
+          ],
+          "arrivalRadius": 0.2,
+          "endpoint": [
+            3.8736316406739437,
+            0.7537134052263433,
+            6.283185307179586
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalSecondCycle",
+          "sourceWaypointId": "w4",
+          "editedGoal": {
+            "id": "w4",
+            "x": 5.041,
+            "y": 0.6442244000000006,
+            "heading": -2.4492935982947064e-16,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.2,
+            100.0
+          ],
+          "name": "RightN2-02",
+          "start": [
+            3.8736316406739437,
+            0.7537134052263433,
+            6.283185307179586
+          ],
+          "target": [
+            5.041,
+            0.6442244000000006,
+            -2.4492935982947064e-16
+          ],
+          "arrivalRadius": 0.2,
+          "endpoint": [
+            4.841873894384566,
+            0.6629006965420445,
+            -2.449293598294707e-16
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalSecondCycle",
+          "sourceWaypointId": "w6",
+          "editedGoal": {
+            "id": "w6",
+            "x": 7.401,
+            "y": 1.4160000000000013,
+            "heading": 0.8726646259971647,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.4,
+            100.0
+          ],
+          "name": "RightN2-03",
+          "start": [
+            4.841873894384566,
+            0.6629006965420445,
+            -2.449293598294707e-16
+          ],
+          "target": [
+            7.401,
+            1.4160000000000013,
+            0.8726646259971647
+          ],
+          "arrivalRadius": 0.4,
+          "endpoint": [
+            7.01704658223221,
+            1.3038403741993982,
+            0.8726646259971647
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalSecondCycle",
+          "sourceWaypointId": "w7",
+          "editedGoal": {
+            "id": "w7",
+            "x": 7.841000000000001,
+            "y": 2.476000000000001,
+            "heading": 1.658062789394613,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.4,
+            100.0
+          ],
+          "name": "RightN2-04",
+          "start": [
+            7.01704658223221,
+            1.3038403741993982,
+            0.8726646259971647
+          ],
+          "target": [
+            7.841000000000001,
+            2.476000000000001,
+            1.658062789394613
+          ],
+          "arrivalRadius": 0.4,
+          "endpoint": [
+            7.6107770435347355,
+            2.14889542961262,
+            1.658062789394613
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalSecondCycle",
+          "sourceWaypointId": "w8",
+          "editedGoal": {
+            "id": "w8",
+            "x": 8.041,
+            "y": 3.7590000000000012,
+            "heading": 2.6179938779914944,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.4,
+            100.0
+          ],
+          "name": "RightN2-05",
+          "start": [
+            7.6107770435347355,
+            2.14889542961262,
+            1.658062789394613
+          ],
+          "target": [
+            8.041,
+            3.7590000000000012,
+            2.6179938779914944
+          ],
+          "arrivalRadius": 0.4,
+          "endpoint": [
+            7.937712369874589,
+            3.372565432285048,
+            2.6179938779914944
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalSecondCycle",
+          "sourceWaypointId": "w9",
+          "editedGoal": {
+            "id": "w9",
+            "x": 6.471,
+            "y": 3.769000000000001,
+            "heading": -2.879793265790644,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.5,
+            100.0
+          ],
+          "name": "RightN2-06",
+          "start": [
+            7.937712369874589,
+            3.372565432285048,
+            2.6179938779914944
+          ],
+          "target": [
+            6.471,
+            3.769000000000001,
+            -2.879793265790644
+          ],
+          "arrivalRadius": 0.5,
+          "endpoint": [
+            6.953640997964682,
+            3.638394957776498,
+            3.4033920413889422
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalSecondCycle",
+          "sourceWaypointId": "w10",
+          "editedGoal": {
+            "id": "w10",
+            "x": 6.341000000000001,
+            "y": 2.6049759999999997,
+            "heading": -2.2689280275926285,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.1,
+            100.0
+          ],
+          "name": "RightN2-07",
+          "start": [
+            6.953640997964682,
+            3.638394957776498,
+            3.4033920413889422
+          ],
+          "target": [
+            6.341000000000001,
+            2.6049759999999997,
+            -2.2689280275926285
+          ],
+          "arrivalRadius": 0.1,
+          "endpoint": [
+            6.391955477694859,
+            2.691019878278529,
+            -2.2689280275926285
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalSecondCycle",
+          "sourceWaypointId": "w11",
+          "editedGoal": {
+            "id": "w11",
+            "x": 2.7110000000000003,
+            "y": 2.6049759999999997,
+            "heading": 3.141592653589793,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": true,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.3,
+            100.0
+          ],
+          "name": "RightN2-08",
+          "start": [
+            6.391955477694859,
+            2.691019878278529,
+            -2.2689280275926285
+          ],
+          "target": [
+            2.7110000000000003,
+            2.6049759999999997,
+            3.141592653589793
+          ],
+          "arrivalRadius": 0.2,
+          "endpoint": [
+            2.910949667930306,
+            2.60946317385115,
+            -3.141592653589793
+          ]
+        }
+      ]
+    },
+    {
+      "team": 581,
+      "parentPath": "RightNormalSecondCycleFar",
+      "sequence": [
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalSecondCycleFar",
+          "sourceWaypointId": "w3",
+          "editedGoal": {
+            "id": "w3",
+            "x": 4.041,
+            "y": 0.6442244000000006,
+            "heading": -2.4492935982947064e-16,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.2,
+            100.0
+          ],
+          "clearanceAdaptation": "direct target ray intersects field geometry; solve a local obstacle-avoiding movement",
+          "name": "RightN2Far-01",
+          "start": [
+            2.7110000000000003,
+            2.6049759999999997,
+            3.141592653589793
+          ],
+          "target": [
+            4.041,
+            0.6442244000000006,
+            -2.4492935982947064e-16
+          ],
+          "arrivalRadius": 0.2,
+          "endpoint": [
+            3.8736316406739437,
+            0.7537134052263433,
+            6.283185307179586
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalSecondCycleFar",
+          "sourceWaypointId": "w4",
+          "editedGoal": {
+            "id": "w4",
+            "x": 5.041,
+            "y": 0.6442244000000006,
+            "heading": -2.4492935982947064e-16,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.2,
+            100.0
+          ],
+          "name": "RightN2Far-02",
+          "start": [
+            3.8736316406739437,
+            0.7537134052263433,
+            6.283185307179586
+          ],
+          "target": [
+            5.041,
+            0.6442244000000006,
+            -2.4492935982947064e-16
+          ],
+          "arrivalRadius": 0.2,
+          "endpoint": [
+            4.841873894384566,
+            0.6629006965420445,
+            -2.449293598294707e-16
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalSecondCycleFar",
+          "sourceWaypointId": "w6",
+          "editedGoal": {
+            "id": "w6",
+            "x": 7.401,
+            "y": 1.4160000000000013,
+            "heading": 0.8726646259971647,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.4,
+            100.0
+          ],
+          "name": "RightN2Far-03",
+          "start": [
+            4.841873894384566,
+            0.6629006965420445,
+            -2.449293598294707e-16
+          ],
+          "target": [
+            7.401,
+            1.4160000000000013,
+            0.8726646259971647
+          ],
+          "arrivalRadius": 0.4,
+          "endpoint": [
+            7.01704658223221,
+            1.3038403741993982,
+            0.8726646259971647
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalSecondCycleFar",
+          "sourceWaypointId": "w7",
+          "editedGoal": {
+            "id": "w7",
+            "x": 8.258000000000001,
+            "y": 2.476000000000001,
+            "heading": 1.658062789394613,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.4,
+            100.0
+          ],
+          "name": "RightN2Far-04",
+          "start": [
+            7.01704658223221,
+            1.3038403741993982,
+            0.8726646259971647
+          ],
+          "target": [
+            8.258000000000001,
+            2.476000000000001,
+            1.658062789394613
+          ],
+          "arrivalRadius": 0.4,
+          "endpoint": [
+            7.967145092243002,
+            2.201403228711275,
+            1.658062789394613
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalSecondCycleFar",
+          "sourceWaypointId": "w8",
+          "editedGoal": {
+            "id": "w8",
+            "x": 8.241,
+            "y": 3.7590000000000012,
+            "heading": 2.6179938779914944,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.4,
+            100.0
+          ],
+          "name": "RightN2Far-05",
+          "start": [
+            7.967145092243002,
+            2.201403228711275,
+            1.658062789394613
+          ],
+          "target": [
+            8.241,
+            3.7590000000000012,
+            2.6179938779914944
+          ],
+          "arrivalRadius": 0.4,
+          "endpoint": [
+            8.171750327908503,
+            3.365039986227844,
+            2.6179938779914944
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalSecondCycleFar",
+          "sourceWaypointId": "w9",
+          "editedGoal": {
+            "id": "w9",
+            "x": 6.841000000000001,
+            "y": 3.769000000000001,
+            "heading": -2.879793265790644,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.5,
+            100.0
+          ],
+          "name": "RightN2Far-06",
+          "start": [
+            8.171750327908503,
+            3.365039986227844,
+            2.6179938779914944
+          ],
+          "target": [
+            6.841000000000001,
+            3.769000000000001,
+            -2.879793265790644
+          ],
+          "arrivalRadius": 0.5,
+          "endpoint": [
+            7.319348062762533,
+            3.6234558202158427,
+            3.4033920413889422
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalSecondCycleFar",
+          "sourceWaypointId": "w10",
+          "editedGoal": {
+            "id": "w10",
+            "x": 6.341000000000001,
+            "y": 2.6049759999999997,
+            "heading": -2.2689280275926285,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.1,
+            100.0
+          ],
+          "name": "RightN2Far-07",
+          "start": [
+            7.319348062762533,
+            3.6234558202158427,
+            3.4033920413889422
+          ],
+          "target": [
+            6.341000000000001,
+            2.6049759999999997,
+            -2.2689280275926285
+          ],
+          "arrivalRadius": 0.1,
+          "endpoint": [
+            6.410259117696432,
+            2.677109102082855,
+            -2.2689280275926285
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalSecondCycleFar",
+          "sourceWaypointId": "w11",
+          "editedGoal": {
+            "id": "w11",
+            "x": 2.7110000000000003,
+            "y": 2.6049759999999997,
+            "heading": 3.141592653589793,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": true,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.3,
+            100.0
+          ],
+          "name": "RightN2Far-08",
+          "start": [
+            6.410259117696432,
+            2.677109102082855,
+            -2.2689280275926285
+          ],
+          "target": [
+            2.7110000000000003,
+            2.6049759999999997,
+            3.141592653589793
+          ],
+          "arrivalRadius": 0.2,
+          "endpoint": [
+            2.910965410722102,
+            2.608696819549682,
+            -3.1415926535897922
+          ]
+        }
+      ]
+    },
+    {
+      "team": 581,
+      "parentPath": "RightNormalThirdCycle",
+      "sequence": [
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalThirdCycle",
+          "sourceWaypointId": "w3",
+          "editedGoal": {
+            "id": "w3",
+            "x": 4.041,
+            "y": 0.6442244000000006,
+            "heading": -2.4492935982947064e-16,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.2,
+            100.0
+          ],
+          "clearanceAdaptation": "direct target ray intersects field geometry; solve a local obstacle-avoiding movement",
+          "name": "RightN3-01",
+          "start": [
+            2.7110000000000003,
+            2.6049759999999997,
+            3.141592653589793
+          ],
+          "target": [
+            4.041,
+            0.6442244000000006,
+            -2.4492935982947064e-16
+          ],
+          "arrivalRadius": 0.2,
+          "endpoint": [
+            3.8736316406739437,
+            0.7537134052263433,
+            6.283185307179586
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalThirdCycle",
+          "sourceWaypointId": "w4",
+          "editedGoal": {
+            "id": "w4",
+            "x": 5.041,
+            "y": 0.6442244000000006,
+            "heading": -2.4492935982947064e-16,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.2,
+            100.0
+          ],
+          "name": "RightN3-02",
+          "start": [
+            3.8736316406739437,
+            0.7537134052263433,
+            6.283185307179586
+          ],
+          "target": [
+            5.041,
+            0.6442244000000006,
+            -2.4492935982947064e-16
+          ],
+          "arrivalRadius": 0.2,
+          "endpoint": [
+            4.841873894384566,
+            0.6629006965420445,
+            -2.449293598294707e-16
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalThirdCycle",
+          "sourceWaypointId": "w5",
+          "editedGoal": {
+            "id": "w5",
+            "x": 6.941000000000001,
+            "y": 1.716000000000001,
+            "heading": 0.8726646259971647,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.4,
+            100.0
+          ],
+          "clearanceAdaptation": "direct target ray intersects field geometry; solve a local obstacle-avoiding movement",
+          "name": "RightN3-03",
+          "start": [
+            4.841873894384566,
+            0.6629006965420445,
+            -2.449293598294707e-16
+          ],
+          "target": [
+            6.941000000000001,
+            1.716000000000001,
+            0.8726646259971647
+          ],
+          "arrivalRadius": 0.4,
+          "endpoint": [
+            6.595506224493701,
+            1.5144210826328386,
+            0.8726646259971647
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalThirdCycle",
+          "sourceWaypointId": "w6",
+          "editedGoal": {
+            "id": "w6",
+            "x": 7.841000000000001,
+            "y": 2.476000000000001,
+            "heading": 1.5707963267948966,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.3,
+            100.0
+          ],
+          "name": "RightN3-04",
+          "start": [
+            6.595506224493701,
+            1.5144210826328386,
+            0.8726646259971647
+          ],
+          "target": [
+            7.841000000000001,
+            2.476000000000001,
+            1.5707963267948966
+          ],
+          "arrivalRadius": 0.3,
+          "endpoint": [
+            7.603490100609906,
+            2.2927268229231963,
+            1.5707963267948966
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalThirdCycle",
+          "sourceWaypointId": "w7",
+          "editedGoal": {
+            "id": "w7",
+            "x": 7.941000000000001,
+            "y": 3.7590000000000012,
+            "heading": 1.5707963267948966,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.3,
+            100.0
+          ],
+          "name": "RightN3-05",
+          "start": [
+            7.603490100609906,
+            2.2927268229231963,
+            1.5707963267948966
+          ],
+          "target": [
+            7.941000000000001,
+            3.7590000000000012,
+            1.5707963267948966
+          ],
+          "arrivalRadius": 0.3,
+          "endpoint": [
+            7.873705114931706,
+            3.46664506430499,
+            1.5707963267948966
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalThirdCycle",
+          "sourceWaypointId": "w8",
+          "editedGoal": {
+            "id": "w8",
+            "x": 7.231,
+            "y": 3.769000000000001,
+            "heading": -2.5830872929516078,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.3,
+            100.0
+          ],
+          "name": "RightN3-06",
+          "start": [
+            7.873705114931706,
+            3.46664506430499,
+            1.5707963267948966
+          ],
+          "target": [
+            7.231,
+            3.769000000000001,
+            -2.5830872929516078
+          ],
+          "arrivalRadius": 0.3,
+          "endpoint": [
+            7.496163011542175,
+            3.6286839768188144,
+            3.7000980142279785
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalThirdCycle",
+          "sourceWaypointId": "w9",
+          "editedGoal": {
+            "id": "w9",
+            "x": 6.841000000000001,
+            "y": 2.6049759999999997,
+            "heading": 3.141592653589793,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.3,
+            100.0
+          ],
+          "name": "RightN3-07",
+          "start": [
+            7.496163011542175,
+            3.6286839768188144,
+            3.7000980142279785
+          ],
+          "target": [
+            6.841000000000001,
+            2.6049759999999997,
+            3.141592653589793
+          ],
+          "arrivalRadius": 0.3,
+          "endpoint": [
+            7.0026599362883255,
+            2.8576933807741756,
+            -3.141592653589793
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalThirdCycle",
+          "sourceWaypointId": "w10",
+          "editedGoal": {
+            "id": "w10",
+            "x": 5.941000000000001,
+            "y": 2.6049759999999997,
+            "heading": 3.141592653589793,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": false,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.3,
+            100.0
+          ],
+          "name": "RightN3-08",
+          "start": [
+            7.0026599362883255,
+            2.8576933807741756,
+            -3.141592653589793
+          ],
+          "target": [
+            5.941000000000001,
+            2.6049759999999997,
+            3.141592653589793
+          ],
+          "arrivalRadius": 0.3,
+          "endpoint": [
+            6.232845552122651,
+            2.6744467104332164,
+            -3.141592653589793
+          ]
+        },
+        {
+          "kind": "path",
+          "team": 581,
+          "parentPath": "RightNormalThirdCycle",
+          "sourceWaypointId": "w11",
+          "editedGoal": {
+            "id": "w11",
+            "x": 2.7110000000000003,
+            "y": 2.6049759999999997,
+            "heading": 3.141592653589793,
+            "translationMode": "fixed",
+            "headingMode": "fixed",
+            "headingTolerance": 0.0,
+            "tolerance": {
+              "kind": "none",
+              "radius": 0.1,
+              "dx": 0.1,
+              "dy": 0.1
+            },
+            "stop": true,
+            "split": false,
+            "intervals": null,
+            "poseRef": null
+          },
+          "sourceTransitionTolerance": [
+            0.3,
+            100.0
+          ],
+          "name": "RightN3-09",
+          "start": [
+            6.232845552122651,
+            2.6744467104332164,
+            -3.141592653589793
+          ],
+          "target": [
+            2.7110000000000003,
+            2.6049759999999997,
+            3.141592653589793
+          ],
+          "arrivalRadius": 0.5,
+          "endpoint": [
+            3.21090276241417,
+            2.614836829738056,
+            -3.141592653589793
+          ]
+        }
+      ]
+    }
+  ],
+  "note": "independent movements; source target radii preserved; desired goal headings and endpoint stops are adaptations for our Mayhem robot"
+}
