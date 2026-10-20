@@ -106,3 +106,36 @@ test('publishes media to its PR branch and embeds previews in the comment', asyn
     fs.rmSync(directory, {recursive: true});
   }
 });
+
+test('manual runs bind the comment to the requested current PR head', async () => {
+  const cwd = process.cwd();
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'preview-manual-'));
+  const head = 'a'.repeat(40);
+  const {calls, args} = fixture({head});
+  args.context.payload.workflow_run = {event:'workflow_dispatch', head_sha:'b'.repeat(40),
+    head_branch:'main', head_repository:{full_name:'team/robot'}, id:123};
+  args.github.rest.repos.get = async () => ({data:{default_branch:'main'}});
+  try {
+    process.chdir(directory);
+    process.env.PREVIEW_DOWNLOAD_OK = 'true';
+    fs.mkdirSync('path-previews');
+    fs.writeFileSync('path-previews/manifest.json', JSON.stringify({head,prNumber:7,paths:[]}));
+    await publish(args);
+    assert.equal(calls.length,1);
+    assert.match(calls[0][1].body,/aaaaaaa/);
+    assert.doesNotMatch(calls[0][1].body,/bbbbbbb/);
+  } finally {
+    process.chdir(cwd);
+    process.env.PREVIEW_DOWNLOAD_OK = 'false';
+    fs.rmSync(directory,{recursive:true});
+  }
+});
+
+test('rejects manual publishing from a branch other than main', async () => {
+  const {calls,args} = fixture();
+  args.context.payload.workflow_run.event = 'workflow_dispatch';
+  args.context.payload.workflow_run.head_branch = 'untrusted-branch';
+  args.github.rest.repos.get = async () => ({data:{default_branch:'main'}});
+  await assert.rejects(publish(args),/default branch/);
+  assert.equal(calls.length,0);
+});

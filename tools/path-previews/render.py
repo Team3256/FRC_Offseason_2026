@@ -160,7 +160,7 @@ def preview(args):
     paths = sorted(p for p in changed if p.endswith(".mtraj"))
     destination = Path(args.output)
     destination.mkdir(parents=True, exist_ok=True)
-    report = {"base": base, "head": git("rev-parse", args.head).decode().strip(), "paths": []}
+    report = {"prNumber": getattr(args, "pr_number", None), "base": base, "head": git("rev-parse", args.head).decode().strip(), "paths": []}
     for path in paths:
         print(f"Previewing {path}", flush=True)
         entry = {"path": path, "name": Path(path).stem}
@@ -211,5 +211,6 @@ if __name__ == "__main__":
         parser = argparse.ArgumentParser(description=__doc__)
         parser.add_argument("--base", required=True)
         parser.add_argument("--head", default="HEAD")
+        parser.add_argument("--pr-number", type=int)
         parser.add_argument("--output", default="path-previews")
         preview(parser.parse_args())

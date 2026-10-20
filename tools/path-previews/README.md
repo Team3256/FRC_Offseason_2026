@@ -29,6 +29,13 @@ Merge both workflow files and this directory into the default branch. The
 publisher uses `workflow_run`, so it must exist on the default branch before it
 can post comments. Open a PR or push a path change to an existing PR afterward.
 No external service, personal access token, or additional secret is required.
+
+New PRs, reopened PRs, and new pushes automatically render relevant Mayhem
+changes. To backfill an existing PR or retry without pushing, open **Actions →
+Mayhem path previews → Run workflow**, select `main`, and enter the PR number.
+Manual runs use only trusted default-branch renderer code and fetch the PR's
+exact base/head revisions as data. The publisher verifies that the PR is still
+open at the rendered head before updating its comment.
 Repository Actions policy must permit the declared `contents: write` and
 `pull-requests: write` permissions.
 

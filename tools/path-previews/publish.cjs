@@ -5,11 +5,15 @@ const path = require('node:path');
 const MARKER = '<!-- mayhem-path-previews -->';
 const clean = value => String(value).replace(/[\r\n]/g, ' ').replace(/[@<>`*\[\]\\|]/g, '').slice(0, 220);
 
-function loadReport(directory, head) {
+function readManifest(directory) {
   const manifest = path.join(directory, 'manifest.json');
   if (fs.lstatSync(manifest).isSymbolicLink() || fs.statSync(manifest).size > 2_000_000)
     throw new Error('Invalid preview manifest');
-  const report = JSON.parse(fs.readFileSync(manifest, 'utf8'));
+  return JSON.parse(fs.readFileSync(manifest, 'utf8'));
+}
+
+function loadReport(directory, head) {
+  const report = readManifest(directory);
   if (report.head !== head || !Array.isArray(report.paths) || report.paths.length > 300)
     throw new Error('Preview manifest does not match this run');
   let bytes = 0;
@@ -37,9 +41,24 @@ async function publish({github, context, core}) {
   const {owner, repo} = context.repo;
   const run = context.payload.workflow_run;
   const api = github.rest;
+  let targetSha = run.head_sha;
+  let targetNumber;
+  if (run.event === 'workflow_dispatch') {
+    // Manual runs execute default-branch code only and read PR files as JSON.
+    // Never allow a workflow dispatched from an arbitrary branch to select a PR.
+    const repository = (await api.repos.get({owner, repo})).data;
+    if (run.head_branch !== repository.default_branch || run.head_repository?.full_name !== `${owner}/${repo}`)
+      throw new Error('Manual previews must run from the default branch.');
+    const manifest = readManifest('path-previews');
+    if (!/^[0-9a-f]{40}$/.test(manifest.head) || !Number.isSafeInteger(manifest.prNumber) || manifest.prNumber < 1)
+      throw new Error('Invalid manual preview target.');
+    targetSha = manifest.head;
+    targetNumber = manifest.prNumber;
+  }
   const associated = await github.paginate(api.repos.listPullRequestsAssociatedWithCommit,
-    {owner, repo, commit_sha: run.head_sha, per_page: 100});
-  const prs = associated.filter(pr => pr.state === 'open' && pr.head.sha === run.head_sha
+    {owner, repo, commit_sha: targetSha, per_page: 100});
+  const prs = associated.filter(pr => pr.state === 'open' && pr.head.sha === targetSha
+    && (!targetNumber || pr.number === targetNumber)
     && pr.base.repo.full_name === `${owner}/${repo}`);
   if (!prs.length) return core.info('No open PR still points at this run.');
 
@@ -47,13 +66,13 @@ async function publish({github, context, core}) {
     const branch = `codex/path-previews/pr-${pr.number}`;
     // Check current API state again; a newer push may have superseded this run.
     const current = (await api.pulls.get({owner, repo, pull_number: pr.number})).data;
-    if (current.head.sha !== run.head_sha || current.state !== 'open') continue;
+    if (current.head.sha !== targetSha || current.state !== 'open') continue;
     const runUrl = `https://github.com/${owner}/${repo}/actions/runs/${run.id}`;
-    let body = `${MARKER}\n### Mayhem path previews\n\nCommit: \`${run.head_sha.slice(0, 7)}\` · [Workflow and downloadable MP4s](${runUrl})\n\n`;
+    let body = `${MARKER}\n### Mayhem path previews\n\nCommit: \`${targetSha.slice(0, 7)}\` · [Workflow and downloadable MP4s](${runUrl})\n\n`;
     let loaded;
     try {
       if (process.env.PREVIEW_DOWNLOAD_OK !== 'true') throw new Error('No preview artifact was produced.');
-      loaded = loadReport('path-previews', run.head_sha);
+      loaded = loadReport('path-previews', targetSha);
     } catch (error) {
       core.warning(error.message);
       body += `Preview generation failed. See the workflow for details.\n`;
@@ -77,7 +96,7 @@ async function publish({github, context, core}) {
         }
         const createdTree = await api.git.createTree({owner, repo, tree});
         const createdCommit = await api.git.createCommit({owner, repo,
-          message: `Path previews for PR #${pr.number} at ${run.head_sha.slice(0, 7)}`,
+          message: `Path previews for PR #${pr.number} at ${targetSha.slice(0, 7)}`,
           tree: createdTree.data.sha, parents: parent ? [parent] : []});
         commit = createdCommit.data.sha;
         if (parent) await api.git.updateRef({owner, repo, ref: `heads/${branch}`, sha: commit});
@@ -113,7 +132,7 @@ async function publish({github, context, core}) {
     const comment = comments.find(c => c.user.login === 'github-actions[bot]' && c.body.startsWith(MARKER));
     // Do not publish an obsolete comment if rendering/uploading took a while.
     const latest = (await api.pulls.get({owner, repo, pull_number: pr.number})).data;
-    if (latest.head.sha !== run.head_sha || latest.state !== 'open') continue;
+    if (latest.head.sha !== targetSha || latest.state !== 'open') continue;
     if (comment) await api.issues.updateComment({owner, repo, comment_id: comment.id, body});
     else await api.issues.createComment({owner, repo, issue_number: pr.number, body});
   }
