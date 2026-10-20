@@ -245,6 +245,7 @@ public class Superstructure {
     stateTriggers
         .get(StructureState.JITTER)
         .or(stateTriggers.get(StructureState.JITTER_AND_SHOOT))
+        .onTrue(intakeRollers.intake())
         .onTrue(linearSlide.jitterIntake());
 
     stateTriggers
