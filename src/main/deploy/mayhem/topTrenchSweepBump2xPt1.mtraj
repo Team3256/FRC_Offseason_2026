@@ -5939,13 +5939,13 @@
   "stats": {
    "success": true,
    "totalTime": 5.186391182976324,
-   "solveSeconds": 4.382561792153865,
+   "solveSeconds": 4.365864416817203,
    "iterations": 166,
    "candidate": 0,
    "attempts": [
-    "candidate 0: direct: Solved_To_Acceptable_Level (72 it, 3.56s)",
-    "candidate 1: direct: Solved_To_Acceptable_Level (49 it, 2.61s)",
-    "candidate 2: direct: Solved_To_Acceptable_Level (45 it, 2.81s)"
+    "candidate 0: direct: Solved_To_Acceptable_Level (72 it, 3.57s)",
+    "candidate 1: direct: Solved_To_Acceptable_Level (49 it, 2.38s)",
+    "candidate 2: direct: Solved_To_Acceptable_Level (45 it, 2.59s)"
    ]
   }
  }

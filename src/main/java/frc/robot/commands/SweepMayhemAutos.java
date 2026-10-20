@@ -290,4 +290,160 @@ public class SweepMayhemAutos {
 
     return routine;
   }
+
+  public AutoRoutine deepAggressiveBottomTrenchSweep2xAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("deepAggressiveBottomTrenchSweep2xAuto");
+    final AutoTrajectory deepAggressiveBottomTrenchSweep2xAutoPt1 =
+        routine.trajectory("deepAggressiveBottomTrenchSweepBumpPt1");
+    final AutoTrajectory deepAggressiveBottomTrenchSweep2xAutoPt2 =
+        routine.trajectory("deepAggressiveBottomTrenchSweepBumpPt2");
+    routine
+        .active()
+        .onTrue(
+            deepAggressiveBottomTrenchSweep2xAutoPt1
+                .resetOdometry()
+                .andThen(deepAggressiveBottomTrenchSweep2xAutoPt1.cmd()));
+    deepAggressiveBottomTrenchSweep2xAutoPt1
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    deepAggressiveBottomTrenchSweep2xAutoPt1
+        .atTime("idle")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
+    deepAggressiveBottomTrenchSweep2xAutoPt1
+        .atTime("shoot")
+        .onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    deepAggressiveBottomTrenchSweep2xAutoPt1
+        .done()
+        .onTrue(Commands.waitSeconds(1).andThen(deepAggressiveBottomTrenchSweep2xAutoPt2.cmd()));
+
+    deepAggressiveBottomTrenchSweep2xAutoPt2
+        .atTime("intake2")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    deepAggressiveBottomTrenchSweep2xAutoPt2
+        .atTime("idle2")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
+    deepAggressiveBottomTrenchSweep2xAutoPt2
+        .atTime("shoot2")
+        .onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
+  }
+
+  public AutoRoutine deepFriendlyBottomTrenchSweep2xAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("deepFriendlyBottomTrenchSweep2xAuto");
+    final AutoTrajectory deepFriendlyBottomTrenchSweep2xAutoPt1 =
+        routine.trajectory("deepFriendlyBottomTrenchSweepBumpPt1");
+    final AutoTrajectory deepFriendlyBottomTrenchSweep2xAutoPt2 =
+        routine.trajectory("deepFriendlyBottomTrenchSweepBumpPt2");
+    routine
+        .active()
+        .onTrue(
+            deepFriendlyBottomTrenchSweep2xAutoPt1
+                .resetOdometry()
+                .andThen(deepFriendlyBottomTrenchSweep2xAutoPt1.cmd()));
+    deepFriendlyBottomTrenchSweep2xAutoPt1
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    deepFriendlyBottomTrenchSweep2xAutoPt1
+        .atTime("idle")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
+    deepFriendlyBottomTrenchSweep2xAutoPt1
+        .atTime("shoot")
+        .onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    deepFriendlyBottomTrenchSweep2xAutoPt1
+        .done()
+        .onTrue(Commands.waitSeconds(1).andThen(deepFriendlyBottomTrenchSweep2xAutoPt2.cmd()));
+
+    deepFriendlyBottomTrenchSweep2xAutoPt2
+        .atTime("intake2")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    deepFriendlyBottomTrenchSweep2xAutoPt2
+        .atTime("idle2")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
+    deepFriendlyBottomTrenchSweep2xAutoPt2
+        .atTime("shoot2")
+        .onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
+  }
+
+  public AutoRoutine shallowAggressiveBottomTrenchSweep2xAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("shallowAggressiveBottomTrenchSweep2xAuto");
+    final AutoTrajectory shallowAggressiveBottomTrenchSweep2xAutoPt1 =
+        routine.trajectory("shallowAggressiveBottomTrenchSweepBumpPt1");
+    final AutoTrajectory shallowAggressiveBottomTrenchSweep2xAutoPt2 =
+        routine.trajectory("shallowAggressiveBottomTrenchSweepBumpPt2");
+    routine
+        .active()
+        .onTrue(
+            shallowAggressiveBottomTrenchSweep2xAutoPt1
+                .resetOdometry()
+                .andThen(shallowAggressiveBottomTrenchSweep2xAutoPt1.cmd()));
+    shallowAggressiveBottomTrenchSweep2xAutoPt1
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    shallowAggressiveBottomTrenchSweep2xAutoPt1
+        .atTime("idle")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
+    shallowAggressiveBottomTrenchSweep2xAutoPt1
+        .atTime("shoot")
+        .onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    shallowAggressiveBottomTrenchSweep2xAutoPt1
+        .done()
+        .onTrue(Commands.waitSeconds(1).andThen(shallowAggressiveBottomTrenchSweep2xAutoPt2.cmd()));
+
+    shallowAggressiveBottomTrenchSweep2xAutoPt2
+        .atTime("intake2")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    shallowAggressiveBottomTrenchSweep2xAutoPt2
+        .atTime("idle2")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
+    shallowAggressiveBottomTrenchSweep2xAutoPt2
+        .atTime("shoot2")
+        .onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
+  }
+
+  public AutoRoutine shallowFriendlyBottomTrenchSweep2xAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("shallowFriendlyBottomTrenchSweep2xAuto");
+    final AutoTrajectory shallowFriendlyBottomTrenchSweep2xAutoPt1 =
+        routine.trajectory("shallowFriendlyBottomTrenchSweepBumpPt1");
+    final AutoTrajectory shallowFriendlyBottomTrenchSweep2xAutoPt2 =
+        routine.trajectory("shallowFriendlyBottomTrenchSweepBumpPt2");
+    routine
+        .active()
+        .onTrue(
+            shallowFriendlyBottomTrenchSweep2xAutoPt1
+                .resetOdometry()
+                .andThen(shallowFriendlyBottomTrenchSweep2xAutoPt1.cmd()));
+    shallowFriendlyBottomTrenchSweep2xAutoPt1
+        .atTime("intake")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    shallowFriendlyBottomTrenchSweep2xAutoPt1
+        .atTime("idle")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
+    shallowFriendlyBottomTrenchSweep2xAutoPt1
+        .atTime("shoot")
+        .onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    shallowFriendlyBottomTrenchSweep2xAutoPt1
+        .done()
+        .onTrue(Commands.waitSeconds(1).andThen(shallowFriendlyBottomTrenchSweep2xAutoPt2.cmd()));
+
+    shallowFriendlyBottomTrenchSweep2xAutoPt2
+        .atTime("intake2")
+        .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    shallowFriendlyBottomTrenchSweep2xAutoPt2
+        .atTime("idle2")
+        .onTrue(m_superstructure.setState(StructureState.IDLE));
+    shallowFriendlyBottomTrenchSweep2xAutoPt2
+        .atTime("shoot2")
+        .onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
+  }
 }

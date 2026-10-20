@@ -5627,13 +5627,13 @@
   "stats": {
    "success": true,
    "totalTime": 5.2019645981247855,
-   "solveSeconds": 4.325837374897674,
+   "solveSeconds": 4.063860167050734,
    "iterations": 159,
    "candidate": 1,
    "attempts": [
-    "candidate 0: direct: Solved_To_Acceptable_Level (45 it, 2.28s)",
-    "candidate 1: direct: Solved_To_Acceptable_Level (80 it, 3.64s)",
-    "candidate 2: direct: Solved_To_Acceptable_Level (34 it, 1.92s)"
+    "candidate 0: direct: Solved_To_Acceptable_Level (45 it, 1.94s)",
+    "candidate 1: direct: Solved_To_Acceptable_Level (80 it, 3.21s)",
+    "candidate 2: direct: Solved_To_Acceptable_Level (34 it, 1.63s)"
    ]
   }
  }

@@ -384,7 +384,7 @@
  },
  "folder": null,
  "output": {
-  "inputHash": "8742feda5617832c",
+  "inputHash": "5d1549bec8bbc1e5",
   "samples": [
    {
     "t": 0.0,
@@ -3985,12 +3985,12 @@
   "stats": {
    "success": true,
    "totalTime": 5.040163096651051,
-   "solveSeconds": 1.6682907911017537,
+   "solveSeconds": 1.4833971250336617,
    "iterations": 52,
    "candidate": 1,
    "attempts": [
-    "candidate 0: direct: Solved_To_Acceptable_Level (31 it, 0.99s)",
-    "candidate 1: direct: Solved_To_Acceptable_Level (21 it, 0.71s)"
+    "candidate 0: direct: Solved_To_Acceptable_Level (31 it, 0.93s)",
+    "candidate 1: direct: Solved_To_Acceptable_Level (21 it, 0.69s)"
    ]
   }
  }

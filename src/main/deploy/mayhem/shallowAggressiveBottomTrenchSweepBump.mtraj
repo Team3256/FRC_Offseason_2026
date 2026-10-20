@@ -4393,12 +4393,12 @@
   "stats": {
    "success": true,
    "totalTime": 4.413842485072597,
-   "solveSeconds": 1.1549600409343839,
+   "solveSeconds": 1.544873374979943,
    "iterations": 53,
    "candidate": 0,
    "attempts": [
-    "candidate 0: direct: Solved_To_Acceptable_Level (27 it, 0.64s)",
-    "candidate 1: direct: Solved_To_Acceptable_Level (26 it, 0.65s)"
+    "candidate 0: direct: Solved_To_Acceptable_Level (27 it, 0.77s)",
+    "candidate 1: direct: Solved_To_Acceptable_Level (26 it, 0.79s)"
    ]
   }
  }
