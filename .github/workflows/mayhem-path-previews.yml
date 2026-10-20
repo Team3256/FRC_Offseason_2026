@@ -20,9 +20,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
+      # Use the PR merge ref so branches created before this workflow landed
+      # still have its renderer. Path data is read from the exact base/head SHAs.
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-node@v4
