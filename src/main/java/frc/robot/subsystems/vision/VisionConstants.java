@@ -28,8 +28,8 @@ public class VisionConstants {
   // (Not used by Limelight, configure in web UI instead)
   public static Transform3d robotToFrontRightCam =
       new Transform3d(
-          Units.inchesToMeters(14.367),
-          Units.inchesToMeters(2.014),
+          Units.inchesToMeters(-14.367),
+          Units.inchesToMeters(-2.014),
           Units.inchesToMeters(8.170),
           new Rotation3d(0.0, Units.degreesToRadians(65), Units.degreesToRadians(90)));
 
