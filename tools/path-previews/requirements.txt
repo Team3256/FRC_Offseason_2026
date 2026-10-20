@@ -1,3 +1,0 @@
-Pillow==11.3.0
-imageio-ffmpeg==0.6.0
-mayhem-solver @ https://github.com/ryanabraham1/Mayhem/releases/download/v0.8.2/mayhem_solver-0.8.2-py3-none-any.whl
