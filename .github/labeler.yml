@@ -1,0 +1,6 @@
+documentation:
+  - changed-files:
+      - any-glob-to-any-file: ['docs/**', '**/*.md']
+enhancement:
+  - changed-files:
+      - any-glob-to-any-file: ['src/**', 'vendordeps/**', 'build.gradle', 'settings.gradle']

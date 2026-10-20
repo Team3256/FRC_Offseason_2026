@@ -1,0 +1,498 @@
+{
+ "formatVersion": 1,
+ "name": "LeftNormalThirdCycle",
+ "waypoints": [
+  {
+   "id": "w0",
+   "x": 2.7110000000000003,
+   "y": 5.464024000000001,
+   "heading": 3.141592653589793,
+   "translationMode": "fixed",
+   "headingMode": "fixed",
+   "headingTolerance": 0.0,
+   "tolerance": {
+    "kind": "none",
+    "radius": 0.1,
+    "dx": 0.1,
+    "dy": 0.1
+   },
+   "stop": true,
+   "split": false,
+   "intervals": null,
+   "poseRef": null
+  },
+  {
+   "id": "w3",
+   "x": 4.041,
+   "y": 7.424500400000001,
+   "heading": -2.4492935982947064e-16,
+   "translationMode": "fixed",
+   "headingMode": "fixed",
+   "headingTolerance": 0.0,
+   "tolerance": {
+    "kind": "none",
+    "radius": 0.1,
+    "dx": 0.1,
+    "dy": 0.1
+   },
+   "stop": false,
+   "split": false,
+   "intervals": null,
+   "poseRef": null
+  },
+  {
+   "id": "w4",
+   "x": 5.041,
+   "y": 7.424500400000001,
+   "heading": -2.4492935982947064e-16,
+   "translationMode": "fixed",
+   "headingMode": "fixed",
+   "headingTolerance": 0.0,
+   "tolerance": {
+    "kind": "none",
+    "radius": 0.1,
+    "dx": 0.1,
+    "dy": 0.1
+   },
+   "stop": false,
+   "split": false,
+   "intervals": null,
+   "poseRef": null
+  },
+  {
+   "id": "w5",
+   "x": 6.941000000000001,
+   "y": 6.352,
+   "heading": -0.8726646259971649,
+   "translationMode": "fixed",
+   "headingMode": "fixed",
+   "headingTolerance": 0.0,
+   "tolerance": {
+    "kind": "none",
+    "radius": 0.1,
+    "dx": 0.1,
+    "dy": 0.1
+   },
+   "stop": false,
+   "split": false,
+   "intervals": null,
+   "poseRef": null
+  },
+  {
+   "id": "w6",
+   "x": 7.841000000000001,
+   "y": 5.5920000000000005,
+   "heading": -1.5707963267948968,
+   "translationMode": "fixed",
+   "headingMode": "fixed",
+   "headingTolerance": 0.0,
+   "tolerance": {
+    "kind": "none",
+    "radius": 0.1,
+    "dx": 0.1,
+    "dy": 0.1
+   },
+   "stop": false,
+   "split": false,
+   "intervals": null,
+   "poseRef": null
+  },
+  {
+   "id": "w7",
+   "x": 7.941000000000001,
+   "y": 4.309000000000001,
+   "heading": -1.5707963267948968,
+   "translationMode": "fixed",
+   "headingMode": "fixed",
+   "headingTolerance": 0.0,
+   "tolerance": {
+    "kind": "none",
+    "radius": 0.1,
+    "dx": 0.1,
+    "dy": 0.1
+   },
+   "stop": false,
+   "split": false,
+   "intervals": null,
+   "poseRef": null
+  },
+  {
+   "id": "w8",
+   "x": 7.231,
+   "y": 4.299000000000001,
+   "heading": 2.5830872929516078,
+   "translationMode": "fixed",
+   "headingMode": "fixed",
+   "headingTolerance": 0.0,
+   "tolerance": {
+    "kind": "none",
+    "radius": 0.1,
+    "dx": 0.1,
+    "dy": 0.1
+   },
+   "stop": false,
+   "split": false,
+   "intervals": null,
+   "poseRef": null
+  },
+  {
+   "id": "w9",
+   "x": 6.841000000000001,
+   "y": 5.464024000000001,
+   "heading": 3.141592653589793,
+   "translationMode": "fixed",
+   "headingMode": "fixed",
+   "headingTolerance": 0.0,
+   "tolerance": {
+    "kind": "none",
+    "radius": 0.1,
+    "dx": 0.1,
+    "dy": 0.1
+   },
+   "stop": false,
+   "split": false,
+   "intervals": null,
+   "poseRef": null
+  },
+  {
+   "id": "w10",
+   "x": 5.941000000000001,
+   "y": 5.464024000000001,
+   "heading": 3.141592653589793,
+   "translationMode": "fixed",
+   "headingMode": "fixed",
+   "headingTolerance": 0.0,
+   "tolerance": {
+    "kind": "none",
+    "radius": 0.1,
+    "dx": 0.1,
+    "dy": 0.1
+   },
+   "stop": false,
+   "split": false,
+   "intervals": null,
+   "poseRef": null
+  },
+  {
+   "id": "w11",
+   "x": 2.7110000000000003,
+   "y": 5.464024000000001,
+   "heading": 3.141592653589793,
+   "translationMode": "fixed",
+   "headingMode": "fixed",
+   "headingTolerance": 0.0,
+   "tolerance": {
+    "kind": "none",
+    "radius": 0.1,
+    "dx": 0.1,
+    "dy": 0.1
+   },
+   "stop": true,
+   "split": false,
+   "intervals": null,
+   "poseRef": null
+  }
+ ],
+ "constraints": [
+  {
+   "id": "maxVelocity-0-1",
+   "enabled": true,
+   "scope": {
+    "kind": "range",
+    "from": 0,
+    "to": 0,
+    "region": []
+   },
+   "data": {
+    "type": "maxVelocity",
+    "value": 2.0
+   }
+  },
+  {
+   "id": "maxAcceleration-0-1",
+   "enabled": true,
+   "scope": {
+    "kind": "range",
+    "from": 0,
+    "to": 0,
+    "region": []
+   },
+   "data": {
+    "type": "maxAcceleration",
+    "value": 2.0
+   }
+  },
+  {
+   "id": "maxAngularVelocity-0-1",
+   "enabled": true,
+   "scope": {
+    "kind": "range",
+    "from": 0,
+    "to": 0,
+    "region": []
+   },
+   "data": {
+    "type": "maxAngularVelocity",
+    "value": 4.0
+   }
+  },
+  {
+   "id": "maxVelocity-2-3",
+   "enabled": true,
+   "scope": {
+    "kind": "range",
+    "from": 1,
+    "to": 1,
+    "region": []
+   },
+   "data": {
+    "type": "maxVelocity",
+    "value": 3.0
+   }
+  },
+  {
+   "id": "maxAngularVelocity-2-3",
+   "enabled": true,
+   "scope": {
+    "kind": "range",
+    "from": 1,
+    "to": 1,
+    "region": []
+   },
+   "data": {
+    "type": "maxAngularVelocity",
+    "value": 2.0
+   }
+  },
+  {
+   "id": "maxAngularVelocity-3-4",
+   "enabled": true,
+   "scope": {
+    "kind": "range",
+    "from": 1,
+    "to": 2,
+    "region": []
+   },
+   "data": {
+    "type": "maxAngularVelocity",
+    "value": 0.5
+   }
+  },
+  {
+   "id": "maxVelocity-0-11",
+   "enabled": true,
+   "scope": {
+    "kind": "range",
+    "from": 0,
+    "to": 9,
+    "region": []
+   },
+   "data": {
+    "type": "maxVelocity",
+    "value": 4.5
+   }
+  },
+  {
+   "id": "maxAcceleration-0-11",
+   "enabled": true,
+   "scope": {
+    "kind": "range",
+    "from": 0,
+    "to": 9,
+    "region": []
+   },
+   "data": {
+    "type": "maxAcceleration",
+    "value": 8.0
+   }
+  },
+  {
+   "id": "maxAngularVelocity-0-11",
+   "enabled": true,
+   "scope": {
+    "kind": "range",
+    "from": 0,
+    "to": 9,
+    "region": []
+   },
+   "data": {
+    "type": "maxAngularVelocity",
+    "value": 25.132741228718345
+   }
+  },
+  {
+   "id": "terrain-bump-blue-l",
+   "enabled": true,
+   "scope": {
+    "kind": "zone",
+    "from": 0,
+    "to": 0,
+    "region": [
+     [
+      4.0618,
+      4.6286
+     ],
+     [
+      5.1878,
+      4.6286
+     ],
+     [
+      5.1878,
+      6.4849
+     ],
+     [
+      4.0618,
+      6.4849
+     ]
+    ]
+   },
+   "data": {
+    "type": "roughTerrain",
+    "expectedSpeed": 0.7,
+    "feedbackScale": 0.3
+   }
+  },
+  {
+   "id": "terrain-bump-blue-r",
+   "enabled": true,
+   "scope": {
+    "kind": "zone",
+    "from": 0,
+    "to": 0,
+    "region": [
+     [
+      4.0618,
+      3.4406
+     ],
+     [
+      5.1878,
+      3.4406
+     ],
+     [
+      5.1878,
+      1.5843
+     ],
+     [
+      4.0618,
+      1.5843
+     ]
+    ]
+   },
+   "data": {
+    "type": "roughTerrain",
+    "expectedSpeed": 0.7,
+    "feedbackScale": 0.3
+   }
+  },
+  {
+   "id": "terrain-bump-red-l",
+   "enabled": true,
+   "scope": {
+    "kind": "zone",
+    "from": 0,
+    "to": 0,
+    "region": [
+     [
+      12.4792,
+      3.4406
+     ],
+     [
+      11.3532,
+      3.4406
+     ],
+     [
+      11.3532,
+      1.5843
+     ],
+     [
+      12.4792,
+      1.5843
+     ]
+    ]
+   },
+   "data": {
+    "type": "roughTerrain",
+    "expectedSpeed": 0.7,
+    "feedbackScale": 0.3
+   }
+  },
+  {
+   "id": "terrain-bump-red-r",
+   "enabled": true,
+   "scope": {
+    "kind": "zone",
+    "from": 0,
+    "to": 0,
+    "region": [
+     [
+      12.4792,
+      4.6286
+     ],
+     [
+      11.3532,
+      4.6286
+     ],
+     [
+      11.3532,
+      6.4849
+     ],
+     [
+      12.4792,
+      6.4849
+     ]
+    ]
+   },
+   "data": {
+    "type": "roughTerrain",
+    "expectedSpeed": 0.7,
+    "feedbackScale": 0.3
+   }
+  },
+  {
+   "id": "intake-extended",
+   "enabled": true,
+   "scope": {
+    "kind": "range",
+    "from": 0,
+    "to": 9,
+    "region": []
+   },
+   "data": {
+    "type": "intakeExtended"
+   }
+  }
+ ],
+ "markers": [
+  {
+   "id": "marker-3",
+   "name": "START_INTAKE_3",
+   "command": "",
+   "waypoint": 1,
+   "offset": 0.0,
+   "endWaypoint": null,
+   "endOffset": 0.0,
+   "recoveryPolicy": "fireAtJoin",
+   "mustHit": false
+  },
+  {
+   "id": "marker-11",
+   "name": "READY_TO_CROSS_BUMP",
+   "command": "",
+   "waypoint": 9,
+   "offset": 0.0,
+   "endWaypoint": null,
+   "endOffset": 0.0,
+   "recoveryPolicy": "fireAtJoin",
+   "mustHit": false
+  }
+ ],
+ "settings": {
+  "targetDt": 0.08,
+  "smoothing": 0.02,
+  "candidates": 3,
+  "maxIterations": 1500,
+  "timeLimit": 60.0
+ },
+ "folder": "581 - Top - Depot",
+ "output": null
+}

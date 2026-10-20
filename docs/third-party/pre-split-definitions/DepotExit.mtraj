@@ -1,0 +1,277 @@
+{
+ "formatVersion": 1,
+ "name": "DepotExit",
+ "waypoints": [
+  {
+   "id": "w0",
+   "x": 1.4,
+   "y": 5.0,
+   "heading": -0.3490658503988659,
+   "translationMode": "fixed",
+   "headingMode": "fixed",
+   "headingTolerance": 0.0,
+   "tolerance": {
+    "kind": "none",
+    "radius": 0.1,
+    "dx": 0.1,
+    "dy": 0.1
+   },
+   "stop": true,
+   "split": false,
+   "intervals": null,
+   "poseRef": null
+  },
+  {
+   "id": "w1",
+   "x": 1.5,
+   "y": 6.0,
+   "heading": 0.08726646259971647,
+   "translationMode": "fixed",
+   "headingMode": "fixed",
+   "headingTolerance": 0.0,
+   "tolerance": {
+    "kind": "none",
+    "radius": 0.1,
+    "dx": 0.1,
+    "dy": 0.1
+   },
+   "stop": false,
+   "split": false,
+   "intervals": null,
+   "poseRef": null
+  },
+  {
+   "id": "w2",
+   "x": 1.4,
+   "y": 7.7,
+   "heading": 3.141592653589793,
+   "translationMode": "fixed",
+   "headingMode": "fixed",
+   "headingTolerance": 0.0,
+   "tolerance": {
+    "kind": "circle",
+    "radius": 0.09719999999999993,
+    "dx": 0.1,
+    "dy": 0.1
+   },
+   "stop": false,
+   "split": false,
+   "intervals": null,
+   "poseRef": null
+  },
+  {
+   "id": "w3",
+   "x": 8.3,
+   "y": 7.7,
+   "heading": 3.141592653589793,
+   "translationMode": "fixed",
+   "headingMode": "fixed",
+   "headingTolerance": 0.0,
+   "tolerance": {
+    "kind": "circle",
+    "radius": 0.09719999999999993,
+    "dx": 0.1,
+    "dy": 0.1
+   },
+   "stop": true,
+   "split": false,
+   "intervals": null,
+   "poseRef": null
+  }
+ ],
+ "constraints": [
+  {
+   "id": "speed-1",
+   "enabled": true,
+   "scope": {
+    "kind": "range",
+    "from": 0,
+    "to": 1,
+    "region": []
+   },
+   "data": {
+    "type": "maxVelocity",
+    "value": 1.524
+   }
+  },
+  {
+   "id": "speed-2",
+   "enabled": true,
+   "scope": {
+    "kind": "range",
+    "from": 1,
+    "to": 2,
+    "region": []
+   },
+   "data": {
+    "type": "maxVelocity",
+    "value": 1.524
+   }
+  },
+  {
+   "id": "speed-3",
+   "enabled": true,
+   "scope": {
+    "kind": "range",
+    "from": 2,
+    "to": 3,
+    "region": []
+   },
+   "data": {
+    "type": "maxVelocity",
+    "value": 3.3528
+   }
+  },
+  {
+   "id": "intake-extended",
+   "enabled": true,
+   "scope": {
+    "kind": "range",
+    "from": 0,
+    "to": 3,
+    "region": []
+   },
+   "data": {
+    "type": "intakeExtended"
+   }
+  },
+  {
+   "id": "terrain-bump-blue-l",
+   "enabled": true,
+   "scope": {
+    "kind": "zone",
+    "from": 0,
+    "to": 0,
+    "region": [
+     [
+      4.0618,
+      4.6286
+     ],
+     [
+      5.1878,
+      4.6286
+     ],
+     [
+      5.1878,
+      6.4849
+     ],
+     [
+      4.0618,
+      6.4849
+     ]
+    ]
+   },
+   "data": {
+    "type": "roughTerrain",
+    "expectedSpeed": 0.7,
+    "feedbackScale": 0.3
+   }
+  },
+  {
+   "id": "terrain-bump-blue-r",
+   "enabled": true,
+   "scope": {
+    "kind": "zone",
+    "from": 0,
+    "to": 0,
+    "region": [
+     [
+      4.0618,
+      3.4406
+     ],
+     [
+      5.1878,
+      3.4406
+     ],
+     [
+      5.1878,
+      1.5843
+     ],
+     [
+      4.0618,
+      1.5843
+     ]
+    ]
+   },
+   "data": {
+    "type": "roughTerrain",
+    "expectedSpeed": 0.7,
+    "feedbackScale": 0.3
+   }
+  },
+  {
+   "id": "terrain-bump-red-l",
+   "enabled": true,
+   "scope": {
+    "kind": "zone",
+    "from": 0,
+    "to": 0,
+    "region": [
+     [
+      12.4792,
+      3.4406
+     ],
+     [
+      11.3532,
+      3.4406
+     ],
+     [
+      11.3532,
+      1.5843
+     ],
+     [
+      12.4792,
+      1.5843
+     ]
+    ]
+   },
+   "data": {
+    "type": "roughTerrain",
+    "expectedSpeed": 0.7,
+    "feedbackScale": 0.3
+   }
+  },
+  {
+   "id": "terrain-bump-red-r",
+   "enabled": true,
+   "scope": {
+    "kind": "zone",
+    "from": 0,
+    "to": 0,
+    "region": [
+     [
+      12.4792,
+      4.6286
+     ],
+     [
+      11.3532,
+      4.6286
+     ],
+     [
+      11.3532,
+      6.4849
+     ],
+     [
+      12.4792,
+      6.4849
+     ]
+    ]
+   },
+   "data": {
+    "type": "roughTerrain",
+    "expectedSpeed": 0.7,
+    "feedbackScale": 0.3
+   }
+  }
+ ],
+ "markers": [],
+ "settings": {
+  "targetDt": 0.08,
+  "smoothing": 0.02,
+  "candidates": 3,
+  "maxIterations": 1500,
+  "timeLimit": 60.0
+ },
+ "folder": "2910 - Top - Depot",
+ "output": null
+}

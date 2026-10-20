@@ -1,0 +1,1730 @@
+[
+  {
+    "name": "LeftNormalFirstCycle",
+    "team": 581,
+    "editedParent": "LeftNormalFirstCycle.mtraj"
+  },
+  {
+    "name": "LeftNormalSecondCycle",
+    "team": 581,
+    "editedParent": "LeftNormalSecondCycle.mtraj"
+  },
+  {
+    "name": "LeftNormalSecondCycleFar",
+    "team": 581,
+    "editedParent": "LeftNormalSecondCycleFar.mtraj"
+  },
+  {
+    "name": "LeftNormalThirdCycle",
+    "team": 581,
+    "editedParent": "LeftNormalThirdCycle.mtraj"
+  },
+  {
+    "name": "RightNormalFirstCycle",
+    "team": 581,
+    "editedParent": "RightNormalFirstCycle.mtraj"
+  },
+  {
+    "name": "RightNormalSecondCycle",
+    "team": 581,
+    "editedParent": "RightNormalSecondCycle.mtraj"
+  },
+  {
+    "name": "RightNormalSecondCycleFar",
+    "team": 581,
+    "editedParent": "RightNormalSecondCycleFar.mtraj"
+  },
+  {
+    "name": "RightNormalThirdCycle",
+    "team": 581,
+    "editedParent": "RightNormalThirdCycle.mtraj"
+  },
+  {
+    "name": "DepotNZFirstCycle",
+    "team": 2910,
+    "sourceMethod": "createLeftNeutralZoneAuto",
+    "events": [
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneAuto",
+        "sourceCommand": 1,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftFirstSweepEntry(alliance), DTP_FAST_VELOCITY_METERS, 3.5)",
+        "speed": 4.572,
+        "sourceArrivalRadius": 3.5,
+        "name": "DepotNZ-01",
+        "start": [
+          4.5,
+          7.6,
+          -1.5707963267948966
+        ],
+        "target": [
+          9.9,
+          7.0,
+          -1.5707963267948966
+        ],
+        "arrivalRadius": 3.5,
+        "endpoint": [
+          6.421406738072686,
+          7.3865087248847665,
+          -1.5707963267948966
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneAuto",
+        "sourceCommand": 2,
+        "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getLeftFirstSweepEntry(alliance) .getTranslation(), FieldConstants.getLeftFirstSweepCenterpoint(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 2.5)",
+        "speed": 4.572,
+        "sourceArrivalRadius": 2.5,
+        "name": "DepotNZ-02",
+        "start": [
+          6.421406738072686,
+          7.3865087248847665,
+          -1.5707963267948966
+        ],
+        "target": [
+          9.9,
+          7.0,
+          -1.5707963267948966
+        ],
+        "arrivalRadius": 2.5,
+        "endpoint": [
+          7.41529051087701,
+          7.2760774526394325,
+          -1.5707963267948966
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneAuto",
+        "sourceCommand": 3,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftFirstSweepCenterpoint(alliance), DTP_FAST_VELOCITY_METERS, 3.0)",
+        "speed": 4.572,
+        "sourceArrivalRadius": 3.0,
+        "name": "DepotNZ-03",
+        "start": [
+          7.41529051087701,
+          7.2760774526394325,
+          -1.5707963267948966
+        ],
+        "target": [
+          8.1,
+          2.8,
+          -1.5707963267948966
+        ],
+        "arrivalRadius": 3.0,
+        "endpoint": [
+          7.646364235574162,
+          5.765504105178725,
+          -1.5707963267948966
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneAuto",
+        "sourceCommand": 4,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftFirstSweepCenterpointSecond(alliance), DTP_FAST_VELOCITY_METERS, 1.0)",
+        "speed": 4.572,
+        "sourceArrivalRadius": 1.0,
+        "name": "DepotNZ-04",
+        "start": [
+          7.646364235574162,
+          5.765504105178725,
+          -1.5707963267948966
+        ],
+        "target": [
+          8.1,
+          2.8,
+          0.0
+        ],
+        "arrivalRadius": 1.0,
+        "endpoint": [
+          7.9501282274244245,
+          3.7887054489569043,
+          -8.470330173421749e-32
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneAuto",
+        "sourceCommand": 5,
+        "sourceCall": "driveToPoint(FieldConstants.getLeftSweepExit(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.5,
+        "name": "DepotNZ-05",
+        "start": [
+          7.9501282274244245,
+          3.7887054489569043,
+          -8.470330173421749e-32
+        ],
+        "target": [
+          6.3,
+          5.3,
+          0.7853981633974483
+        ],
+        "arrivalRadius": 0.5,
+        "endpoint": [
+          6.668763355067222,
+          4.962341003487793,
+          0.7853981633974482
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneAuto",
+        "sourceCommand": 6,
+        "sourceCall": "driveToPoint(FieldConstants.getLeftFirstBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.0)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 1.0,
+        "name": "DepotNZ-06",
+        "start": [
+          6.668763355067222,
+          4.962341003487793,
+          0.7853981633974482
+        ],
+        "target": [
+          2.6,
+          5.6,
+          1.5707963267948966
+        ],
+        "arrivalRadius": 1.0,
+        "endpoint": [
+          3.5879410239709206,
+          5.4451693083126935,
+          1.5707963267948966
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneAuto",
+        "sourceCommand": 7,
+        "sourceCall": "driveToPoint(FieldConstants.getLeftSecondBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.1524,
+        "name": "DepotNZ-07",
+        "start": [
+          3.5879410239709206,
+          5.4451693083126935,
+          1.5707963267948966
+        ],
+        "target": [
+          2.6,
+          5.6,
+          2.356194490192345
+        ],
+        "arrivalRadius": 0.1524,
+        "endpoint": [
+          2.7505370595468666,
+          5.5762436621574265,
+          2.356194490192345
+        ]
+      }
+    ],
+    "note": "continuous cycle; internal arrival poses are fixed handoff locations, intermediate stops removed"
+  },
+  {
+    "name": "DepotNZSecondCycle",
+    "team": 2910,
+    "sourceMethod": "createLeftNeutralZoneAuto",
+    "events": [
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneAuto",
+        "sourceCommand": 8,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftTrenchEnter(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.75)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.75,
+        "name": "DepotNZ-08",
+        "start": [
+          2.7505370595468666,
+          5.5762436621574265,
+          2.356194490192345
+        ],
+        "target": [
+          2.8,
+          7.7,
+          0.0
+        ],
+        "arrivalRadius": 0.75,
+        "endpoint": [
+          2.7855279010074203,
+          6.950139634593458,
+          1.5875412125315152e-23
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneAuto",
+        "sourceCommand": 9,
+        "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getLeftSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getLeftTrenchEnter(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 2.0)",
+        "speed": 4.572,
+        "sourceArrivalRadius": 2.0,
+        "clearanceAdaptation": "direct target ray intersects field geometry; solve a local obstacle-avoiding movement",
+        "name": "DepotNZ-09",
+        "start": [
+          2.7855279010074203,
+          6.950139634593458,
+          1.5875412125315152e-23
+        ],
+        "target": [
+          7.2,
+          7.7,
+          0.0
+        ],
+        "arrivalRadius": 2.0,
+        "endpoint": [
+          5.221182945265732,
+          7.409682891321627,
+          -4.5747580524458245e-29
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneAuto",
+        "sourceCommand": 10,
+        "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getLeftSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getLeftSecondSweepCenterpoint(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 1.0)",
+        "speed": 4.572,
+        "sourceArrivalRadius": 1.0,
+        "name": "DepotNZ-10",
+        "start": [
+          5.221182945265732,
+          7.409682891321627,
+          -4.5747580524458245e-29
+        ],
+        "target": [
+          7.2,
+          7.7,
+          -1.3962634015954638
+        ],
+        "arrivalRadius": 1.0,
+        "endpoint": [
+          6.214711427449495,
+          7.529101127507768,
+          -1.3962634015954638
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneAuto",
+        "sourceCommand": 11,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftSecondSweepCenterpoint(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.5)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 1.5,
+        "name": "DepotNZ-11",
+        "start": [
+          6.214711427449495,
+          7.529101127507768,
+          -1.3962634015954638
+        ],
+        "target": [
+          6.0,
+          3.3,
+          -1.3962634015954638
+        ],
+        "arrivalRadius": 1.5,
+        "endpoint": [
+          6.076057530619605,
+          4.798070513382244,
+          -1.3962634015954638
+        ]
+      },
+      {
+        "kind": "timedHold",
+        "sourceCommand": 12,
+        "duration": 0.5,
+        "sourceCall": "driveToPointWhileIntaking(FieldConstants.getLeftSecondSweepCurvepoint(alliance), 0.01)",
+        "target": [
+          8.3,
+          4.8,
+          0.17453292519943275
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneAuto",
+        "sourceCommand": 13,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftSecondSweepCurvepoint(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.5,
+        "name": "DepotNZ-12",
+        "start": [
+          6.076057530619605,
+          4.798070513382244,
+          -1.3962634015954638
+        ],
+        "target": [
+          8.3,
+          4.8,
+          0.17453292519943275
+        ],
+        "arrivalRadius": 0.5,
+        "endpoint": [
+          7.80000000163596,
+          4.799942637754201,
+          0.17453292519943275
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneAuto",
+        "sourceCommand": 14,
+        "sourceCall": "driveToPoint(FieldConstants.getLeftSweepExit(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.5,
+        "name": "DepotNZ-13",
+        "start": [
+          7.80000000163596,
+          4.799942637754201,
+          0.17453292519943275
+        ],
+        "target": [
+          6.3,
+          5.3,
+          0.7853981633974483
+        ],
+        "arrivalRadius": 0.5,
+        "endpoint": [
+          6.77433631315028,
+          5.141870078741391,
+          0.7853981633974483
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneAuto",
+        "sourceCommand": 15,
+        "sourceCall": "driveToPoint(FieldConstants.getLeftFirstBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.0)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 1.0,
+        "name": "DepotNZ-14",
+        "start": [
+          6.77433631315028,
+          5.141870078741391,
+          0.7853981633974483
+        ],
+        "target": [
+          2.6,
+          5.6,
+          1.5707963267948966
+        ],
+        "arrivalRadius": 1.0,
+        "endpoint": [
+          3.5940314327045564,
+          5.490905908829548,
+          1.5707963267948966
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneAuto",
+        "sourceCommand": 16,
+        "sourceCall": "driveToPoint(FieldConstants.getLeftSecondBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.1524,
+        "name": "DepotNZ-15",
+        "start": [
+          3.5940314327045564,
+          5.490905908829548,
+          1.5707963267948966
+        ],
+        "target": [
+          2.6,
+          5.6,
+          2.356194490192345
+        ],
+        "arrivalRadius": 0.1524,
+        "endpoint": [
+          2.7514691788635375,
+          5.583181685228683,
+          2.356194490192345
+        ]
+      }
+    ],
+    "note": "continuous cycle; internal arrival poses are fixed handoff locations, intermediate stops removed"
+  },
+  {
+    "name": "DepotNZThirdIntake",
+    "team": 2910,
+    "sourceMethod": "createLeftNeutralZoneAuto",
+    "events": [
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneAuto",
+        "sourceCommand": 17,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftTrenchEnter(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.75)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.75,
+        "name": "DepotNZ-16",
+        "start": [
+          2.7514691788635375,
+          5.583181685228683,
+          2.356194490192345
+        ],
+        "target": [
+          2.8,
+          7.7,
+          0.0
+        ],
+        "arrivalRadius": 0.75,
+        "endpoint": [
+          2.7856437174651183,
+          6.950137407992072,
+          3.221266469851359e-23
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneAuto",
+        "sourceCommand": 18,
+        "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getLeftSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getLeftTrenchEnter(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 2.0)",
+        "speed": 4.572,
+        "sourceArrivalRadius": 2.0,
+        "clearanceAdaptation": "direct target ray intersects field geometry; solve a local obstacle-avoiding movement",
+        "name": "DepotNZ-17",
+        "start": [
+          2.7856437174651183,
+          6.950137407992072,
+          3.221266469851359e-23
+        ],
+        "target": [
+          7.2,
+          7.7,
+          0.0
+        ],
+        "arrivalRadius": 2.0,
+        "endpoint": [
+          5.221206599472972,
+          7.409523963372393,
+          -1.754555693726263e-28
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneAuto",
+        "sourceCommand": 19,
+        "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getLeftSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getLeftSecondSweepCenterpoint(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 1.0)",
+        "speed": 4.572,
+        "sourceArrivalRadius": 1.0,
+        "name": "DepotNZ-18",
+        "start": [
+          5.221206599472972,
+          7.409523963372393,
+          -1.754555693726263e-28
+        ],
+        "target": [
+          7.2,
+          7.7,
+          -1.3962634015954638
+        ],
+        "arrivalRadius": 1.0,
+        "endpoint": [
+          6.214707432908992,
+          7.529124166010371,
+          -1.3962634015954638
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneAuto",
+        "sourceCommand": 20,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftFirstSweepCenterpoint(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.1524,
+        "name": "DepotNZ-19",
+        "start": [
+          6.214707432908992,
+          7.529124166010371,
+          -1.3962634015954638
+        ],
+        "target": [
+          8.1,
+          2.8,
+          -1.5707963267948966
+        ],
+        "arrivalRadius": 0.1524,
+        "endpoint": [
+          8.043564137280125,
+          2.941565403219887,
+          -1.5707963267948966
+        ]
+      }
+    ],
+    "note": "continuous cycle; internal arrival poses are fixed handoff locations, intermediate stops removed"
+  },
+  {
+    "name": "HPNZFirstCycle",
+    "team": 2910,
+    "sourceMethod": "createRightNeutralZoneAuto",
+    "events": [
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createRightNeutralZoneAuto",
+        "sourceCommand": 1,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightFirstSweepEntry(alliance), DTP_FAST_VELOCITY_METERS, 2.5)",
+        "speed": 4.572,
+        "sourceArrivalRadius": 2.5,
+        "name": "HPNZ-01",
+        "start": [
+          4.5,
+          0.4690000000000012,
+          1.5707963267948966
+        ],
+        "target": [
+          9.9,
+          1.0690000000000008,
+          1.5707963267948966
+        ],
+        "arrivalRadius": 2.5,
+        "endpoint": [
+          7.415290641580138,
+          0.7929213659179514,
+          1.5707963267948966
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createRightNeutralZoneAuto",
+        "sourceCommand": 2,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightFirstSweepCenterpoint(alliance), DTP_FAST_VELOCITY_METERS, 2.0)",
+        "speed": 4.572,
+        "sourceArrivalRadius": 2.0,
+        "name": "HPNZ-02",
+        "start": [
+          7.415290641580138,
+          0.7929213659179514,
+          1.5707963267948966
+        ],
+        "target": [
+          8.1,
+          5.269000000000001,
+          1.5707963267948966
+        ],
+        "arrivalRadius": 2.0,
+        "endpoint": [
+          7.797576270780089,
+          3.291997261062884,
+          1.5707963267948966
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createRightNeutralZoneAuto",
+        "sourceCommand": 3,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightFirstSweepCenterpointSecond(alliance), DTP_FAST_VELOCITY_METERS, 1.0)",
+        "speed": 4.572,
+        "sourceArrivalRadius": 1.0,
+        "name": "HPNZ-03",
+        "start": [
+          7.797576270780089,
+          3.291997261062884,
+          1.5707963267948966
+        ],
+        "target": [
+          8.1,
+          5.269000000000001,
+          0.0
+        ],
+        "arrivalRadius": 1.0,
+        "endpoint": [
+          7.941232182189462,
+          4.281684047548134,
+          -1.6311757416509817e-32
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createRightNeutralZoneAuto",
+        "sourceCommand": 4,
+        "sourceCall": "driveToPoint(FieldConstants.getRightSweepExit(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.5,
+        "name": "HPNZ-04",
+        "start": [
+          7.941232182189462,
+          4.281684047548134,
+          -1.6311757416509817e-32
+        ],
+        "target": [
+          6.3,
+          2.769000000000001,
+          -0.7853981633974492
+        ],
+        "arrivalRadius": 0.5,
+        "endpoint": [
+          6.667698977178619,
+          3.1078177565413694,
+          -0.7853981633974492
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createRightNeutralZoneAuto",
+        "sourceCommand": 5,
+        "sourceCall": "driveToPoint(FieldConstants.getRightFirstBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.0)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 1.0,
+        "name": "HPNZ-05",
+        "start": [
+          6.667698977178619,
+          3.1078177565413694,
+          -0.7853981633974492
+        ],
+        "target": [
+          2.6,
+          2.469000000000001,
+          -1.5707963267948966
+        ],
+        "arrivalRadius": 1.0,
+        "endpoint": [
+          3.5878917309048437,
+          2.6241448933846896,
+          -1.5707963267948966
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createRightNeutralZoneAuto",
+        "sourceCommand": 6,
+        "sourceCall": "driveToPoint(FieldConstants.getRightSecondBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.1524,
+        "name": "HPNZ-06",
+        "start": [
+          3.5878917309048437,
+          2.6241448933846896,
+          -1.5707963267948966
+        ],
+        "target": [
+          2.6,
+          2.469000000000001,
+          -2.356194490192345
+        ],
+        "arrivalRadius": 0.1524,
+        "endpoint": [
+          2.750529522527023,
+          2.492804010917875,
+          -2.356194490192345
+        ]
+      }
+    ],
+    "note": "continuous cycle; internal arrival poses are fixed handoff locations, intermediate stops removed"
+  },
+  {
+    "name": "HPNZSecondCycle",
+    "team": 2910,
+    "sourceMethod": "createRightNeutralZoneAuto",
+    "events": [
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createRightNeutralZoneAuto",
+        "sourceCommand": 7,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightTrenchEnter(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.75)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.75,
+        "name": "HPNZ-07",
+        "start": [
+          2.750529522527023,
+          2.492804010917875,
+          -2.356194490192345
+        ],
+        "target": [
+          2.8,
+          0.36900000000000066,
+          0.0
+        ],
+        "arrivalRadius": 0.75,
+        "endpoint": [
+          2.7855266807160053,
+          1.1188603419670462,
+          1.3638683233480268e-23
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createRightNeutralZoneAuto",
+        "sourceCommand": 8,
+        "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getRightSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getRightTrenchEnter(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 2.0)",
+        "speed": 4.572,
+        "sourceArrivalRadius": 2.0,
+        "clearanceAdaptation": "direct target ray intersects field geometry; solve a local obstacle-avoiding movement",
+        "name": "HPNZ-08",
+        "start": [
+          2.7855266807160053,
+          1.1188603419670462,
+          1.3638683233480268e-23
+        ],
+        "target": [
+          7.2,
+          0.36900000000000066,
+          0.0
+        ],
+        "arrivalRadius": 2.0,
+        "endpoint": [
+          5.221226657639256,
+          0.6596127564408641,
+          6.028550155153037e-29
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createRightNeutralZoneAuto",
+        "sourceCommand": 9,
+        "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getRightSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getRightSecondSweepCenterPoint(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 1.0)",
+        "speed": 4.572,
+        "sourceArrivalRadius": 1.0,
+        "name": "HPNZ-09",
+        "start": [
+          5.221226657639256,
+          0.6596127564408641,
+          6.028550155153037e-29
+        ],
+        "target": [
+          7.2,
+          0.36900000000000066,
+          1.3962634015954638
+        ],
+        "arrivalRadius": 1.0,
+        "endpoint": [
+          6.214738464948346,
+          0.5400546763098483,
+          1.3962634015954638
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createRightNeutralZoneAuto",
+        "sourceCommand": 10,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightSecondSweepCenterPoint(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.5)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 1.5,
+        "name": "HPNZ-10",
+        "start": [
+          6.214738464948346,
+          0.5400546763098483,
+          1.3962634015954638
+        ],
+        "target": [
+          6.0,
+          4.769000000000001,
+          1.3962634015954638
+        ],
+        "arrivalRadius": 1.5,
+        "endpoint": [
+          6.076070196104413,
+          3.270930127682061,
+          1.3962634015954638
+        ]
+      },
+      {
+        "kind": "timedHold",
+        "sourceCommand": 11,
+        "duration": 0.5,
+        "sourceCall": "driveToPointWhileIntaking(FieldConstants.getRightSecondSweepCurvepoint(alliance), 0.01)",
+        "target": [
+          8.3,
+          3.269000000000001,
+          -0.17453292519943275
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createRightNeutralZoneAuto",
+        "sourceCommand": 12,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightSecondSweepCurvepoint(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.5,
+        "name": "HPNZ-11",
+        "start": [
+          6.076070196104413,
+          3.270930127682061,
+          1.3962634015954638
+        ],
+        "target": [
+          8.3,
+          3.269000000000001,
+          -0.17453292519943275
+        ],
+        "arrivalRadius": 0.5,
+        "endpoint": [
+          7.800000008159982,
+          3.269057584740295,
+          -0.17453292519943273
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createRightNeutralZoneAuto",
+        "sourceCommand": 13,
+        "sourceCall": "driveToPoint(FieldConstants.getRightSweepExit(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.5,
+        "name": "HPNZ-12",
+        "start": [
+          7.800000008159982,
+          3.269057584740295,
+          -0.17453292519943273
+        ],
+        "target": [
+          6.3,
+          2.769000000000001,
+          -0.7853981633974492
+        ],
+        "arrivalRadius": 0.5,
+        "endpoint": [
+          6.77433629228115,
+          2.9271299838589293,
+          -0.7853981633974492
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createRightNeutralZoneAuto",
+        "sourceCommand": 14,
+        "sourceCall": "driveToPoint(FieldConstants.getRightFirstBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.0)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 1.0,
+        "name": "HPNZ-13",
+        "start": [
+          6.77433629228115,
+          2.9271299838589293,
+          -0.7853981633974492
+        ],
+        "target": [
+          2.6,
+          2.469000000000001,
+          -1.5707963267948966
+        ],
+        "arrivalRadius": 1.0,
+        "endpoint": [
+          3.594031425664395,
+          2.578094155318457,
+          -1.5707963267948966
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createRightNeutralZoneAuto",
+        "sourceCommand": 15,
+        "sourceCall": "driveToPoint(FieldConstants.getRightSecondBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.1524,
+        "name": "HPNZ-14",
+        "start": [
+          3.594031425664395,
+          2.578094155318457,
+          -1.5707963267948966
+        ],
+        "target": [
+          2.6,
+          2.469000000000001,
+          -2.356194490192345
+        ],
+        "arrivalRadius": 0.1524,
+        "endpoint": [
+          2.751469186732998,
+          2.4858183035432657,
+          -2.356194490192345
+        ]
+      }
+    ],
+    "note": "continuous cycle; internal arrival poses are fixed handoff locations, intermediate stops removed"
+  },
+  {
+    "name": "HPNZThirdIntake",
+    "team": 2910,
+    "sourceMethod": "createRightNeutralZoneAuto",
+    "events": [
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createRightNeutralZoneAuto",
+        "sourceCommand": 16,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightTrenchEnter(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.75)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.75,
+        "name": "HPNZ-15",
+        "start": [
+          2.751469186732998,
+          2.4858183035432657,
+          -2.356194490192345
+        ],
+        "target": [
+          2.8,
+          0.36900000000000066,
+          0.0
+        ],
+        "arrivalRadius": 0.75,
+        "endpoint": [
+          2.7856439572566027,
+          1.1188625967736188,
+          -1.6173315096497743e-24
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createRightNeutralZoneAuto",
+        "sourceCommand": 17,
+        "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getRightSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getRightTrenchEnter(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 2.0)",
+        "speed": 4.572,
+        "sourceArrivalRadius": 2.0,
+        "clearanceAdaptation": "direct target ray intersects field geometry; solve a local obstacle-avoiding movement",
+        "name": "HPNZ-16",
+        "start": [
+          2.7856439572566027,
+          1.1188625967736188,
+          -1.6173315096497743e-24
+        ],
+        "target": [
+          7.2,
+          0.36900000000000066,
+          0.0
+        ],
+        "arrivalRadius": 2.0,
+        "endpoint": [
+          5.221195878321924,
+          0.6594049853646875,
+          -4.246645840164789e-29
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createRightNeutralZoneAuto",
+        "sourceCommand": 18,
+        "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getRightSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getRightSecondSweepCenterPoint(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 1.0)",
+        "speed": 4.572,
+        "sourceArrivalRadius": 1.0,
+        "name": "HPNZ-17",
+        "start": [
+          5.221195878321924,
+          0.6594049853646875,
+          -4.246645840164789e-29
+        ],
+        "target": [
+          7.2,
+          0.36900000000000066,
+          1.3962634015954638
+        ],
+        "arrivalRadius": 1.0,
+        "endpoint": [
+          6.214743624536301,
+          0.5400843949995334,
+          1.3962634015954638
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createRightNeutralZoneAuto",
+        "sourceCommand": 19,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getRightFirstSweepCenterpoint(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.1524,
+        "name": "HPNZ-18",
+        "start": [
+          6.214743624536301,
+          0.5400843949995334,
+          1.3962634015954638
+        ],
+        "target": [
+          8.1,
+          5.269000000000001,
+          1.5707963267948966
+        ],
+        "arrivalRadius": 0.1524,
+        "endpoint": [
+          8.043562924457396,
+          5.127435080284897,
+          1.5707963267948966
+        ]
+      }
+    ],
+    "note": "continuous cycle; internal arrival poses are fixed handoff locations, intermediate stops removed"
+  },
+  {
+    "name": "DepotNZAltFirstCycle",
+    "team": 2910,
+    "sourceMethod": "createLeftNeutralZoneToDepotAuto",
+    "events": [
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneToDepotAuto",
+        "sourceCommand": 1,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftFirstSweepEntry(alliance), DTP_FAST_VELOCITY_METERS, 3.5)",
+        "speed": 4.572,
+        "sourceArrivalRadius": 3.5,
+        "name": "DepotNZDepot-01",
+        "start": [
+          4.5,
+          7.6,
+          -1.5707963267948966
+        ],
+        "target": [
+          9.9,
+          7.0,
+          -1.5707963267948966
+        ],
+        "arrivalRadius": 3.5,
+        "endpoint": [
+          6.421406738072686,
+          7.3865087248847665,
+          -1.5707963267948966
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneToDepotAuto",
+        "sourceCommand": 2,
+        "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getLeftFirstSweepEntry(alliance) .getTranslation(), FieldConstants.getLeftFirstSweepCenterpoint(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 2.5)",
+        "speed": 4.572,
+        "sourceArrivalRadius": 2.5,
+        "name": "DepotNZDepot-02",
+        "start": [
+          6.421406738072686,
+          7.3865087248847665,
+          -1.5707963267948966
+        ],
+        "target": [
+          9.9,
+          7.0,
+          -1.5707963267948966
+        ],
+        "arrivalRadius": 2.5,
+        "endpoint": [
+          7.41529051087701,
+          7.2760774526394325,
+          -1.5707963267948966
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneToDepotAuto",
+        "sourceCommand": 3,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftFirstSweepCenterpoint(alliance), DTP_FAST_VELOCITY_METERS, 2.0)",
+        "speed": 4.572,
+        "sourceArrivalRadius": 2.0,
+        "name": "DepotNZDepot-03",
+        "start": [
+          7.41529051087701,
+          7.2760774526394325,
+          -1.5707963267948966
+        ],
+        "target": [
+          8.1,
+          2.8,
+          -1.5707963267948966
+        ],
+        "arrivalRadius": 2.0,
+        "endpoint": [
+          7.797576158706288,
+          4.777002738766431,
+          -1.5707963267948966
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneToDepotAuto",
+        "sourceCommand": 4,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftFirstSweepCenterpointSecond(alliance), DTP_FAST_VELOCITY_METERS, 1.0)",
+        "speed": 4.572,
+        "sourceArrivalRadius": 1.0,
+        "name": "DepotNZDepot-04",
+        "start": [
+          7.797576158706288,
+          4.777002738766431,
+          -1.5707963267948966
+        ],
+        "target": [
+          8.1,
+          2.8,
+          0.0
+        ],
+        "arrivalRadius": 1.0,
+        "endpoint": [
+          7.941232126346926,
+          3.787315943472042,
+          -5.617399998229479e-32
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneToDepotAuto",
+        "sourceCommand": 5,
+        "sourceCall": "driveToPoint(FieldConstants.getLeftSweepExit(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.5,
+        "name": "DepotNZDepot-05",
+        "start": [
+          7.941232126346926,
+          3.787315943472042,
+          -5.617399998229479e-32
+        ],
+        "target": [
+          6.3,
+          5.3,
+          0.7853981633974483
+        ],
+        "arrivalRadius": 0.5,
+        "endpoint": [
+          6.667698970438791,
+          4.961182236144293,
+          0.7853981633974482
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneToDepotAuto",
+        "sourceCommand": 6,
+        "sourceCall": "driveToPoint(FieldConstants.getLeftFirstBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.0)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 1.0,
+        "name": "DepotNZDepot-06",
+        "start": [
+          6.667698970438791,
+          4.961182236144293,
+          0.7853981633974482
+        ],
+        "target": [
+          2.6,
+          5.6,
+          1.5707963267948966
+        ],
+        "arrivalRadius": 1.0,
+        "endpoint": [
+          3.5878917134400212,
+          5.444854995408755,
+          1.5707963267948966
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneToDepotAuto",
+        "sourceCommand": 7,
+        "sourceCall": "driveToPoint(FieldConstants.getLeftSecondBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.1524,
+        "name": "DepotNZDepot-07",
+        "start": [
+          3.5878917134400212,
+          5.444854995408755,
+          1.5707963267948966
+        ],
+        "target": [
+          2.6,
+          5.6,
+          2.356194490192345
+        ],
+        "arrivalRadius": 0.1524,
+        "endpoint": [
+          2.750529528605112,
+          5.576195989792244,
+          2.356194490192345
+        ]
+      }
+    ],
+    "note": "continuous cycle; internal arrival poses are fixed handoff locations, intermediate stops removed"
+  },
+  {
+    "name": "DepotNZAltSecondCycle",
+    "team": 2910,
+    "sourceMethod": "createLeftNeutralZoneToDepotAuto",
+    "events": [
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneToDepotAuto",
+        "sourceCommand": 8,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftTrenchEnter(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.75)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.75,
+        "name": "DepotNZDepot-08",
+        "start": [
+          2.750529528605112,
+          5.576195989792244,
+          2.356194490192345
+        ],
+        "target": [
+          2.8,
+          7.7,
+          0.0
+        ],
+        "arrivalRadius": 0.75,
+        "endpoint": [
+          2.7855267118920555,
+          6.950139657526424,
+          1.732036582128564e-23
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneToDepotAuto",
+        "sourceCommand": 9,
+        "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getLeftSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getLeftTrenchEnter(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 2.0)",
+        "speed": 4.572,
+        "sourceArrivalRadius": 2.0,
+        "clearanceAdaptation": "direct target ray intersects field geometry; solve a local obstacle-avoiding movement",
+        "name": "DepotNZDepot-09",
+        "start": [
+          2.7855267118920555,
+          6.950139657526424,
+          1.732036582128564e-23
+        ],
+        "target": [
+          7.2,
+          7.7,
+          0.0
+        ],
+        "arrivalRadius": 2.0,
+        "endpoint": [
+          5.221212723019867,
+          7.409482188654135,
+          2.608342838187112e-30
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneToDepotAuto",
+        "sourceCommand": 10,
+        "sourceCall": "driveToPointWhileIntaking( new Pose2d( FieldConstants.getLeftSecondSweepEntry(alliance) .getTranslation(), FieldConstants.getLeftSecondSweepCenterpoint(alliance) .getRotation()), DTP_FAST_VELOCITY_METERS, 1.0)",
+        "speed": 4.572,
+        "sourceArrivalRadius": 1.0,
+        "name": "DepotNZDepot-10",
+        "start": [
+          5.221212723019867,
+          7.409482188654135,
+          2.608342838187112e-30
+        ],
+        "target": [
+          7.2,
+          7.7,
+          -1.3962634015954638
+        ],
+        "arrivalRadius": 1.0,
+        "endpoint": [
+          6.214706469526688,
+          7.5291297238725665,
+          -1.3962634015954638
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneToDepotAuto",
+        "sourceCommand": 11,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftSecondSweepCenterpoint(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.5)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 1.5,
+        "name": "DepotNZDepot-11",
+        "start": [
+          6.214706469526688,
+          7.5291297238725665,
+          -1.3962634015954638
+        ],
+        "target": [
+          6.0,
+          3.3,
+          -1.3962634015954638
+        ],
+        "arrivalRadius": 1.5,
+        "endpoint": [
+          6.076055308403326,
+          4.798070626416214,
+          -1.3962634015954638
+        ]
+      },
+      {
+        "kind": "timedHold",
+        "sourceCommand": 12,
+        "duration": 0.5,
+        "sourceCall": "driveToPointWhileIntaking(FieldConstants.getLeftSecondSweepCurvepoint(alliance), 0.01)",
+        "target": [
+          8.3,
+          4.8,
+          0.17453292519943275
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneToDepotAuto",
+        "sourceCommand": 13,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getLeftSecondSweepCurvepoint(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.5,
+        "name": "DepotNZDepot-12",
+        "start": [
+          6.076055308403326,
+          4.798070626416214,
+          -1.3962634015954638
+        ],
+        "target": [
+          8.3,
+          4.8,
+          0.17453292519943275
+        ],
+        "arrivalRadius": 0.5,
+        "endpoint": [
+          7.8000000073274665,
+          4.799942714647239,
+          0.17453292519943273
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneToDepotAuto",
+        "sourceCommand": 14,
+        "sourceCall": "driveToPoint(FieldConstants.getLeftSweepExit(alliance), DTP_MEDIUM_VELOCITY_METERS, 0.5)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.5,
+        "name": "DepotNZDepot-13",
+        "start": [
+          7.8000000073274665,
+          4.799942714647239,
+          0.17453292519943273
+        ],
+        "target": [
+          6.3,
+          5.3,
+          0.7853981633974483
+        ],
+        "arrivalRadius": 0.5,
+        "endpoint": [
+          6.77433632061347,
+          5.141870101128442,
+          0.7853981633974483
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneToDepotAuto",
+        "sourceCommand": 15,
+        "sourceCall": "driveToPoint(FieldConstants.getLeftFirstBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS, 1.0)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 1.0,
+        "name": "DepotNZDepot-14",
+        "start": [
+          6.77433632061347,
+          5.141870101128442,
+          0.7853981633974483
+        ],
+        "target": [
+          2.6,
+          5.6,
+          1.5707963267948966
+        ],
+        "arrivalRadius": 1.0,
+        "endpoint": [
+          3.5940314333038192,
+          5.490905914289846,
+          1.5707963267948966
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneToDepotAuto",
+        "sourceCommand": 16,
+        "sourceCall": "driveToPoint(FieldConstants.getLeftSecondBumpScore(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.1524,
+        "name": "DepotNZDepot-15",
+        "start": [
+          3.5940314333038192,
+          5.490905914289846,
+          1.5707963267948966
+        ],
+        "target": [
+          2.6,
+          5.6,
+          2.356194490192345
+        ],
+        "arrivalRadius": 0.1524,
+        "endpoint": [
+          2.7514691789555297,
+          5.583181686057185,
+          2.356194490192345
+        ]
+      }
+    ],
+    "note": "continuous cycle; internal arrival poses are fixed handoff locations, intermediate stops removed"
+  },
+  {
+    "name": "DepotNZToDepot",
+    "team": 2910,
+    "sourceMethod": "createLeftNeutralZoneToDepotAuto",
+    "events": [
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createLeftNeutralZoneToDepotAuto",
+        "sourceCommand": 17,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotRightPose(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.1524,
+        "wallClearanceAdaptation": "arrival radius enlarged to clear the field wall with our front intake",
+        "name": "DepotNZDepot-16",
+        "start": [
+          2.7514691789555297,
+          5.583181686057185,
+          2.356194490192345
+        ],
+        "target": [
+          0.65,
+          5.8,
+          2.7925268031909276
+        ],
+        "arrivalRadius": 0.22,
+        "endpoint": [
+          0.868838827711971,
+          5.777426177302692,
+          2.7925268031909276
+        ]
+      }
+    ],
+    "note": "continuous cycle; internal arrival poses are fixed handoff locations, intermediate stops removed"
+  },
+  {
+    "name": "DepotCollection",
+    "team": 2910,
+    "sourceMethod": "createDepotAuto",
+    "events": [
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createDepotAuto",
+        "sourceCommand": 1,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotRightPose(alliance), DTP_SLOW_VELOCITY_METERS)",
+        "speed": 1.524,
+        "sourceArrivalRadius": 0.1524,
+        "wallClearanceAdaptation": "arrival radius enlarged to clear the field wall with our front intake",
+        "name": "Depot-01",
+        "start": [
+          3.6,
+          4.0,
+          -3.141592653589793
+        ],
+        "target": [
+          0.65,
+          5.8,
+          2.7925268031909276
+        ],
+        "arrivalRadius": 0.22,
+        "endpoint": [
+          0.8378006613062803,
+          5.685409766532833,
+          -3.4906585039886577
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createDepotAuto",
+        "sourceCommand": 2,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotMiddlePose(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.1524,
+        "name": "Depot-02",
+        "start": [
+          0.8378006613062803,
+          5.685409766532833,
+          -3.4906585039886577
+        ],
+        "target": [
+          1.5,
+          6.0,
+          -3.141592653589793
+        ],
+        "arrivalRadius": 0.1524,
+        "endpoint": [
+          1.3623857322088098,
+          5.934516543743638,
+          3.141592653589793
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createDepotAuto",
+        "sourceCommand": 3,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotLeftPose(alliance), DTP_SLOW_VELOCITY_METERS)",
+        "speed": 1.524,
+        "sourceArrivalRadius": 0.1524,
+        "name": "Depot-03",
+        "start": [
+          1.3623857322088098,
+          5.934516543743638,
+          3.141592653589793
+        ],
+        "target": [
+          0.65,
+          6.2,
+          2.9670597283903604
+        ],
+        "arrivalRadius": 0.1524,
+        "endpoint": [
+          0.792806513600944,
+          6.1467828341896755,
+          2.9670597283903604
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createDepotAuto",
+        "sourceCommand": 4,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotScoringPose(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.1524,
+        "name": "Depot-04",
+        "start": [
+          0.792806513600944,
+          6.1467828341896755,
+          2.9670597283903604
+        ],
+        "target": [
+          1.4,
+          5.0,
+          2.7925268031909276
+        ],
+        "arrivalRadius": 0.1524,
+        "endpoint": [
+          1.3286870730603508,
+          5.134685694306489,
+          2.7925268031909276
+        ]
+      }
+    ],
+    "note": "continuous cycle; internal arrival poses are fixed handoff locations, intermediate stops removed"
+  },
+  {
+    "name": "DepotExit",
+    "team": 2910,
+    "sourceMethod": "createDepotAuto",
+    "events": [
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createDepotAuto",
+        "sourceCommand": 5,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotTrenchEnterIntermediary(alliance), DTP_SLOW_VELOCITY_METERS)",
+        "speed": 1.524,
+        "sourceArrivalRadius": 0.1524,
+        "name": "Depot-05",
+        "start": [
+          1.3286870730603508,
+          5.134685694306489,
+          2.7925268031909276
+        ],
+        "target": [
+          1.5,
+          6.0,
+          -3.0543261909900767
+        ],
+        "arrivalRadius": 0.1524,
+        "endpoint": [
+          1.4704025366316045,
+          5.850501638278129,
+          3.2288591161895095
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createDepotAuto",
+        "sourceCommand": 6,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotTrenchEnter(alliance), DTP_SLOW_VELOCITY_METERS)",
+        "speed": 1.524,
+        "sourceArrivalRadius": 0.1524,
+        "name": "Depot-06",
+        "start": [
+          1.4704025366316045,
+          5.850501638278129,
+          3.2288591161895095
+        ],
+        "target": [
+          1.4,
+          7.7,
+          0.0
+        ],
+        "arrivalRadius": 0.1524,
+        "endpoint": [
+          1.4057970235403339,
+          7.5477102612992955,
+          -7.288531954013663e-32
+        ]
+      },
+      {
+        "kind": "path",
+        "team": 2910,
+        "routine": "createDepotAuto",
+        "sourceCommand": 7,
+        "sourceCall": "driveToPointWhileIntaking( FieldConstants.getDepotNZCenter(alliance), DTP_MEDIUM_VELOCITY_METERS)",
+        "speed": 3.3528,
+        "sourceArrivalRadius": 0.1524,
+        "name": "Depot-07",
+        "start": [
+          1.4057970235403339,
+          7.5477102612992955,
+          -7.288531954013663e-32
+        ],
+        "target": [
+          8.3,
+          7.7,
+          0.0
+        ],
+        "arrivalRadius": 0.1524,
+        "endpoint": [
+          8.158741616591914,
+          7.642800008239117,
+          6.3379495480409275e-31
+        ]
+      }
+    ],
+    "note": "continuous cycle; internal arrival poses are fixed handoff locations, intermediate stops removed"
+  }
+]

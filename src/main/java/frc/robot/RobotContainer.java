@@ -10,7 +10,7 @@ package frc.robot;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static frc.robot.subsystems.swerve.SwerveConstants.*;
 
-import choreo.auto.AutoChooser;
+import mayhemlib.auto.AutoChooser;
 import choreo.auto.AutoFactory;
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.swerve.SwerveRequest;
@@ -127,7 +127,7 @@ public class RobotContainer {
 
   public RobotContainer() {
 
-    AutoFactory autoFactory = drivetrain.createAutoFactory(drivetrain::trajLogger);
+    mayhemlib.auto.AutoFactory autoFactory = drivetrain.createAutoFactoryMayhem(drivetrain::trajLogger);
     m_autoRoutines = new AutoRoutines(autoFactory, drivetrain, superstructure);
     m_mayhemAutoFactory = CtreSwerve.autoFactory(drivetrain).withTelemetry(true);
 
@@ -148,6 +148,16 @@ public class RobotContainer {
   }
 
   private void configureChoreoAutoChooser() {
+
+    autos = List.of(
+            new AutoConfig(
+                    "test",
+                    m_autoRoutines::testAutoRoutine,
+                    List.of("DepotHalfLeg")
+            )
+    );
+
+
     for (AutoConfig auto : autos) {
       autoChooser.addRoutine(auto.name, auto.routine);
     }
@@ -166,6 +176,7 @@ public class RobotContainer {
 
     autoVisualizer.onChange(
         (trajNames) -> {
+          m_autoRoutines.updateField2d(field2d,trajNames.trajectories);
           autoChooser.select(trajNames.name);
         });
 
