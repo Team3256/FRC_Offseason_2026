@@ -13,7 +13,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -108,10 +107,6 @@ public class Superstructure {
 
     stateTimer.start();
 
-    // Lets the pit/driver turn off the aim requirement from the dashboard, for when the driver is
-    // not holding the aim button
-    SmartDashboard.setDefaultBoolean("Superstructure/RequireAimToShoot", true);
-
     for (StructureState state : StructureState.values()) {
       stateTriggers.put(state, new Trigger(() -> this.state == state));
     }
@@ -172,7 +167,7 @@ public class Superstructure {
         .get(StructureState.SHOOT)
         .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
         .or(stateTriggers.get(StructureState.JITTER_AND_SHOOT))
-        .and(new Trigger(this::readyToShoot))
+        .and(shooter.reachedVelocity)
         .debounce(.02)
         .onTrue(indexer.setIndexVel())
         .onTrue(feeder.setFeedVel());
