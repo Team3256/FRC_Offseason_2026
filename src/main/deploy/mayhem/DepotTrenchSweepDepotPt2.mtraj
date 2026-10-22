@@ -2158,7 +2158,7 @@
   "stats": {
    "success": true,
    "totalTime": 2.2708603633902325,
-   "solveSeconds": 0.12322100019082427,
+   "solveSeconds": 0.13409441709518433,
    "iterations": 27,
    "candidate": 0,
    "attempts": [

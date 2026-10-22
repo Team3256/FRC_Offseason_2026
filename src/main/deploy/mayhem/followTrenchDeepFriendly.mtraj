@@ -3862,12 +3862,12 @@
   "stats": {
    "success": true,
    "totalTime": 5.659260959506149,
-   "solveSeconds": 0.9385310839861631,
+   "solveSeconds": 1.0008407910354435,
    "iterations": 69,
    "candidate": 0,
    "attempts": [
-    "candidate 0: direct: Solved_To_Acceptable_Level (32 it, 0.49s)",
-    "candidate 1: direct: Solved_To_Acceptable_Level (37 it, 0.62s)"
+    "candidate 0: direct: Solved_To_Acceptable_Level (32 it, 0.52s)",
+    "candidate 1: direct: Solved_To_Acceptable_Level (37 it, 0.63s)"
    ]
   }
  }

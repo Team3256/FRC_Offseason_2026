@@ -2220,14 +2220,14 @@
   "stats": {
    "success": true,
    "totalTime": 3.6103553526724648,
-   "solveSeconds": 20.83897566702217,
+   "solveSeconds": 20.67377583310008,
    "iterations": 1757,
    "candidate": 1,
    "attempts": [
-    "candidate 0: direct: Maximum_Iterations_Exceeded (1500 it, 15.84s)",
-    "candidate 0: elastic-probe: Solve_Succeeded (48 it, 0.37s)",
-    "candidate 0: elastic->hard: Solve_Succeeded (8 it, 0.15s)",
-    "candidate 1: direct: Solved_To_Acceptable_Level (201 it, 20.59s)"
+    "candidate 0: direct: Maximum_Iterations_Exceeded (1500 it, 15.48s)",
+    "candidate 0: elastic-probe: Solve_Succeeded (48 it, 0.35s)",
+    "candidate 0: elastic->hard: Solve_Succeeded (8 it, 0.14s)",
+    "candidate 1: direct: Solved_To_Acceptable_Level (201 it, 20.43s)"
    ]
   }
  }
