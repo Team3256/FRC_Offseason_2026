@@ -315,8 +315,8 @@
  "markers": [
   {
    "id": "m0",
-   "name": "intake2",
-   "command": "intake2",
+   "name": "intake",
+   "command": "intake",
    "waypoint": 2,
    "offset": 0.0,
    "endWaypoint": null,
@@ -337,8 +337,8 @@
   },
   {
    "id": "m5ptydnz7r",
-   "name": "shoot2",
-   "command": "shoot2",
+   "name": "shoot",
+   "command": "shoot",
    "waypoint": 8,
    "offset": 0.0,
    "endWaypoint": null,
