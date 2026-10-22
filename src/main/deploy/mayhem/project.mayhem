@@ -5754,7 +5754,9 @@
   ],
   "deployDir": "",
   "poses": [],
-  "folders": [],
+  "folders": [
+    "SweepDepot"
+  ],
   "fuelSim": {
     "intakeRate": 10.0,
     "capacity": 0,

@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.Superstructure.StructureState;
 import mayhemlib.auto.AutoFactory;
@@ -45,7 +46,9 @@ public class SweepDepotMayhemAutos {
     topTrenchSweepDepotAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
     topTrenchSweepDepotAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
 
-    topTrenchSweepDepotAuto.doneDelayed(3).onTrue(topTrenchSweepDepotPt2.cmd());
+    topTrenchSweepDepotAuto
+        .done()
+        .onTrue(Commands.waitSeconds(3).andThen(topTrenchSweepDepotPt2.cmd()));
 
     topTrenchSweepDepotPt2
         .atTime("intake")

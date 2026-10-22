@@ -1,6 +1,6 @@
 {
  "formatVersion": 1,
- "name": "topTrenchSweepDepotPt2",
+ "name": "DepotTrenchSweepDepotPt2",
  "waypoints": [
   {
    "id": "w0",
@@ -231,9 +231,9 @@
   "maxIterations": 1500,
   "timeLimit": 60.0
  },
- "folder": null,
+ "folder": "SweepDepot",
  "output": {
-  "inputHash": "05d15ec1f4eff07f",
+  "inputHash": "82438ae9491fb4a1",
   "samples": [
    {
     "t": 0.0,
@@ -2182,11 +2182,11 @@
   "stats": {
    "success": true,
    "totalTime": 2.270858788402868,
-   "solveSeconds": 0.30144920800375985,
+   "solveSeconds": 0.28458637499716133,
    "iterations": 30,
    "candidate": 0,
    "attempts": [
-    "candidate 0: direct: Solved_To_Acceptable_Level (30 it, 0.22s)"
+    "candidate 0: direct: Solved_To_Acceptable_Level (30 it, 0.21s)"
    ]
   }
  }
