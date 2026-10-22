@@ -156,13 +156,6 @@ public class RobotContainer {
       autoChooser.addRoutine(auto.name, auto.routine);
     }
 
-    // Same autos, driven by MayhemLib (paths in src/main/deploy/mayhem)
-    autoChooser.addCmd("Top Trench Sweep (Mayhem)", () -> m_mayhemAutos.topTrenchSweepAuto().cmd());
-    autoChooser.addCmd(
-        "Bottom Trench Sweep (Mayhem)", () -> m_mayhemAutos.bottomTrenchSweepAuto().cmd());
-    autoChooser.addCmd(
-        "Top Trench Sweep 2x (Mayhem)", () -> m_mayhemAutos.topTrenchSweep2xAuto().cmd());
-
     SmartDashboard.putData("auto chooser", autoChooser);
     RobotModeTriggers.autonomous().onTrue(autoChooser.selectedCommandScheduler());
   }
