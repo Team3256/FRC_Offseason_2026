@@ -14,6 +14,7 @@ import frc.robot.utils.DisableSubsystem;
 import frc.robot.utils.LoggedTracer;
 import frc.robot.utils.Util;
 import java.util.function.DoubleSupplier;
+import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class ShooterPivot extends DisableSubsystem {
@@ -30,7 +31,8 @@ public class ShooterPivot extends DisableSubsystem {
 
   private double hoodVel = 0;
 
-  private boolean trenchOverride = false;
+  private boolean inTrenchZone = false;
+  private boolean driverOverride = false;
 
   private final LinearFilter hoodAngleFilter = LinearFilter.movingAverage((int) (0.1 / .02));
 
@@ -63,7 +65,7 @@ public class ShooterPivot extends DisableSubsystem {
   public Command setPosition(DoubleSupplier position) {
     return this.run(
         () -> {
-          reqPosition = trenchOverride ? 0.0 : position.getAsDouble();
+          reqPosition = isTrenchLocked() ? 0.0 : position.getAsDouble();
 
           shooterPivotIO.setPosition(reqPosition, hoodVel);
         });
@@ -90,7 +92,16 @@ public class ShooterPivot extends DisableSubsystem {
         shooterPivotIOInputsAutoLogged.shooterPivotMotorPosition, reqPosition, 0.01);
   }
 
-  public void setTrenchOverride(boolean enabled) {
-    trenchOverride = enabled;
+  public void setInTrenchZone(boolean value) {
+    inTrenchZone = value;
+  }
+
+  public void setDriverOverride(boolean value) {
+    driverOverride = value;
+  }
+
+  @AutoLogOutput
+  public boolean isTrenchLocked() {
+    return inTrenchZone && !driverOverride;
   }
 }

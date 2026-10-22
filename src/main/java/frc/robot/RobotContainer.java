@@ -48,6 +48,7 @@ import frc.robot.subsystems.sotm.ShotCalculator;
 import frc.robot.subsystems.swerve.CommandSwerveDrivetrain;
 import frc.robot.subsystems.swerve.SwerveConstants.AzimuthTargets;
 import frc.robot.subsystems.swerve.generated.TunerConstants;
+import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.utils.AutoConfig;
 import frc.robot.utils.MappedXboxController;
 import java.util.ArrayList;
@@ -121,7 +122,8 @@ public class RobotContainer {
           linearSlide,
           feeder,
           shotCalculator,
-          shotCalculator.getRobotPoseSupplier());
+          shotCalculator.getRobotPoseSupplier(),
+          () -> drivetrain.getState().Speeds);
 
   private final AutoRoutines m_autoRoutines;
 
@@ -179,6 +181,13 @@ public class RobotContainer {
     m_driverController.x().onTrue(superstructure.setState(Superstructure.StructureState.JITTER));
 
     m_driverController.y().onTrue(superstructure.setState(Superstructure.StructureState.HOME));
+
+    m_driverController
+        .rightTrigger()
+        .whileTrue(
+            Commands.startEnd(
+                () -> shooterPivot.setDriverOverride(true),
+                () -> shooterPivot.setDriverOverride(false)));
   }
 
   /**
@@ -300,12 +309,10 @@ public class RobotContainer {
         .whileTrue(
             drivetrain.rotateToLookahead(shotCalculator, this::vxSupplier, this::vySupplier));
   }
-  
 
   public void periodic() {
     field2d.setRobotPose(drivetrain.getState().Pose);
     superstructure.periodic();
     shotCalculator.periodic();
-
   }
 }
