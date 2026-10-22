@@ -1,0 +1,42 @@
+name: Publish Mayhem path previews
+
+on:
+  workflow_run:
+    workflows: ['Mayhem path previews']
+    types: [completed]
+
+permissions:
+  actions: read
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: mayhem-comment-${{ github.event.workflow_run.head_repository.full_name }}-${{ github.event.workflow_run.head_branch }}-${{ github.event.workflow_run.event == 'workflow_dispatch' && github.event.workflow_run.id || '' }}
+  cancel-in-progress: false
+
+jobs:
+  comment:
+    if: (github.event.workflow_run.event == 'pull_request' || github.event.workflow_run.event == 'workflow_dispatch') && github.event.workflow_run.conclusion != 'cancelled'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # Always use trusted default-branch code here. PR code only runs in the
+      # read-only renderer workflow; downloaded artifacts are treated as data.
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        id: download
+        continue-on-error: true
+        with:
+          name: mayhem-path-previews
+          path: path-previews
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+      - uses: actions/github-script@v7
+        env:
+          PREVIEW_DOWNLOAD_OK: ${{ steps.download.outcome == 'success' }}
+        with:
+          script: |
+            const publish = require('./tools/path-previews/publish.cjs');
+            await publish({github, context, core});

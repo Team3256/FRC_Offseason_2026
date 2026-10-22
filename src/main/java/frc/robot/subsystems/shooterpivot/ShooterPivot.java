@@ -36,6 +36,7 @@ public class ShooterPivot extends DisableSubsystem {
     super(enabled);
 
     this.shooterPivotIO = shooterPivotIO;
+    shooterPivotIO.resetPosition(0);
   }
 
   @Override
