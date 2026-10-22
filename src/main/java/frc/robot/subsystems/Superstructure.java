@@ -11,6 +11,7 @@ import choreo.util.ChoreoAllianceFlipUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -279,6 +280,12 @@ public class Superstructure {
         .or(stateTriggers.get(StructureState.REV_AND_INTAKE))
         .or(stateTriggers.get(StructureState.JITTER))
         .onTrue(shooterPivot.setPosition(0));
+
+    Trigger trenchZone = new Trigger(this::isInTrenchApproachZone);
+
+    trenchZone.onTrue(Commands.runOnce(() -> shooterPivot.setTrenchOverride(true)));
+
+    trenchZone.onFalse(Commands.runOnce(() -> shooterPivot.setTrenchOverride(false)));
   }
 
   // call manually
@@ -369,5 +376,34 @@ public class Superstructure {
 
   public StructureState getPrevState() {
     return this.prevState;
+  }
+
+  private boolean isInTrenchApproachZone() {
+    Pose2d pose = robotPoseSupplier.get();
+
+    double x = pose.getX();
+    double y = pose.getY();
+
+    // The trench runs across the field near the hub's X coordinate.
+    double trenchCenterX = FieldConstants.LeftTrench.openingTopLeft.getX();
+
+    // Lower the hood before the robot reaches the structure.
+    double approachMargin = Units.inchesToMeters(18.0);
+    double halfDepth = FieldConstants.LeftTrench.depth / 2.0;
+
+    boolean nearTrenchInX = Math.abs(x - trenchCenterX) <= halfDepth + approachMargin;
+
+    // The two trench openings are along the field's Y edges.
+    double leftOpeningMinY = FieldConstants.LeftTrench.openingTopRight.getY();
+    double leftOpeningMaxY = FieldConstants.LeftTrench.openingTopLeft.getY();
+
+    double rightOpeningMinY = FieldConstants.RightTrench.openingTopRight.getY();
+    double rightOpeningMaxY = FieldConstants.RightTrench.openingTopLeft.getY();
+
+    boolean inLeftOpening = y >= leftOpeningMinY && y <= leftOpeningMaxY;
+
+    boolean inRightOpening = y >= rightOpeningMinY && y <= rightOpeningMaxY;
+
+    return nearTrenchInX && (inLeftOpening || inRightOpening);
   }
 }
