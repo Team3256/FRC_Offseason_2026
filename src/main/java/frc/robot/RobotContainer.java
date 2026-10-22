@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.AutoRoutines;
 import frc.robot.commands.SweepMayhemAutos;
+import frc.robot.commands.SweepDepotMayhemAutos;
 import frc.robot.sim.SimMechs;
 import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.feeder.Feeder;
@@ -54,6 +55,10 @@ import java.util.List;
 import mayhemlib.ctre.CtreSwerve;
 
 public class RobotContainer {
+
+  private final mayhemlib.auto.AutoChooser mayhemAutoChooser = new mayhemlib.auto.AutoChooser();
+
+  private final SweepDepotMayhemAutos m_sweepDepotMayhemAutos;
 
   public final MappedXboxController m_driverController =
       new MappedXboxController(ControllerConstants.kDriverControllerPort, "Driver");
@@ -116,24 +121,36 @@ public class RobotContainer {
   public RobotContainer() {
     AutoFactory autoFactory = drivetrain.createAutoFactory(drivetrain::trajLogger);
     m_autoRoutines = new AutoRoutines(autoFactory, drivetrain, superstructure);
-    m_mayhemAutos =
-        new SweepMayhemAutos(
-            CtreSwerve.autoFactory(drivetrain).withTelemetry(true), superstructure);
+
+    m_mayhemAutoFactory = CtreSwerve.autoFactory(drivetrain).withTelemetry(true);
+
+    m_sweepDepotMayhemAutos = new SweepDepotMayhemAutos(m_mayhemAutoFactory, superstructure);
 
     configureChoreoAutoChooser();
+    configureMayhemAutoChooser();
     configureSwerve();
     configureOperatorBinds();
     configureAutoVisualizer();
+
     if (Utils.isSimulation()) {
       SimMechs.getInstance().publishToNT();
     }
   }
 
+  private void configureMayhemAutoChooser() {
+    mayhemAutoChooser.addRoutine(
+        "DepotTrenchSweepDepot", m_sweepDepotMayhemAutos::topTrenchSweepDepot);
+
+    SmartDashboard.putData("Mayhem Auto Chooser", mayhemAutoChooser);
+
+    RobotModeTriggers.autonomous().whileTrue(mayhemAutoChooser.selectedCommandScheduler());
+  }
+
   private void configureOperatorBinds() {
-    m_operatorController.a().onTrue(superstructure.setState(Superstructure.StructureState.INTAKE));
-    m_operatorController.b().onTrue(superstructure.setState(Superstructure.StructureState.SHOOT));
-    m_operatorController.x().onTrue(superstructure.setState(Superstructure.StructureState.JITTER));
-    m_operatorController.y().onTrue(superstructure.setState(Superstructure.StructureState.HOME));
+    m_driverController.a().onTrue(superstructure.setState(Superstructure.StructureState.SHOOT));
+    m_driverController.b().onTrue(superstructure.setState(Superstructure.StructureState.INTAKE));
+    m_driverController.x().onTrue(superstructure.setState(Superstructure.StructureState.JITTER));
+    m_driverController.y().onTrue(superstructure.setState(Superstructure.StructureState.HOME));
   }
 
   private void configureChoreoAutoChooser() {
@@ -157,7 +174,6 @@ public class RobotContainer {
     }
 
     SmartDashboard.putData("auto chooser", autoChooser);
-    RobotModeTriggers.autonomous().onTrue(autoChooser.selectedCommandScheduler());
   }
 
   private void configureAutoVisualizer() {
@@ -256,6 +272,7 @@ public class RobotContainer {
 
   public void periodic() {
     field2d.setRobotPose(drivetrain.getState().Pose);
+    superstructure.periodic();
     shotCalculator.periodic();
   }
 }

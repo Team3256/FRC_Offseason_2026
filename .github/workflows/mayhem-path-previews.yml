@@ -1,0 +1,89 @@
+name: Mayhem path previews
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'Open pull request number to preview'
+        required: true
+        type: string
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'src/main/deploy/mayhem/**'
+      - 'tools/path-previews/**'
+      - '.github/workflows/mayhem-path-previews.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mayhem-previews-${{ github.event.pull_request.number || inputs.pr_number }}
+  cancel-in-progress: true
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      # Use the PR merge ref so branches created before this workflow landed
+      # still have its renderer. Path data is read from the exact base/head SHAs.
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.event.repository.default_branch || github.ref }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Resolve the target pull request
+        id: target
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const number = Number(context.payload.pull_request?.number || context.payload.inputs?.pr_number);
+            if (!Number.isSafeInteger(number) || number < 1) throw new Error('Enter a valid PR number.');
+            const {data: pr} = await github.rest.pulls.get({...context.repo, pull_number: number});
+            if (pr.state !== 'open') throw new Error('The PR must be open.');
+            core.setOutput('number', number);
+            core.setOutput('base', pr.base.sha);
+            core.setOutput('head', pr.head.sha);
+      - name: Fetch exact path revisions
+        env:
+          BASE_SHA: ${{ steps.target.outputs.base }}
+          HEAD_SHA: ${{ steps.target.outputs.head }}
+        run: git fetch --no-tags origin "$BASE_SHA" "$HEAD_SHA"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: tools/path-previews/package-lock.json
+      - name: Build Mayhem field renderer
+        working-directory: tools/path-previews
+        run: |
+          npm ci
+          npm run build
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: tools/path-previews/requirements.txt
+      - name: Install renderer and pinned Mayhem solver
+        run: python -m pip install -r tools/path-previews/requirements.txt
+      - name: Check preview rendering and publishing logic
+        run: |
+          python -m unittest discover -s tools/path-previews -p 'test_*.py'
+          node --test tools/path-previews/test_*.cjs
+      - name: Render changed paths against the merge base
+        env:
+          BASE_SHA: ${{ steps.target.outputs.base }}
+          HEAD_SHA: ${{ steps.target.outputs.head }}
+          PR_NUMBER: ${{ steps.target.outputs.number }}
+          OPENBLAS_NUM_THREADS: '1'
+          OMP_NUM_THREADS: '1'
+        run: python tools/path-previews/render.py --base "$BASE_SHA" --head "$HEAD_SHA" --pr-number "$PR_NUMBER"
+      - name: Save videos and report (including solve failures)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mayhem-path-previews
+          path: path-previews/
+          if-no-files-found: warn
+          retention-days: 14

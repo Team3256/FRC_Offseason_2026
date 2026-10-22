@@ -36,7 +36,7 @@ public class FeederIOTalonFX implements FeederIO {
 
   private final TalonFX feederMotorRight = new TalonFX(FeederConstants.feederMotorRightID);
   final Follower followReq =
-      new Follower(FeederConstants.feederMotorLeftID, MotorAlignmentValue.Aligned);
+      new Follower(FeederConstants.feederMotorLeftID, MotorAlignmentValue.Opposed);
 
   private final StatusSignal<Voltage> feederMotorRightVoltage = feederMotorRight.getMotorVoltage();
   private final StatusSignal<AngularVelocity> feederMotorRightVelocity =

@@ -13,8 +13,8 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 
 public class IntakeRollerConstants {
 
-  public static final int kIntakeRollerMotorIDLeft = 46;
-  public static final int kIntakeRollerMotorIDRight = 47;
+  public static final int kIntakeRollerMotorIDLeft = 19;
+  public static final int kIntakeRollerMotorIDRight = 28;
   // needs to be updated
 
   public static double updateFrequency = 50;
@@ -36,8 +36,8 @@ public class IntakeRollerConstants {
           .withCurrentLimits(
               new CurrentLimitsConfigs()
                   .withStatorCurrentLimitEnable(true)
-                  .withStatorCurrentLimit(0)
-                  .withSupplyCurrentLimit(0)
+                  .withStatorCurrentLimit(80)
+                  .withSupplyCurrentLimit(50)
                   .withSupplyCurrentLimitEnable(true)
                   .withSupplyCurrentLowerLimit(0)
                   .withSupplyCurrentLowerTime(0));
