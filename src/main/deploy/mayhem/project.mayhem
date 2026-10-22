@@ -115,7 +115,10 @@
         "margin": 0.0,
         "enabled": false,
         "fuelCollision": "block",
-        "terrain": null
+        "terrain": {
+          "expectedSpeed": 0.7,
+          "feedbackScale": 0.3
+        }
       },
       {
         "id": "bump-blue-r",
@@ -147,7 +150,10 @@
         "margin": 0.0,
         "enabled": false,
         "fuelCollision": "block",
-        "terrain": null
+        "terrain": {
+          "expectedSpeed": 0.7,
+          "feedbackScale": 0.3
+        }
       },
       {
         "id": "trenchwall-blue-l",
@@ -371,7 +377,10 @@
         "margin": 0.0,
         "enabled": false,
         "fuelCollision": "block",
-        "terrain": null
+        "terrain": {
+          "expectedSpeed": 0.7,
+          "feedbackScale": 0.3
+        }
       },
       {
         "id": "bump-red-r",
@@ -403,7 +412,10 @@
         "margin": 0.0,
         "enabled": false,
         "fuelCollision": "block",
-        "terrain": null
+        "terrain": {
+          "expectedSpeed": 0.7,
+          "feedbackScale": 0.3
+        }
       },
       {
         "id": "trenchwall-red-l",
@@ -5742,7 +5754,9 @@
   ],
   "deployDir": "",
   "poses": [],
-  "folders": [],
+  "folders": [
+    "SweepDepot"
+  ],
   "fuelSim": {
     "intakeRate": 10.0,
     "capacity": 0,
