@@ -288,7 +288,7 @@ public class Superstructure {
     trenchZone.onFalse(Commands.runOnce(() -> shooterPivot.setTrenchOverride(false)));
   }
 
-  // call manually
+
   public void periodic() {
 
     Logger.recordOutput("Superstructure/State", this.state.toString());
@@ -300,6 +300,8 @@ public class Superstructure {
     Logger.recordOutput("Superstructure/Target", target);
 
     LoggedTracer.record(this.getClass().getSimpleName());
+
+    shooterPivot.setTrenchOverride(isInTrenchApproachZone());
   }
 
   private Command changeTarget(Translation2d target) {
@@ -378,32 +380,34 @@ public class Superstructure {
     return this.prevState;
   }
 
-  private boolean isInTrenchApproachZone() {
+  public boolean isInTrenchApproachZone() {
     Pose2d pose = robotPoseSupplier.get();
 
     double x = pose.getX();
     double y = pose.getY();
 
-    // The trench runs across the field near the hub's X coordinate.
-    double trenchCenterX = FieldConstants.LeftTrench.openingTopLeft.getX();
-
-    // Lower the hood before the robot reaches the structure.
     double approachMargin = Units.inchesToMeters(18.0);
-    double halfDepth = FieldConstants.LeftTrench.depth / 2.0;
 
-    boolean nearTrenchInX = Math.abs(x - trenchCenterX) <= halfDepth + approachMargin;
+    double halfTrenchLength =
+            FieldConstants.LeftTrench.width / 2.0;
 
-    // The two trench openings are along the field's Y edges.
-    double leftOpeningMinY = FieldConstants.LeftTrench.openingTopRight.getY();
-    double leftOpeningMaxY = FieldConstants.LeftTrench.openingTopLeft.getY();
+    boolean nearAllianceTrench =
+            Math.abs(x - FieldConstants.LinesVertical.hubCenter)
+                    <= halfTrenchLength + approachMargin;
 
-    double rightOpeningMinY = FieldConstants.RightTrench.openingTopRight.getY();
-    double rightOpeningMaxY = FieldConstants.RightTrench.openingTopLeft.getY();
+    boolean nearOppositeTrench =
+            Math.abs(x - FieldConstants.LinesVertical.oppHubCenter)
+                    <= halfTrenchLength + approachMargin;
 
-    boolean inLeftOpening = y >= leftOpeningMinY && y <= leftOpeningMaxY;
+    boolean inLeftOpening =
+            y >= FieldConstants.LinesHorizontal.leftTrenchOpenEnd;
 
-    boolean inRightOpening = y >= rightOpeningMinY && y <= rightOpeningMaxY;
+    boolean inRightOpening =
+            y <= FieldConstants.LinesHorizontal.rightTrenchOpenStart;
 
-    return nearTrenchInX && (inLeftOpening || inRightOpening);
-  }
+    return (nearAllianceTrench || nearOppositeTrench)
+            && (inLeftOpening || inRightOpening);
+}
+
+
 }

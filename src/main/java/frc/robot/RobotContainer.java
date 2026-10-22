@@ -300,10 +300,12 @@ public class RobotContainer {
         .whileTrue(
             drivetrain.rotateToLookahead(shotCalculator, this::vxSupplier, this::vySupplier));
   }
+  
 
   public void periodic() {
     field2d.setRobotPose(drivetrain.getState().Pose);
     superstructure.periodic();
     shotCalculator.periodic();
+
   }
 }
