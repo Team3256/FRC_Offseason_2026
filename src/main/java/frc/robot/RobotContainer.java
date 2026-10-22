@@ -58,6 +58,10 @@ import mayhemlib.ctre.CtreSwerve;
 
 public class RobotContainer {
 
+  private final mayhemlib.auto.AutoChooser mayhemAutoChooser = new mayhemlib.auto.AutoChooser();
+
+  private final SweepDepotMayhemAutos m_sweepDepotMayhemAutos;
+
   public final MappedXboxController m_driverController =
       new MappedXboxController(ControllerConstants.kDriverControllerPort, "Driver");
   public final MappedXboxController m_operatorController =
@@ -126,17 +130,17 @@ public class RobotContainer {
           shotCalculator,
           shotCalculator.getRobotPoseSupplier());
 
-  private final SweepDepotMayhemAutos m_mayhemAutos;
-
   public RobotContainer() {
 
     AutoFactory autoFactory = drivetrain.createAutoFactory(drivetrain::trajLogger);
     m_autoRoutines = new AutoRoutines(autoFactory, drivetrain, superstructure);
 
     m_mayhemAutoFactory = CtreSwerve.autoFactory(drivetrain).withTelemetry(true);
-    m_mayhemAutos = new SweepDepotMayhemAutos(m_mayhemAutoFactory, superstructure);
+
+    m_sweepDepotMayhemAutos = new SweepDepotMayhemAutos(m_mayhemAutoFactory, superstructure);
 
     configureChoreoAutoChooser();
+    configureMayhemAutoChooser();
     configureSwerve();
     configureOperatorBinds();
     configureAutoVisualizer();
@@ -144,6 +148,15 @@ public class RobotContainer {
     if (Utils.isSimulation()) {
       SimMechs.getInstance().publishToNT();
     }
+  }
+
+  private void configureMayhemAutoChooser() {
+    mayhemAutoChooser.addRoutine(
+        "DepotTrenchSweepDepot", m_sweepDepotMayhemAutos::topTrenchSweepDepot);
+
+    SmartDashboard.putData("Mayhem Auto Chooser", mayhemAutoChooser);
+
+    RobotModeTriggers.autonomous().whileTrue(mayhemAutoChooser.selectedCommandScheduler());
   }
 
   private void configureOperatorBinds() {
@@ -161,7 +174,6 @@ public class RobotContainer {
     autoChooser.addCmd("Wheel Radius Change", () -> drivetrain.wheelRadiusCharacterization(1));
 
     SmartDashboard.putData("auto chooser", autoChooser);
-    RobotModeTriggers.autonomous().onTrue(autoChooser.selectedCommandScheduler());
   }
 
   private void configureAutoVisualizer() {

@@ -31,8 +31,8 @@ public class SweepDepotMayhemAutos {
 
   public AutoRoutine topTrenchSweepDepot() {
     final AutoRoutine routine = m_factory.newRoutine("topTrenchSweepDepot");
-    final AutoTrajectory topTrenchSweepDepotAuto = routine.trajectory("topTrenchSweepDepotPt1");
-    final AutoTrajectory topTrenchSweepDepotPt2 = routine.trajectory("topTrenchSweepDepotPt2");
+    final AutoTrajectory topTrenchSweepDepotAuto = routine.trajectory("DepotTrenchSweepDepotPt");
+    final AutoTrajectory topTrenchSweepDepotPt2 = routine.trajectory("DepotTrenchSweepDepotPt2");
     // The Choreo version also loads "topTrenchSweepDepotPt3", but that path was deleted, and
     // MayhemLib throws if a trajectory file is missing, so it is left out here.
 
