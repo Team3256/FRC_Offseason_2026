@@ -26,9 +26,9 @@ public class SweepMayhemAutos {
 
   // 1. Bottom Trench: Part 1 only
   public AutoRoutine bottomTrenchPart1Only() {
-    AutoRoutine routine = m_factory.newRoutine("bottomTrenchPart1Only");
+    AutoRoutine routine = m_factory.newRoutine("OutpostTrenchSweepBumpPt1");
 
-    AutoTrajectory pt1 = routine.trajectory("bottomTrenchSweepBumpPt1");
+    AutoTrajectory pt1 = routine.trajectory("OutpostTrenchSweepBumpPt1");
 
     routine.active().onTrue(pt1.resetOdometry().andThen(pt1.cmd()));
 
@@ -41,10 +41,10 @@ public class SweepMayhemAutos {
 
   // 2. Bottom Trench: Parts 1 and 2
   public AutoRoutine bottomTrenchPart1And2() {
-    AutoRoutine routine = m_factory.newRoutine("bottomTrenchPart1And2");
+    AutoRoutine routine = m_factory.newRoutine("OutpostTrenchSweepPart1And2");
 
-    AutoTrajectory pt1 = routine.trajectory("bottomTrenchSweepBumpPt1");
-    AutoTrajectory pt2 = routine.trajectory("bottomTrenchSweepBumpPt2");
+    AutoTrajectory pt1 = routine.trajectory("OutpostTrenchSweepBumpPt1");
+    AutoTrajectory pt2 = routine.trajectory("OutpostTrenchSweepBumpPt2");
 
     routine.active().onTrue(pt1.resetOdometry().andThen(pt1.cmd()));
 
@@ -63,9 +63,9 @@ public class SweepMayhemAutos {
 
   // 3. Top Trench: Part 1 only
   public AutoRoutine topTrenchPart1Only() {
-    AutoRoutine routine = m_factory.newRoutine("topTrenchPart1Only");
+    AutoRoutine routine = m_factory.newRoutine("DepotTrenchPart1Only");
 
-    AutoTrajectory pt1 = routine.trajectory("topTrenchSweepBump2xPt1");
+    AutoTrajectory pt1 = routine.trajectory("DepotTrenchSweepBumpPt1");
 
     routine.active().onTrue(pt1.resetOdometry().andThen(pt1.cmd()));
 
@@ -78,10 +78,10 @@ public class SweepMayhemAutos {
 
   // 4. Top Trench: Parts 1 and 2
   public AutoRoutine topTrenchPart1And2() {
-    AutoRoutine routine = m_factory.newRoutine("topTrenchPart1And2");
+    AutoRoutine routine = m_factory.newRoutine("DepotTrenchPart1And2");
 
-    AutoTrajectory pt1 = routine.trajectory("topTrenchSweepBump2xPt1");
-    AutoTrajectory pt2 = routine.trajectory("topTrenchSweepBump2xPt2");
+    AutoTrajectory pt1 = routine.trajectory("DepotTrenchSweepBumpPt1");
+    AutoTrajectory pt2 = routine.trajectory("DepotTrenchSweepBump2xPt2");
 
     routine.active().onTrue(pt1.resetOdometry().andThen(pt1.cmd()));
 

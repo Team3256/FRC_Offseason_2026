@@ -159,6 +159,11 @@ public class ShotCalculator {
     return lookaheadPose;
   }
 
+  public static boolean isAimed(
+      Rotation2d robotHeading, Rotation2d driveAngle, double toleranceRad) {
+    return Math.abs(robotHeading.minus(driveAngle).getRadians()) <= toleranceRad;
+  }
+
   public double getDistance() {
     return lookaheadPose.getTranslation().getDistance(target);
   }

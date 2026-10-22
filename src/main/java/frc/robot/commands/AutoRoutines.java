@@ -27,20 +27,21 @@ public class AutoRoutines {
 
   private final AutoFactory m_factory;
 
-  // subsystems
+  // Subsystems
   private final Superstructure m_superstructure;
   private final CommandSwerveDrivetrain m_drivetrain;
 
   public AutoRoutines(
       AutoFactory factory, CommandSwerveDrivetrain drivetrain, Superstructure superstructure) {
     m_factory = factory;
-    m_drivetrain = drivetrain; // subsystems
+    m_drivetrain = drivetrain;
     m_superstructure = superstructure;
   }
 
   public AutoRoutine topTrenchSweepAuto() {
     final AutoRoutine routine = m_factory.newRoutine("topTrenchSweepAuto");
     final AutoTrajectory topTrenchSweepAuto = routine.trajectory("topTrenchSweepBump");
+
     routine.active().onTrue(topTrenchSweepAuto.resetOdometry().andThen(topTrenchSweepAuto.cmd()));
     topTrenchSweepAuto.atTime("intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
     topTrenchSweepAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
@@ -52,6 +53,7 @@ public class AutoRoutines {
   public AutoRoutine bottomTrenchSweepAuto() {
     final AutoRoutine routine = m_factory.newRoutine("bottomTrenchSweepAuto");
     final AutoTrajectory bottomTrenchSweepAuto = routine.trajectory("bottomTrenchSweepBump");
+
     routine
         .active()
         .onTrue(bottomTrenchSweepAuto.resetOdometry().andThen(bottomTrenchSweepAuto.cmd()));
@@ -66,6 +68,7 @@ public class AutoRoutines {
     final AutoRoutine routine = m_factory.newRoutine("topTrenchSweep2xAuto");
     final AutoTrajectory topTrenchSweep2xAutoPt1 = routine.trajectory("topTrenchSweepBump2xPt1");
     final AutoTrajectory topTrenchSweep2xAutoPt2 = routine.trajectory("topTrenchSweepBump2xPt2");
+
     routine
         .active()
         .onTrue(topTrenchSweep2xAutoPt1.resetOdometry().andThen(topTrenchSweep2xAutoPt1.cmd()));
@@ -86,6 +89,10 @@ public class AutoRoutines {
     topTrenchSweep2xAutoPt2
         .atTime("shoot2")
         .onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
+  }
+
   public AutoRoutine topTrenchSweepDepot() {
     final AutoRoutine routine = m_factory.newRoutine("topTrenchSweepDepot");
     final AutoTrajectory topTrenchSweepDepotAuto = routine.trajectory("topTrenchSweepDepotPt1");
@@ -94,7 +101,6 @@ public class AutoRoutines {
     routine
         .active()
         .onTrue(topTrenchSweepDepotAuto.resetOdometry().andThen(topTrenchSweepDepotAuto.cmd()));
-
     topTrenchSweepDepotAuto
         .atTime("intake")
         .onTrue(m_superstructure.setState(StructureState.INTAKE));
@@ -102,7 +108,6 @@ public class AutoRoutines {
     topTrenchSweepDepotAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
 
     topTrenchSweepDepotAuto.doneDelayed(3).onTrue(topTrenchSweepDepotPt2.cmd());
-
     topTrenchSweepDepotPt2
         .atTime("intake")
         .onTrue(m_superstructure.setState(StructureState.INTAKE));
@@ -117,6 +122,7 @@ public class AutoRoutines {
         routine.trajectory("bottomTrenchSweepBump2xPt1");
     final AutoTrajectory bottomTrenchSweep2xAutoPt2 =
         routine.trajectory("bottomTrenchSweepBump2xPt2");
+
     routine
         .active()
         .onTrue(
@@ -144,6 +150,10 @@ public class AutoRoutines {
     bottomTrenchSweep2xAutoPt2
         .atTime("shoot2")
         .onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+    return routine;
+  }
+
   public AutoRoutine topTrenchSweepDepotSA() {
     final AutoRoutine routine = m_factory.newRoutine("topTrenchSweepDepotSA");
     final AutoTrajectory topTrenchSweepDepotSA = routine.trajectory("topTrenchSweepDepotPt1SA");
@@ -152,13 +162,11 @@ public class AutoRoutines {
     routine
         .active()
         .onTrue(topTrenchSweepDepotSA.resetOdometry().andThen(topTrenchSweepDepotSA.cmd()));
-
     topTrenchSweepDepotSA.atTime("intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
     topTrenchSweepDepotSA.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
     topTrenchSweepDepotSA.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
 
     topTrenchSweepDepotSA.doneDelayed(3).onTrue(topTrenchSweepDepotPt2.cmd());
-
     topTrenchSweepDepotPt2
         .atTime("intake")
         .onTrue(m_superstructure.setState(StructureState.INTAKE));
@@ -170,7 +178,6 @@ public class AutoRoutines {
   public Pose2d getInitialPose(String trajectoryName) {
     var trajectory = Choreo.loadTrajectory(trajectoryName);
     Pose2d initialPose = trajectory.get().getInitialPose(false).get();
-
     return initialPose;
   }
 
@@ -179,7 +186,6 @@ public class AutoRoutines {
     final AutoTrajectory followTrenchAuto = routine.trajectory("followTrenchShallowFriendly");
 
     routine.active().onTrue(followTrenchAuto.resetOdometry().andThen(followTrenchAuto.cmd()));
-
     followTrenchAuto.atTime("intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
     followTrenchAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
     followTrenchAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
@@ -192,7 +198,6 @@ public class AutoRoutines {
     final AutoTrajectory followTrenchAuto = routine.trajectory("followTrenchShallowAggressive");
 
     routine.active().onTrue(followTrenchAuto.resetOdometry().andThen(followTrenchAuto.cmd()));
-
     followTrenchAuto.atTime("intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
     followTrenchAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
     followTrenchAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
@@ -205,7 +210,6 @@ public class AutoRoutines {
     final AutoTrajectory followTrenchAuto = routine.trajectory("followTrenchDeepFriendly");
 
     routine.active().onTrue(followTrenchAuto.resetOdometry().andThen(followTrenchAuto.cmd()));
-
     followTrenchAuto.atTime("intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
     followTrenchAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
     followTrenchAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
@@ -218,7 +222,6 @@ public class AutoRoutines {
     final AutoTrajectory followTrenchAuto = routine.trajectory("followTrenchDeepAggressive");
 
     routine.active().onTrue(followTrenchAuto.resetOdometry().andThen(followTrenchAuto.cmd()));
-
     followTrenchAuto.atTime("intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
     followTrenchAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
     followTrenchAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
@@ -227,7 +230,6 @@ public class AutoRoutines {
   }
 
   public void updateField2d(Field2d field2d, List<String> trajectoryNames) {
-
     ArrayList<Pose2d> poseList = new ArrayList<>();
     for (String t : trajectoryNames) {
       var trajectory = Choreo.loadTrajectory(t);
@@ -236,12 +238,12 @@ public class AutoRoutines {
         poseList.add(new Pose2d(0, 0, Rotation2d.kZero));
       } else {
         var poses = trajectory.get().getPoses();
-
         for (int i = 0; i < poses.length; i += 5) {
           poseList.add(poses[i]);
         }
       }
     }
+
     field2d.setRobotPose(poseList.get(0));
     System.out.println(poseList.size());
 

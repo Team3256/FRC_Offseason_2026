@@ -22,8 +22,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.AutoRoutines;
-import frc.robot.commands.SweepMayhemAutos;
 import frc.robot.commands.SweepDepotMayhemAutos;
+import frc.robot.commands.SweepMayhemAutos;
 import frc.robot.sim.SimMechs;
 import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.feeder.Feeder;
@@ -56,31 +56,39 @@ import mayhemlib.ctre.CtreSwerve;
 
 public class RobotContainer {
 
+  // One chooser for all Mayhem autonomous routines.
   private final mayhemlib.auto.AutoChooser mayhemAutoChooser = new mayhemlib.auto.AutoChooser();
 
   private final SweepDepotMayhemAutos m_sweepDepotMayhemAutos;
+  private final SweepMayhemAutos m_mayhemAutos;
 
   public final MappedXboxController m_driverController =
       new MappedXboxController(ControllerConstants.kDriverControllerPort, "Driver");
+
   public final MappedXboxController m_operatorController =
       new MappedXboxController(ControllerConstants.kOperatorControllerPort, "Operator");
 
   private final Telemetry logger =
       new Telemetry(TunerConstants.kSpeedAt12Volts.in(MetersPerSecond));
+
   private final IntakeRollers intakeRollers =
       new IntakeRollers(
           true, Utils.isSimulation() ? new IntakeRollersIOSim() : new IntakeRollersIOTalonFX());
 
   private final Shooter shooter =
       new Shooter(true, Utils.isSimulation() ? new ShooterIOSim() : new ShooterIOTalonFX());
+
   private final ShooterPivot shooterPivot =
       new ShooterPivot(
           true, Utils.isSimulation() ? new ShooterPivotIOSim() : new ShooterPivotIOTalonFX());
+
   private final LinearSlide linearSlide =
       new LinearSlide(
           true, Utils.isSimulation() ? new LinearSlideIOSim() : new LinearSlideIOTalonFX());
+
   private final Feeder feeder =
       new Feeder(true, Utils.isSimulation() ? new FeederIOSim() : new FeederIOTalonFX());
+
   private final Indexer indexer =
       new Indexer(true, Utils.isSimulation() ? new IndexerIOSim() : new IndexerIOTalonFX());
 
@@ -95,13 +103,13 @@ public class RobotContainer {
           drivetrain::getFieldRelativeSpeeds,
           robotToShooterTransform);
 
-  /// sim file for intakepivot needs to be added -- seems like its not been merged yet
-
+  // Existing Choreo chooser and field visualizer.
   private AutoChooser autoChooser = new AutoChooser();
 
   private List<AutoConfig> autos = new ArrayList<>();
 
-  private SendableChooser<AutoConfig> autoVisualizer = new SendableChooser<AutoConfig>();
+  private SendableChooser<AutoConfig> autoVisualizer = new SendableChooser<>();
+
   private Field2d field2d = new Field2d();
 
   private final Superstructure superstructure =
@@ -116,15 +124,19 @@ public class RobotContainer {
           shotCalculator.getRobotPoseSupplier());
 
   private final AutoRoutines m_autoRoutines;
-  private final SweepMayhemAutos m_mayhemAutos;
 
   public RobotContainer() {
+    // Existing Choreo autonomous factory.
     AutoFactory autoFactory = drivetrain.createAutoFactory(drivetrain::trajLogger);
+
     m_autoRoutines = new AutoRoutines(autoFactory, drivetrain, superstructure);
 
-    m_mayhemAutoFactory = CtreSwerve.autoFactory(drivetrain).withTelemetry(true);
+    // Mayhem factory shared by both Mayhem auto classes.
+    var mayhemAutoFactory = CtreSwerve.autoFactory(drivetrain).withTelemetry(true);
 
-    m_sweepDepotMayhemAutos = new SweepDepotMayhemAutos(m_mayhemAutoFactory, superstructure);
+    m_sweepDepotMayhemAutos = new SweepDepotMayhemAutos(mayhemAutoFactory, superstructure);
+
+    m_mayhemAutos = new SweepMayhemAutos(mayhemAutoFactory, superstructure);
 
     configureChoreoAutoChooser();
     configureMayhemAutoChooser();
@@ -137,35 +149,55 @@ public class RobotContainer {
     }
   }
 
+  /** Registers every Mayhem autonomous routine in one chooser. */
   private void configureMayhemAutoChooser() {
+    // Existing Depot routine: both Depot path segments.
     mayhemAutoChooser.addRoutine(
-        "DepotTrenchSweepDepot", m_sweepDepotMayhemAutos::topTrenchSweepDepot);
+        "Depot Trench Sweep Depot", m_sweepDepotMayhemAutos::topTrenchSweepDepot);
+
+    // Bottom trench options.
+    mayhemAutoChooser.addRoutine("Outpost Trench Sweep", m_mayhemAutos::bottomTrenchPart1Only);
+
+    mayhemAutoChooser.addRoutine("Outpost Trench Sweep x2", m_mayhemAutos::bottomTrenchPart1And2);
+
+    // Top trench options.
+    mayhemAutoChooser.addRoutine("Depot Trench Sweep", m_mayhemAutos::topTrenchPart1Only);
+
+    mayhemAutoChooser.addRoutine("Depot Trench Sweep x2", m_mayhemAutos::topTrenchPart1And2);
 
     SmartDashboard.putData("Mayhem Auto Chooser", mayhemAutoChooser);
 
+    // Schedule the selected Mayhem routine during autonomous.
     RobotModeTriggers.autonomous().whileTrue(mayhemAutoChooser.selectedCommandScheduler());
   }
 
   private void configureOperatorBinds() {
     m_driverController.a().onTrue(superstructure.setState(Superstructure.StructureState.SHOOT));
+
     m_driverController.b().onTrue(superstructure.setState(Superstructure.StructureState.INTAKE));
+
     m_driverController.x().onTrue(superstructure.setState(Superstructure.StructureState.JITTER));
+
     m_driverController.y().onTrue(superstructure.setState(Superstructure.StructureState.HOME));
   }
 
+  /**
+   * Keeps the existing Choreo chooser for visualization. Autonomous scheduling is handled by the
+   * Mayhem chooser above.
+   */
   private void configureChoreoAutoChooser() {
     autos =
         List.of(
             new AutoConfig(
-                "Top Trench Sweep",
+                "Depot Trench Sweep",
                 m_autoRoutines::topTrenchSweepAuto,
                 List.of("topTrenchSweepBump")),
             new AutoConfig(
-                "Bottom Trench Sweep",
+                "Outpost Trench Sweep",
                 m_autoRoutines::bottomTrenchSweepAuto,
                 List.of("bottomTrenchSweepBump")),
             new AutoConfig(
-                "Top Trench Sweep 2x",
+                "Depot Trench Sweep 2x",
                 m_autoRoutines::topTrenchSweep2xAuto,
                 List.of("topTrenchSweepBump2xPt1", "topTrenchSweepBump2xPt2")));
 
@@ -177,15 +209,11 @@ public class RobotContainer {
   }
 
   private void configureAutoVisualizer() {
-
     for (AutoConfig auto : autos) {
       autoVisualizer.addOption(auto.name, auto);
     }
 
-    autoVisualizer.onChange(
-        (trajNames) -> {
-          autoChooser.select(trajNames.name);
-        });
+    autoVisualizer.onChange(trajNames -> autoChooser.select(trajNames.name));
 
     SmartDashboard.putData("Auto Visualizer", autoVisualizer);
     SmartDashboard.putData("Field Visualize", field2d);
@@ -213,6 +241,7 @@ public class RobotContainer {
         new SwerveRequest.FieldCentricFacingAngle().withDeadband(deadbandMultiplier * MaxSpeed);
 
     azimuth.HeadingController.enableContinuousInput(-Math.PI, Math.PI);
+
     azimuth.HeadingController.setPID(
         AzimuthTargets.aziKP, AzimuthTargets.aziKi, AzimuthTargets.aziKD);
 
@@ -245,6 +274,7 @@ public class RobotContainer {
                                     * Math.pow(m_driverController.getLeftX(), 2))
                                 * SlowMaxSpeed)
                         .withRotationalRate(-m_driverController.getRightX() * SlowMaxAngular)));
+
     m_driverController
         .rightBumper()
         .whileTrue(
@@ -262,6 +292,7 @@ public class RobotContainer {
                         .withRotationalRate(-m_driverController.getRightX() * SlowMaxAngular)));
 
     m_driverController.povRight().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+
     drivetrain.registerTelemetry(logger::telemeterize);
 
     m_driverController
