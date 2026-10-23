@@ -15,6 +15,8 @@ import frc.robot.utils.Util;
 import java.util.function.DoubleSupplier;
 import org.littletonrobotics.junction.Logger;
 
+import com.ctre.phoenix6.mechanisms.DifferentialMechanism;
+
 public class LinearSlide extends DisableSubsystem {
 
   private final LinearSlideIO linearSlideIO;
@@ -87,6 +89,10 @@ public class LinearSlide extends DisableSubsystem {
         reqPosition = position;
         linearSlideIO.setPosition(reqPosition);
       });
+}
+
+public Command clearfaults() {
+    return this.run(() -> linearSlideIO.clearfaults());
 }
 
   public Command setVoltage(double voltage) {

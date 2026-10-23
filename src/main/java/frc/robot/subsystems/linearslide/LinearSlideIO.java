@@ -53,6 +53,8 @@ public interface LinearSlideIO {
 
   public default void resetPosition(double angle) {}
 
+  public default void clearfaults() {}
+
   public default void off() {}
 
   public default void zero() {
