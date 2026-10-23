@@ -51,7 +51,7 @@
     "length": 16.541,
     "width": 8.0692,
     "symmetry": "rotational",
-    "wallMargin": 0.02,
+    "wallMargin": 0.08,
     "obstacles": [
       {
         "id": "hub-blue",
@@ -80,7 +80,7 @@
           0.0
         ],
         "radius": 0.5,
-        "margin": 0.0,
+        "margin": 0.1,
         "enabled": true,
         "fuelCollision": "paths",
         "terrain": null
@@ -182,7 +182,7 @@
           0.0
         ],
         "radius": 0.5,
-        "margin": 0.0,
+        "margin": 0.1,
         "enabled": true,
         "fuelCollision": "paths",
         "terrain": null
@@ -214,7 +214,7 @@
           0.0
         ],
         "radius": 0.5,
-        "margin": 0.0,
+        "margin": 0.1,
         "enabled": true,
         "fuelCollision": "paths",
         "terrain": null
@@ -5756,9 +5756,9 @@
   "poses": [
     {
       "id": "pnf6vc8dbe",
-      "name": "end",
-      "x": 3.261570692062378,
-      "y": 2.2805001735687256,
+      "name": "OutS1",
+      "x": 3.0636792182922363,
+      "y": 2.449904441833496,
       "heading": -1.5707976144648772
     },
     {
@@ -5770,15 +5770,16 @@
     },
     {
       "id": "p46y3rrqs5",
-      "name": "enda",
-      "x": 3.3028502464294434,
-      "y": 5.700842380523682,
+      "name": "DepS1",
+      "x": 3.3317887783050537,
+      "y": 5.583604335784912,
       "heading": 1.565258762938835
     }
   ],
   "folders": [
     "OutpostSweep",
-    "Depot Sweep"
+    "Depot Sweep",
+    "FollowDepot"
   ],
   "fuelSim": {
     "intakeRate": 20.0,
