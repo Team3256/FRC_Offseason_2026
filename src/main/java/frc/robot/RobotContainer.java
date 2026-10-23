@@ -48,6 +48,9 @@ import frc.robot.subsystems.sotm.ShotCalculator;
 import frc.robot.subsystems.swerve.CommandSwerveDrivetrain;
 import frc.robot.subsystems.swerve.SwerveConstants.AzimuthTargets;
 import frc.robot.subsystems.swerve.generated.TunerConstants;
+import frc.robot.subsystems.vision.Vision;
+import frc.robot.subsystems.vision.VisionConstants;
+import frc.robot.subsystems.vision.VisionIOPhotonVision;
 import frc.robot.utils.AutoConfig;
 import frc.robot.utils.MappedXboxController;
 import java.util.ArrayList;
@@ -58,6 +61,7 @@ public class RobotContainer {
 
   // One chooser for all Mayhem autonomous routines.
   private final mayhemlib.auto.AutoChooser mayhemAutoChooser = new mayhemlib.auto.AutoChooser();
+
 
   private final SweepDepotMayhemAutos m_sweepDepotMayhemAutos;
   private final SweepMayhemAutos m_mayhemAutos;
@@ -124,6 +128,15 @@ public class RobotContainer {
           shotCalculator.getRobotPoseSupplier());
 
   private final AutoRoutines m_autoRoutines;
+
+    private final Vision vision =
+      new Vision(
+          drivetrain::addVisionMeasurement,
+          new VisionIOPhotonVision(
+              VisionConstants.frontRightCam, VisionConstants.robotToFrontRightCam),
+          new VisionIOPhotonVision(
+              VisionConstants.frontLeftCam, VisionConstants.robotToFrontLeftCam),
+          new VisionIOPhotonVision(VisionConstants.backCam, VisionConstants.robotToBackCam));
 
   public RobotContainer() {
     // Existing Choreo autonomous factory.
