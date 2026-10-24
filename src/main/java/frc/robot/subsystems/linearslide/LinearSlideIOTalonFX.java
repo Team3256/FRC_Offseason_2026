@@ -188,13 +188,17 @@ public class LinearSlideIOTalonFX implements LinearSlideIO {
 
   @Override
   public void zero() {
-    rightSlideMotor.setPosition(0);
-    leftSlideMotor.setPosition(0);
+    differentialMechanism.setPosition(0);
+  }
+@Override
+  public void clearfaults() {
+    differentialMechanism.clearUserRequirement();;
   }
 
   @Override
   public void resetPosition(double angle) {
-    rightSlideMotor.setPosition(angle);
-    leftSlideMotor.setPosition(angle);
+    differentialMechanism.setPosition(angle);
+
+  
   }
 }

@@ -343,7 +343,7 @@
  },
  "folder": "SweepDepot",
  "output": {
-  "inputHash": "d8d68f236bf2a472",
+  "inputHash": "55a7f4bf1e7dd918",
   "samples": [
    {
     "t": 0.0,
@@ -5353,12 +5353,12 @@
   "stats": {
    "success": true,
    "totalTime": 4.794981653520441,
-   "solveSeconds": 1.3444895410211757,
+   "solveSeconds": 1.4196843330282718,
    "iterations": 48,
    "candidate": 1,
    "attempts": [
-    "candidate 0: direct: Solved_To_Acceptable_Level (25 it, 0.79s)",
-    "candidate 1: direct: Solved_To_Acceptable_Level (23 it, 0.71s)"
+    "candidate 0: direct: Solved_To_Acceptable_Level (25 it, 0.80s)",
+    "candidate 1: direct: Solved_To_Acceptable_Level (23 it, 0.72s)"
    ]
   }
  }

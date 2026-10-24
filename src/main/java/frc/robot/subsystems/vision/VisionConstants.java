@@ -20,8 +20,8 @@ public class VisionConstants {
       AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
 
   // Camera names, must match names configured on coprocessor
-  public static String frontRightCam = "frontRight";
-  public static String frontLeftCam = "frontLeft";
+  public static String frontRightCam = "right";
+  public static String frontLeftCam = "left";
   public static String backCam = "middle";
 
   // Robot to camera transforms
