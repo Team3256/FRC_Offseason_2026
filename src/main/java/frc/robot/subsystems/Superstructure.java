@@ -11,8 +11,10 @@ import choreo.util.ChoreoAllianceFlipUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -75,6 +77,12 @@ public class Superstructure {
 
   private final Translation2d topCorner = new Translation2d(1.5, 6.8);
   private final Translation2d bottomCorner = new Translation2d(1.5, 1.5);
+
+  /** How far the robot's heading can be from the shot's drive angle and still count as aimed. */
+  private static final double kAimToleranceRad = Math.toRadians(5);
+
+  /** Hood position used to clear the slide while it extends for intake. */
+  private static final double kIntakeHoodPosition = 0.07;
 
   private double velMultiplier = 1;
 
@@ -179,11 +187,29 @@ public class Superstructure {
                 .and(prevStateTriggers.get(StructureState.REV_AND_INTAKE)))
         .onTrue(this.setState(StructureState.SHOOT_AND_INTAKE));
 
+    // Intake rollers
     stateTriggers
         .get(StructureState.INTAKE)
         .or(stateTriggers.get(StructureState.SHOOT_AND_INTAKE))
         .or(stateTriggers.get(StructureState.REV_AND_INTAKE))
-        .onTrue(intakeRollers.setVoltage(8))
+        .onTrue(intakeRollers.setVoltage(8));
+
+    Trigger intaking = stateTriggers.get(StructureState.INTAKE);
+    intaking.and(linearSlide.isBetweenPos).whileTrue(shooterPivot.setPosition(kIntakeHoodPosition));
+    intaking
+        .and(linearSlide.isBetweenPos.negate())
+        .and(linearSlide.reachedPosition)
+        .onTrue(shooterPivot.setPosition(0));
+
+    intaking.onTrue(
+        Commands.sequence(
+            Commands.waitUntil(
+                () -> !linearSlide.isBetweenPos.getAsBoolean() || shooterPivot.reachedPosition()),
+            linearSlide.goToGroundIntake()));
+
+    stateTriggers
+        .get(StructureState.SHOOT_AND_INTAKE)
+        .or(stateTriggers.get(StructureState.REV_AND_INTAKE))
         .onTrue(linearSlide.goToGroundIntake());
 
     stateTriggers.get(StructureState.SHOOT).debounce(0.1); // .onTrue(linearSlide.goToStow());
@@ -207,7 +233,6 @@ public class Superstructure {
 
     stateTriggers
         .get(StructureState.HOME)
-        .onTrue(linearSlide.goToStow())
         .onTrue(shooterPivot.setPosition(0))
         .onTrue(shooter.off())
         .onTrue(intakeRollers.off())
@@ -217,6 +242,7 @@ public class Superstructure {
     stateTriggers
         .get(StructureState.JITTER)
         .or(stateTriggers.get(StructureState.JITTER_AND_SHOOT))
+        .onTrue(intakeRollers.intake())
         .onTrue(linearSlide.jitterIntake());
 
     stateTriggers
@@ -244,18 +270,25 @@ public class Superstructure {
         .onTrue(feeder.off())
         .whileTrue(shooter.shootHub(shotCalculator::getDistance, () -> velMultiplier));
 
+    // Hood to 0 in these states. INTAKE is intentionally not here: intakeSequence() owns the hood
+    // while intaking.
     stateTriggers
-        .get(StructureState.INTAKE)
-        .or(stateTriggers.get(StructureState.IDLE))
+        .get(StructureState.IDLE)
         .or(stateTriggers.get(StructureState.CANCEL_ALL))
         .or(stateTriggers.get(StructureState.HOME))
         .or(stateTriggers.get(StructureState.REV))
         .or(stateTriggers.get(StructureState.REV_AND_INTAKE))
         .or(stateTriggers.get(StructureState.JITTER))
         .onTrue(shooterPivot.setPosition(0));
+
+    Trigger trenchZone = new Trigger(this::isInTrenchApproachZone);
+
+    trenchZone.onTrue(Commands.runOnce(() -> shooterPivot.setTrenchOverride(true)));
+
+    trenchZone.onFalse(Commands.runOnce(() -> shooterPivot.setTrenchOverride(false)));
   }
 
-  // call manually
+
   public void periodic() {
 
     Logger.recordOutput("Superstructure/State", this.state.toString());
@@ -267,6 +300,8 @@ public class Superstructure {
     Logger.recordOutput("Superstructure/Target", target);
 
     LoggedTracer.record(this.getClass().getSimpleName());
+
+    shooterPivot.setTrenchOverride(isInTrenchApproachZone());
   }
 
   private Command changeTarget(Translation2d target) {
@@ -280,6 +315,29 @@ public class Superstructure {
               shotCalculator.setTarget(target.get());
             })
         .ignoringDisable(true);
+  }
+
+  /**
+   * Whether a shot would go where it is meant to: flywheels up to the requested speed, the hood at
+   * its requested angle, and (unless switched off on the dashboard) the robot facing the target.
+   */
+  private boolean readyToShoot() {
+    boolean flywheelReady = shooter.reachedVelocity();
+    boolean pivotReady = shooterPivot.reachedPosition();
+    boolean aimed =
+        !SmartDashboard.getBoolean("Superstructure/RequireAimToShoot", true)
+            || ShotCalculator.isAimed(
+                robotPoseSupplier.get().getRotation(),
+                shotCalculator.getDriveAngle(),
+                kAimToleranceRad);
+    aimed = true;
+    boolean ready = flywheelReady && pivotReady && aimed;
+
+    Logger.recordOutput("Superstructure/ReadyToShoot/Flywheel", flywheelReady);
+    Logger.recordOutput("Superstructure/ReadyToShoot/Pivot", pivotReady);
+    Logger.recordOutput("Superstructure/ReadyToShoot/Aimed", aimed);
+    Logger.recordOutput("Superstructure/ReadyToShoot", ready);
+    return ready;
   }
 
   private boolean getAllianceBlue() {
@@ -321,4 +379,35 @@ public class Superstructure {
   public StructureState getPrevState() {
     return this.prevState;
   }
+
+  public boolean isInTrenchApproachZone() {
+    Pose2d pose = robotPoseSupplier.get();
+
+    double x = pose.getX();
+    double y = pose.getY();
+
+    double approachMargin = Units.inchesToMeters(18.0);
+
+    double halfTrenchLength =
+            FieldConstants.LeftTrench.width / 2.0;
+
+    boolean nearAllianceTrench =
+            Math.abs(x - FieldConstants.LinesVertical.hubCenter)
+                    <= halfTrenchLength + approachMargin;
+
+    boolean nearOppositeTrench =
+            Math.abs(x - FieldConstants.LinesVertical.oppHubCenter)
+                    <= halfTrenchLength + approachMargin;
+
+    boolean inLeftOpening =
+            y >= FieldConstants.LinesHorizontal.leftTrenchOpenEnd;
+
+    boolean inRightOpening =
+            y <= FieldConstants.LinesHorizontal.rightTrenchOpenStart;
+
+    return (nearAllianceTrench || nearOppositeTrench)
+            && (inLeftOpening || inRightOpening);
+}
+
+
 }

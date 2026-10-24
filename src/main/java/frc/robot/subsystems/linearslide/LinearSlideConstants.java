@@ -10,6 +10,7 @@ package frc.robot.subsystems.linearslide;
 import static edu.wpi.first.units.Units.*;
 
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.configs.DifferentialSensorsConfigs;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
@@ -18,6 +19,7 @@ import com.ctre.phoenix6.configs.Slot1Configs;
 import com.ctre.phoenix6.configs.Slot2Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.mechanisms.DifferentialMotorConstants;
+import com.ctre.phoenix6.signals.DifferentialSensorSourceValue;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
@@ -31,24 +33,25 @@ public class LinearSlideConstants {
   public static final int leftMotorID = 40;
 
   public static final boolean kUseFOC = true;
-  public static final boolean kUseMotionMagic = false;
+  public static final boolean kUseMotionMagic = true;
   public static final int flashConfigRetries = 5;
   public static final double stowPosition = 0; // dk yet
-  public static final double intakePosition = 0.3; // dk yet
+  public static final double intakePosition = 0.71;
 
-  public static final double jitterPosition = 0; // dk yet
-  public static final double jitterIntermediate = 0.2; // dk yet
+  public static final double jitterPosition = 0.7; // dk yet
+  public static final double jitterIntermediate = 0.3745; // dk yet
 
   public static final double differenceTarget = 0.0;
   // get when tuning
   public static double updateFrequency = 50;
+
   public static final TalonFXConfiguration rightMotorConfigs = // leader
       new TalonFXConfiguration()
           .withSlot0(
               new Slot0Configs()
-                  .withKS(0.1)
-                  .withKV(2)
-                  .withKP(3)
+                  .withKS(0.39)
+                  .withKV(2.7)
+                  .withKP(20)
                   .withKI(0)
                   .withKD(0)
                   .withKA(0)
@@ -58,30 +61,40 @@ public class LinearSlideConstants {
               new Slot1Configs()
                   .withKS(0)
                   .withKV(0)
-                  .withKP(5) // change
+                  .withKP(0) // change
                   .withKI(0)
                   .withKD(0) // change
                   .withKA(0)
                   .withKG(0))
-          .withSlot2(new Slot2Configs().withKP(4))
+          .withSlot2(new Slot2Configs().withKP(100))
           .withMotorOutput(
               new MotorOutputConfigs()
-                  .withNeutralMode(NeutralModeValue.Brake)
+                  .withNeutralMode(NeutralModeValue.Coast)
                   .withInverted(InvertedValue.Clockwise_Positive))
           .withMotionMagic(
               new MotionMagicConfigs()
-                  .withMotionMagicAcceleration(100)
-                  .withMotionMagicCruiseVelocity(10))
+                  .withMotionMagicAcceleration(30)
+                  .withMotionMagicCruiseVelocity(4.3)
+                  .withMotionMagicJerk(450)
+                  .withMotionMagicExpo_kV(0.11999999731779099)
+                  .withMotionMagicExpo_kA(0.1))
           .withCurrentLimits(
               // how do u get these values actually i need to learn
               new CurrentLimitsConfigs()
                   .withStatorCurrentLimitEnable(true)
-                  .withStatorCurrentLimit(40)
+                  .withStatorCurrentLimit(15)
                   .withSupplyCurrentLimit(50)
                   .withSupplyCurrentLimitEnable(true)
                   .withSupplyCurrentLowerTime(.1)
                   .withSupplyCurrentLowerLimit(20))
-          .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(30));
+          .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(30))
+          .withDifferentialSensors(
+              new DifferentialSensorsConfigs()
+                  .withDifferentialRemoteSensorID(40)
+                  .withDifferentialSensorSource(
+                      DifferentialSensorSourceValue.RemoteTalonFX_HalfDiff)
+                  .withDifferentialTalonFXSensorID(40)
+                  .withSensorToDifferentialRatio(1));
 
   public static final TalonFXConfiguration leftMotorConfigs =
       new TalonFXConfiguration().withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(30));
@@ -90,8 +103,8 @@ public class LinearSlideConstants {
       new DifferentialMotorConstants<TalonFXConfiguration>()
           .withLeaderId(LinearSlideConstants.rightMotorID) // or whichever side is leader
           .withFollowerId(LinearSlideConstants.leftMotorID)
-          .withAlignment(MotorAlignmentValue.Aligned)
-          .withSensorToDifferentialRatio(1.0) // set to actual diff gear ratio <-- idk what this
+          .withAlignment(MotorAlignmentValue.Opposed)
+          .withSensorToDifferentialRatio(1.0)
           .withLeaderInitialConfigs(rightMotorConfigs)
           .withFollowerInitialConfigs(leftMotorConfigs)
           .withFollowerUsesCommonLeaderConfigs(true);

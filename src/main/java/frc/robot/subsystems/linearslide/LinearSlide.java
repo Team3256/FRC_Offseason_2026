@@ -1,7 +1,8 @@
-// Copyright (c) 2025 FRC 3256
+
+ // Copyright (c) 2025 FRC 3256
 // https://github.com/Team3256
 //
-// Use of this source code is governed by a 
+// Use of this source code is governed by a
 // license that can be found in the LICENSE file at
 // the root directory of this project.
 
@@ -14,38 +15,53 @@ import frc.robot.utils.Util;
 import java.util.function.DoubleSupplier;
 import org.littletonrobotics.junction.Logger;
 
+import com.ctre.phoenix6.mechanisms.DifferentialMechanism;
+
 public class LinearSlide extends DisableSubsystem {
+
   private final LinearSlideIO linearSlideIO;
+
   private final LinearSlideIOInputsAutoLogged linearSlideIOInputsAutoLogged =
       new LinearSlideIOInputsAutoLogged();
 
   public final Trigger reachedPosition = new Trigger(this::reachedPosition);
 
+  public final Trigger isBetweenPos = new Trigger(this::atPosition);
+
   private double reqPosition = 0.0;
 
   public LinearSlide(boolean enabled, LinearSlideIO linearSlideIO) {
     super(enabled);
+
     this.linearSlideIO = linearSlideIO;
+
     linearSlideIO.zero();
 
     System.out.println(
         "Current command: "
-            + (this.getCurrentCommand() != null ? this.getCurrentCommand().getName() : "none"));
+            + (this.getCurrentCommand() != null
+                ? this.getCurrentCommand().getName()
+                : "none"));
   }
 
   @Override
   public void periodic() {
     super.periodic();
+
     linearSlideIO.updateInputs(linearSlideIOInputsAutoLogged);
+
     Logger.processInputs("LinearSlide", linearSlideIOInputsAutoLogged);
 
-    Logger.recordOutput(this.getClass().getSimpleName() + "/reqPosition", reqPosition);
+    Logger.recordOutput(
+        this.getClass().getSimpleName() + "/reqPosition",
+        reqPosition);
   }
 
   public Command setPosition(double position) {
     return this.run(
         () -> {
           reqPosition = position;
+
           if (isExtended()) {
             linearSlideIO.setExtendedPosition(position);
           } else {
@@ -67,6 +83,18 @@ public class LinearSlide extends DisableSubsystem {
         });
   }
 
+  public Command setJitterPos(double position) {
+  return this.run(
+      () -> {
+        reqPosition = position;
+        linearSlideIO.setPosition(reqPosition);
+      });
+}
+
+public Command clearfaults() {
+    return this.run(() -> linearSlideIO.clearfaults());
+}
+
   public Command setVoltage(double voltage) {
     return this.run(() -> linearSlideIO.setVoltage(voltage));
   }
@@ -83,24 +111,40 @@ public class LinearSlide extends DisableSubsystem {
     return this.setPosition(LinearSlideConstants.intakePosition);
   }
 
-  // ***********
+  // ********************
 
   public Command goToJitter() {
-    return this.setPosition(LinearSlideConstants.jitterPosition);
+    return this.setJitterPos(LinearSlideConstants.jitterPosition);
   }
 
   public Command goToJitterIntermediate() {
-    return this.setPosition(LinearSlideConstants.jitterIntermediate);
+    return this.setJitterPos(LinearSlideConstants.jitterIntermediate);
   }
 
   public Command jitterIntake() {
-    return (goToJitter().withTimeout(.2).andThen(goToJitterIntermediate().withTimeout(.2)))
+    return (goToJitter()
+            .withTimeout(1)
+            .andThen(goToJitterIntermediate().withTimeout(1)))
         .repeatedly();
   }
 
   public boolean reachedPosition() {
-    return Util.epsilonEquals(linearSlideIOInputsAutoLogged.rightMotorPosition, reqPosition, 0.01)
-        && Util.epsilonEquals(linearSlideIOInputsAutoLogged.leftMotorPosition, reqPosition, 0.01);
+    return Util.epsilonEquals(
+            linearSlideIOInputsAutoLogged.rightMotorPosition,
+            reqPosition,
+            0.01)
+        && Util.epsilonEquals(
+            linearSlideIOInputsAutoLogged.leftMotorPosition,
+            reqPosition,
+            0.01);
+  }
+
+  public boolean atPosition() {
+    double right = linearSlideIOInputsAutoLogged.rightMotorPosition;
+    double left = linearSlideIOInputsAutoLogged.leftMotorPosition;
+
+    return (right >= 0.0 && right <= 0.3745)
+        && (left >= 0.0 && left <= 0.3745);
   }
 
   private boolean isExtended() {
