@@ -186,7 +186,7 @@ public class RobotContainer {
     // Mayhem factory shared by both Mayhem auto classes.
     var mayhemAutoFactory =
         CtreSwerve.autoFactory(drivetrain)
-            .withTelemetry(true);
+            .withTelemetry(true).withUnbeach();
 
     m_sweepDepotMayhemAutos =
         new SweepDepotMayhemAutos(

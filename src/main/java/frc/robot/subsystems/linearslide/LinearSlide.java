@@ -123,8 +123,8 @@ public Command clearfaults() {
 
   public Command jitterIntake() {
     return (goToJitter()
-            .withTimeout(1)
-            .andThen(goToJitterIntermediate().withTimeout(1)))
+            .withTimeout(0.2)
+            .andThen(goToJitterIntermediate().withTimeout(0.2)))
         .repeatedly();
   }
 
