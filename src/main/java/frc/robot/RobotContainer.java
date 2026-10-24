@@ -17,6 +17,7 @@ import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -186,7 +187,8 @@ public class RobotContainer {
     // Mayhem factory shared by both Mayhem auto classes.
     var mayhemAutoFactory =
         CtreSwerve.autoFactory(drivetrain)
-            .withTelemetry(true).withUnbeach();
+            .withTelemetry(true)
+            .withUnbeach();
 
     m_sweepDepotMayhemAutos =
         new SweepDepotMayhemAutos(
@@ -368,71 +370,69 @@ public class RobotContainer {
         AzimuthTargets.aziKi,
         AzimuthTargets.aziKD);
 
+    // Default drive with trench assist.
     drivetrain.setDefaultCommand(
         drivetrain.applyRequest(
-            () ->
-                drive
-                    .withVelocityX(
-                        -(Math.signum(m_driverController.getLeftY())
-                                * Math.pow(
-                                    m_driverController.getLeftY(),
-                                    2))
-                            * MaxSpeed)
-                    .withVelocityY(
-                        -(Math.signum(m_driverController.getLeftX())
-                                * Math.pow(
-                                    m_driverController.getLeftX(),
-                                    2))
-                            * MaxSpeed)
-                    .withRotationalRate(
-                        -m_driverController.getRightX()
-                            * MaxAngularRate)));
+            () -> {
+              ChassisSpeeds assisted =
+                  drivetrain.applyTrenchAssist(
+                      new ChassisSpeeds(
+                          -(Math.signum(m_driverController.getLeftY())
+                                  * Math.pow(m_driverController.getLeftY(), 2))
+                              * MaxSpeed,
+                          -(Math.signum(m_driverController.getLeftX())
+                                  * Math.pow(m_driverController.getLeftX(), 2))
+                              * MaxSpeed,
+                          -m_driverController.getRightX() * MaxAngularRate));
+              return drive
+                  .withVelocityX(assisted.vxMetersPerSecond)
+                  .withVelocityY(assisted.vyMetersPerSecond)
+                  .withRotationalRate(assisted.omegaRadiansPerSecond);
+            }));
 
-    // Driver left bumper: Slow drive.
+    // Driver left bumper: Slow drive with trench assist.
     m_driverController
         .leftBumper()
         .whileTrue(
             drivetrain.applyRequest(
-                () ->
-                    drive
-                        .withVelocityX(
-                            -(Math.signum(m_driverController.getLeftY())
-                                    * Math.pow(
-                                        m_driverController.getLeftY(),
-                                        2))
-                                * SlowMaxSpeed)
-                        .withVelocityY(
-                            -(Math.signum(m_driverController.getLeftX())
-                                    * Math.pow(
-                                        m_driverController.getLeftX(),
-                                        2))
-                                * SlowMaxSpeed)
-                        .withRotationalRate(
-                            -m_driverController.getRightX()
-                                * SlowMaxAngular)));
+                () -> {
+                  ChassisSpeeds assisted =
+                      drivetrain.applyTrenchAssist(
+                          new ChassisSpeeds(
+                              -(Math.signum(m_driverController.getLeftY())
+                                      * Math.pow(m_driverController.getLeftY(), 2))
+                                  * SlowMaxSpeed,
+                              -(Math.signum(m_driverController.getLeftX())
+                                      * Math.pow(m_driverController.getLeftX(), 2))
+                                  * SlowMaxSpeed,
+                              -m_driverController.getRightX() * SlowMaxAngular));
+                  return drive
+                      .withVelocityX(assisted.vxMetersPerSecond)
+                      .withVelocityY(assisted.vyMetersPerSecond)
+                      .withRotationalRate(assisted.omegaRadiansPerSecond);
+                }));
 
-    // Driver right bumper: Super slow drive.
+    // Driver right bumper: Super slow drive with trench assist.
     m_driverController
         .rightBumper()
         .whileTrue(
             drivetrain.applyRequest(
-                () ->
-                    drive
-                        .withVelocityX(
-                            -(Math.signum(m_driverController.getLeftY())
-                                    * Math.pow(
-                                        m_driverController.getLeftY(),
-                                        2))
-                                * SuperSlowMaxSpeed)
-                        .withVelocityY(
-                            -(Math.signum(m_driverController.getLeftX())
-                                    * Math.pow(
-                                        m_driverController.getLeftX(),
-                                        2))
-                                * SuperSlowMaxSpeed)
-                        .withRotationalRate(
-                            -m_driverController.getRightX()
-                                * SlowMaxAngular)));
+                () -> {
+                  ChassisSpeeds assisted =
+                      drivetrain.applyTrenchAssist(
+                          new ChassisSpeeds(
+                              -(Math.signum(m_driverController.getLeftY())
+                                      * Math.pow(m_driverController.getLeftY(), 2))
+                                  * SuperSlowMaxSpeed,
+                              -(Math.signum(m_driverController.getLeftX())
+                                      * Math.pow(m_driverController.getLeftX(), 2))
+                                  * SuperSlowMaxSpeed,
+                              -m_driverController.getRightX() * SlowMaxAngular));
+                  return drive
+                      .withVelocityX(assisted.vxMetersPerSecond)
+                      .withVelocityY(assisted.vyMetersPerSecond)
+                      .withRotationalRate(assisted.omegaRadiansPerSecond);
+                }));
 
     // Driver POV right: Seed field-centric.
     m_driverController
