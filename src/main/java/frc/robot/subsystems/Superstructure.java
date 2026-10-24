@@ -8,9 +8,11 @@
 package frc.robot.subsystems;
 
 import choreo.util.ChoreoAllianceFlipUtil;
+import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
@@ -27,14 +29,12 @@ import frc.robot.subsystems.linearslide.LinearSlide;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.shooterpivot.ShooterPivot;
 import frc.robot.subsystems.sotm.ShotCalculator;
+import frc.robot.subsystems.swerve.SwerveConstants;
 import frc.robot.utils.LoggedTracer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 import org.littletonrobotics.junction.Logger;
-import edu.wpi.first.math.filter.Debouncer;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import frc.robot.subsystems.swerve.SwerveConstants;
 
 public class Superstructure {
   public enum StructureState {
@@ -289,9 +289,7 @@ public class Superstructure {
         .or(stateTriggers.get(StructureState.REV_AND_INTAKE))
         .or(stateTriggers.get(StructureState.JITTER))
         .onTrue(shooterPivot.setPosition(0));
-
   }
-
 
   public void periodic() {
 
@@ -410,6 +408,4 @@ public class Superstructure {
 
     return nearTrench && (inLeftOpening || inRightOpening);
   }
-
-
 }
