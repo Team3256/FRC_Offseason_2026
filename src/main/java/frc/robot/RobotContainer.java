@@ -187,7 +187,8 @@ public class RobotContainer {
     // Mayhem factory shared by both Mayhem auto classes.
     var mayhemAutoFactory =
         CtreSwerve.autoFactory(drivetrain)
-            .withTelemetry(true);
+            .withTelemetry(true)
+            .withUnbeach();
 
     m_sweepDepotMayhemAutos =
         new SweepDepotMayhemAutos(
@@ -369,6 +370,7 @@ public class RobotContainer {
         AzimuthTargets.aziKi,
         AzimuthTargets.aziKD);
 
+    // Default drive with trench assist.
     drivetrain.setDefaultCommand(
         drivetrain.applyRequest(
             () -> {
@@ -387,25 +389,8 @@ public class RobotContainer {
                   .withVelocityY(assisted.vyMetersPerSecond)
                   .withRotationalRate(assisted.omegaRadiansPerSecond);
             }));
-            () ->
-                drive
-                    .withVelocityX(
-                        -(Math.signum(m_driverController.getLeftY())
-                                * Math.pow(
-                                    m_driverController.getLeftY(),
-                                    2))
-                            * MaxSpeed)
-                    .withVelocityY(
-                        -(Math.signum(m_driverController.getLeftX())
-                                * Math.pow(
-                                    m_driverController.getLeftX(),
-                                    2))
-                            * MaxSpeed)
-                    .withRotationalRate(
-                        -m_driverController.getRightX()
-                            * MaxAngularRate)));
 
-    // Driver left bumper: Slow drive.
+    // Driver left bumper: Slow drive with trench assist.
     m_driverController
         .leftBumper()
         .whileTrue(
@@ -426,25 +411,8 @@ public class RobotContainer {
                       .withVelocityY(assisted.vyMetersPerSecond)
                       .withRotationalRate(assisted.omegaRadiansPerSecond);
                 }));
-                () ->
-                    drive
-                        .withVelocityX(
-                            -(Math.signum(m_driverController.getLeftY())
-                                    * Math.pow(
-                                        m_driverController.getLeftY(),
-                                        2))
-                                * SlowMaxSpeed)
-                        .withVelocityY(
-                            -(Math.signum(m_driverController.getLeftX())
-                                    * Math.pow(
-                                        m_driverController.getLeftX(),
-                                        2))
-                                * SlowMaxSpeed)
-                        .withRotationalRate(
-                            -m_driverController.getRightX()
-                                * SlowMaxAngular)));
 
-    // Driver right bumper: Super slow drive.
+    // Driver right bumper: Super slow drive with trench assist.
     m_driverController
         .rightBumper()
         .whileTrue(
@@ -465,23 +433,6 @@ public class RobotContainer {
                       .withVelocityY(assisted.vyMetersPerSecond)
                       .withRotationalRate(assisted.omegaRadiansPerSecond);
                 }));
-                () ->
-                    drive
-                        .withVelocityX(
-                            -(Math.signum(m_driverController.getLeftY())
-                                    * Math.pow(
-                                        m_driverController.getLeftY(),
-                                        2))
-                                * SuperSlowMaxSpeed)
-                        .withVelocityY(
-                            -(Math.signum(m_driverController.getLeftX())
-                                    * Math.pow(
-                                        m_driverController.getLeftX(),
-                                        2))
-                                * SuperSlowMaxSpeed)
-                        .withRotationalRate(
-                            -m_driverController.getRightX()
-                                * SlowMaxAngular)));
 
     // Driver POV right: Seed field-centric.
     m_driverController
