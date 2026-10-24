@@ -8,9 +8,11 @@
 package frc.robot.subsystems;
 
 import choreo.util.ChoreoAllianceFlipUtil;
+import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
@@ -27,6 +29,7 @@ import frc.robot.subsystems.linearslide.LinearSlide;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.shooterpivot.ShooterPivot;
 import frc.robot.subsystems.sotm.ShotCalculator;
+import frc.robot.subsystems.swerve.SwerveConstants;
 import frc.robot.utils.LoggedTracer;
 import java.util.HashMap;
 import java.util.Map;
@@ -67,6 +70,8 @@ public class Superstructure {
 
   private final Supplier<Pose2d> robotPoseSupplier;
 
+  private final Supplier<ChassisSpeeds> robotSpeedsSupplier;
+
   private final Trigger targetBlueHub = new Trigger(this::targetBlueHub);
   private final Trigger targetRedHub = new Trigger(this::targetRedHub);
 
@@ -77,6 +82,8 @@ public class Superstructure {
 
   private final Translation2d topCorner = new Translation2d(1.5, 6.8);
   private final Translation2d bottomCorner = new Translation2d(1.5, 1.5);
+
+  private final Debouncer trenchDebouncer = new Debouncer(0.05, Debouncer.DebounceType.kFalling);
 
   /** How far the robot's heading can be from the shot's drive angle and still count as aimed. */
   private static final double kAimToleranceRad = Math.toRadians(5);
@@ -97,7 +104,8 @@ public class Superstructure {
       LinearSlide linearSlide,
       Feeder feeder,
       ShotCalculator shotCalculator,
-      Supplier<Pose2d> robotPoseSupplier) {
+      Supplier<Pose2d> robotPoseSupplier,
+      Supplier<ChassisSpeeds> robotSpeedsSupplier) {
     this.indexer = indexer;
     this.shooterPivot = shooterPivot;
     this.shooter = shooter;
@@ -106,6 +114,7 @@ public class Superstructure {
     this.feeder = feeder;
     this.shotCalculator = shotCalculator;
     this.robotPoseSupplier = robotPoseSupplier;
+    this.robotSpeedsSupplier = robotSpeedsSupplier;
 
     stateTimer.start();
 
@@ -280,14 +289,7 @@ public class Superstructure {
         .or(stateTriggers.get(StructureState.REV_AND_INTAKE))
         .or(stateTriggers.get(StructureState.JITTER))
         .onTrue(shooterPivot.setPosition(0));
-
-    Trigger trenchZone = new Trigger(this::isInTrenchApproachZone);
-
-    trenchZone.onTrue(Commands.runOnce(() -> shooterPivot.setTrenchOverride(true)));
-
-    trenchZone.onFalse(Commands.runOnce(() -> shooterPivot.setTrenchOverride(false)));
   }
-
 
   public void periodic() {
 
@@ -301,7 +303,9 @@ public class Superstructure {
 
     LoggedTracer.record(this.getClass().getSimpleName());
 
-    shooterPivot.setTrenchOverride(isInTrenchApproachZone());
+    boolean inZone = trenchDebouncer.calculate(isInTrenchApproachZone());
+    shooterPivot.setInTrenchZone(inZone);
+    Logger.recordOutput("Superstructure/InTrenchZone", inZone);
   }
 
   private Command changeTarget(Translation2d target) {
@@ -380,34 +384,28 @@ public class Superstructure {
     return this.prevState;
   }
 
-  public boolean isInTrenchApproachZone() {
+  private boolean isInTrenchApproachZone() {
     Pose2d pose = robotPoseSupplier.get();
+    ChassisSpeeds field =
+        ChassisSpeeds.fromRobotRelativeSpeeds(robotSpeedsSupplier.get(), pose.getRotation());
 
     double x = pose.getX();
     double y = pose.getY();
 
-    double approachMargin = Units.inchesToMeters(18.0);
+    // 12 in plus how far the robot travels while the hood is moving (0.3 s, tune to your hood)
+    double margin = Units.inchesToMeters(12.0) + Math.abs(field.vxMetersPerSecond) * 0.3;
+    double reach =
+        FieldConstants.LeftTrench.width / 2.0 // see note below
+            + SwerveConstants.TrenchAssistConstants.kRobotHalfLength
+            + margin;
 
-    double halfTrenchLength =
-            FieldConstants.LeftTrench.width / 2.0;
+    boolean nearTrench =
+        Math.abs(x - FieldConstants.LinesVertical.hubCenter) <= reach
+            || Math.abs(x - FieldConstants.LinesVertical.oppHubCenter) <= reach;
 
-    boolean nearAllianceTrench =
-            Math.abs(x - FieldConstants.LinesVertical.hubCenter)
-                    <= halfTrenchLength + approachMargin;
+    boolean inLeftOpening = y >= FieldConstants.LinesHorizontal.leftTrenchOpenEnd;
+    boolean inRightOpening = y <= FieldConstants.LinesHorizontal.rightTrenchOpenStart;
 
-    boolean nearOppositeTrench =
-            Math.abs(x - FieldConstants.LinesVertical.oppHubCenter)
-                    <= halfTrenchLength + approachMargin;
-
-    boolean inLeftOpening =
-            y >= FieldConstants.LinesHorizontal.leftTrenchOpenEnd;
-
-    boolean inRightOpening =
-            y <= FieldConstants.LinesHorizontal.rightTrenchOpenStart;
-
-    return (nearAllianceTrench || nearOppositeTrench)
-            && (inLeftOpening || inRightOpening);
-}
-
-
+    return nearTrench && (inLeftOpening || inRightOpening);
+  }
 }
