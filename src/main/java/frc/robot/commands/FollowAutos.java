@@ -34,17 +34,11 @@ public class FollowAutos {
     // The Choreo version also loads "topTrenchSweepDepotPt3", but that path was deleted, and
     // MayhemLib throws if a trajectory file is missing, so it is left out here.
 
-    routine
-            .active()
-            .onTrue(followTrenchAuto.resetOdometry().andThen(followTrenchAuto.cmd()));
+    routine.active().onTrue(followTrenchAuto.resetOdometry().andThen(followTrenchAuto.cmd()));
 
-    followTrenchAuto
-            .atTime("intake")
-            .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    followTrenchAuto.atTime("intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
     followTrenchAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
     followTrenchAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
-
-
 
     return routine;
   }
@@ -55,17 +49,11 @@ public class FollowAutos {
     // The Choreo version also loads "topTrenchSweepDepotPt3", but that path was deleted, and
     // MayhemLib throws if a trajectory file is missing, so it is left out here.
 
-    routine
-            .active()
-            .onTrue(followTrenchAuto.resetOdometry().andThen(followTrenchAuto.cmd()));
+    routine.active().onTrue(followTrenchAuto.resetOdometry().andThen(followTrenchAuto.cmd()));
 
-    followTrenchAuto
-            .atTime("intake")
-            .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    followTrenchAuto.atTime("intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
     followTrenchAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
-    followTrenchAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
-
-
+    followTrenchAuto.atTime("shoot").onTrue(AutoRoutines.alignAndShoot());
 
     return routine;
   }
