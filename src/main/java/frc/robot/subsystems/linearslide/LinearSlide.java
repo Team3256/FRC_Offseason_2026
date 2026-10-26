@@ -15,7 +15,9 @@ import java.util.function.DoubleSupplier;
 import org.littletonrobotics.junction.Logger;
 
 public class LinearSlide extends DisableSubsystem {
+
   private final LinearSlideIO linearSlideIO;
+
   private final LinearSlideIOInputsAutoLogged linearSlideIOInputsAutoLogged =
       new LinearSlideIOInputsAutoLogged();
 
@@ -27,7 +29,9 @@ public class LinearSlide extends DisableSubsystem {
 
   public LinearSlide(boolean enabled, LinearSlideIO linearSlideIO) {
     super(enabled);
+
     this.linearSlideIO = linearSlideIO;
+
     linearSlideIO.zero();
 
     System.out.println(
@@ -38,7 +42,9 @@ public class LinearSlide extends DisableSubsystem {
   @Override
   public void periodic() {
     super.periodic();
+
     linearSlideIO.updateInputs(linearSlideIOInputsAutoLogged);
+
     Logger.processInputs("LinearSlide", linearSlideIOInputsAutoLogged);
 
     Logger.recordOutput(this.getClass().getSimpleName() + "/reqPosition", reqPosition);
@@ -48,6 +54,7 @@ public class LinearSlide extends DisableSubsystem {
     return this.run(
         () -> {
           reqPosition = position;
+
           if (isExtended()) {
             linearSlideIO.setExtendedPosition(position);
           } else {
@@ -69,6 +76,18 @@ public class LinearSlide extends DisableSubsystem {
         });
   }
 
+  public Command setJitterPos(double position) {
+    return this.run(
+        () -> {
+          reqPosition = position;
+          linearSlideIO.setPosition(reqPosition);
+        });
+  }
+
+  public Command clearfaults() {
+    return this.run(() -> linearSlideIO.clearfaults());
+  }
+
   public Command setVoltage(double voltage) {
     return this.run(() -> linearSlideIO.setVoltage(voltage));
   }
@@ -85,18 +104,18 @@ public class LinearSlide extends DisableSubsystem {
     return this.setPosition(LinearSlideConstants.intakePosition);
   }
 
-  // ***********
+  // ********************
 
   public Command goToJitter() {
-    return this.setPosition(LinearSlideConstants.jitterPosition);
+    return this.setJitterPos(LinearSlideConstants.jitterPosition);
   }
 
   public Command goToJitterIntermediate() {
-    return this.setPosition(LinearSlideConstants.jitterIntermediate);
+    return this.setJitterPos(LinearSlideConstants.jitterIntermediate);
   }
 
   public Command jitterIntake() {
-    return (goToJitter().withTimeout(1).andThen(goToJitterIntermediate().withTimeout(1)))
+    return (goToJitter().withTimeout(0.2).andThen(goToJitterIntermediate().withTimeout(0.2)))
         .repeatedly();
   }
 

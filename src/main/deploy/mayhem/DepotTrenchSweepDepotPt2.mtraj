@@ -2182,11 +2182,11 @@
   "stats": {
    "success": true,
    "totalTime": 2.27080040857369,
-   "solveSeconds": 0.8774455410020892,
+   "solveSeconds": 0.15715754200937226,
    "iterations": 37,
    "candidate": 0,
    "attempts": [
-    "candidate 0: direct: Solve_Succeeded (37 it, 0.14s)"
+    "candidate 0: direct: Solve_Succeeded (37 it, 0.12s)"
    ]
   }
  }

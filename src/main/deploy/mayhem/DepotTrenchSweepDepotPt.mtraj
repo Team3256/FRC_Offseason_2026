@@ -5329,7 +5329,7 @@
   "stats": {
    "success": true,
    "totalTime": 4.783149784056261,
-   "solveSeconds": 0.7582182500045747,
+   "solveSeconds": 0.8231952500063926,
    "iterations": 49,
    "candidate": 0,
    "attempts": [
