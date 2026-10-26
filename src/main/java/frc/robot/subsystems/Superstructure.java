@@ -288,7 +288,6 @@ public class Superstructure {
     trenchZone.onFalse(Commands.runOnce(() -> shooterPivot.setTrenchOverride(false)));
   }
 
-
   public void periodic() {
 
     Logger.recordOutput("Superstructure/State", this.state.toString());
@@ -388,26 +387,19 @@ public class Superstructure {
 
     double approachMargin = Units.inchesToMeters(18.0);
 
-    double halfTrenchLength =
-            FieldConstants.LeftTrench.width / 2.0;
+    double halfTrenchLength = FieldConstants.LeftTrench.width / 2.0;
 
     boolean nearAllianceTrench =
-            Math.abs(x - FieldConstants.LinesVertical.hubCenter)
-                    <= halfTrenchLength + approachMargin;
+        Math.abs(x - FieldConstants.LinesVertical.hubCenter) <= halfTrenchLength + approachMargin;
 
     boolean nearOppositeTrench =
-            Math.abs(x - FieldConstants.LinesVertical.oppHubCenter)
-                    <= halfTrenchLength + approachMargin;
+        Math.abs(x - FieldConstants.LinesVertical.oppHubCenter)
+            <= halfTrenchLength + approachMargin;
 
-    boolean inLeftOpening =
-            y >= FieldConstants.LinesHorizontal.leftTrenchOpenEnd;
+    boolean inLeftOpening = y >= FieldConstants.LinesHorizontal.leftTrenchOpenEnd;
 
-    boolean inRightOpening =
-            y <= FieldConstants.LinesHorizontal.rightTrenchOpenStart;
+    boolean inRightOpening = y <= FieldConstants.LinesHorizontal.rightTrenchOpenStart;
 
-    return (nearAllianceTrench || nearOppositeTrench)
-            && (inLeftOpening || inRightOpening);
-}
-
-
+    return (nearAllianceTrench || nearOppositeTrench) && (inLeftOpening || inRightOpening);
+  }
 }

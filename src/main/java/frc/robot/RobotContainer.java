@@ -129,14 +129,16 @@ public class RobotContainer {
     // Existing Choreo autonomous factory.
     AutoFactory autoFactory = drivetrain.createAutoFactory(drivetrain::trajLogger);
 
-    m_autoRoutines = new AutoRoutines(autoFactory, drivetrain, superstructure);
+    m_autoRoutines = new AutoRoutines(autoFactory, drivetrain, superstructure, shotCalculator);
 
     // Mayhem factory shared by both Mayhem auto classes.
     var mayhemAutoFactory = CtreSwerve.autoFactory(drivetrain).withTelemetry(true);
 
-    m_sweepDepotMayhemAutos = new SweepDepotMayhemAutos(mayhemAutoFactory, superstructure);
+    m_sweepDepotMayhemAutos =
+        new SweepDepotMayhemAutos(mayhemAutoFactory, superstructure, drivetrain, shotCalculator);
 
-    m_mayhemAutos = new SweepMayhemAutos(mayhemAutoFactory, superstructure);
+    m_mayhemAutos =
+        new SweepMayhemAutos(mayhemAutoFactory, superstructure, drivetrain, shotCalculator);
 
     configureChoreoAutoChooser();
     configureMayhemAutoChooser();
@@ -300,12 +302,10 @@ public class RobotContainer {
         .whileTrue(
             drivetrain.rotateToLookahead(shotCalculator, this::vxSupplier, this::vySupplier));
   }
-  
 
   public void periodic() {
     field2d.setRobotPose(drivetrain.getState().Pose);
     superstructure.periodic();
     shotCalculator.periodic();
-
   }
 }
