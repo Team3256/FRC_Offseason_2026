@@ -28,9 +28,30 @@ public class FollowAutos {
     m_superstructure = superstructure;
   }
 
-  public AutoRoutine trenchDepotOnlyMayhemAutos() {
-    final AutoRoutine routine = m_factory.newRoutine("followTrench");
-    final AutoTrajectory followTrenchAuto = routine.trajectory("followTrench");
+  public AutoRoutine followDepotTrenchAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("followDepotTrench");
+    final AutoTrajectory followTrenchAuto = routine.trajectory("followDepotTrench");
+    // The Choreo version also loads "topTrenchSweepDepotPt3", but that path was deleted, and
+    // MayhemLib throws if a trajectory file is missing, so it is left out here.
+
+    routine
+            .active()
+            .onTrue(followTrenchAuto.resetOdometry().andThen(followTrenchAuto.cmd()));
+
+    followTrenchAuto
+            .atTime("intake")
+            .onTrue(m_superstructure.setState(StructureState.INTAKE));
+    followTrenchAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
+    followTrenchAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
+
+
+
+    return routine;
+  }
+
+  public AutoRoutine followOutpostTrenchAuto() {
+    final AutoRoutine routine = m_factory.newRoutine("followOutpostTrench");
+    final AutoTrajectory followTrenchAuto = routine.trajectory("followOutpostTrench");
     // The Choreo version also loads "topTrenchSweepDepotPt3", but that path was deleted, and
     // MayhemLib throws if a trajectory file is missing, so it is left out here.
 
