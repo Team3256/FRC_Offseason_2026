@@ -38,7 +38,7 @@ public class FollowAutos {
 
     followTrenchAuto.atTime("intake").onTrue(m_superstructure.setState(StructureState.INTAKE));
     followTrenchAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
-    followTrenchAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.SHOOT));
+    followTrenchAuto.atTime("shoot").onTrue(AutoRoutines.alignAndShoot());
 
     return routine;
   }
