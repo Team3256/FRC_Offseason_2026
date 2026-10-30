@@ -30,12 +30,15 @@ public class ShooterPivot extends DisableSubsystem {
 
   private double hoodVel = 0;
 
+  private boolean trenchOverride = false;
+
   private final LinearFilter hoodAngleFilter = LinearFilter.movingAverage((int) (0.1 / .02));
 
   public ShooterPivot(boolean enabled, ShooterPivotIO shooterPivotIO) {
     super(enabled);
 
     this.shooterPivotIO = shooterPivotIO;
+    shooterPivotIO.resetPosition(0);
   }
 
   @Override
@@ -60,7 +63,8 @@ public class ShooterPivot extends DisableSubsystem {
   public Command setPosition(DoubleSupplier position) {
     return this.run(
         () -> {
-          reqPosition = position.getAsDouble();
+          reqPosition = trenchOverride ? 0.0 : position.getAsDouble();
+
           shooterPivotIO.setPosition(reqPosition, hoodVel);
         });
   }
@@ -84,5 +88,9 @@ public class ShooterPivot extends DisableSubsystem {
   public boolean reachedPosition() {
     return Util.epsilonEquals(
         shooterPivotIOInputsAutoLogged.shooterPivotMotorPosition, reqPosition, 0.01);
+  }
+
+  public void setTrenchOverride(boolean enabled) {
+    trenchOverride = enabled;
   }
 }

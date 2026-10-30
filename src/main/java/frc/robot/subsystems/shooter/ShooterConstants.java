@@ -23,10 +23,10 @@ public final class ShooterConstants {
   public static final boolean kUseFOC = true;
 
   public static int[] shooters = {
-    59, // top left
-    60, // bottom left
-    61, // top right
-    62, // bottom right
+    44, // top left
+    45, // bottom left
+    42, // top right
+    41, // bottom right
   };
   // the leader is the shooters[0] and the rest are followers
 
@@ -36,7 +36,7 @@ public final class ShooterConstants {
   public static TalonFXConfiguration motorConfigs =
       new TalonFXConfiguration()
           .withSlot0(
-              new Slot0Configs().withKS(0).withKV(.12).withKA(0).withKP(.1).withKI(0).withKD(0))
+              new Slot0Configs().withKS(0.304).withKV(.12).withKA(0).withKP(.1).withKI(0).withKD(0))
           // For regenerative braking
           .withMotorOutput(
               new MotorOutputConfigs()

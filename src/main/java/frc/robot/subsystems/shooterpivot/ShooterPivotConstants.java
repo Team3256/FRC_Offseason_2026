@@ -24,7 +24,7 @@ import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.Mass;
 
 public class ShooterPivotConstants {
-  public static final int pivotMotorId = 36;
+  public static final int pivotMotorId = 51;
 
   public static final boolean kUseFOC = false;
   public static final boolean kUseMotionMagic = false;
@@ -37,10 +37,10 @@ public class ShooterPivotConstants {
           .withSlot0(
               new Slot0Configs()
                   .withKS(0)
-                  .withKV(14.22)
-                  .withKP(450)
+                  .withKV(2.7)
+                  .withKP(600)
                   .withKI(0)
-                  .withKD(1)
+                  .withKD(7)
                   .withKA(0)
                   .withKG(0)
                   .withGravityType(GravityTypeValue.Arm_Cosine))
@@ -50,17 +50,19 @@ public class ShooterPivotConstants {
                   .withInverted(InvertedValue.Clockwise_Positive))
           .withMotionMagic(
               new MotionMagicConfigs()
-                  .withMotionMagicAcceleration(8)
-                  .withMotionMagicCruiseVelocity(2.5))
+                  .withMotionMagicAcceleration(6.2)
+                  .withMotionMagicCruiseVelocity(1.304)
+                  .withMotionMagicExpo_kV(0.119999)
+                  .withMotionMagicExpo_kA(0.1))
           .withCurrentLimits(
               new CurrentLimitsConfigs()
                   .withStatorCurrentLimitEnable(true)
                   .withStatorCurrentLimit(40)
-                  .withSupplyCurrentLimit(30)
+                  .withSupplyCurrentLimit(50)
                   .withSupplyCurrentLimitEnable(true)
                   .withSupplyCurrentLowerLimit(20)
                   .withSupplyCurrentLowerTime(0.1))
-          .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(4));
+          .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(30));
 
   public static final InterpolatingDoubleTreeMap hubLUT =
       new InterpolatingDoubleTreeMap() {
@@ -83,12 +85,12 @@ public class ShooterPivotConstants {
   public static final InterpolatingDoubleTreeMap feedLUT =
       new InterpolatingDoubleTreeMap() {
         {
-          put(4.38, 0.083);
-          put(6.11, 0.083);
-          put(8.0, 0.083);
-          put(9.42, 0.083);
-          put(10.8, 0.083);
-          put(12.834, 0.083);
+          put(4.38, 0.01);
+          put(6.11, 0.01);
+          put(8.0, 0.01);
+          put(9.42, 0.01);
+          put(10.8, 0.01);
+          put(12.834, 0.01);
         }
       };
 
