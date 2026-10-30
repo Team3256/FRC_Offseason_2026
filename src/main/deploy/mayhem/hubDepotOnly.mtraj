@@ -158,7 +158,30 @@
    }
   }
  ],
- "markers": [],
+ "markers": [
+  {
+   "id": "m1gsdzrct1",
+   "name": "intake",
+   "command": "",
+   "waypoint": 1,
+   "offset": 0.0,
+   "endWaypoint": null,
+   "endOffset": 0.0,
+   "recoveryPolicy": "fireAtJoin",
+   "mustHit": false
+  },
+  {
+   "id": "mn0w36vk3o",
+   "name": "shoot",
+   "command": "",
+   "waypoint": 4,
+   "offset": 0.0,
+   "endWaypoint": null,
+   "endOffset": 0.0,
+   "recoveryPolicy": "fireAtJoin",
+   "mustHit": false
+  }
+ ],
  "settings": {
   "targetDt": 0.08,
   "smoothing": 0.02,
@@ -168,7 +191,7 @@
  },
  "folder": null,
  "output": {
-  "inputHash": "e00c4dda486cab5a",
+  "inputHash": "3196ad5b9eb10689",
   "samples": [
    {
     "t": 0.0,
@@ -1043,7 +1066,24 @@
    3.926481830706149
   ],
   "splits": [],
-  "events": [],
+  "events": [
+   {
+    "name": "intake",
+    "command": "intake",
+    "t": 1.1435801139866704,
+    "endT": null,
+    "recoveryPolicy": "fireAtJoin",
+    "mustHit": false
+   },
+   {
+    "name": "shoot",
+    "command": "shoot",
+    "t": 3.926481830706149,
+    "endT": null,
+    "recoveryPolicy": "fireAtJoin",
+    "mustHit": false
+   }
+  ],
   "terrain": [],
   "intake": [
    {
@@ -2292,13 +2332,16 @@
   "stats": {
    "success": true,
    "totalTime": 3.9264818307061473,
-   "solveSeconds": 52.04135406899877,
-   "iterations": 97,
+   "solveSeconds": 31.61358328100141,
+   "iterations": 207,
    "candidate": 1,
    "attempts": [
-    "candidate 1: direct: Maximum_CpuTime_Exceeded (38 it, 39.30s)",
-    "candidate 1: elastic-probe: Solve_Succeeded (52 it, 2.34s)",
-    "candidate 1: elastic->hard: Solved_To_Acceptable_Level (7 it, 1.19s)"
+    "candidate 0: direct: Maximum_CpuTime_Exceeded (42 it, 27.72s)",
+    "candidate 0: elastic-probe: Solved_To_Acceptable_Level (65 it, 1.87s)",
+    "candidate 0: elastic->hard: Solved_To_Acceptable_Level (7 it, 0.60s)",
+    "candidate 1: direct: Maximum_CpuTime_Exceeded (34 it, 25.46s)",
+    "candidate 1: elastic-probe: Solve_Succeeded (52 it, 2.21s)",
+    "candidate 1: elastic->hard: Solved_To_Acceptable_Level (7 it, 0.57s)"
    ]
   }
  }

@@ -158,7 +158,30 @@
    }
   }
  ],
- "markers": [],
+ "markers": [
+  {
+   "id": "mqwqfcv2hn",
+   "name": "intake",
+   "command": "",
+   "waypoint": 1,
+   "offset": 0.0,
+   "endWaypoint": null,
+   "endOffset": 0.0,
+   "recoveryPolicy": "fireAtJoin",
+   "mustHit": false
+  },
+  {
+   "id": "mg3xxxftq4",
+   "name": "shoot",
+   "command": "",
+   "waypoint": 4,
+   "offset": 0.0,
+   "endWaypoint": null,
+   "endOffset": 0.0,
+   "recoveryPolicy": "fireAtJoin",
+   "mustHit": false
+  }
+ ],
  "settings": {
   "targetDt": 0.08,
   "smoothing": 0.02,
@@ -168,7 +191,7 @@
  },
  "folder": null,
  "output": {
-  "inputHash": "7988688a16baa7c6",
+  "inputHash": "66e1b537f0940650",
   "samples": [
    {
     "t": 0.0,
@@ -995,7 +1018,24 @@
    3.7593221871165214
   ],
   "splits": [],
-  "events": [],
+  "events": [
+   {
+    "name": "intake",
+    "command": "intake",
+    "t": 0.9809217996437046,
+    "endT": null,
+    "recoveryPolicy": "fireAtJoin",
+    "mustHit": false
+   },
+   {
+    "name": "shoot",
+    "command": "shoot",
+    "t": 3.7593221871165214,
+    "endT": null,
+    "recoveryPolicy": "fireAtJoin",
+    "mustHit": false
+   }
+  ],
   "terrain": [],
   "intake": [
    {
@@ -2244,11 +2284,11 @@
   "stats": {
    "success": true,
    "totalTime": 3.759322187116521,
-   "solveSeconds": 13.611867200001143,
+   "solveSeconds": 19.23305468699982,
    "iterations": 87,
    "candidate": 0,
    "attempts": [
-    "candidate 0: direct: Solved_To_Acceptable_Level (87 it, 13.36s)"
+    "candidate 0: direct: Solved_To_Acceptable_Level (87 it, 19.02s)"
    ]
   }
  }
