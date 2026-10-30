@@ -115,7 +115,10 @@
         "margin": 0.0,
         "enabled": false,
         "fuelCollision": "block",
-        "terrain": null
+        "terrain": {
+          "expectedSpeed": 0.7,
+          "feedbackScale": 0.3
+        }
       },
       {
         "id": "bump-blue-r",
@@ -147,7 +150,10 @@
         "margin": 0.0,
         "enabled": false,
         "fuelCollision": "block",
-        "terrain": null
+        "terrain": {
+          "expectedSpeed": 0.7,
+          "feedbackScale": 0.3
+        }
       },
       {
         "id": "trenchwall-blue-l",
@@ -371,7 +377,10 @@
         "margin": 0.0,
         "enabled": false,
         "fuelCollision": "block",
-        "terrain": null
+        "terrain": {
+          "expectedSpeed": 0.7,
+          "feedbackScale": 0.3
+        }
       },
       {
         "id": "bump-red-r",
@@ -403,7 +412,10 @@
         "margin": 0.0,
         "enabled": false,
         "fuelCollision": "block",
-        "terrain": null
+        "terrain": {
+          "expectedSpeed": 0.7,
+          "feedbackScale": 0.3
+        }
       },
       {
         "id": "trenchwall-red-l",
@@ -5741,10 +5753,35 @@
     "shoot2"
   ],
   "deployDir": "",
-  "poses": [],
-  "folders": [],
+  "poses": [
+    {
+      "id": "pnf6vc8dbe",
+      "name": "end",
+      "x": 3.261570692062378,
+      "y": 2.2805001735687256,
+      "heading": -1.5707976144648772
+    },
+    {
+      "id": "pobqm9lbkh",
+      "name": "enda",
+      "x": 3.300222635269165,
+      "y": 5.639632225036621,
+      "heading": 2.3398028474975012
+    },
+    {
+      "id": "p46y3rrqs5",
+      "name": "enda",
+      "x": 3.3028502464294434,
+      "y": 5.700842380523682,
+      "heading": 1.565258762938835
+    }
+  ],
+  "folders": [
+    "OutpostSweep",
+    "Depot Sweep"
+  ],
   "fuelSim": {
-    "intakeRate": 10.0,
+    "intakeRate": 20.0,
     "capacity": 0,
     "robots": [
       {

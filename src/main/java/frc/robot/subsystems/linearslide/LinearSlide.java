@@ -21,6 +21,8 @@ public class LinearSlide extends DisableSubsystem {
 
   public final Trigger reachedPosition = new Trigger(this::reachedPosition);
 
+  public final Trigger isBetweenPos = new Trigger(this::atPosition);
+
   private double reqPosition = 0.0;
 
   public LinearSlide(boolean enabled, LinearSlideIO linearSlideIO) {
@@ -94,13 +96,20 @@ public class LinearSlide extends DisableSubsystem {
   }
 
   public Command jitterIntake() {
-    return (goToJitter().withTimeout(.2).andThen(goToJitterIntermediate().withTimeout(.2)))
+    return (goToJitter().withTimeout(1).andThen(goToJitterIntermediate().withTimeout(1)))
         .repeatedly();
   }
 
   public boolean reachedPosition() {
     return Util.epsilonEquals(linearSlideIOInputsAutoLogged.rightMotorPosition, reqPosition, 0.01)
         && Util.epsilonEquals(linearSlideIOInputsAutoLogged.leftMotorPosition, reqPosition, 0.01);
+  }
+
+  public boolean atPosition() {
+    double right = linearSlideIOInputsAutoLogged.rightMotorPosition;
+    double left = linearSlideIOInputsAutoLogged.leftMotorPosition;
+
+    return (right >= 0.0 && right <= 0.3745) && (left >= 0.0 && left <= 0.3745);
   }
 
   private boolean isExtended() {
