@@ -33,7 +33,6 @@ public class AutoRoutines {
   private final Superstructure m_superstructure;
   private final CommandSwerveDrivetrain m_drivetrain;
   private final ShotCalculator m_shotCalculator;
-
   private Command alignAndShoot() {
     return Commands.parallel(
             m_drivetrain.rotateToLookahead(m_shotCalculator, () -> 0.0, () -> 0.0),

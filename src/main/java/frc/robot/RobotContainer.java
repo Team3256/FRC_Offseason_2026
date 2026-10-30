@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.AutoRoutines;
+import frc.robot.commands.FollowAutos;
 import frc.robot.commands.SweepDepotMayhemAutos;
 import frc.robot.commands.SweepMayhemAutos;
 import frc.robot.sim.SimMechs;
@@ -60,6 +61,7 @@ public class RobotContainer {
   private final mayhemlib.auto.AutoChooser mayhemAutoChooser = new mayhemlib.auto.AutoChooser();
 
   private final SweepDepotMayhemAutos m_sweepDepotMayhemAutos;
+  private final FollowAutos m_followMayhemAutos;
   private final SweepMayhemAutos m_mayhemAutos;
 
   public final MappedXboxController m_driverController =
@@ -137,6 +139,9 @@ public class RobotContainer {
     m_sweepDepotMayhemAutos =
         new SweepDepotMayhemAutos(mayhemAutoFactory, superstructure, drivetrain, shotCalculator);
 
+    m_followMayhemAutos =
+          new FollowAutos(mayhemAutoFactory, superstructure, drivetrain, shotCalculator);
+
     m_mayhemAutos =
         new SweepMayhemAutos(mayhemAutoFactory, superstructure, drivetrain, shotCalculator);
 
@@ -166,6 +171,9 @@ public class RobotContainer {
     mayhemAutoChooser.addRoutine("Depot Trench Sweep", m_mayhemAutos::topTrenchPart1Only);
 
     mayhemAutoChooser.addRoutine("Depot Trench Sweep x2", m_mayhemAutos::topTrenchPart1And2);
+
+    mayhemAutoChooser.addRoutine("Follow Depot Trench", m_followMayhemAutos::followDepotTrenchAuto);
+    mayhemAutoChooser.addRoutine("Follow Outpost Trench", m_followMayhemAutos::followOutpostTrenchAuto);
 
     SmartDashboard.putData("Mayhem Auto Chooser", mayhemAutoChooser);
 
