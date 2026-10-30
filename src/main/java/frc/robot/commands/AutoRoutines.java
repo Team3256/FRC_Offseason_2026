@@ -51,7 +51,7 @@ public class AutoRoutines {
     trenchDepotOnlyMayhemAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
     trenchDepotOnlyMayhemAuto
         .atTime("shoot")
-        .onTrue(m_superstructure.setState(StructureState.JITTER_AND_SHOOT));
+        .onTrue(AutoRoutines.alignAndShoot());
 
     return routine;
   }
@@ -68,7 +68,7 @@ public class AutoRoutines {
         .atTime("intake")
         .onTrue(m_superstructure.setState(StructureState.INTAKE));
     bumpDepotOnlyMayhemAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
-    bumpDepotOnlyMayhemAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.JITTER_AND_SHOOT));
+    bumpDepotOnlyMayhemAuto.atTime("shoot").onTrue(AutoRoutines.alignAndShoot());
 
     return routine;
   }
@@ -85,7 +85,7 @@ public class AutoRoutines {
         .atTime("intake")
         .onTrue(m_superstructure.setState(StructureState.INTAKE));
     hubDepotOnlyMayhemAuto.atTime("idle").onTrue(m_superstructure.setState(StructureState.IDLE));
-    hubDepotOnlyMayhemAuto.atTime("shoot").onTrue(m_superstructure.setState(StructureState.JITTER_AND_SHOOT));
+    hubDepotOnlyMayhemAuto.atTime("shoot").onTrue(AutoRoutines.alignAndShoot());
 
     return routine;
   }
