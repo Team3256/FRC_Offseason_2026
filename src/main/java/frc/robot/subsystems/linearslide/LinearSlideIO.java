@@ -13,10 +13,6 @@ import org.littletonrobotics.junction.AutoLog;
 public interface LinearSlideIO {
   @AutoLog
   public class LinearSlideIOInputs {
-    public String controlStatus = "";
-    public String disabledReason = "";
-    public String requiresUserReason = "";
-
     public double rightMotorVoltage = 0.0;
     public double rightMotorVelocity = 0.0;
     public double rightMotorPosition = 0.0;
@@ -28,9 +24,6 @@ public interface LinearSlideIO {
     public double leftMotorPosition = 0.0;
     public double leftMotorStatorCurrent = 0.0;
     public double leftMotorSupplyCurrent = 0.0;
-
-    public double avgPosition = 0.0;
-    public double diffPosition = 0.0;
   }
 
   public default TalonFX getRightMotor() {
