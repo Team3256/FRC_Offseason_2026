@@ -31,6 +31,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.Subsystem;
@@ -58,6 +59,13 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
   @AutoLogOutput private double averageWheelPosition = 0;
   @AutoLogOutput private double[] startWheelPositions = new double[4];
   @AutoLogOutput private double currentEffectiveWheelRadius = 0;
+
+  // Publish the trench assist switch so it shows up on the dashboard (it is read in
+  // applyTrenchAssist), whichever constructor is used
+  {
+    SmartDashboard.setDefaultBoolean(
+        "TrenchAssist/Enabled", SwerveConstants.TrenchAssistConstants.kUseTrenchAssist);
+  }
 
   private ChassisSpeeds previousSpeeds = new ChassisSpeeds();
   private double previousTime = 0.0;
@@ -186,6 +194,44 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
 
   public void trajLogger(Trajectory<SwerveSample> sample, boolean isStart) {
     Logger.recordOutput(this.getClass().getSimpleName() + "/Choreo/TrajPoses", sample.getPoses());
+  }
+
+  /**
+   * Applies trench assist to the driver's requested speeds.
+   *
+   * @param operatorSpeeds requested speeds in the operator-perspective frame (what a {@link
+   *     SwerveRequest.FieldCentric} takes), so this works on either alliance
+   * @return the speeds to command, in the same frame
+   */
+  public ChassisSpeeds applyTrenchAssist(ChassisSpeeds operatorSpeeds) {
+    // Only for the driver: never while a path is being followed in auto, and it can be switched
+    // off from the dashboard ("TrenchAssist/Enabled") or with kUseTrenchAssist.
+    if (!DriverStation.isTeleopEnabled()
+        || !SmartDashboard.getBoolean(
+            "TrenchAssist/Enabled", SwerveConstants.TrenchAssistConstants.kUseTrenchAssist)) {
+      return operatorSpeeds;
+    }
+    // Operator perspective -> blue-origin field frame, which the pose and field geometry use.
+    Rotation2d operatorForward = getOperatorForwardDirection();
+    Translation2d fieldVelocity =
+        new Translation2d(operatorSpeeds.vxMetersPerSecond, operatorSpeeds.vyMetersPerSecond)
+            .rotateBy(operatorForward);
+    TrenchAssist.Result result =
+        TrenchAssist.apply(
+            getState().Pose,
+            new ChassisSpeeds(
+                fieldVelocity.getX(), fieldVelocity.getY(), operatorSpeeds.omegaRadiansPerSecond));
+
+    Logger.recordOutput("TrenchAssist/Weight", result.weight());
+    Logger.recordOutput("TrenchAssist/Active", result.weight() > 0.0);
+    if (result.weight() <= 0.0) {
+      return operatorSpeeds;
+    }
+    Translation2d assisted =
+        new Translation2d(result.speeds().vxMetersPerSecond, result.speeds().vyMetersPerSecond)
+            .rotateBy(operatorForward.unaryMinus());
+    return new ChassisSpeeds(
+        assisted.getX(), assisted.getY(), result.speeds().omegaRadiansPerSecond);
   }
 
   public Command rotateToLookahead(
