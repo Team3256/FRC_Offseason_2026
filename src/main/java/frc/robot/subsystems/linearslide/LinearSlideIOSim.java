@@ -41,7 +41,7 @@ public class LinearSlideIOSim extends LinearSlideIOTalonFX {
     this.rightMotorSim = super.getRightMotor().getSimState();
     this.leftMotorSim = super.getLeftMotor().getSimState();
     rightMotorSim.Orientation = ChassisReference.Clockwise_Positive;
-    leftMotorSim.Orientation = ChassisReference.Clockwise_Positive;
+    leftMotorSim.Orientation = ChassisReference.CounterClockwise_Positive;
     // slideSimState.Orientation = ChassisReference.Clockwise_Positive;
   }
 

@@ -10,19 +10,14 @@ package frc.robot.subsystems.linearslide;
 import static edu.wpi.first.units.Units.*;
 
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
-import com.ctre.phoenix6.configs.DifferentialSensorsConfigs;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.Slot1Configs;
-import com.ctre.phoenix6.configs.Slot2Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.mechanisms.DifferentialMotorConstants;
-import com.ctre.phoenix6.signals.DifferentialSensorSourceValue;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
-import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.Distance;
@@ -42,11 +37,10 @@ public class LinearSlideConstants {
   public static final double jitterPosition = 0.7; // dk yet
   public static final double jitterIntermediate = 0.3745; // dk yet
 
-  public static final double differenceTarget = 0.0;
   // get when tuning
   public static double updateFrequency = 50;
 
-  public static final TalonFXConfiguration rightMotorConfigs = // leader
+  public static final TalonFXConfiguration rightMotorConfigs =
       new TalonFXConfiguration()
           .withSlot0(
               new Slot0Configs()
@@ -67,7 +61,6 @@ public class LinearSlideConstants {
                   .withKD(0) // change
                   .withKA(0)
                   .withKG(0))
-          .withSlot2(new Slot2Configs().withKP(100))
           .withMotorOutput(
               new MotorOutputConfigs()
                   .withNeutralMode(NeutralModeValue.Coast)
@@ -88,27 +81,16 @@ public class LinearSlideConstants {
                   .withSupplyCurrentLimitEnable(true)
                   .withSupplyCurrentLowerTime(.1)
                   .withSupplyCurrentLowerLimit(20))
-          .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(30))
-          .withDifferentialSensors(
-              new DifferentialSensorsConfigs()
-                  .withDifferentialRemoteSensorID(40)
-                  .withDifferentialSensorSource(
-                      DifferentialSensorSourceValue.RemoteTalonFX_HalfDiff)
-                  .withDifferentialTalonFXSensorID(40)
-                  .withSensorToDifferentialRatio(1));
+          .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(30));
 
+  // left motor is mounted opposite the right one, so same configs with the inversion flipped
   public static final TalonFXConfiguration leftMotorConfigs =
-      new TalonFXConfiguration().withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(30));
-
-  public static final DifferentialMotorConstants<TalonFXConfiguration> differentialConstants =
-      new DifferentialMotorConstants<TalonFXConfiguration>()
-          .withLeaderId(LinearSlideConstants.rightMotorID) // or whichever side is leader
-          .withFollowerId(LinearSlideConstants.leftMotorID)
-          .withAlignment(MotorAlignmentValue.Opposed)
-          .withSensorToDifferentialRatio(1.0)
-          .withLeaderInitialConfigs(rightMotorConfigs)
-          .withFollowerInitialConfigs(leftMotorConfigs)
-          .withFollowerUsesCommonLeaderConfigs(true);
+      rightMotorConfigs
+          .clone()
+          .withMotorOutput(
+              new MotorOutputConfigs()
+                  .withNeutralMode(NeutralModeValue.Coast)
+                  .withInverted(InvertedValue.CounterClockwise_Positive));
 
   public static final class LinearSlideSim {
     public static final double slideSimGearing = 30;
