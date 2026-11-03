@@ -28,21 +28,21 @@ public class VisionConstants {
   // (Not used by Limelight, configure in web UI instead)
   public static Transform3d robotToFrontRightCam =
       new Transform3d(
-          Units.inchesToMeters(-2.014),
-          Units.inchesToMeters(-14.367),
-          Units.inchesToMeters(8.170),
+          Units.inchesToMeters(-1.997),
+          Units.inchesToMeters(-13.770),
+          Units.inchesToMeters(8.155),
           new Rotation3d(0.0, Units.degreesToRadians(25), Units.degreesToRadians(-90)));
 
   public static Transform3d robotToFrontLeftCam =
       new Transform3d(
-          Units.inchesToMeters(0.0),
-          Units.inchesToMeters(14.367),
-          Units.inchesToMeters(7.152),
+          Units.inchesToMeters(2.490),
+          Units.inchesToMeters(13.276),
+          Units.inchesToMeters(8.408),
           new Rotation3d(0.0, Units.degreesToRadians(-25), Units.degreesToRadians(90)));
 
   public static Transform3d robotToBackCam =
       new Transform3d(
-          Units.inchesToMeters(-13.667),
+          Units.inchesToMeters(-13.667), 
           Units.inchesToMeters(0.0),
           Units.inchesToMeters(-7.678),
           new Rotation3d(0.0, Units.degreesToRadians(-25), Units.degreesToRadians(180)));

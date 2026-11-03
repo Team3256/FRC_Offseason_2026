@@ -199,7 +199,7 @@ public class Superstructure {
     intaking
         .and(linearSlide.isBetweenPos.negate())
         .and(linearSlide.reachedPosition)
-        .onTrue(shooterPivot.setPosition(0));
+        .onTrue(shooterPivot.setPosition(0.05));
 
     intaking.onTrue(
         Commands.sequence(
@@ -233,7 +233,7 @@ public class Superstructure {
 
     stateTriggers
         .get(StructureState.HOME)
-        .onTrue(shooterPivot.setPosition(0))
+        .onTrue(shooterPivot.setPosition(0.05))
         .onTrue(shooter.off())
         .onTrue(intakeRollers.off())
         .onTrue(indexer.off())
@@ -279,7 +279,7 @@ public class Superstructure {
         .or(stateTriggers.get(StructureState.REV))
         .or(stateTriggers.get(StructureState.REV_AND_INTAKE))
         .or(stateTriggers.get(StructureState.JITTER))
-        .onTrue(shooterPivot.setPosition(0));
+        .onTrue(shooterPivot.setPosition(0.05));
 
     Trigger trenchZone = new Trigger(this::isInTrenchApproachZone);
 
