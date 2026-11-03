@@ -200,12 +200,12 @@ public class Superstructure {
         .and(linearSlide.isBetweenPos.negate())
         .and(linearSlide.reachedPosition)
         .onTrue(shooterPivot.setPosition(0.05));
-
+        
     intaking.onTrue(
         Commands.sequence(
             Commands.waitUntil(
                 () -> !linearSlide.isBetweenPos.getAsBoolean() || shooterPivot.reachedPosition()),
-            linearSlide.goToGroundIntake()));
+            linearSlide.goToIntakeSequence()));
 
     stateTriggers
         .get(StructureState.SHOOT_AND_INTAKE)

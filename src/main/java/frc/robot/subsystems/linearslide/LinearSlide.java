@@ -82,7 +82,21 @@ public class LinearSlide extends DisableSubsystem {
   }
 
   public Command goToGroundIntake() {
-    return this.setPosition(LinearSlideConstants.intakePosition);
+    return this.setPosition(LinearSlideConstants.intakeFinalPosition);
+  }
+
+  public Command goToIntakeSequence() {
+    return setPosition(LinearSlideConstants.intakeInitialPosition)
+        .until(() -> reachedPosition(0.0005))
+        .withTimeout(2.0)
+        .andThen(setPosition(LinearSlideConstants.intakeFinalPosition));
+  }
+
+  private boolean reachedPosition(double tolerance) {
+    return Util.epsilonEquals(
+            linearSlideIOInputsAutoLogged.rightMotorPosition, reqPosition, tolerance)
+        && Util.epsilonEquals(
+            linearSlideIOInputsAutoLogged.leftMotorPosition, reqPosition, tolerance);
   }
 
   // ***********
@@ -115,7 +129,7 @@ public class LinearSlide extends DisableSubsystem {
   private boolean isExtended() {
     return Util.epsilonEquals(
         linearSlideIOInputsAutoLogged.rightMotorPosition,
-        LinearSlideConstants.intakePosition,
+        LinearSlideConstants.intakeFinalPosition,
         0.01);
   }
 }
