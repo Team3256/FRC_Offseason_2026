@@ -189,11 +189,11 @@ public class RobotContainer {
   private void configureOperatorBinds() {
     m_driverController.a().onTrue(superstructure.setState(Superstructure.StructureState.SHOOT));
 
-    m_driverController.b().onTrue(superstructure.setState(Superstructure.StructureState.INTAKE));
+    m_driverController.x().onTrue(superstructure.setState(Superstructure.StructureState.INTAKE));
 
-    m_driverController.x().onTrue(superstructure.setState(Superstructure.StructureState.JITTER));
+    m_driverController.y().onTrue(superstructure.setState(Superstructure.StructureState.JITTER));
 
-    m_driverController.y().onTrue(superstructure.setState(Superstructure.StructureState.HOME));
+    m_driverController.b().onTrue(superstructure.setState(Superstructure.StructureState.HOME));
   }
 
   /**
