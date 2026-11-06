@@ -237,7 +237,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
   public Command rotateToLookahead(
       ShotCalculator shotCalculator, DoubleSupplier vxSupplier, DoubleSupplier vySupplier) {
     headingController.enableContinuousInput(-Math.PI, Math.PI);
-    headingController.setTolerance(Math.toRadians(1));
+    headingController.setTolerance(Math.toRadians(5));
     return run(() -> {
           double omega =
               headingController.calculate(

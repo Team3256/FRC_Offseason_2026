@@ -57,6 +57,8 @@ import frc.robot.utils.MappedXboxController;
 import java.util.ArrayList;
 import java.util.List;
 import mayhemlib.ctre.CtreSwerve;
+import mayhemlib.follow.FollowerConfig;
+import mayhemlib.recovery.RecoveryConfig;
 
 public class RobotContainer {
 
@@ -104,11 +106,12 @@ public class RobotContainer {
       private final Vision vision =
       new Vision(
           drivetrain::addVisionMeasurement,
-          new VisionIOPhotonVision(
-              VisionConstants.frontRightCam, VisionConstants.robotToFrontRightCam),
-          new VisionIOPhotonVision(VisionConstants.backCam, VisionConstants.robotToBackCam),
-          new VisionIOPhotonVision(
-              VisionConstants.frontLeftCam, VisionConstants.robotToFrontLeftCam));
+//          new VisionIOPhotonVision(
+//              VisionConstants.frontRightCam, VisionConstants.robotToFrontRightCam),
+          new VisionIOPhotonVision(VisionConstants.backCam, VisionConstants.robotToBackCam)
+//          new VisionIOPhotonVision(
+//              VisionConstants.frontLeftCam, VisionConstants.robotToFrontLeftCam)
+      );
 
   private final ShotCalculator shotCalculator =
       new ShotCalculator(
@@ -144,8 +147,11 @@ public class RobotContainer {
 
     m_autoRoutines = new AutoRoutines(autoFactory, drivetrain, superstructure, shotCalculator);
 
+    var recoveryConfig = new RecoveryConfig();
+    recoveryConfig.persistenceLoops = 10;
+
     // Mayhem factory shared by both Mayhem auto classes.
-    var mayhemAutoFactory = CtreSwerve.autoFactory(drivetrain).withTelemetry(true);
+    var mayhemAutoFactory = CtreSwerve.autoFactory(drivetrain).withTelemetry(true).withRecoveryConfig(recoveryConfig);
 
     m_sweepDepotMayhemAutos =
         new SweepDepotMayhemAutos(mayhemAutoFactory, superstructure, drivetrain, shotCalculator);
@@ -323,6 +329,9 @@ public class RobotContainer {
                       .withVelocityY(assisted.vyMetersPerSecond)
                       .withRotationalRate(assisted.omegaRadiansPerSecond);
                 }));
+
+    m_driverController.povUp().onTrue(superstructure.addShootMultiplier(.02));
+    m_driverController.povDown().onTrue(superstructure.addShootMultiplier(-0.02));
 
     m_driverController.povRight().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
 

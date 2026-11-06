@@ -73,7 +73,7 @@ public final class SwerveConstants {
    */
   public static final class TrenchAssistConstants {
     /** Default for the dashboard toggle; false disables trench assist entirely. */
-    public static final boolean kUseTrenchAssist = true;
+    public static final boolean kUseTrenchAssist = false;
 
     /**
      * Half the robot's size (bumpers included). The chassis is square, so this is both the length

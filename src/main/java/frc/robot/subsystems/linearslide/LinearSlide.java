@@ -56,6 +56,14 @@ public class LinearSlide extends DisableSubsystem {
         });
   }
 
+  public Command setNonExtendedPosition(double position) {
+    return this.run(
+            () -> {
+              reqPosition = position;
+                linearSlideIO.setPosition(position);
+            });
+  }
+
   public Command setPosition(DoubleSupplier position) {
     return this.run(
         () -> {
@@ -102,15 +110,15 @@ public class LinearSlide extends DisableSubsystem {
   // ***********
 
   public Command goToJitter() {
-    return this.setPosition(LinearSlideConstants.jitterPosition);
+    return this.setNonExtendedPosition(LinearSlideConstants.jitterPosition);
   }
 
   public Command goToJitterIntermediate() {
-    return this.setPosition(LinearSlideConstants.jitterIntermediate);
+    return this.setNonExtendedPosition(LinearSlideConstants.jitterIntermediate);
   }
 
   public Command jitterIntake() {
-    return (goToJitter().withTimeout(1).andThen(goToJitterIntermediate().withTimeout(1)))
+    return (goToJitter().withTimeout(.2).andThen(goToJitterIntermediate().withTimeout(.2)))
         .repeatedly();
   }
 

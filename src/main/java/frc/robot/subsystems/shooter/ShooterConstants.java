@@ -56,21 +56,11 @@ public final class ShooterConstants {
   public static final InterpolatingDoubleTreeMap hubLUT =
       new InterpolatingDoubleTreeMap() {
         {
-          put(1.322, 29.6);
-          put(1.826, 31.2);
-          put(2.247, 32.2);
-          put(2.765, 33.6);
-          put(3.135, 34.5);
-          put(3.1979, 34.5);
-          put(3.501, 35.6);
-          put(3.85, 37.0);
-          put(3.901, 37.0);
-
-          put(4.1, 37.8); // d
-          put(4.450, 38.6);
-          put(4.899, 41.0);
-          put(5.31, 42.0);
-          put(5.7, 43.0);
+          put(1.62, 65.8);
+          put(2.71, 74.8);
+          put(3.15, 79.8);
+          put(3.95, 84.4);
+          put(4.92, 100.0);
 
           // fake data
 

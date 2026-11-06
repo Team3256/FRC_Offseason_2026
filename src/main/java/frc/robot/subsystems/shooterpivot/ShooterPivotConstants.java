@@ -67,19 +67,11 @@ public class ShooterPivotConstants {
   public static final InterpolatingDoubleTreeMap hubLUT =
       new InterpolatingDoubleTreeMap() {
         {
-          put(1.322, 0.002197);
-          put(1.826, 0.002197);
-          put(2.247, 0.017578);
-          put(2.765, 0.0234);
-          put(3.0670, 0.028809);
-          put(3.135, 0.03833);
-          put(3.501, 0.037842);
-          put(3.901, 0.037842);
-          put(4.135, 0.033203);
-          put(4.450, 0.044189);
-          put(4.9539, 0.053711);
-          put(5.086, 0.044189);
-          put(5.7645, 0.057617);
+          put(1.62, 0.031);
+          put(2.71,0.054);
+          put(3.15, 0.064);
+          put(3.95,0.069);
+          put(4.92, 0.071);
         }
       };
   public static final InterpolatingDoubleTreeMap feedLUT =
