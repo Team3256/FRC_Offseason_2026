@@ -46,4 +46,8 @@ public class Feeder extends DisableSubsystem {
   public Command off() {
     return this.runOnce(feederIO::off);
   }
+
+  public Command outtake() {
+    return setVelocity(-80);
+  }
 }

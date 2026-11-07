@@ -68,9 +68,9 @@ public class ShooterPivotConstants {
       new InterpolatingDoubleTreeMap() {
         {
           put(1.62, 0.031);
-          put(2.71,0.054);
+          put(2.71, 0.054);
           put(3.15, 0.064);
-          put(3.95,0.069);
+          put(3.95, 0.069);
           put(4.92, 0.071);
         }
       };

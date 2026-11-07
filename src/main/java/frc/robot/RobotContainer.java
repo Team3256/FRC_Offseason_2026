@@ -57,7 +57,6 @@ import frc.robot.utils.MappedXboxController;
 import java.util.ArrayList;
 import java.util.List;
 import mayhemlib.ctre.CtreSwerve;
-import mayhemlib.follow.FollowerConfig;
 import mayhemlib.recovery.RecoveryConfig;
 
 public class RobotContainer {
@@ -103,15 +102,15 @@ public class RobotContainer {
   private static final Transform2d robotToShooterTransform =
       new Transform2d(0, 0, Rotation2d.kZero);
 
-      private final Vision vision =
+  private final Vision vision =
       new Vision(
           drivetrain::addVisionMeasurement,
-//          new VisionIOPhotonVision(
-//              VisionConstants.frontRightCam, VisionConstants.robotToFrontRightCam),
+          //          new VisionIOPhotonVision(
+          //              VisionConstants.frontRightCam, VisionConstants.robotToFrontRightCam),
           new VisionIOPhotonVision(VisionConstants.backCam, VisionConstants.robotToBackCam)
-//          new VisionIOPhotonVision(
-//              VisionConstants.frontLeftCam, VisionConstants.robotToFrontLeftCam)
-      );
+          //          new VisionIOPhotonVision(
+          //              VisionConstants.frontLeftCam, VisionConstants.robotToFrontLeftCam)
+          );
 
   private final ShotCalculator shotCalculator =
       new ShotCalculator(
@@ -151,7 +150,8 @@ public class RobotContainer {
     recoveryConfig.persistenceLoops = 10;
 
     // Mayhem factory shared by both Mayhem auto classes.
-    var mayhemAutoFactory = CtreSwerve.autoFactory(drivetrain).withTelemetry(true).withRecoveryConfig(recoveryConfig);
+    var mayhemAutoFactory =
+        CtreSwerve.autoFactory(drivetrain).withTelemetry(true).withRecoveryConfig(recoveryConfig);
 
     m_sweepDepotMayhemAutos =
         new SweepDepotMayhemAutos(mayhemAutoFactory, superstructure, drivetrain, shotCalculator);
@@ -200,6 +200,10 @@ public class RobotContainer {
     m_driverController.y().onTrue(superstructure.setState(Superstructure.StructureState.JITTER));
 
     m_driverController.b().onTrue(superstructure.setState(Superstructure.StructureState.HOME));
+
+    m_driverController
+        .leftTrigger()
+        .onTrue(superstructure.setState(Superstructure.StructureState.OUTTAKE));
   }
 
   /**
