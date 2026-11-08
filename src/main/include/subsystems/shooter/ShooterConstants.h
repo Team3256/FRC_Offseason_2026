@@ -46,7 +46,7 @@ inline ctre::phoenix6::configs::TalonFXConfiguration MotorConfigs() {
       .WithMotionMagic(configs::MotionMagicConfigs{}.WithMotionMagicAcceleration(800_tr_per_s_sq))
       .WithCurrentLimits(configs::CurrentLimitsConfigs{}
                              .WithStatorCurrentLimitEnable(true)
-                             .WithStatorCurrentLimit(80_A)
+                             .WithStatorCurrentLimit(5_A)
                              .WithStatorCurrentLimitEnable(true)
                              .WithSupplyCurrentLimit(50_A)
                              .WithSupplyCurrentLowerLimit(40_A)

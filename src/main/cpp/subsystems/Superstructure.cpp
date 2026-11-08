@@ -146,11 +146,7 @@ void Superstructure::ConfigStateTransitions() {
       //        .and(linearSlide.reachedPosition)
       .OnTrue(m_shooterPivot.SetPosition(0.02));
 
-  intaking.OnTrue(frc2::cmd::Sequence(frc2::cmd::WaitUntil([this] {
-                                        return !m_linearSlide.isBetweenPos.Get() ||
-                                               m_shooterPivot.ReachedPosition();
-                                      }),
-                                      m_linearSlide.GoToIntakeSequence()));
+  intaking.OnTrue(m_linearSlide.GoToIntakeSequence());
 
   Or(S(SS::SHOOT_AND_INTAKE), S(SS::REV_AND_INTAKE)).OnTrue(m_linearSlide.GoToGroundIntake());
 
