@@ -31,7 +31,7 @@ public class FeederConstants {
 
   public static final int feederMotorRightID = 43;
 
-  public static final double feederVelocity = 80;
+  public static final double feederVelocity = 60;
 
   public static double updateFrequency = 50;
 

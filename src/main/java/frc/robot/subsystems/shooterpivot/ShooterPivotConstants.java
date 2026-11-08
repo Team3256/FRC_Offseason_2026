@@ -57,7 +57,7 @@ public class ShooterPivotConstants {
           .withCurrentLimits(
               new CurrentLimitsConfigs()
                   .withStatorCurrentLimitEnable(true)
-                  .withStatorCurrentLimit(40)
+                  .withStatorCurrentLimit(70)
                   .withSupplyCurrentLimit(50)
                   .withSupplyCurrentLimitEnable(true)
                   .withSupplyCurrentLowerLimit(20)

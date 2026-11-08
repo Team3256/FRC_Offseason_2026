@@ -26,7 +26,7 @@ public class IndexerConstants {
 
   public static double updateFrequency = 50;
 
-  public static final int indexerVelocity = 50;
+  public static final int indexerVelocity = 60;
 
   public static final TalonFXConfiguration motorConfigs =
       new TalonFXConfiguration()
