@@ -1,0 +1,99 @@
+// Copyright (c) 2025 FRC 3256
+// https://github.com/Team3256
+//
+// Use of this source code is governed by a
+// license that can be found in the LICENSE file at
+// the root directory of this project.
+
+#pragma once
+
+#include <memory>
+
+#include <frc/geometry/Transform2d.h>
+#include <frc/smartdashboard/Field2d.h>
+#include <ctre/phoenix6/swerve/SwerveRequest.hpp>
+
+#include "Constants.h"
+#include "Telemetry.h"
+#include "commands/MayhemAutos.h"
+#include "mayhem/Auto.h"
+#include "subsystems/Superstructure.h"
+#include "subsystems/feeder/Feeder.h"
+#include "subsystems/indexer/Indexer.h"
+#include "subsystems/intakerollers/IntakeRollers.h"
+#include "subsystems/linearslide/LinearSlide.h"
+#include "subsystems/shooter/Shooter.h"
+#include "subsystems/shooterpivot/ShooterPivot.h"
+#include "subsystems/sotm/ShotCalculator.h"
+#include "subsystems/swerve/CommandSwerveDrivetrain.h"
+#include "subsystems/vision/Vision.h"
+#include "utils/MappedXboxController.h"
+
+class RobotContainer {
+ public:
+  RobotContainer();
+  ~RobotContainer();
+
+  /** Call at the very start of each robot loop (before the scheduler runs). */
+  void BeginLoop();
+  /** Call after the scheduler has run. */
+  void Periodic();
+
+  // Accessors for tests and simulation tooling.
+  Superstructure& GetSuperstructure() { return m_superstructure; }
+  subsystems::CommandSwerveDrivetrain& GetDrivetrain() { return m_drivetrain; }
+  ShotCalculator& GetShotCalculator() { return m_shotCalculator; }
+  Shooter& GetShooter() { return m_shooter; }
+  ShooterPivot& GetShooterPivot() { return m_shooterPivot; }
+  LinearSlide& GetLinearSlide() { return m_linearSlide; }
+  IntakeRollers& GetIntakeRollers() { return m_intakeRollers; }
+  Feeder& GetFeeder() { return m_feeder; }
+  Indexer& GetIndexer() { return m_indexer; }
+  Vision& GetVision() { return m_vision; }
+  mayhem::AutoChooser& GetAutoChooser() { return m_mayhemAutoChooser; }
+
+ private:
+  void ConfigureMayhemAutoChooser();
+  void ConfigureOperatorBinds();
+  void ConfigureSwerve();
+  double VxSupplier();
+  double VySupplier();
+  /** Driver request with trench assist, scaled to the given max speeds. */
+  ctre::phoenix6::swerve::requests::FieldCentric& DriveRequest(double maxSpeed, double maxAngular);
+
+  // One chooser for all Mayhem autonomous routines.
+  mayhem::AutoChooser m_mayhemAutoChooser;
+
+ public:
+  MappedXboxController m_driverController{constants::controller::kDriverControllerPort, "Driver"};
+  MappedXboxController m_operatorController{constants::controller::kOperatorControllerPort,
+                                            "Operator"};
+
+ private:
+  Telemetry m_logger;
+
+  IntakeRollers m_intakeRollers;
+  Shooter m_shooter;
+  ShooterPivot m_shooterPivot;
+  LinearSlide m_linearSlide;
+  Feeder m_feeder;
+  Indexer m_indexer;
+
+  subsystems::CommandSwerveDrivetrain m_drivetrain;
+
+  static inline const frc::Transform2d kRobotToShooterTransform{0_m, 0_m, frc::Rotation2d{}};
+
+  Vision m_vision;
+  ShotCalculator m_shotCalculator;
+
+  frc::Field2d m_field2d;
+
+  Superstructure m_superstructure;
+
+  std::unique_ptr<mayhem::AutoFactory> m_mayhemAutoFactory;
+  std::unique_ptr<SweepDepotMayhemAutos> m_sweepDepotMayhemAutos;
+  std::unique_ptr<SweepMayhemAutos> m_mayhemAutos;
+
+  ctre::phoenix6::swerve::requests::FieldCentric m_drive;
+  ctre::phoenix6::swerve::requests::FieldCentricFacingAngle m_azimuth;
+};

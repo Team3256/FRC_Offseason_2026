@@ -1,0 +1,10 @@
+# C++ formatting (replaces spotless/google-java-format). Check: ./gradlew spotlessCheck is gone;
+# CI runs `clang-format --dry-run --Werror` on src/ and tools/desktop/ instead.
+BasedOnStyle: Google
+ColumnLimit: 100
+IncludeBlocks: Preserve
+DerivePointerAlignment: false
+PointerAlignment: Left
+AllowShortFunctionsOnASingleLine: All
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false

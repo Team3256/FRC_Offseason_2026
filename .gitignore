@@ -186,3 +186,17 @@ compile_commands.json
 
 # Eclipse generated file for annotation processors
 .factorypath
+
+### Robot (C++) ###
+# Desktop CMake build + downloaded natives (tools/desktop), golden-data generator build
+build-desktop/
+build-asan/
+build-*/
+build-golden/
+# Simulation / Phoenix SignalLogger output
+logs/
+*.wpilog
+*.hoot
+# clangd
+.cache/
+compile_commands.json
