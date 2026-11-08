@@ -19,6 +19,12 @@ DisableSubsystem::DisableSubsystem(bool enabled, std::string_view name)
 std::string DisableSubsystem::CallerName(const std::source_location& loc) {
   std::string_view fn = loc.function_name();
   auto paren = fn.find('(');
+  // Clang spells unnamed namespaces "(anonymous namespace)" in function names.
+  // Skip those parentheses before looking for the function's argument list.
+  constexpr std::string_view anonymousNamespace = "(anonymous namespace)";
+  while (paren != std::string_view::npos && fn.substr(paren).starts_with(anonymousNamespace)) {
+    paren = fn.find('(', paren + anonymousNamespace.size());
+  }
   if (paren != std::string_view::npos) {
     fn = fn.substr(0, paren);
   }
