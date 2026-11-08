@@ -10,6 +10,7 @@
 #include <cmath>
 #include <cstdio>
 #include <numbers>
+#include <string>
 
 #include <frc/DriverStation.h>
 #include <frc/MathUtil.h>
@@ -25,6 +26,7 @@
 #include "subsystems/swerve/SwerveConstants.h"
 #include "subsystems/swerve/TrenchAssist.h"
 #include "utils/DSReport.h"
+#include "utils/PhoenixUtil.h"
 
 namespace subsystems {
 
@@ -34,6 +36,16 @@ void CommandSwerveDrivetrain::Init() {
   // Publish the trench assist switch so it shows up on the dashboard (read in ApplyTrenchAssist)
   frc::SmartDashboard::SetDefaultBoolean("TrenchAssist/Enabled",
                                          swerve_constants::trench_assist::kUseTrenchAssist);
+  // Dashboard alerts for any swerve device that drops off the CANivore.
+  static constexpr std::array<const char*, 4> kModuleNames = {"front left", "front right",
+                                                              "back left", "back right"};
+  for (size_t i = 0; i < GetModules().size() && i < kModuleNames.size(); i++) {
+    const std::string module = std::string{"Swerve "} + kModuleNames[i];
+    phoenix_util::WatchDevice(GetModule(i).GetDriveMotor(), module + " drive motor");
+    phoenix_util::WatchDevice(GetModule(i).GetSteerMotor(), module + " steer motor");
+    phoenix_util::WatchDevice(GetModule(i).GetEncoder(), module + " CANcoder");
+  }
+  phoenix_util::WatchDevice(GetPigeon2(), "Pigeon 2");
   if (frc::RobotBase::IsSimulation()) {
     StartSimThread();
   }

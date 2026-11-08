@@ -40,8 +40,8 @@ inline ctre::phoenix6::configs::TalonFXConfiguration MotorConfigs() {
 }
 
 inline RollerPairConfig IOConfig() {
-  return {kIntakeRollerMotorIDLeft, kIntakeRollerMotorIDRight, MotorConfigs(), kFlashConfigRetries,
-          kUpdateFrequency};
+  return {kIntakeRollerMotorIDLeft, kIntakeRollerMotorIDRight, MotorConfigs(),
+          kFlashConfigRetries,      kUpdateFrequency,          "Intake rollers"};
 }
 
 inline constexpr RollerPairKeys kInputKeys = {

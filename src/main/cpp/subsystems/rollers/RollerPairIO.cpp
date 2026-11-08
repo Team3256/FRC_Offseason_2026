@@ -7,6 +7,8 @@
 
 #include "subsystems/rollers/RollerPairIO.h"
 
+#include <string>
+
 #include <ctre/phoenix6/controls/NeutralOut.hpp>
 
 #include "utils/PhoenixUtil.h"
@@ -52,6 +54,11 @@ RollerPairIOTalonFX::RollerPairIOTalonFX(const RollerPairConfig& config)
   m_left.OptimizeBusUtilization();
   m_right.OptimizeBusUtilization();
   m_right.SetControl(m_followerRequest);
+  const std::string name{config.name};
+  phoenix_util::WatchDevice(m_left, name + " left motor");
+  phoenix_util::WatchDevice(m_right, name + " right motor");
+  phoenix_util::WatchTemperature(m_leftTemp, name + " left motor");
+  phoenix_util::WatchTemperature(m_rightTemp, name + " right motor");
 }
 
 void RollerPairIOTalonFX::UpdateInputs(RollerPairInputs& inputs) {

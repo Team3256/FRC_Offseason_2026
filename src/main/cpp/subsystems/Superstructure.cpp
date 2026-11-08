@@ -12,7 +12,6 @@
 #include <string>
 
 #include <frc/DriverStation.h>
-#include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/Commands.h>
 
 #include "FieldConstants.h"
@@ -213,6 +212,8 @@ void Superstructure::Periodic() {
   m_stateTimeLog.Set(m_stateTimer.Get().value());
   m_velMultiplierLog.Set(m_velMultiplier);
   m_targetLog.Set(m_target);
+  // Dashboard readiness lights (Superstructure/ReadyToShoot/...); only logged, nothing waits on it.
+  m_ready = ReadyToShoot();
   logging::LoggedTracer::Record("Superstructure");
   m_shooterPivot.SetTrenchOverride(IsInTrenchApproachZone());
 }
@@ -231,13 +232,13 @@ frc2::CommandPtr Superstructure::ChangeTarget(std::function<frc::Translation2d()
 }
 
 bool Superstructure::ReadyToShoot() {
-  const bool flywheelReady = m_shooter.ReachedVelocity();
+  // (a stopped flywheel "reaches" a request of 0, which is not ready to shoot)
+  const bool flywheelReady = m_shooter.RequestedVelocity() > 0 && m_shooter.ReachedVelocity();
   const bool pivotReady = m_shooterPivot.ReachedPosition();
-  bool aimed = !frc::SmartDashboard::GetBoolean("Superstructure/RequireAimToShoot", true) ||
-               ShotCalculator::IsAimed(m_robotPoseSupplier().Rotation(),
-                                       m_shotCalculator.GetDriveAngle(), kAimToleranceRad);
-  aimed = true;
-  const bool ready = flywheelReady && pivotReady && aimed;
+  // Aiming is reported but not required to shoot (the old code forced it to true).
+  const bool aimed = ShotCalculator::IsAimed(m_robotPoseSupplier().Rotation(),
+                                             m_shotCalculator.GetDriveAngle(), kAimToleranceRad);
+  const bool ready = flywheelReady && pivotReady;
   m_readyFlywheelLog.Set(flywheelReady);
   m_readyPivotLog.Set(pivotReady);
   m_readyAimedLog.Set(aimed);

@@ -507,7 +507,10 @@ AutoChooser::AutoChooser() : m_instance{g_instances.fetch_add(1)} {
 
 AutoChooser& AutoChooser::AddRoutine(const std::string& name,
                                      std::function<std::shared_ptr<AutoRoutine>()> generator) {
-  return AddCmd(name, [generator = std::move(generator)] { return generator()->Cmd(); });
+  return AddCmd(name, [this, generator = std::move(generator)] {
+    m_builtRoutine = generator();
+    return m_builtRoutine->Cmd();
+  });
 }
 
 AutoChooser& AutoChooser::AddCmd(const std::string& name,
@@ -535,6 +538,11 @@ frc2::Command* AutoChooser::SelectedCommand() {
   return m_built->get();
 }
 
+std::shared_ptr<AutoRoutine> AutoChooser::SelectedRoutine() {
+  Build();
+  return m_builtRoutine;
+}
+
 frc2::CommandPtr AutoChooser::SelectedCommandScheduler() {
   return frc2::cmd::Defer([this] { return frc2::ProxyCommand(SelectedCommand()).ToPtr(); }, {})
       .WithName("AutoChooser");
@@ -542,6 +550,7 @@ frc2::CommandPtr AutoChooser::SelectedCommandScheduler() {
 
 void AutoChooser::Build() {
   if (m_selected != m_builtFor) {
+    m_builtRoutine.reset();
     m_built.emplace(m_generators[m_selected]());
     m_builtFor = m_selected;
   }

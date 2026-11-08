@@ -13,6 +13,7 @@
 
 #include "RobotContainer.h"
 #include "logging/Logger.h"
+#include "utils/RobotAlerts.h"
 
 class Robot : public frc::TimedRobot {
  public:
@@ -35,6 +36,7 @@ class Robot : public frc::TimedRobot {
   void SimulationPeriodic() override;
 
   RobotContainer& Container() { return *m_container; }
+  const RobotAlerts& Alerts() const { return m_alerts; }
 
   /** Starts logging the way the robot does (file + NT); call before anything creates log entries.
    */
@@ -47,6 +49,8 @@ class Robot : public frc::TimedRobot {
   std::unique_ptr<logging::Output<double>> m_batteryLog;
   std::unique_ptr<logging::Output<bool>> m_brownoutLog;
   std::unique_ptr<logging::Output<double>> m_canUtilLog;
+  RobotAlerts m_alerts;
   int64_t m_lastLoopStartUs = 0;
+  double m_lastLoopTimeMs = 0.0;
   int m_canStatusCounter = 0;
 };

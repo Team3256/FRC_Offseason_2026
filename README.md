@@ -70,6 +70,24 @@ Driving into your alliance zone (blue x < 4 m, red x > 12.5 m) revs the shooter 
 elsewhere shots feed the near corner of your half. The hood drops automatically near a trench.
 Trench assist is available but off by default (`TrenchAssist/Enabled` on the dashboard).
 
+## Dashboard extras
+
+These only add information to the dashboard (SmartDashboard / Elastic); none of them change what
+the robot does or how it is driven.
+
+* **Alerts** (the `Alerts` widget): any TalonFX, CANcoder or the Pigeon 2 that stops talking on CAN
+  for 0.5 s (error, named by mechanism and CAN ID), a motor over 70 C, a config that failed to apply
+  at boot, the driver controller unplugged, a brownout since boot, a resting battery under 12.0 V
+  while disabled, CAN bus utilization over 90%, robot loops over 20 ms, and no auto selected.
+  Devices are checked at 5 Hz.
+* **Auto preview** (`Field Visualize`): while disabled, the selected auto's paths (`AutoPath`) and
+  start pose (`AutoStart`) for your alliance. `RealOutputs/Auto/StartPoseErrorMeters`,
+  `.../StartPoseErrorDegrees` and `.../AtStartPose` (within 0.15 m and 5 degrees) help line the
+  robot up when vision sees tags. Hidden once the robot is enabled.
+* **Shot info** (`Field Visualize`): the current shot target (`ShotTarget`) and the shoot-on-the-move
+  lookahead pose (`ShotLookahead`). `RealOutputs/Superstructure/ReadyToShoot` (with `/Flywheel`,
+  `/Pivot` and `/Aimed`) lights up when the flywheel is spun up and the hood is in place.
+
 ## Autonomous
 
 Pick a routine on the dashboard (**Mayhem Auto Chooser**) while disabled. The routine and its paths
@@ -114,6 +132,8 @@ What was done to keep the 20 ms loop cheap:
   No string building, map lookups or allocations per loop.
 * Lookup tables are compile-time arrays; trajectory sampling and drive output don't allocate.
 * Swerve telemetry runs on Phoenix's odometry thread, not the robot loop.
+* CAN bus: every mechanism TalonFX (shooter, hood, slide, rollers) only sends the signals the code
+  reads at 50 Hz; everything else drops to 4 Hz (`OptimizeBusUtilization`).
 
 In the desktop simulation, which also runs every mechanism's physics, a full teleop loop takes about
 0.8 ms on average (p99 about 1.5 ms). `RobotSimTest.LoopTimeIsWellUnderBudget` checks this.
@@ -134,6 +154,8 @@ In the desktop simulation, which also runs every mechanism's physics, a full tel
 * **RobotSimTest / AutoSimTest**: the whole robot program with simulated hardware, driven through
   the simulated Driver Station and controller in real time. Covers each button, zone behaviour,
   driving, aiming, vision, and every auto on both alliances.
+* **FeatureTest**: the dashboard extras above (alert logic, every device watched and healthy in
+  simulation, auto preview on both alliances, shot readiness).
 * **UnitTest**: utilities, config read-back verification, vision filtering, trajectory files, Mayhem
   routine and trigger semantics, and the logging round-trip.
 
@@ -167,6 +189,8 @@ Robot behaviour is the same. The deliberate differences:
    that the tests pass.
 2. On the robot, check in the Driver Station log that every TalonFX config applied. A verification
    failure prints `Failed to verify config for talon [id]`.
+   The dashboard's `Alerts` widget should show no errors (a red "is disconnected" or "Config
+   failed" entry names the device and its CAN ID).
 3. Plug in the USB stick and check that `/U/wpilogs` fills up. Open a log in AdvantageScope and
    confirm the usual keys are there.
 4. In the pit, go through each button above with the robot on blocks. Then run each auto on the

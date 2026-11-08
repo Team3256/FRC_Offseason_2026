@@ -11,6 +11,7 @@
 #include <numbers>
 #include <vector>
 
+#include <frc/DriverStation.h>
 #include <frc/RobotBase.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/button/RobotModeTriggers.h>
@@ -218,4 +219,63 @@ void RobotContainer::Periodic() {
   m_field2d.SetRobotPose(m_drivetrain.State().Pose);
   m_superstructure.Periodic();
   m_shotCalculator.Periodic();
+  m_shotTargetObject->SetPose(m_superstructure.GetTarget());
+  m_lookaheadObject->SetPose(m_shotCalculator.GetLookaheadPose());
+  UpdateAutoPreview();
+}
+
+void RobotContainer::UpdateAutoPreview() {
+  if (!frc::DriverStation::IsDisabled()) {
+    if (m_autoPreviewShown) {
+      m_autoPathObject->SetPoses(std::span<const frc::Pose2d>{});
+      m_autoStartObject->SetPoses(std::span<const frc::Pose2d>{});
+      m_autoPreviewShown = false;
+      m_autoStartPose.reset();
+    }
+    return;
+  }
+
+  // Rebuild the drawing only when the selection or the alliance changes.
+  const std::string& selected = m_mayhemAutoChooser.Selected();
+  const bool red = m_mayhemAutoFactory->IsRed();
+  if (!m_autoPreviewShown || selected != m_autoPreviewName || red != m_autoPreviewRed) {
+    m_autoPreviewShown = true;
+    m_autoPreviewName = selected;
+    m_autoPreviewRed = red;
+    m_autoStartPose.reset();
+    std::vector<frc::Pose2d> path;
+    if (auto routine = m_mayhemAutoChooser.SelectedRoutine()) {
+      constexpr double kSampleSpacing = 0.1;  // seconds of path between drawn poses
+      for (const auto& trajectory : routine->Trajectories()) {
+        const auto traj = trajectory->GetResolvedTrajectory();
+        if (!traj) {
+          continue;
+        }
+        if (!m_autoStartPose) {
+          m_autoStartPose = traj->InitialPose();
+        }
+        for (double t = 0; t < traj->TotalTime(); t += kSampleSpacing) {
+          path.push_back(traj->SampleAt(t).GetPose());
+        }
+        path.push_back(traj->FinalPose());
+      }
+    }
+    m_autoPathObject->SetPoses(path);
+    if (m_autoStartPose) {
+      m_autoStartObject->SetPose(*m_autoStartPose);
+    } else {
+      m_autoStartObject->SetPoses(std::span<const frc::Pose2d>{});
+    }
+  }
+
+  if (m_autoStartPose) {
+    const frc::Pose2d& pose = m_drivetrain.State().Pose;
+    const double distance = pose.Translation().Distance(m_autoStartPose->Translation()).value();
+    const double heading =
+        std::abs((pose.Rotation() - m_autoStartPose->Rotation()).Degrees().value());
+    m_autoStartDistanceLog.Set(distance);
+    m_autoStartHeadingLog.Set(heading);
+    m_autoAtStartLog.Set(distance <= kAutoStartToleranceMeters &&
+                         heading <= kAutoStartToleranceDegrees);
+  }
 }

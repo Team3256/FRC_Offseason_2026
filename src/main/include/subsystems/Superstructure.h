@@ -65,6 +65,9 @@ class Superstructure {
   double GetVelMultiplier() const { return m_velMultiplier; }
   const frc::Pose2d& GetTarget() const { return m_target; }
 
+  /** Flywheel spun up to speed and hood in place, as of the last Periodic(). Telemetry only. */
+  bool IsReadyToShoot() const { return m_ready; }
+
   bool TargetBlueHub() const;
   bool TargetRedHub() const;
   bool IsInTrenchApproachZone() const;
@@ -113,6 +116,7 @@ class Superstructure {
   frc2::Trigger m_feedBottomCorner;
 
   double m_velMultiplier = 1;
+  bool m_ready = false;
   frc::Pose2d m_target;
 
   logging::Output<std::string> m_stateLog{"Superstructure/State"};

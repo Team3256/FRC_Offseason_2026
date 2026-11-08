@@ -90,19 +90,33 @@ void Robot::RobotPeriodic() {
   logging::LoggedTracer::Reset();
   m_container->BeginLoop();
   phoenix_util::RefreshAll();
+  phoenix_util::UpdateDeviceAlerts();
   logging::LoggedTracer::Record("Phoenix Refresh");
   // Runs the Scheduler: polls buttons, schedules commands, runs scheduled commands, removes
   // finished or interrupted commands, and runs subsystem Periodic() methods.
   frc2::CommandScheduler::GetInstance().Run();
   m_container->Periodic();
 
-  m_batteryLog->Set(frc::RobotController::GetBatteryVoltage().value());
-  m_brownoutLog->Set(frc::RobotController::IsBrownedOut());
+  RobotAlerts::Inputs alertInputs;
+  alertInputs.batteryVolts = frc::RobotController::GetBatteryVoltage().value();
+  alertInputs.brownedOut = frc::RobotController::IsBrownedOut();
+  m_batteryLog->Set(alertInputs.batteryVolts);
+  m_brownoutLog->Set(alertInputs.brownedOut);
   if (++m_canStatusCounter >= 10) {  // CAN status is a HAL call; 5 Hz is plenty
     m_canStatusCounter = 0;
-    m_canUtilLog->Set(frc::RobotController::GetCANStatus().percentBusUtilization);
+    alertInputs.canUtilization = frc::RobotController::GetCANStatus().percentBusUtilization;
+    m_canUtilLog->Set(*alertInputs.canUtilization);
   }
-  m_loopTimeLog->Set(static_cast<double>(frc::RobotController::GetFPGATime() - startUs) / 1000.0);
+  alertInputs.disabled = frc::DriverStation::IsDisabled();
+  alertInputs.loopTimeMs = m_lastLoopTimeMs;
+  alertInputs.driverControllerConnected =
+      frc::DriverStation::IsJoystickConnected(constants::controller::kDriverControllerPort);
+  alertInputs.autoSelected =
+      m_container->GetAutoChooser().Selected() != mayhem::AutoChooser::kNoneName;
+  m_alerts.Update(alertInputs);
+
+  m_lastLoopTimeMs = static_cast<double>(frc::RobotController::GetFPGATime() - startUs) / 1000.0;
+  m_loopTimeLog->Set(m_lastLoopTimeMs);
 }
 
 void Robot::DisabledInit() {}

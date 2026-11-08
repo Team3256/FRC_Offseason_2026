@@ -55,6 +55,8 @@ struct RollerPairConfig {
   ctre::phoenix6::configs::TalonFXConfiguration motorConfigs;
   int flashConfigRetries;
   units::hertz_t updateFrequency;
+  /** Name for dashboard alerts, e.g. "Feeder". */
+  const char* name = "Rollers";
 };
 
 class RollerPairIOTalonFX : public RollerPairIO {

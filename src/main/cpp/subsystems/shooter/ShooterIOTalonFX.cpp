@@ -12,6 +12,10 @@
 using namespace ctre::phoenix6;
 
 namespace {
+constexpr std::array<const char*, shooter::kNumMotors> kMotorNames = {
+    "Shooter top left motor", "Shooter bottom left motor", "Shooter top right motor",
+    "Shooter bottom right motor"};
+
 controls::Follower FollowerFor(int i) {
   return controls::Follower{shooter::kMotorIds[0], shooter::kMotorOpposed[i]
                                                        ? signals::MotorAlignmentValue::Opposed
@@ -38,6 +42,8 @@ ShooterIOTalonFX::ShooterIOTalonFX()
                                                *m_supplyCurrent[i], *m_temperature[i]);
     phoenix_util::RegisterSignals(false, {m_voltage[i], m_velocity[i], m_statorCurrent[i],
                                           m_supplyCurrent[i], m_temperature[i]});
+    phoenix_util::WatchDevice(m, kMotorNames[i]);
+    phoenix_util::WatchTemperature(*m_temperature[i], kMotorNames[i]);
   }
   for (int i = 0; i < shooter::kNumMotors; i++) {
     m_motors[i].OptimizeBusUtilization();

@@ -41,8 +41,8 @@ inline ctre::phoenix6::configs::TalonFXConfiguration MotorConfigs() {
 }
 
 inline RollerPairConfig IOConfig() {
-  return {kIndexerMotorLeft, kIndexerMotorRight, MotorConfigs(), kFlashConfigRetries,
-          kUpdateFrequency};
+  return {kIndexerMotorLeft,   kIndexerMotorRight, MotorConfigs(),
+          kFlashConfigRetries, kUpdateFrequency,   "Indexer"};
 }
 
 inline constexpr RollerPairKeys kInputKeys = {

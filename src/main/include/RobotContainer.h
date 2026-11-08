@@ -8,6 +8,8 @@
 #pragma once
 
 #include <memory>
+#include <optional>
+#include <string>
 
 #include <frc/geometry/Transform2d.h>
 #include <frc/smartdashboard/Field2d.h>
@@ -51,11 +53,21 @@ class RobotContainer {
   Indexer& GetIndexer() { return m_indexer; }
   Vision& GetVision() { return m_vision; }
   mayhem::AutoChooser& GetAutoChooser() { return m_mayhemAutoChooser; }
+  frc::Field2d& GetField() { return m_field2d; }
+  /** Start pose of the selected auto (alliance-correct) while disabled, for lining up. */
+  const std::optional<frc::Pose2d>& GetAutoStartPose() const { return m_autoStartPose; }
+
+  /** Robot within this distance and heading of the auto's start pose counts as lined up. */
+  static constexpr double kAutoStartToleranceMeters = 0.15;
+  static constexpr double kAutoStartToleranceDegrees = 5.0;
 
  private:
   void ConfigureMayhemAutoChooser();
   void ConfigureOperatorBinds();
   void ConfigureSwerve();
+  /** Draws the selected auto on the field while disabled and reports how far off its start the
+   * robot is. */
+  void UpdateAutoPreview();
   double VxSupplier();
   double VySupplier();
   /** Driver request with trench assist, scaled to the given max speeds. */
@@ -87,6 +99,17 @@ class RobotContainer {
   ShotCalculator m_shotCalculator;
 
   frc::Field2d m_field2d;
+  frc::FieldObject2d* m_autoPathObject = m_field2d.GetObject("AutoPath");
+  frc::FieldObject2d* m_autoStartObject = m_field2d.GetObject("AutoStart");
+  frc::FieldObject2d* m_shotTargetObject = m_field2d.GetObject("ShotTarget");
+  frc::FieldObject2d* m_lookaheadObject = m_field2d.GetObject("ShotLookahead");
+  bool m_autoPreviewShown = false;
+  std::string m_autoPreviewName;
+  bool m_autoPreviewRed = false;
+  std::optional<frc::Pose2d> m_autoStartPose;
+  logging::Output<double> m_autoStartDistanceLog{"Auto/StartPoseErrorMeters"};
+  logging::Output<double> m_autoStartHeadingLog{"Auto/StartPoseErrorDegrees"};
+  logging::Output<bool> m_autoAtStartLog{"Auto/AtStartPose"};
 
   Superstructure m_superstructure;
 

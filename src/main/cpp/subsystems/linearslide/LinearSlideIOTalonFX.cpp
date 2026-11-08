@@ -25,6 +25,11 @@ LinearSlideIOTalonFX::LinearSlideIOTalonFX() {
   phoenix_util::RegisterSignals(
       false, {&m_rightVoltage, &m_rightVelocity, &m_rightPosition, &m_rightStator, &m_rightSupply,
               &m_leftVoltage, &m_leftVelocity, &m_leftPosition, &m_leftStator, &m_leftSupply});
+  // Like the shooter and rollers: signals the code doesn't read drop to 4 Hz to save CAN bandwidth.
+  m_right.OptimizeBusUtilization();
+  m_left.OptimizeBusUtilization();
+  phoenix_util::WatchDevice(m_right, "Linear slide right motor");
+  phoenix_util::WatchDevice(m_left, "Linear slide left motor");
 }
 
 void LinearSlideIOTalonFX::UpdateInputs(LinearSlideIOInputs& inputs) {

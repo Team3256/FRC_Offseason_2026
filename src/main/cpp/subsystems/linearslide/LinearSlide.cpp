@@ -9,6 +9,7 @@
 
 #include <cstdio>
 
+#include "logging/LoggedTracer.h"
 #include "subsystems/linearslide/LinearSlideConstants.h"
 #include "utils/Util.h"
 
@@ -34,6 +35,7 @@ void LinearSlide::Periodic() {
   m_io->UpdateInputs(m_inputs);
   m_inputsLog.Publish();
   m_reqPositionLog.Set(m_reqPosition);
+  logging::LoggedTracer::Record("LinearSlide");
 }
 
 frc2::CommandPtr LinearSlide::SetPosition(double position) {

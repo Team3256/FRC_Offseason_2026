@@ -174,6 +174,11 @@ class AutoRoutine : public std::enable_shared_from_this<AutoRoutine> {
   frc2::CommandPtr Cmd();
   frc2::CommandPtr Cmd(std::function<bool()> finishCondition);
 
+  /** This routine's trajectories, in the order they were added. */
+  const std::vector<std::unique_ptr<AutoTrajectory>>& Trajectories() const {
+    return m_trajectories;
+  }
+
   int64_t PollCount() const { return m_pollCount; }
   int TrajectoryStarts() const { return m_trajectoryStarts; }
   void OnTrajectoryStart() { m_trajectoryStarts++; }
@@ -205,6 +210,8 @@ class AutoTrajectory {
   const std::string& Name() const { return m_name; }
   const MayhemTrajectory* GetRawTrajectory() const { return m_base.get(); }
   bool IsLoaded() const { return m_base != nullptr; }
+  /** The alliance-correct trajectory this would run now (null if it failed to load). */
+  TrajectoryPtr GetResolvedTrajectory() const { return m_base ? Resolved() : nullptr; }
   std::optional<frc::Pose2d> GetInitialPose() const;
   std::optional<frc::Pose2d> GetFinalPose() const;
 
@@ -299,6 +306,11 @@ class AutoChooser : public wpi::Sendable, public wpi::SendableHelper<AutoChooser
   std::vector<std::string> Options() const { return m_order; }
   /** The command for the selected option, generating it if the selection changed. */
   frc2::Command* SelectedCommand();
+  /**
+   * The routine behind the selected option, generating it if the selection changed; null for
+   * "Nothing" and for options added with AddCmd.
+   */
+  std::shared_ptr<AutoRoutine> SelectedRoutine();
   /** Runs the selected auto as a proxy; bind it to RobotModeTriggers::Autonomous().WhileTrue. */
   frc2::CommandPtr SelectedCommandScheduler();
 
@@ -313,6 +325,8 @@ class AutoChooser : public wpi::Sendable, public wpi::SendableHelper<AutoChooser
   std::string m_selected = kNoneName;
   std::string m_builtFor = kNoneName;
   std::optional<frc2::CommandPtr> m_built;
+  // Routine of the built option (kept alive by m_built's command as well).
+  std::shared_ptr<AutoRoutine> m_builtRoutine;
 };
 
 }  // namespace mayhem

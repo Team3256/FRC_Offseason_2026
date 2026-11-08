@@ -7,12 +7,14 @@
 
 #include "utils/PhoenixUtil.h"
 
+#include <memory>
 #include <string>
 #include <vector>
 
+#include <frc/Alert.h>
 #include <frc/RobotBase.h>
-#include "utils/DSReport.h"
 
+#include "utils/DSReport.h"
 #include "utils/PhoenixConfigEquality.h"
 
 namespace phoenix_util {
@@ -20,6 +22,34 @@ namespace phoenix_util {
 namespace {
 std::vector<ctre::phoenix6::BaseStatusSignal*> g_canivoreSignals;
 std::vector<ctre::phoenix6::BaseStatusSignal*> g_rioSignals;
+
+struct WatchedDevice {
+  WatchedDevice(ctre::phoenix6::hardware::ParentDevice& d, const std::string& text)
+      : device{&d}, alert{text, frc::Alert::AlertType::kError} {}
+  ctre::phoenix6::hardware::ParentDevice* device;
+  frc::Alert alert;
+  bool disconnected = false;
+};
+struct WatchedTemperature {
+  WatchedTemperature(const ctre::phoenix6::StatusSignal<units::celsius_t>& s,
+                     const std::string& text)
+      : signal{&s}, alert{text, frc::Alert::AlertType::kWarning} {}
+  const ctre::phoenix6::StatusSignal<units::celsius_t>* signal;
+  frc::Alert alert;
+  bool hot = false;
+};
+std::vector<std::unique_ptr<WatchedDevice>> g_devices;
+std::vector<std::unique_ptr<WatchedTemperature>> g_temperatures;
+std::vector<std::unique_ptr<frc::Alert>> g_configAlerts;
+int g_alertLoop = 0;
+// Device checks run every kAlertPeriodLoops robot loops (5 Hz).
+constexpr int kAlertPeriodLoops = 10;
+
+void ConfigFailureAlert(const std::string& message) {
+  auto& alert = g_configAlerts.emplace_back(
+      std::make_unique<frc::Alert>(message, frc::Alert::AlertType::kError));
+  alert->Set(true);
+}
 
 std::string Attempt(int i, int numTries) {
   return " (attempt " + std::to_string(i + 1) + " of " + std::to_string(numTries) + ")";
@@ -61,6 +91,8 @@ bool ApplyAndVerify(Device& device, const Config& config, int numTries, const ch
   }
   ds_report::Error(std::string{"Failed to apply config for "} + kind + " after " +
                    std::to_string(numTries) + " attempts");
+  ConfigFailureAlert(std::string{"Config failed for "} + kind + " [" +
+                     std::to_string(device.GetDeviceID()) + "]; check it in Phoenix Tuner X.");
   return false;
 }
 }  // namespace
@@ -129,6 +161,63 @@ size_t RegisteredSignalCount() { return g_canivoreSignals.size() + g_rioSignals.
 void ClearRegisteredSignals() {
   g_canivoreSignals.clear();
   g_rioSignals.clear();
+  g_devices.clear();
+  g_temperatures.clear();
+  g_configAlerts.clear();
+  g_alertLoop = 0;
 }
+
+void WatchDevice(ctre::phoenix6::hardware::ParentDevice& device, std::string_view name) {
+  g_devices.push_back(std::make_unique<WatchedDevice>(
+      device,
+      std::string{name} + " [" + std::to_string(device.GetDeviceID()) + "] is disconnected."));
+}
+
+void WatchTemperature(const ctre::phoenix6::StatusSignal<units::celsius_t>& temperature,
+                      std::string_view name) {
+  g_temperatures.push_back(std::make_unique<WatchedTemperature>(
+      temperature,
+      std::string{name} + " is over " + std::to_string(static_cast<int>(kHotC)) + " C."));
+}
+
+void UpdateDeviceAlerts() {
+  if (++g_alertLoop < kAlertPeriodLoops) {
+    return;
+  }
+  g_alertLoop = 0;
+  for (auto& d : g_devices) {
+    d->disconnected = !d->device->IsConnected();
+    d->alert.Set(d->disconnected);
+  }
+  for (auto& t : g_temperatures) {
+    // Ignore readings of a device that is not talking (they are stale or zero).
+    if (!t->signal->GetStatus().IsOK()) {
+      continue;
+    }
+    const double c = t->signal->GetValueAsDouble();
+    t->hot = t->hot ? c > kCoolC : c > kHotC;
+    t->alert.Set(t->hot);
+  }
+}
+
+int DisconnectedDeviceCount() {
+  int n = 0;
+  for (const auto& d : g_devices) {
+    n += d->disconnected ? 1 : 0;
+  }
+  return n;
+}
+
+int HotDeviceCount() {
+  int n = 0;
+  for (const auto& t : g_temperatures) {
+    n += t->hot ? 1 : 0;
+  }
+  return n;
+}
+
+size_t WatchedDeviceCount() { return g_devices.size(); }
+
+size_t ConfigFailureCount() { return g_configAlerts.size(); }
 
 }  // namespace phoenix_util

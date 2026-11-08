@@ -20,6 +20,9 @@ ShooterPivotIOTalonFX::ShooterPivotIOTalonFX() {
                                              m_position, m_supplyCurrent, m_statorCurrent);
   phoenix_util::RegisterSignals(
       false, {&m_voltage, &m_velocity, &m_position, &m_statorCurrent, &m_supplyCurrent});
+  // Like the shooter and rollers: signals the code doesn't read drop to 4 Hz to save CAN bandwidth.
+  m_motor.OptimizeBusUtilization();
+  phoenix_util::WatchDevice(m_motor, "Shooter pivot motor");
 }
 
 void ShooterPivotIOTalonFX::UpdateInputs(ShooterPivotIOInputs& inputs) {

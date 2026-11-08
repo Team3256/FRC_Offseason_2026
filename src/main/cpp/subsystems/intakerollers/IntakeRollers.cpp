@@ -19,6 +19,7 @@ void IntakeRollers::Periodic() {
   DisableSubsystem::Periodic();
   m_io->UpdateInputs(m_inputs);
   m_inputsLog.Publish();
+  logging::LoggedTracer::Record("IntakeRollers");
 }
 
 frc2::CommandPtr IntakeRollers::SetVoltage(double voltage) {
