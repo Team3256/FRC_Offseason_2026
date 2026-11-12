@@ -1,7 +1,7 @@
 {
   "format": "mayhem-suite",
   "version": 1,
-  "revision": 3,
+  "revision": 5,
   "id": "team3256-offseason-2026",
   "name": "3256 Offseason 2026",
   "field": {
@@ -48,92 +48,321 @@
       "nodes": [
         {
           "id": "depot-sweep-depot-pass1-p1",
-          "name": "Clear upper trench",
+          "name": "DepotTrenchSweepDepotPt waypoint 1",
           "kind": "pose",
           "goal": {
-            "x": 6.05,
-            "y": 7.4,
-            "heading": 1.1686989177320648,
+            "x": 5.917369365692139,
+            "y": 7.451943397521973,
+            "heading": -1.5780683973681608,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
-            "stop": false,
-            "profiled": true
-          },
-          "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "constraints": {
-            "maxVelocity": 3.8,
-            "handoffRadius": 0.35
-          },
-          "generatedConstraints": {}
-        },
-        {
-          "id": "depot-sweep-depot-pass1-p2",
-          "name": "Collect upper fuel",
-          "kind": "pose",
-          "goal": {
-            "x": 6.4,
-            "y": 6.55,
-            "heading": 0.9546513269117054,
-            "translationTolerance": 0.12,
-            "rotationTolerance": 0.2,
-            "velocityTolerance": 0.3,
-            "settleTime": 0,
-            "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
             "profiled": true,
             "markers": [
               {
-                "kind": "event",
-                "t": 0.35,
-                "key": "superstructure.setState.INTAKE"
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.5781074240716904,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -1.5780865891188316,
+                "profiled": true
               }
             ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 2.04,
-            "handoffRadius": 0.8270000000000001
+          "description": "Waypoint 1 of the solved DepotTrenchSweepDepotPt pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.35,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass1-p2",
+          "name": "DepotTrenchSweepDepotPt waypoint 2",
+          "kind": "pose",
+          "goal": {
+            "x": 6.746590614318848,
+            "y": 7.468600749969482,
+            "heading": -1.5780407438110844,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.5780604250039518,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -1.57804986613397,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 2 of the solved DepotTrenchSweepDepotPt pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.52,
+            "handoffRadius": 0.35
           }
         },
         {
           "id": "depot-sweep-depot-pass1-p3",
-          "name": "Turn toward depot",
+          "name": "DepotTrenchSweepDepotPt waypoint 3",
           "kind": "pose",
           "goal": {
-            "x": 6.2,
-            "y": 5.85,
-            "heading": 0.8542556974179178,
+            "x": 7.961645126342773,
+            "y": 7.152379512786865,
+            "heading": -1.5707963267948966,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
-            "profiled": true
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "event",
+                "t": 0.0,
+                "key": "superstructure.setState.INTAKE"
+              },
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.5764880714668408,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -1.5731174014112428,
+                "profiled": true
+              }
+            ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 1.26,
-            "handoffRadius": 0.324
+          "description": "Waypoint 3 of the solved DepotTrenchSweepDepotPt pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 3.89,
+            "handoffRadius": 0.35
           }
         },
         {
           "id": "depot-sweep-depot-pass1-p4",
-          "name": "First depot shooting position",
+          "name": "DepotTrenchSweepDepotPt waypoint 4",
           "kind": "pose",
           "goal": {
-            "x": 3.15,
-            "y": 5.85,
-            "heading": 2.251008322975369,
+            "x": 8.267547607421875,
+            "y": 5.51769495010376,
+            "heading": -1.5710859903049725,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.5700316396706187,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -1.5704664241644823,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 4 of the solved DepotTrenchSweepDepotPt pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.34,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass1-p5",
+          "name": "DepotTrenchSweepDepotPt waypoint 5",
+          "kind": "pose",
+          "goal": {
+            "x": 8.008646488189697,
+            "y": 4.230517387390137,
+            "heading": -1.5707963267948966,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.5714630358009047,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -1.571498621533553,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 5 of the solved DepotTrenchSweepDepotPt pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.4,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass1-p6",
+          "name": "DepotTrenchSweepDepotPt waypoint 6",
+          "kind": "pose",
+          "goal": {
+            "x": 6.837206840515137,
+            "y": 3.8443679809570312,
+            "heading": 1.721646509618392,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.9128677012484776,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -2.9995468652257564,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 6 of the solved DepotTrenchSweepDepotPt pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 2.97,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass1-p7",
+          "name": "DepotTrenchSweepDepotPt waypoint 7",
+          "kind": "pose",
+          "goal": {
+            "x": 5.907866954803467,
+            "y": 5.774714469909668,
+            "heading": -3.141592653589793,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 1.7966385300559449,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 2.666320857857695,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 7 of the solved DepotTrenchSweepDepotPt pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 3.29,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass1-p8",
+          "name": "DepotTrenchSweepDepotPt waypoint 8",
+          "kind": "pose",
+          "goal": {
+            "x": 3.718986988067627,
+            "y": 5.7749505043029785,
+            "heading": -3.1403949799422173,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 3.141227219966643,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -3.1413268797702583,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 8 of the solved DepotTrenchSweepDepotPt pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.66,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass1-p9",
+          "name": "DepotTrenchSweepDepotPt waypoint 9",
+          "kind": "pose",
+          "goal": {
+            "x": 2.3732357025146484,
+            "y": 5.920820236206055,
+            "heading": -3.1293769255222594,
             "translationTolerance": 0.1,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
@@ -144,6 +373,18 @@
             "profiled": true,
             "markers": [
               {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -3.1383851235941482,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -3.134615817894698,
+                "profiled": true
+              },
+              {
                 "kind": "event",
                 "t": 1,
                 "key": "superstructure.setState.IDLE"
@@ -151,84 +392,146 @@
             ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 4.8
+          "description": "Waypoint 9 of the solved DepotTrenchSweepDepotPt pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.18
           }
         },
         {
           "id": "align-shoot-0",
-          "name": "Aim, verify readiness and shoot",
+          "name": "Aim and shoot",
           "kind": "custom",
           "action": "drivetrain.alignAndShoot",
           "timeout": 4,
-          "description": "Require actual aim/readiness during the 3.5 second shooting window. Driving-time budget excludes this stationary stage."
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window."
         },
         {
           "id": "depot-sweep-depot-pass2-p1",
-          "name": "Collect depot fuel",
+          "name": "DepotTrenchSweepDepotPt2 waypoint 1",
           "kind": "pose",
           "goal": {
-            "x": 1.5,
-            "y": 5.95,
-            "heading": 2.630883107372108,
+            "x": 1.553783893585205,
+            "y": 5.939030170440674,
+            "heading": -3.134606656540777,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
             "profiled": true,
             "markers": [
               {
                 "kind": "event",
-                "t": 0.35,
+                "t": 0,
                 "key": "superstructure.setState.INTAKE"
+              },
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 2.5987762286220235,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 2.9154487826756466,
+                "profiled": true
               }
             ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
+          "description": "Waypoint 1 of the solved DepotTrenchSweepDepotPt2 pass; heading and speed follow the solved path so the intake leads through the pickup.",
           "constraints": {
-            "maxVelocity": 3,
-            "handoffRadius": 0.3
-          },
-          "generatedConstraints": {}
+            "maxVelocity": 2.13,
+            "handoffRadius": 0.35
+          }
         },
         {
           "id": "depot-sweep-depot-pass2-p2",
-          "name": "Turn clear of alliance wall",
+          "name": "DepotTrenchSweepDepotPt2 waypoint 2",
           "kind": "pose",
           "goal": {
-            "x": 1.65,
-            "y": 5.55,
-            "heading": 2.725762485647517,
+            "x": 0.822157621383667,
+            "y": 5.953590393066406,
+            "heading": -3.1345794393924082,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
-            "profiled": true
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -3.1345416772077015,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -3.134584745513679,
+                "profiled": true
+              }
+            ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
+          "description": "Waypoint 2 of the solved DepotTrenchSweepDepotPt2 pass; heading and speed follow the solved path so the intake leads through the pickup.",
           "constraints": {
-            "maxVelocity": 2.8,
-            "handoffRadius": 0.3
-          },
-          "generatedConstraints": {}
+            "maxVelocity": 1.0,
+            "handoffRadius": 0.35
+          }
         },
         {
           "id": "depot-sweep-depot-pass2-p3",
-          "name": "Final depot shooting position",
+          "name": "DepotTrenchSweepDepotPt2 waypoint 3",
           "kind": "pose",
           "goal": {
-            "x": 2.8,
-            "y": 5.4,
-            "heading": 2.4975889042831,
+            "x": 1.8086225986480713,
+            "y": 5.944235324859619,
+            "heading": -3.1321264819099772,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -3.1348419011638855,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -3.133885265888298,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 3 of the solved DepotTrenchSweepDepotPt2 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 2.5,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass2-p4",
+          "name": "DepotTrenchSweepDepotPt2 waypoint 4",
+          "kind": "pose",
+          "goal": {
+            "x": 2.446075916290283,
+            "y": 5.392728805541992,
+            "heading": -3.1261339787892517,
             "translationTolerance": 0.1,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
@@ -239,6 +542,18 @@
             "profiled": true,
             "markers": [
               {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -3.1297573240716763,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -3.1279560359974643,
+                "profiled": true
+              },
+              {
                 "kind": "event",
                 "t": 1,
                 "key": "superstructure.setState.IDLE"
@@ -246,18 +561,18 @@
             ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 4.33
+          "description": "Waypoint 4 of the solved DepotTrenchSweepDepotPt2 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 2.97
           }
         },
         {
           "id": "align-shoot-1",
-          "name": "Aim, verify readiness and shoot",
+          "name": "Aim and shoot",
           "kind": "custom",
           "action": "drivetrain.alignAndShoot",
           "timeout": 4,
-          "description": "Require actual aim/readiness during the 3.5 second shooting window. Driving-time budget excludes this stationary stage."
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window."
         },
         {
           "id": "done",
@@ -294,13 +609,53 @@
         {
           "id": "t3",
           "from": "depot-sweep-depot-pass1-p4",
-          "to": "align-shoot-0",
+          "to": "depot-sweep-depot-pass1-p5",
           "condition": {
             "kind": "always"
           }
         },
         {
           "id": "t4",
+          "from": "depot-sweep-depot-pass1-p5",
+          "to": "depot-sweep-depot-pass1-p6",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t5",
+          "from": "depot-sweep-depot-pass1-p6",
+          "to": "depot-sweep-depot-pass1-p7",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t6",
+          "from": "depot-sweep-depot-pass1-p7",
+          "to": "depot-sweep-depot-pass1-p8",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t7",
+          "from": "depot-sweep-depot-pass1-p8",
+          "to": "depot-sweep-depot-pass1-p9",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t8",
+          "from": "depot-sweep-depot-pass1-p9",
+          "to": "align-shoot-0",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t9",
           "from": "align-shoot-0",
           "to": "depot-sweep-depot-pass2-p1",
           "condition": {
@@ -308,7 +663,7 @@
           }
         },
         {
-          "id": "t5",
+          "id": "t10",
           "from": "depot-sweep-depot-pass2-p1",
           "to": "depot-sweep-depot-pass2-p2",
           "condition": {
@@ -316,7 +671,7 @@
           }
         },
         {
-          "id": "t6",
+          "id": "t11",
           "from": "depot-sweep-depot-pass2-p2",
           "to": "depot-sweep-depot-pass2-p3",
           "condition": {
@@ -324,15 +679,23 @@
           }
         },
         {
-          "id": "t7",
+          "id": "t12",
           "from": "depot-sweep-depot-pass2-p3",
+          "to": "depot-sweep-depot-pass2-p4",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t13",
+          "from": "depot-sweep-depot-pass2-p4",
           "to": "align-shoot-1",
           "condition": {
             "kind": "always"
           }
         },
         {
-          "id": "t8",
+          "id": "t14",
           "from": "align-shoot-1",
           "to": "done",
           "condition": {
@@ -349,15 +712,11 @@
       },
       "extensions": {
         "drivingTimeBudget": 6,
-        "routeIntent": "Short fuel collection and return; x2 does a second nearby pickup through the bump corridor rather than another full trench loop. Pickup coverage differs from the old long sweeps.",
+        "routeIntent": "Original solved sweep geometry: sideways through the trench, intake leading along the centerline pickup.",
         "legacySources": [
           "DepotTrenchSweepDepotPt",
           "DepotTrenchSweepDepotPt2"
-        ],
-        "constraintGeneration": {
-          "signature": "{\"robot\":{\"name\":\"Offseason swerve (Kraken X60, 5.90:1)\",\"length\":0.813,\"width\":0.813,\"start\":{\"x\":4.401654481887817,\"y\":7.427656650543213,\"heading\":-1.5781595858076165},\"constraints\":{\"maxVelocity\":4.8,\"maxAcceleration\":6.48,\"maxAngularVelocity\":8,\"maxAngularAcceleration\":14,\"translationKp\":5,\"rotationKp\":4}},\"start\":{\"x\":4.401654481887817,\"y\":7.427656650543213,\"heading\":-1.5781595858076165},\"constraints\":{\"maxVelocity\":4.8,\"maxAcceleration\":6.48,\"maxAngularVelocity\":8,\"maxAngularAcceleration\":14},\"initial\":\"depot-sweep-depot-pass1-p1\",\"nodes\":[{\"id\":\"depot-sweep-depot-pass1-p1\",\"kind\":\"pose\",\"goal\":{\"x\":6.05,\"y\":7.4,\"heading\":1.1686989177320648,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true},\"constraints\":{\"maxVelocity\":3.8,\"handoffRadius\":0.35}},{\"id\":\"depot-sweep-depot-pass1-p2\",\"kind\":\"pose\",\"goal\":{\"x\":6.4,\"y\":6.55,\"heading\":0.9546513269117054,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true,\"markers\":[{\"kind\":\"event\",\"t\":0.35,\"key\":\"superstructure.setState.INTAKE\"}]}},{\"id\":\"depot-sweep-depot-pass1-p3\",\"kind\":\"pose\",\"goal\":{\"x\":6.2,\"y\":5.85,\"heading\":0.8542556974179178,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true}},{\"id\":\"depot-sweep-depot-pass1-p4\",\"kind\":\"pose\",\"goal\":{\"x\":3.15,\"y\":5.85,\"heading\":2.251008322975369,\"translationTolerance\":0.1,\"rotationTolerance\":0.08,\"velocityTolerance\":0.3,\"settleTime\":0.04,\"handoffRadius\":0,\"headingMode\":\"fixed\",\"stop\":true,\"profiled\":true,\"markers\":[{\"kind\":\"event\",\"t\":1,\"key\":\"superstructure.setState.IDLE\"}]}},{\"id\":\"align-shoot-0\",\"kind\":\"custom\"},{\"id\":\"depot-sweep-depot-pass2-p1\",\"kind\":\"pose\",\"goal\":{\"x\":1.5,\"y\":5.95,\"heading\":2.630883107372108,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true,\"markers\":[{\"kind\":\"event\",\"t\":0.35,\"key\":\"superstructure.setState.INTAKE\"}]},\"constraints\":{\"maxVelocity\":3,\"handoffRadius\":0.3}},{\"id\":\"depot-sweep-depot-pass2-p2\",\"kind\":\"pose\",\"goal\":{\"x\":1.65,\"y\":5.55,\"heading\":2.725762485647517,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true},\"constraints\":{\"maxVelocity\":2.8,\"handoffRadius\":0.3}},{\"id\":\"depot-sweep-depot-pass2-p3\",\"kind\":\"pose\",\"goal\":{\"x\":2.8,\"y\":5.4,\"heading\":2.4975889042831,\"translationTolerance\":0.1,\"rotationTolerance\":0.08,\"velocityTolerance\":0.3,\"settleTime\":0.04,\"handoffRadius\":0,\"headingMode\":\"fixed\",\"stop\":true,\"profiled\":true,\"markers\":[{\"kind\":\"event\",\"t\":1,\"key\":\"superstructure.setState.IDLE\"}]}},{\"id\":\"align-shoot-1\",\"kind\":\"custom\"},{\"id\":\"done\",\"kind\":\"finish\"}],\"transitions\":[{\"id\":\"t0\",\"from\":\"depot-sweep-depot-pass1-p1\",\"to\":\"depot-sweep-depot-pass1-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t1\",\"from\":\"depot-sweep-depot-pass1-p2\",\"to\":\"depot-sweep-depot-pass1-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t2\",\"from\":\"depot-sweep-depot-pass1-p3\",\"to\":\"depot-sweep-depot-pass1-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t3\",\"from\":\"depot-sweep-depot-pass1-p4\",\"to\":\"align-shoot-0\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t4\",\"from\":\"align-shoot-0\",\"to\":\"depot-sweep-depot-pass2-p1\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t5\",\"from\":\"depot-sweep-depot-pass2-p1\",\"to\":\"depot-sweep-depot-pass2-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t6\",\"from\":\"depot-sweep-depot-pass2-p2\",\"to\":\"depot-sweep-depot-pass2-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t7\",\"from\":\"depot-sweep-depot-pass2-p3\",\"to\":\"align-shoot-1\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t8\",\"from\":\"align-shoot-1\",\"to\":\"done\",\"condition\":{\"kind\":\"always\"}}]}",
-          "status": "best-effort"
-        }
+        ]
       }
     },
     {
@@ -372,116 +731,283 @@
       "nodes": [
         {
           "id": "outpost-sweep-pass1-p1",
-          "name": "Clear lower trench",
+          "name": "OutpostTrenchSweepBumpPt1 waypoint 1",
           "kind": "pose",
           "goal": {
-            "x": 6.05,
-            "y": 0.73,
-            "heading": -1.1620697599473486,
+            "x": 6.808750152587891,
+            "y": 0.7213001251220703,
+            "heading": 1.5876764448267884,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
-            "profiled": true
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 1.6096335483696655,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 1.6184468956884672,
+                "profiled": true
+              }
+            ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
+          "description": "Waypoint 1 of the solved OutpostTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
           "constraints": {
-            "maxVelocity": 3.8,
+            "maxVelocity": 4.64,
             "handoffRadius": 0.35
-          },
-          "generatedConstraints": {}
+          }
         },
         {
           "id": "outpost-sweep-pass1-p2",
-          "name": "Begin lower collection",
+          "name": "OutpostTrenchSweepBumpPt1 waypoint 2",
           "kind": "pose",
           "goal": {
-            "x": 6.25,
-            "y": 1.5,
-            "heading": -0.9227094650561842,
+            "x": 8.09508991241455,
+            "y": 1.2475299835205078,
+            "heading": 1.5707963267948966,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
             "profiled": true,
             "markers": [
               {
                 "kind": "event",
-                "t": 0.35,
+                "t": 0.0,
                 "key": "superstructure.setState.INTAKE"
+              },
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 1.5389577098545313,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 1.5290092632879653,
+                "profiled": true
               }
             ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 2.83,
-            "handoffRadius": 0.715
+          "description": "Waypoint 2 of the solved OutpostTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.22,
+            "handoffRadius": 0.35
           }
         },
         {
           "id": "outpost-sweep-pass1-p3",
-          "name": "Sweep lower fuel",
+          "name": "OutpostTrenchSweepBumpPt1 waypoint 3",
           "kind": "pose",
           "goal": {
-            "x": 6.2,
-            "y": 2.4,
-            "heading": -0.7111206950156641,
+            "x": 8.357044219970703,
+            "y": 3.038424015045166,
+            "heading": 2.3480651661976477,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
-            "profiled": true
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 1.7293366863723478,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 2.0129372613550727,
+                "profiled": true
+              }
+            ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 1.75,
-            "handoffRadius": 0.05
+          "description": "Waypoint 3 of the solved OutpostTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.0,
+            "handoffRadius": 0.35
           }
         },
         {
           "id": "outpost-sweep-pass1-p4",
-          "name": "Return through lower bump",
+          "name": "OutpostTrenchSweepBumpPt1 waypoint 4",
           "kind": "pose",
           "goal": {
-            "x": 5.8,
-            "y": 2.5,
-            "heading": -0.935535478605438,
+            "x": 7.861546993255615,
+            "y": 4.129741668701172,
+            "heading": -2.4393357220807865,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
-            "profiled": true
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 2.7643310152018246,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -3.118041948737765,
+                "profiled": true
+              }
+            ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 1.22,
-            "handoffRadius": 0.054
+          "description": "Waypoint 4 of the solved OutpostTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 3.84,
+            "handoffRadius": 0.35
           }
         },
         {
           "id": "outpost-sweep-pass1-p5",
-          "name": "Lower shooting position",
+          "name": "OutpostTrenchSweepBumpPt1 waypoint 5",
           "kind": "pose",
           "goal": {
-            "x": 3.55,
-            "y": 2.5,
-            "heading": -2.2007686049541477,
+            "x": 7.109304428100586,
+            "y": 3.1960248947143555,
+            "heading": -1.6671877305760374,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.9443103773353327,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -1.7716541496420481,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 5 of the solved OutpostTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 3.47,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "outpost-sweep-pass1-p6",
+          "name": "OutpostTrenchSweepBumpPt1 waypoint 6",
+          "kind": "pose",
+          "goal": {
+            "x": 6.477420330047607,
+            "y": 2.3584601879119873,
+            "heading": -1.585576097494504,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.6340417646451615,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -1.6116663093556973,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 6 of the solved OutpostTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 3.47,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "outpost-sweep-pass1-p7",
+          "name": "OutpostTrenchSweepBumpPt1 waypoint 7",
+          "kind": "pose",
+          "goal": {
+            "x": 5.9577202796936035,
+            "y": 2.4942758083343506,
+            "heading": -1.5718003778390177,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.5750998974788681,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -1.5725427884816974,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 7 of the solved OutpostTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 2.61,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "outpost-sweep-pass1-p8",
+          "name": "OutpostTrenchSweepBumpPt1 waypoint 8",
+          "kind": "pose",
+          "goal": {
+            "x": 3.261570692062378,
+            "y": 2.2805001735687256,
+            "heading": -1.5707976144648772,
             "translationTolerance": 0.1,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
@@ -492,6 +1018,18 @@
             "profiled": true,
             "markers": [
               {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.5715622394127327,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -1.5713439279889718,
+                "profiled": true
+              },
+              {
                 "kind": "event",
                 "t": 1,
                 "key": "superstructure.setState.IDLE"
@@ -499,18 +1037,18 @@
             ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 3.59
+          "description": "Waypoint 8 of the solved OutpostTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.47
           }
         },
         {
           "id": "align-shoot-0",
-          "name": "Aim, verify readiness and shoot",
+          "name": "Aim and shoot",
           "kind": "custom",
           "action": "drivetrain.alignAndShoot",
           "timeout": 4,
-          "description": "Require actual aim/readiness during the 3.5 second shooting window. Driving-time budget excludes this stationary stage."
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window."
         },
         {
           "id": "done",
@@ -555,13 +1093,37 @@
         {
           "id": "t4",
           "from": "outpost-sweep-pass1-p5",
-          "to": "align-shoot-0",
+          "to": "outpost-sweep-pass1-p6",
           "condition": {
             "kind": "always"
           }
         },
         {
           "id": "t5",
+          "from": "outpost-sweep-pass1-p6",
+          "to": "outpost-sweep-pass1-p7",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t6",
+          "from": "outpost-sweep-pass1-p7",
+          "to": "outpost-sweep-pass1-p8",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t7",
+          "from": "outpost-sweep-pass1-p8",
+          "to": "align-shoot-0",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t8",
           "from": "align-shoot-0",
           "to": "done",
           "condition": {
@@ -578,14 +1140,10 @@
       },
       "extensions": {
         "drivingTimeBudget": 6,
-        "routeIntent": "Short fuel collection and return; x2 does a second nearby pickup through the bump corridor rather than another full trench loop. Pickup coverage differs from the old long sweeps.",
+        "routeIntent": "Original solved sweep geometry: sideways through the trench, intake leading along the centerline pickup.",
         "legacySources": [
           "OutpostTrenchSweepBumpPt1"
-        ],
-        "constraintGeneration": {
-          "signature": "{\"robot\":{\"name\":\"Offseason swerve (Kraken X60, 5.90:1)\",\"length\":0.813,\"width\":0.813,\"start\":{\"x\":4.401654481887817,\"y\":7.427656650543213,\"heading\":-1.5781595858076165},\"constraints\":{\"maxVelocity\":4.8,\"maxAcceleration\":6.48,\"maxAngularVelocity\":8,\"maxAngularAcceleration\":14,\"translationKp\":5,\"rotationKp\":4}},\"start\":{\"x\":4.440799713134766,\"y\":0.6637292504310608,\"heading\":1.5812742545885516},\"constraints\":{\"maxVelocity\":4.8,\"maxAcceleration\":6.48,\"maxAngularVelocity\":8,\"maxAngularAcceleration\":14},\"initial\":\"outpost-sweep-pass1-p1\",\"nodes\":[{\"id\":\"outpost-sweep-pass1-p1\",\"kind\":\"pose\",\"goal\":{\"x\":6.05,\"y\":0.73,\"heading\":-1.1620697599473486,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true},\"constraints\":{\"maxVelocity\":3.8,\"handoffRadius\":0.35}},{\"id\":\"outpost-sweep-pass1-p2\",\"kind\":\"pose\",\"goal\":{\"x\":6.25,\"y\":1.5,\"heading\":-0.9227094650561842,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true,\"markers\":[{\"kind\":\"event\",\"t\":0.35,\"key\":\"superstructure.setState.INTAKE\"}]}},{\"id\":\"outpost-sweep-pass1-p3\",\"kind\":\"pose\",\"goal\":{\"x\":6.2,\"y\":2.4,\"heading\":-0.7111206950156641,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true}},{\"id\":\"outpost-sweep-pass1-p4\",\"kind\":\"pose\",\"goal\":{\"x\":5.8,\"y\":2.5,\"heading\":-0.935535478605438,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true}},{\"id\":\"outpost-sweep-pass1-p5\",\"kind\":\"pose\",\"goal\":{\"x\":3.55,\"y\":2.5,\"heading\":-2.2007686049541477,\"translationTolerance\":0.1,\"rotationTolerance\":0.08,\"velocityTolerance\":0.3,\"settleTime\":0.04,\"handoffRadius\":0,\"headingMode\":\"fixed\",\"stop\":true,\"profiled\":true,\"markers\":[{\"kind\":\"event\",\"t\":1,\"key\":\"superstructure.setState.IDLE\"}]}},{\"id\":\"align-shoot-0\",\"kind\":\"custom\"},{\"id\":\"done\",\"kind\":\"finish\"}],\"transitions\":[{\"id\":\"t0\",\"from\":\"outpost-sweep-pass1-p1\",\"to\":\"outpost-sweep-pass1-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t1\",\"from\":\"outpost-sweep-pass1-p2\",\"to\":\"outpost-sweep-pass1-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t2\",\"from\":\"outpost-sweep-pass1-p3\",\"to\":\"outpost-sweep-pass1-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t3\",\"from\":\"outpost-sweep-pass1-p4\",\"to\":\"outpost-sweep-pass1-p5\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t4\",\"from\":\"outpost-sweep-pass1-p5\",\"to\":\"align-shoot-0\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t5\",\"from\":\"align-shoot-0\",\"to\":\"done\",\"condition\":{\"kind\":\"always\"}}]}",
-          "status": "best-effort"
-        }
+        ]
       }
     },
     {
@@ -600,116 +1158,283 @@
       "nodes": [
         {
           "id": "outpost-sweep-x2-pass1-p1",
-          "name": "Clear lower trench",
+          "name": "OutpostTrenchSweepBumpPt1 waypoint 1",
           "kind": "pose",
           "goal": {
-            "x": 6.05,
-            "y": 0.73,
-            "heading": -1.1620697599473486,
+            "x": 6.808750152587891,
+            "y": 0.7213001251220703,
+            "heading": 1.5876764448267884,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
-            "profiled": true
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 1.6096335483696655,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 1.6184468956884672,
+                "profiled": true
+              }
+            ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
+          "description": "Waypoint 1 of the solved OutpostTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
           "constraints": {
-            "maxVelocity": 3.8,
+            "maxVelocity": 4.64,
             "handoffRadius": 0.35
-          },
-          "generatedConstraints": {}
+          }
         },
         {
           "id": "outpost-sweep-x2-pass1-p2",
-          "name": "Begin lower collection",
+          "name": "OutpostTrenchSweepBumpPt1 waypoint 2",
           "kind": "pose",
           "goal": {
-            "x": 6.25,
-            "y": 1.5,
-            "heading": -0.9227094650561842,
+            "x": 8.09508991241455,
+            "y": 1.2475299835205078,
+            "heading": 1.5707963267948966,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
             "profiled": true,
             "markers": [
               {
                 "kind": "event",
-                "t": 0.35,
+                "t": 0.0,
                 "key": "superstructure.setState.INTAKE"
+              },
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 1.5389577098545313,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 1.5290092632879653,
+                "profiled": true
               }
             ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 2.83,
-            "handoffRadius": 0.715
+          "description": "Waypoint 2 of the solved OutpostTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.22,
+            "handoffRadius": 0.35
           }
         },
         {
           "id": "outpost-sweep-x2-pass1-p3",
-          "name": "Sweep lower fuel",
+          "name": "OutpostTrenchSweepBumpPt1 waypoint 3",
           "kind": "pose",
           "goal": {
-            "x": 6.2,
-            "y": 2.4,
-            "heading": -0.7111206950156641,
+            "x": 8.357044219970703,
+            "y": 3.038424015045166,
+            "heading": 2.3480651661976477,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
-            "profiled": true
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 1.7293366863723478,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 2.0129372613550727,
+                "profiled": true
+              }
+            ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 1.75,
-            "handoffRadius": 0.05
+          "description": "Waypoint 3 of the solved OutpostTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.0,
+            "handoffRadius": 0.35
           }
         },
         {
           "id": "outpost-sweep-x2-pass1-p4",
-          "name": "Return through lower bump",
+          "name": "OutpostTrenchSweepBumpPt1 waypoint 4",
           "kind": "pose",
           "goal": {
-            "x": 5.8,
-            "y": 2.5,
-            "heading": -0.935535478605438,
+            "x": 7.861546993255615,
+            "y": 4.129741668701172,
+            "heading": -2.4393357220807865,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
-            "profiled": true
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 2.7643310152018246,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -3.118041948737765,
+                "profiled": true
+              }
+            ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 1.22,
-            "handoffRadius": 0.054
+          "description": "Waypoint 4 of the solved OutpostTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 3.84,
+            "handoffRadius": 0.35
           }
         },
         {
           "id": "outpost-sweep-x2-pass1-p5",
-          "name": "Lower shooting position",
+          "name": "OutpostTrenchSweepBumpPt1 waypoint 5",
           "kind": "pose",
           "goal": {
-            "x": 3.55,
-            "y": 2.5,
-            "heading": -2.2007686049541477,
+            "x": 7.109304428100586,
+            "y": 3.1960248947143555,
+            "heading": -1.6671877305760374,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.9443103773353327,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -1.7716541496420481,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 5 of the solved OutpostTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 3.47,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass1-p6",
+          "name": "OutpostTrenchSweepBumpPt1 waypoint 6",
+          "kind": "pose",
+          "goal": {
+            "x": 6.477420330047607,
+            "y": 2.3584601879119873,
+            "heading": -1.585576097494504,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.6340417646451615,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -1.6116663093556973,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 6 of the solved OutpostTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 3.47,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass1-p7",
+          "name": "OutpostTrenchSweepBumpPt1 waypoint 7",
+          "kind": "pose",
+          "goal": {
+            "x": 5.9577202796936035,
+            "y": 2.4942758083343506,
+            "heading": -1.5718003778390177,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.5750998974788681,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -1.5725427884816974,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 7 of the solved OutpostTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 2.61,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass1-p8",
+          "name": "OutpostTrenchSweepBumpPt1 waypoint 8",
+          "kind": "pose",
+          "goal": {
+            "x": 3.261570692062378,
+            "y": 2.2805001735687256,
+            "heading": -1.5707976144648772,
             "translationTolerance": 0.1,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
@@ -720,6 +1445,18 @@
             "profiled": true,
             "markers": [
               {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.5715622394127327,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -1.5713439279889718,
+                "profiled": true
+              },
+              {
                 "kind": "event",
                 "t": 1,
                 "key": "superstructure.setState.IDLE"
@@ -727,106 +1464,298 @@
             ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 3.59
+          "description": "Waypoint 8 of the solved OutpostTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.47
           }
         },
         {
           "id": "align-shoot-0",
-          "name": "Aim, verify readiness and shoot",
+          "name": "Aim and shoot",
           "kind": "custom",
           "action": "drivetrain.alignAndShoot",
           "timeout": 4,
-          "description": "Require actual aim/readiness during the 3.5 second shooting window. Driving-time budget excludes this stationary stage."
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window."
         },
         {
           "id": "outpost-sweep-x2-pass2-p1",
-          "name": "Begin second lower collection",
+          "name": "OutpostTrenchSweepBumpPt2 waypoint 1",
           "kind": "pose",
           "goal": {
-            "x": 5.8,
-            "y": 2.5,
-            "heading": -0.8562076816342119,
+            "x": 4.561631917953491,
+            "y": 0.5839888155460358,
+            "heading": 1.5817600987500609,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -2.6887638366769187,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 2.7068864736980243,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 1 of the solved OutpostTrenchSweepBumpPt2 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 3.63,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass2-p2",
+          "name": "OutpostTrenchSweepBumpPt2 waypoint 2",
+          "kind": "pose",
+          "goal": {
+            "x": 6.2732415199279785,
+            "y": 0.7107254266738892,
+            "heading": 1.5707963267948968,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 1.3640316368255114,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 1.4634308313318842,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 2 of the solved OutpostTrenchSweepBumpPt2 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.3,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass2-p3",
+          "name": "OutpostTrenchSweepBumpPt2 waypoint 3",
+          "kind": "pose",
+          "goal": {
+            "x": 7.207128524780273,
+            "y": 1.3017642498016357,
+            "heading": 1.5707963267948968,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
             "stop": false,
             "profiled": true,
             "markers": [
               {
                 "kind": "event",
-                "t": 0.35,
+                "t": 0.0,
                 "key": "superstructure.setState.INTAKE"
+              },
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 1.5821591738146863,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 1.5701344082406206,
+                "profiled": true
               }
             ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 3.06,
-            "handoffRadius": 0.616
-          }
-        },
-        {
-          "id": "outpost-sweep-x2-pass2-p2",
-          "name": "Sweep second lower fuel",
-          "kind": "pose",
-          "goal": {
-            "x": 6.15,
-            "y": 3,
-            "heading": -0.4499605569843743,
-            "translationTolerance": 0.12,
-            "rotationTolerance": 0.2,
-            "velocityTolerance": 0.3,
-            "settleTime": 0,
-            "handoffRadius": 0,
-            "headingMode": "free",
-            "stop": false,
-            "profiled": true
-          },
-          "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 1.71,
-            "handoffRadius": 0.284
-          }
-        },
-        {
-          "id": "outpost-sweep-x2-pass2-p3",
-          "name": "Turn back to lower shot",
-          "kind": "pose",
-          "goal": {
-            "x": 5.8,
-            "y": 3.2,
-            "heading": -0.5073954641676688,
-            "translationTolerance": 0.12,
-            "rotationTolerance": 0.2,
-            "velocityTolerance": 0.3,
-            "settleTime": 0,
-            "handoffRadius": 0,
-            "headingMode": "free",
-            "stop": false,
-            "profiled": true
-          },
-          "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 0.97,
-            "handoffRadius": 0.204
+          "description": "Waypoint 3 of the solved OutpostTrenchSweepBumpPt2 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.01,
+            "handoffRadius": 0.35
           }
         },
         {
           "id": "outpost-sweep-x2-pass2-p4",
-          "name": "Lower shooting position",
+          "name": "OutpostTrenchSweepBumpPt2 waypoint 4",
           "kind": "pose",
           "goal": {
-            "x": 3.55,
-            "y": 2.5,
-            "heading": -2.2007686049541477,
+            "x": 7.169681549072266,
+            "y": 3.8196463584899902,
+            "heading": 2.7236286781032275,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 1.724575707162009,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 2.068272599347497,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 4 of the solved OutpostTrenchSweepBumpPt2 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 3.7,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass2-p5",
+          "name": "OutpostTrenchSweepBumpPt2 waypoint 5",
+          "kind": "pose",
+          "goal": {
+            "x": 6.558131694793701,
+            "y": 4.169934272766113,
+            "heading": -2.439335722080786,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 2.917786575543358,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -2.981128210248563,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 5 of the solved OutpostTrenchSweepBumpPt2 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 2.77,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass2-p6",
+          "name": "OutpostTrenchSweepBumpPt2 waypoint 6",
+          "kind": "pose",
+          "goal": {
+            "x": 6.078281879425049,
+            "y": 2.49299955368042,
+            "heading": -1.5707963267948966,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.7433763119625454,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -1.5802303220509382,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 6 of the solved OutpostTrenchSweepBumpPt2 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 3.12,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass2-p7",
+          "name": "OutpostTrenchSweepBumpPt2 waypoint 7",
+          "kind": "pose",
+          "goal": {
+            "x": 5.697820663452148,
+            "y": 2.338970184326172,
+            "heading": -1.5706365949548056,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.5706257593726238,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -1.5706098547581202,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 7 of the solved OutpostTrenchSweepBumpPt2 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 2.19,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass2-p8",
+          "name": "OutpostTrenchSweepBumpPt2 waypoint 8",
+          "kind": "pose",
+          "goal": {
+            "x": 3.0964581966400146,
+            "y": 2.5064547061920166,
+            "heading": -1.5707963267948966,
             "translationTolerance": 0.1,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
@@ -837,6 +1766,18 @@
             "profiled": true,
             "markers": [
               {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.5706869422019831,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -1.5707198993451121,
+                "profiled": true
+              },
+              {
                 "kind": "event",
                 "t": 1,
                 "key": "superstructure.setState.IDLE"
@@ -844,18 +1785,18 @@
             ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 4.05
+          "description": "Waypoint 8 of the solved OutpostTrenchSweepBumpPt2 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.23
           }
         },
         {
           "id": "align-shoot-1",
-          "name": "Aim, verify readiness and shoot",
+          "name": "Aim and shoot",
           "kind": "custom",
           "action": "drivetrain.alignAndShoot",
           "timeout": 4,
-          "description": "Require actual aim/readiness during the 3.5 second shooting window. Driving-time budget excludes this stationary stage."
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window."
         },
         {
           "id": "done",
@@ -900,13 +1841,37 @@
         {
           "id": "t4",
           "from": "outpost-sweep-x2-pass1-p5",
-          "to": "align-shoot-0",
+          "to": "outpost-sweep-x2-pass1-p6",
           "condition": {
             "kind": "always"
           }
         },
         {
           "id": "t5",
+          "from": "outpost-sweep-x2-pass1-p6",
+          "to": "outpost-sweep-x2-pass1-p7",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t6",
+          "from": "outpost-sweep-x2-pass1-p7",
+          "to": "outpost-sweep-x2-pass1-p8",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t7",
+          "from": "outpost-sweep-x2-pass1-p8",
+          "to": "align-shoot-0",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t8",
           "from": "align-shoot-0",
           "to": "outpost-sweep-x2-pass2-p1",
           "condition": {
@@ -914,7 +1879,7 @@
           }
         },
         {
-          "id": "t6",
+          "id": "t9",
           "from": "outpost-sweep-x2-pass2-p1",
           "to": "outpost-sweep-x2-pass2-p2",
           "condition": {
@@ -922,7 +1887,7 @@
           }
         },
         {
-          "id": "t7",
+          "id": "t10",
           "from": "outpost-sweep-x2-pass2-p2",
           "to": "outpost-sweep-x2-pass2-p3",
           "condition": {
@@ -930,7 +1895,7 @@
           }
         },
         {
-          "id": "t8",
+          "id": "t11",
           "from": "outpost-sweep-x2-pass2-p3",
           "to": "outpost-sweep-x2-pass2-p4",
           "condition": {
@@ -938,15 +1903,47 @@
           }
         },
         {
-          "id": "t9",
+          "id": "t12",
           "from": "outpost-sweep-x2-pass2-p4",
+          "to": "outpost-sweep-x2-pass2-p5",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t13",
+          "from": "outpost-sweep-x2-pass2-p5",
+          "to": "outpost-sweep-x2-pass2-p6",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t14",
+          "from": "outpost-sweep-x2-pass2-p6",
+          "to": "outpost-sweep-x2-pass2-p7",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t15",
+          "from": "outpost-sweep-x2-pass2-p7",
+          "to": "outpost-sweep-x2-pass2-p8",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t16",
+          "from": "outpost-sweep-x2-pass2-p8",
           "to": "align-shoot-1",
           "condition": {
             "kind": "always"
           }
         },
         {
-          "id": "t10",
+          "id": "t17",
           "from": "align-shoot-1",
           "to": "done",
           "condition": {
@@ -963,15 +1960,11 @@
       },
       "extensions": {
         "drivingTimeBudget": 6,
-        "routeIntent": "Short fuel collection and return; x2 does a second nearby pickup through the bump corridor rather than another full trench loop. Pickup coverage differs from the old long sweeps.",
+        "routeIntent": "Original solved sweep geometry: sideways through the trench, intake leading along the centerline pickup.",
         "legacySources": [
           "OutpostTrenchSweepBumpPt1",
           "OutpostTrenchSweepBumpPt2"
-        ],
-        "constraintGeneration": {
-          "signature": "{\"robot\":{\"name\":\"Offseason swerve (Kraken X60, 5.90:1)\",\"length\":0.813,\"width\":0.813,\"start\":{\"x\":4.401654481887817,\"y\":7.427656650543213,\"heading\":-1.5781595858076165},\"constraints\":{\"maxVelocity\":4.8,\"maxAcceleration\":6.48,\"maxAngularVelocity\":8,\"maxAngularAcceleration\":14,\"translationKp\":5,\"rotationKp\":4}},\"start\":{\"x\":4.440799713134766,\"y\":0.6637292504310608,\"heading\":1.5812742545885516},\"constraints\":{\"maxVelocity\":4.8,\"maxAcceleration\":6.48,\"maxAngularVelocity\":8,\"maxAngularAcceleration\":14},\"initial\":\"outpost-sweep-x2-pass1-p1\",\"nodes\":[{\"id\":\"outpost-sweep-x2-pass1-p1\",\"kind\":\"pose\",\"goal\":{\"x\":6.05,\"y\":0.73,\"heading\":-1.1620697599473486,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true},\"constraints\":{\"maxVelocity\":3.8,\"handoffRadius\":0.35}},{\"id\":\"outpost-sweep-x2-pass1-p2\",\"kind\":\"pose\",\"goal\":{\"x\":6.25,\"y\":1.5,\"heading\":-0.9227094650561842,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true,\"markers\":[{\"kind\":\"event\",\"t\":0.35,\"key\":\"superstructure.setState.INTAKE\"}]}},{\"id\":\"outpost-sweep-x2-pass1-p3\",\"kind\":\"pose\",\"goal\":{\"x\":6.2,\"y\":2.4,\"heading\":-0.7111206950156641,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true}},{\"id\":\"outpost-sweep-x2-pass1-p4\",\"kind\":\"pose\",\"goal\":{\"x\":5.8,\"y\":2.5,\"heading\":-0.935535478605438,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true}},{\"id\":\"outpost-sweep-x2-pass1-p5\",\"kind\":\"pose\",\"goal\":{\"x\":3.55,\"y\":2.5,\"heading\":-2.2007686049541477,\"translationTolerance\":0.1,\"rotationTolerance\":0.08,\"velocityTolerance\":0.3,\"settleTime\":0.04,\"handoffRadius\":0,\"headingMode\":\"fixed\",\"stop\":true,\"profiled\":true,\"markers\":[{\"kind\":\"event\",\"t\":1,\"key\":\"superstructure.setState.IDLE\"}]}},{\"id\":\"align-shoot-0\",\"kind\":\"custom\"},{\"id\":\"outpost-sweep-x2-pass2-p1\",\"kind\":\"pose\",\"goal\":{\"x\":5.8,\"y\":2.5,\"heading\":-0.8562076816342119,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true,\"markers\":[{\"kind\":\"event\",\"t\":0.35,\"key\":\"superstructure.setState.INTAKE\"}]}},{\"id\":\"outpost-sweep-x2-pass2-p2\",\"kind\":\"pose\",\"goal\":{\"x\":6.15,\"y\":3,\"heading\":-0.4499605569843743,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true}},{\"id\":\"outpost-sweep-x2-pass2-p3\",\"kind\":\"pose\",\"goal\":{\"x\":5.8,\"y\":3.2,\"heading\":-0.5073954641676688,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true}},{\"id\":\"outpost-sweep-x2-pass2-p4\",\"kind\":\"pose\",\"goal\":{\"x\":3.55,\"y\":2.5,\"heading\":-2.2007686049541477,\"translationTolerance\":0.1,\"rotationTolerance\":0.08,\"velocityTolerance\":0.3,\"settleTime\":0.04,\"handoffRadius\":0,\"headingMode\":\"fixed\",\"stop\":true,\"profiled\":true,\"markers\":[{\"kind\":\"event\",\"t\":1,\"key\":\"superstructure.setState.IDLE\"}]}},{\"id\":\"align-shoot-1\",\"kind\":\"custom\"},{\"id\":\"done\",\"kind\":\"finish\"}],\"transitions\":[{\"id\":\"t0\",\"from\":\"outpost-sweep-x2-pass1-p1\",\"to\":\"outpost-sweep-x2-pass1-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t1\",\"from\":\"outpost-sweep-x2-pass1-p2\",\"to\":\"outpost-sweep-x2-pass1-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t2\",\"from\":\"outpost-sweep-x2-pass1-p3\",\"to\":\"outpost-sweep-x2-pass1-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t3\",\"from\":\"outpost-sweep-x2-pass1-p4\",\"to\":\"outpost-sweep-x2-pass1-p5\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t4\",\"from\":\"outpost-sweep-x2-pass1-p5\",\"to\":\"align-shoot-0\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t5\",\"from\":\"align-shoot-0\",\"to\":\"outpost-sweep-x2-pass2-p1\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t6\",\"from\":\"outpost-sweep-x2-pass2-p1\",\"to\":\"outpost-sweep-x2-pass2-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t7\",\"from\":\"outpost-sweep-x2-pass2-p2\",\"to\":\"outpost-sweep-x2-pass2-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t8\",\"from\":\"outpost-sweep-x2-pass2-p3\",\"to\":\"outpost-sweep-x2-pass2-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t9\",\"from\":\"outpost-sweep-x2-pass2-p4\",\"to\":\"align-shoot-1\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t10\",\"from\":\"align-shoot-1\",\"to\":\"done\",\"condition\":{\"kind\":\"always\"}}]}",
-          "status": "best-effort"
-        }
+        ]
       }
     },
     {
@@ -986,116 +1979,283 @@
       "nodes": [
         {
           "id": "depot-sweep-pass1-p1",
-          "name": "Clear upper trench",
+          "name": "DepotTrenchSweepBumpPt1 waypoint 1",
           "kind": "pose",
           "goal": {
-            "x": 6.05,
-            "y": 7.339,
-            "heading": 1.1620697599473488,
+            "x": 6.808750152587891,
+            "y": 7.367390155792236,
+            "heading": -1.5769331042075985,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
-            "profiled": true
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.5913910224211132,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -1.6024706802603776,
+                "profiled": true
+              }
+            ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
+          "description": "Waypoint 1 of the solved DepotTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
           "constraints": {
-            "maxVelocity": 3.8,
+            "maxVelocity": 4.75,
             "handoffRadius": 0.35
-          },
-          "generatedConstraints": {}
+          }
         },
         {
           "id": "depot-sweep-pass1-p2",
-          "name": "Begin upper collection",
+          "name": "DepotTrenchSweepBumpPt1 waypoint 2",
           "kind": "pose",
           "goal": {
-            "x": 6.25,
-            "y": 6.569000000000001,
-            "heading": 0.922709465056184,
+            "x": 8.13407039642334,
+            "y": 6.724220275878906,
+            "heading": -1.5374749236070606,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
             "profiled": true,
             "markers": [
               {
                 "kind": "event",
-                "t": 0.35,
+                "t": 0.0,
                 "key": "superstructure.setState.INTAKE"
+              },
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.549444817820314,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -1.5270710096123825,
+                "profiled": true
               }
             ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 2.87,
-            "handoffRadius": 0.715
+          "description": "Waypoint 2 of the solved DepotTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.72,
+            "handoffRadius": 0.35
           }
         },
         {
           "id": "depot-sweep-pass1-p3",
-          "name": "Sweep upper fuel",
+          "name": "DepotTrenchSweepBumpPt1 waypoint 3",
           "kind": "pose",
           "goal": {
-            "x": 6.2,
-            "y": 5.6690000000000005,
-            "heading": 0.7111206950156634,
+            "x": 8.289714813232422,
+            "y": 3.976468086242676,
+            "heading": -2.870740044426886,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
-            "profiled": true
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.7157371340686294,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -2.051476936419134,
+                "profiled": true
+              }
+            ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 1.6500000000000001,
-            "handoffRadius": 0.05
+          "description": "Waypoint 3 of the solved DepotTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 3.79,
+            "handoffRadius": 0.35
           }
         },
         {
           "id": "depot-sweep-pass1-p4",
-          "name": "Return through upper bump",
+          "name": "DepotTrenchSweepBumpPt1 waypoint 4",
           "kind": "pose",
           "goal": {
-            "x": 5.8,
-            "y": 5.569000000000001,
-            "heading": 0.9355354786054373,
+            "x": 7.451920986175537,
+            "y": 4.151540279388428,
+            "heading": 2.2565258377011834,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
-            "profiled": true
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 3.0260540323227745,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 2.6369535513886575,
+                "profiled": true
+              }
+            ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 1.24,
-            "handoffRadius": 0.252
+          "description": "Waypoint 4 of the solved DepotTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 2.25,
+            "handoffRadius": 0.35
           }
         },
         {
           "id": "depot-sweep-pass1-p5",
-          "name": "Upper shooting position",
+          "name": "DepotTrenchSweepBumpPt1 waypoint 5",
           "kind": "pose",
           "goal": {
-            "x": 3.55,
-            "y": 5.569000000000001,
-            "heading": 2.200768604954147,
+            "x": 7.291816234588623,
+            "y": 5.639632225036621,
+            "heading": 1.543025350661669,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 1.8406620084468506,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 1.6081922289504915,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 5 of the solved DepotTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 2.88,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "depot-sweep-pass1-p6",
+          "name": "DepotTrenchSweepBumpPt1 waypoint 6",
+          "kind": "pose",
+          "goal": {
+            "x": 6.357276439666748,
+            "y": 5.671311378479004,
+            "heading": 1.5542880605543055,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 1.538180035389524,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 1.543666470827888,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 6 of the solved DepotTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 3.49,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "depot-sweep-pass1-p7",
+          "name": "DepotTrenchSweepBumpPt1 waypoint 7",
+          "kind": "pose",
+          "goal": {
+            "x": 5.8028883934021,
+            "y": 5.671311378479004,
+            "heading": 1.5651202668777844,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 1.557854730599802,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 1.563958218500597,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 7 of the solved DepotTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.31,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "depot-sweep-pass1-p8",
+          "name": "DepotTrenchSweepBumpPt1 waypoint 8",
+          "kind": "pose",
+          "goal": {
+            "x": 3.3028502464294434,
+            "y": 5.700842380523682,
+            "heading": 1.565258762938835,
             "translationTolerance": 0.1,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
@@ -1106,6 +2266,18 @@
             "profiled": true,
             "markers": [
               {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 1.5651406844013735,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 1.565167529334292,
+                "profiled": true
+              },
+              {
                 "kind": "event",
                 "t": 1,
                 "key": "superstructure.setState.IDLE"
@@ -1113,18 +2285,18 @@
             ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 4.42
+          "description": "Waypoint 8 of the solved DepotTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.8
           }
         },
         {
           "id": "align-shoot-0",
-          "name": "Aim, verify readiness and shoot",
+          "name": "Aim and shoot",
           "kind": "custom",
           "action": "drivetrain.alignAndShoot",
           "timeout": 4,
-          "description": "Require actual aim/readiness during the 3.5 second shooting window. Driving-time budget excludes this stationary stage."
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window."
         },
         {
           "id": "done",
@@ -1169,13 +2341,37 @@
         {
           "id": "t4",
           "from": "depot-sweep-pass1-p5",
-          "to": "align-shoot-0",
+          "to": "depot-sweep-pass1-p6",
           "condition": {
             "kind": "always"
           }
         },
         {
           "id": "t5",
+          "from": "depot-sweep-pass1-p6",
+          "to": "depot-sweep-pass1-p7",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t6",
+          "from": "depot-sweep-pass1-p7",
+          "to": "depot-sweep-pass1-p8",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t7",
+          "from": "depot-sweep-pass1-p8",
+          "to": "align-shoot-0",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t8",
           "from": "align-shoot-0",
           "to": "done",
           "condition": {
@@ -1192,14 +2388,10 @@
       },
       "extensions": {
         "drivingTimeBudget": 6,
-        "routeIntent": "Short fuel collection and return; x2 does a second nearby pickup through the bump corridor rather than another full trench loop. Pickup coverage differs from the old long sweeps.",
+        "routeIntent": "Original solved sweep geometry: sideways through the trench, intake leading along the centerline pickup.",
         "legacySources": [
           "DepotTrenchSweepBumpPt1"
-        ],
-        "constraintGeneration": {
-          "signature": "{\"robot\":{\"name\":\"Offseason swerve (Kraken X60, 5.90:1)\",\"length\":0.813,\"width\":0.813,\"start\":{\"x\":4.401654481887817,\"y\":7.427656650543213,\"heading\":-1.5781595858076165},\"constraints\":{\"maxVelocity\":4.8,\"maxAcceleration\":6.48,\"maxAngularVelocity\":8,\"maxAngularAcceleration\":14,\"translationKp\":5,\"rotationKp\":4}},\"start\":{\"x\":4.431839466094971,\"y\":7.417532444000244,\"heading\":-1.572799364656904},\"constraints\":{\"maxVelocity\":4.8,\"maxAcceleration\":6.48,\"maxAngularVelocity\":8,\"maxAngularAcceleration\":14},\"initial\":\"depot-sweep-pass1-p1\",\"nodes\":[{\"id\":\"depot-sweep-pass1-p1\",\"kind\":\"pose\",\"goal\":{\"x\":6.05,\"y\":7.339,\"heading\":1.1620697599473488,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true},\"constraints\":{\"maxVelocity\":3.8,\"handoffRadius\":0.35}},{\"id\":\"depot-sweep-pass1-p2\",\"kind\":\"pose\",\"goal\":{\"x\":6.25,\"y\":6.569000000000001,\"heading\":0.922709465056184,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true,\"markers\":[{\"kind\":\"event\",\"t\":0.35,\"key\":\"superstructure.setState.INTAKE\"}]}},{\"id\":\"depot-sweep-pass1-p3\",\"kind\":\"pose\",\"goal\":{\"x\":6.2,\"y\":5.6690000000000005,\"heading\":0.7111206950156634,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true}},{\"id\":\"depot-sweep-pass1-p4\",\"kind\":\"pose\",\"goal\":{\"x\":5.8,\"y\":5.569000000000001,\"heading\":0.9355354786054373,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true}},{\"id\":\"depot-sweep-pass1-p5\",\"kind\":\"pose\",\"goal\":{\"x\":3.55,\"y\":5.569000000000001,\"heading\":2.200768604954147,\"translationTolerance\":0.1,\"rotationTolerance\":0.08,\"velocityTolerance\":0.3,\"settleTime\":0.04,\"handoffRadius\":0,\"headingMode\":\"fixed\",\"stop\":true,\"profiled\":true,\"markers\":[{\"kind\":\"event\",\"t\":1,\"key\":\"superstructure.setState.IDLE\"}]}},{\"id\":\"align-shoot-0\",\"kind\":\"custom\"},{\"id\":\"done\",\"kind\":\"finish\"}],\"transitions\":[{\"id\":\"t0\",\"from\":\"depot-sweep-pass1-p1\",\"to\":\"depot-sweep-pass1-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t1\",\"from\":\"depot-sweep-pass1-p2\",\"to\":\"depot-sweep-pass1-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t2\",\"from\":\"depot-sweep-pass1-p3\",\"to\":\"depot-sweep-pass1-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t3\",\"from\":\"depot-sweep-pass1-p4\",\"to\":\"depot-sweep-pass1-p5\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t4\",\"from\":\"depot-sweep-pass1-p5\",\"to\":\"align-shoot-0\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t5\",\"from\":\"align-shoot-0\",\"to\":\"done\",\"condition\":{\"kind\":\"always\"}}]}",
-          "status": "best-effort"
-        }
+        ]
       }
     },
     {
@@ -1214,116 +2406,283 @@
       "nodes": [
         {
           "id": "depot-sweep-x2-pass1-p1",
-          "name": "Clear upper trench",
+          "name": "DepotTrenchSweepBumpPt1 waypoint 1",
           "kind": "pose",
           "goal": {
-            "x": 6.05,
-            "y": 7.339,
-            "heading": 1.1620697599473488,
+            "x": 6.808750152587891,
+            "y": 7.367390155792236,
+            "heading": -1.5769331042075985,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
-            "profiled": true
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.5913910224211132,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -1.6024706802603776,
+                "profiled": true
+              }
+            ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
+          "description": "Waypoint 1 of the solved DepotTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
           "constraints": {
-            "maxVelocity": 3.8,
+            "maxVelocity": 4.75,
             "handoffRadius": 0.35
-          },
-          "generatedConstraints": {}
+          }
         },
         {
           "id": "depot-sweep-x2-pass1-p2",
-          "name": "Begin upper collection",
+          "name": "DepotTrenchSweepBumpPt1 waypoint 2",
           "kind": "pose",
           "goal": {
-            "x": 6.25,
-            "y": 6.569000000000001,
-            "heading": 0.922709465056184,
+            "x": 8.13407039642334,
+            "y": 6.724220275878906,
+            "heading": -1.5374749236070606,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
             "profiled": true,
             "markers": [
               {
                 "kind": "event",
-                "t": 0.35,
+                "t": 0.0,
                 "key": "superstructure.setState.INTAKE"
+              },
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.549444817820314,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -1.5270710096123825,
+                "profiled": true
               }
             ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 2.87,
-            "handoffRadius": 0.715
+          "description": "Waypoint 2 of the solved DepotTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.72,
+            "handoffRadius": 0.35
           }
         },
         {
           "id": "depot-sweep-x2-pass1-p3",
-          "name": "Sweep upper fuel",
+          "name": "DepotTrenchSweepBumpPt1 waypoint 3",
           "kind": "pose",
           "goal": {
-            "x": 6.2,
-            "y": 5.6690000000000005,
-            "heading": 0.7111206950156634,
+            "x": 8.289714813232422,
+            "y": 3.976468086242676,
+            "heading": -2.870740044426886,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
-            "profiled": true
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -1.7157371340686294,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -2.051476936419134,
+                "profiled": true
+              }
+            ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 1.6500000000000001,
-            "handoffRadius": 0.05
+          "description": "Waypoint 3 of the solved DepotTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 3.79,
+            "handoffRadius": 0.35
           }
         },
         {
           "id": "depot-sweep-x2-pass1-p4",
-          "name": "Return through upper bump",
+          "name": "DepotTrenchSweepBumpPt1 waypoint 4",
           "kind": "pose",
           "goal": {
-            "x": 5.8,
-            "y": 5.569000000000001,
-            "heading": 0.9355354786054373,
+            "x": 7.451920986175537,
+            "y": 4.151540279388428,
+            "heading": 2.2565258377011834,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
-            "profiled": true
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 3.0260540323227745,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 2.6369535513886575,
+                "profiled": true
+              }
+            ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 1.24,
-            "handoffRadius": 0.252
+          "description": "Waypoint 4 of the solved DepotTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 2.25,
+            "handoffRadius": 0.35
           }
         },
         {
           "id": "depot-sweep-x2-pass1-p5",
-          "name": "Upper shooting position",
+          "name": "DepotTrenchSweepBumpPt1 waypoint 5",
           "kind": "pose",
           "goal": {
-            "x": 3.55,
-            "y": 5.569000000000001,
-            "heading": 2.200768604954147,
+            "x": 7.291816234588623,
+            "y": 5.639632225036621,
+            "heading": 1.543025350661669,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 1.8406620084468506,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 1.6081922289504915,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 5 of the solved DepotTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 2.88,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass1-p6",
+          "name": "DepotTrenchSweepBumpPt1 waypoint 6",
+          "kind": "pose",
+          "goal": {
+            "x": 6.357276439666748,
+            "y": 5.671311378479004,
+            "heading": 1.5542880605543055,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 1.538180035389524,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 1.543666470827888,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 6 of the solved DepotTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 3.49,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass1-p7",
+          "name": "DepotTrenchSweepBumpPt1 waypoint 7",
+          "kind": "pose",
+          "goal": {
+            "x": 5.8028883934021,
+            "y": 5.671311378479004,
+            "heading": 1.5651202668777844,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 1.557854730599802,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 1.563958218500597,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 7 of the solved DepotTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.31,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass1-p8",
+          "name": "DepotTrenchSweepBumpPt1 waypoint 8",
+          "kind": "pose",
+          "goal": {
+            "x": 3.3028502464294434,
+            "y": 5.700842380523682,
+            "heading": 1.565258762938835,
             "translationTolerance": 0.1,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
@@ -1334,6 +2693,18 @@
             "profiled": true,
             "markers": [
               {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 1.5651406844013735,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 1.565167529334292,
+                "profiled": true
+              },
+              {
                 "kind": "event",
                 "t": 1,
                 "key": "superstructure.setState.IDLE"
@@ -1341,106 +2712,260 @@
             ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 4.42
+          "description": "Waypoint 8 of the solved DepotTrenchSweepBumpPt1 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.8
           }
         },
         {
           "id": "align-shoot-0",
-          "name": "Aim, verify readiness and shoot",
+          "name": "Aim and shoot",
           "kind": "custom",
           "action": "drivetrain.alignAndShoot",
           "timeout": 4,
-          "description": "Require actual aim/readiness during the 3.5 second shooting window. Driving-time budget excludes this stationary stage."
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window."
         },
         {
           "id": "depot-sweep-x2-pass2-p1",
-          "name": "Begin second upper collection",
+          "name": "DepotTrenchSweepBump2xPt2 waypoint 1",
           "kind": "pose",
           "goal": {
-            "x": 5.8,
-            "y": 5.569000000000001,
-            "heading": 0.8562076816342122,
+            "x": 3.8728718757629395,
+            "y": 7.394465446472168,
+            "heading": -0.00823551100551747,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
             "profiled": true,
             "markers": [
               {
                 "kind": "event",
-                "t": 0.35,
+                "t": 0,
                 "key": "superstructure.setState.INTAKE"
+              },
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 0.7407446892635663,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 0.28310608089224243,
+                "profiled": true
               }
             ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 3.06,
-            "handoffRadius": 0.616
+          "description": "Waypoint 1 of the solved DepotTrenchSweepBump2xPt2 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 3.48,
+            "handoffRadius": 0.35
           }
         },
         {
           "id": "depot-sweep-x2-pass2-p2",
-          "name": "Sweep second upper fuel",
+          "name": "DepotTrenchSweepBump2xPt2 waypoint 2",
           "kind": "pose",
           "goal": {
-            "x": 6.15,
-            "y": 5.069000000000001,
-            "heading": 0.44996055698437365,
+            "x": 7.223076820373535,
+            "y": 6.3395209312438965,
+            "heading": -1.57648582397899,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
-            "profiled": true
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -0.029778945793371602,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -0.5765938450052152,
+                "profiled": true
+              }
+            ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 1.71,
-            "handoffRadius": 0.284
+          "description": "Waypoint 2 of the solved DepotTrenchSweepBump2xPt2 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.16,
+            "handoffRadius": 0.35
           }
         },
         {
           "id": "depot-sweep-x2-pass2-p3",
-          "name": "Turn back to upper shot",
+          "name": "DepotTrenchSweepBump2xPt2 waypoint 3",
           "kind": "pose",
           "goal": {
-            "x": 5.8,
-            "y": 4.869000000000001,
-            "heading": 0.5073954641676695,
+            "x": 7.271740913391113,
+            "y": 4.328139305114746,
+            "heading": -2.869415674618889,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
             "settleTime": 0,
             "handoffRadius": 0,
-            "headingMode": "free",
+            "headingMode": "fixed",
             "stop": false,
-            "profiled": true
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -2.1256216422486602,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": -2.587193688825343,
+                "profiled": true
+              }
+            ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 0.97,
-            "handoffRadius": 0.204
+          "description": "Waypoint 3 of the solved DepotTrenchSweepBump2xPt2 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.32,
+            "handoffRadius": 0.35
           }
         },
         {
           "id": "depot-sweep-x2-pass2-p4",
-          "name": "Upper shooting position",
+          "name": "DepotTrenchSweepBump2xPt2 waypoint 4",
           "kind": "pose",
           "goal": {
-            "x": 3.55,
-            "y": 5.569000000000001,
-            "heading": 2.200768604954147,
+            "x": 6.926433086395264,
+            "y": 3.297602891921997,
+            "heading": 2.477763161117936,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": -3.09819405370607,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 2.823023209137393,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 4 of the solved DepotTrenchSweepBump2xPt2 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.09,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass2-p5",
+          "name": "DepotTrenchSweepBump2xPt2 waypoint 5",
+          "kind": "pose",
+          "goal": {
+            "x": 5.978299617767334,
+            "y": 3.3325552940368652,
+            "heading": 1.5707963267948968,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 2.06356643770657,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 1.7538083593843938,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 5 of the solved DepotTrenchSweepBump2xPt2 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 2.31,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass2-p6",
+          "name": "DepotTrenchSweepBump2xPt2 waypoint 6",
+          "kind": "pose",
+          "goal": {
+            "x": 6.009660243988037,
+            "y": 5.574310302734375,
+            "heading": 1.570816652634606,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 1.5717197162363041,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 1.5715048523646227,
+                "profiled": true
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint 6 of the solved DepotTrenchSweepBump2xPt2 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 3.6,
+            "handoffRadius": 0.35
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass2-p7",
+          "name": "DepotTrenchSweepBump2xPt2 waypoint 7",
+          "kind": "pose",
+          "goal": {
+            "x": 2.840000867843628,
+            "y": 5.628466606140137,
+            "heading": 1.5707963267948968,
             "translationTolerance": 0.1,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
@@ -1451,6 +2976,18 @@
             "profiled": true,
             "markers": [
               {
+                "kind": "rotation",
+                "t": 0.33,
+                "heading": 1.5708081539656942,
+                "profiled": true
+              },
+              {
+                "kind": "rotation",
+                "t": 0.67,
+                "heading": 1.5708045232498125,
+                "profiled": true
+              },
+              {
                 "kind": "event",
                 "t": 1,
                 "key": "superstructure.setState.IDLE"
@@ -1458,18 +2995,18 @@
             ]
           },
           "timeout": 5,
-          "description": "Short purposeful collection pass. Tuned for the live-pose follower and an under-six-second total driving budget, without retracing the old solved curve.",
-          "generatedConstraints": {
-            "maxVelocity": 4.05
+          "description": "Waypoint 7 of the solved DepotTrenchSweepBump2xPt2 pass; heading and speed follow the solved path so the intake leads through the pickup.",
+          "constraints": {
+            "maxVelocity": 4.44
           }
         },
         {
           "id": "align-shoot-1",
-          "name": "Aim, verify readiness and shoot",
+          "name": "Aim and shoot",
           "kind": "custom",
           "action": "drivetrain.alignAndShoot",
           "timeout": 4,
-          "description": "Require actual aim/readiness during the 3.5 second shooting window. Driving-time budget excludes this stationary stage."
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window."
         },
         {
           "id": "done",
@@ -1514,13 +3051,37 @@
         {
           "id": "t4",
           "from": "depot-sweep-x2-pass1-p5",
-          "to": "align-shoot-0",
+          "to": "depot-sweep-x2-pass1-p6",
           "condition": {
             "kind": "always"
           }
         },
         {
           "id": "t5",
+          "from": "depot-sweep-x2-pass1-p6",
+          "to": "depot-sweep-x2-pass1-p7",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t6",
+          "from": "depot-sweep-x2-pass1-p7",
+          "to": "depot-sweep-x2-pass1-p8",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t7",
+          "from": "depot-sweep-x2-pass1-p8",
+          "to": "align-shoot-0",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t8",
           "from": "align-shoot-0",
           "to": "depot-sweep-x2-pass2-p1",
           "condition": {
@@ -1528,7 +3089,7 @@
           }
         },
         {
-          "id": "t6",
+          "id": "t9",
           "from": "depot-sweep-x2-pass2-p1",
           "to": "depot-sweep-x2-pass2-p2",
           "condition": {
@@ -1536,7 +3097,7 @@
           }
         },
         {
-          "id": "t7",
+          "id": "t10",
           "from": "depot-sweep-x2-pass2-p2",
           "to": "depot-sweep-x2-pass2-p3",
           "condition": {
@@ -1544,7 +3105,7 @@
           }
         },
         {
-          "id": "t8",
+          "id": "t11",
           "from": "depot-sweep-x2-pass2-p3",
           "to": "depot-sweep-x2-pass2-p4",
           "condition": {
@@ -1552,15 +3113,39 @@
           }
         },
         {
-          "id": "t9",
+          "id": "t12",
           "from": "depot-sweep-x2-pass2-p4",
+          "to": "depot-sweep-x2-pass2-p5",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t13",
+          "from": "depot-sweep-x2-pass2-p5",
+          "to": "depot-sweep-x2-pass2-p6",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t14",
+          "from": "depot-sweep-x2-pass2-p6",
+          "to": "depot-sweep-x2-pass2-p7",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t15",
+          "from": "depot-sweep-x2-pass2-p7",
           "to": "align-shoot-1",
           "condition": {
             "kind": "always"
           }
         },
         {
-          "id": "t10",
+          "id": "t16",
           "from": "align-shoot-1",
           "to": "done",
           "condition": {
@@ -1577,15 +3162,11 @@
       },
       "extensions": {
         "drivingTimeBudget": 6,
-        "routeIntent": "Short fuel collection and return; x2 does a second nearby pickup through the bump corridor rather than another full trench loop. Pickup coverage differs from the old long sweeps.",
+        "routeIntent": "Original solved sweep geometry: sideways through the trench, intake leading along the centerline pickup.",
         "legacySources": [
           "DepotTrenchSweepBumpPt1",
           "DepotTrenchSweepBump2xPt2"
-        ],
-        "constraintGeneration": {
-          "signature": "{\"robot\":{\"name\":\"Offseason swerve (Kraken X60, 5.90:1)\",\"length\":0.813,\"width\":0.813,\"start\":{\"x\":4.401654481887817,\"y\":7.427656650543213,\"heading\":-1.5781595858076165},\"constraints\":{\"maxVelocity\":4.8,\"maxAcceleration\":6.48,\"maxAngularVelocity\":8,\"maxAngularAcceleration\":14,\"translationKp\":5,\"rotationKp\":4}},\"start\":{\"x\":4.431839466094971,\"y\":7.417532444000244,\"heading\":-1.572799364656904},\"constraints\":{\"maxVelocity\":4.8,\"maxAcceleration\":6.48,\"maxAngularVelocity\":8,\"maxAngularAcceleration\":14},\"initial\":\"depot-sweep-x2-pass1-p1\",\"nodes\":[{\"id\":\"depot-sweep-x2-pass1-p1\",\"kind\":\"pose\",\"goal\":{\"x\":6.05,\"y\":7.339,\"heading\":1.1620697599473488,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true},\"constraints\":{\"maxVelocity\":3.8,\"handoffRadius\":0.35}},{\"id\":\"depot-sweep-x2-pass1-p2\",\"kind\":\"pose\",\"goal\":{\"x\":6.25,\"y\":6.569000000000001,\"heading\":0.922709465056184,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true,\"markers\":[{\"kind\":\"event\",\"t\":0.35,\"key\":\"superstructure.setState.INTAKE\"}]}},{\"id\":\"depot-sweep-x2-pass1-p3\",\"kind\":\"pose\",\"goal\":{\"x\":6.2,\"y\":5.6690000000000005,\"heading\":0.7111206950156634,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true}},{\"id\":\"depot-sweep-x2-pass1-p4\",\"kind\":\"pose\",\"goal\":{\"x\":5.8,\"y\":5.569000000000001,\"heading\":0.9355354786054373,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true}},{\"id\":\"depot-sweep-x2-pass1-p5\",\"kind\":\"pose\",\"goal\":{\"x\":3.55,\"y\":5.569000000000001,\"heading\":2.200768604954147,\"translationTolerance\":0.1,\"rotationTolerance\":0.08,\"velocityTolerance\":0.3,\"settleTime\":0.04,\"handoffRadius\":0,\"headingMode\":\"fixed\",\"stop\":true,\"profiled\":true,\"markers\":[{\"kind\":\"event\",\"t\":1,\"key\":\"superstructure.setState.IDLE\"}]}},{\"id\":\"align-shoot-0\",\"kind\":\"custom\"},{\"id\":\"depot-sweep-x2-pass2-p1\",\"kind\":\"pose\",\"goal\":{\"x\":5.8,\"y\":5.569000000000001,\"heading\":0.8562076816342122,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true,\"markers\":[{\"kind\":\"event\",\"t\":0.35,\"key\":\"superstructure.setState.INTAKE\"}]}},{\"id\":\"depot-sweep-x2-pass2-p2\",\"kind\":\"pose\",\"goal\":{\"x\":6.15,\"y\":5.069000000000001,\"heading\":0.44996055698437365,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true}},{\"id\":\"depot-sweep-x2-pass2-p3\",\"kind\":\"pose\",\"goal\":{\"x\":5.8,\"y\":4.869000000000001,\"heading\":0.5073954641676695,\"translationTolerance\":0.12,\"rotationTolerance\":0.2,\"velocityTolerance\":0.3,\"settleTime\":0,\"handoffRadius\":0,\"headingMode\":\"free\",\"stop\":false,\"profiled\":true}},{\"id\":\"depot-sweep-x2-pass2-p4\",\"kind\":\"pose\",\"goal\":{\"x\":3.55,\"y\":5.569000000000001,\"heading\":2.200768604954147,\"translationTolerance\":0.1,\"rotationTolerance\":0.08,\"velocityTolerance\":0.3,\"settleTime\":0.04,\"handoffRadius\":0,\"headingMode\":\"fixed\",\"stop\":true,\"profiled\":true,\"markers\":[{\"kind\":\"event\",\"t\":1,\"key\":\"superstructure.setState.IDLE\"}]}},{\"id\":\"align-shoot-1\",\"kind\":\"custom\"},{\"id\":\"done\",\"kind\":\"finish\"}],\"transitions\":[{\"id\":\"t0\",\"from\":\"depot-sweep-x2-pass1-p1\",\"to\":\"depot-sweep-x2-pass1-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t1\",\"from\":\"depot-sweep-x2-pass1-p2\",\"to\":\"depot-sweep-x2-pass1-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t2\",\"from\":\"depot-sweep-x2-pass1-p3\",\"to\":\"depot-sweep-x2-pass1-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t3\",\"from\":\"depot-sweep-x2-pass1-p4\",\"to\":\"depot-sweep-x2-pass1-p5\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t4\",\"from\":\"depot-sweep-x2-pass1-p5\",\"to\":\"align-shoot-0\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t5\",\"from\":\"align-shoot-0\",\"to\":\"depot-sweep-x2-pass2-p1\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t6\",\"from\":\"depot-sweep-x2-pass2-p1\",\"to\":\"depot-sweep-x2-pass2-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t7\",\"from\":\"depot-sweep-x2-pass2-p2\",\"to\":\"depot-sweep-x2-pass2-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t8\",\"from\":\"depot-sweep-x2-pass2-p3\",\"to\":\"depot-sweep-x2-pass2-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t9\",\"from\":\"depot-sweep-x2-pass2-p4\",\"to\":\"align-shoot-1\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"t10\",\"from\":\"align-shoot-1\",\"to\":\"done\",\"condition\":{\"kind\":\"always\"}}]}",
-          "status": "best-effort"
-        }
+        ]
       }
     }
   ],
@@ -8838,7 +10419,7 @@
           },
           {
             "id": "CLEARING_HOOD",
-            "name": "Clear hood before moving slide",
+            "name": "Raise hood clear of the slide",
             "source": "src/main/cpp/subsystems/Superstructure.cpp"
           },
           {
@@ -8848,17 +10429,12 @@
           },
           {
             "id": "READY",
-            "name": "Intake deployed and ready",
+            "name": "Intake deployed",
             "source": "src/main/cpp/subsystems/Superstructure.cpp"
           },
           {
             "id": "JITTERING",
-            "name": "Jitter intake",
-            "source": "src/main/cpp/subsystems/Superstructure.cpp"
-          },
-          {
-            "id": "FAULT",
-            "name": "Clearance or deployment fault",
+            "name": "Jitter slide to settle pieces",
             "source": "src/main/cpp/subsystems/Superstructure.cpp"
           }
         ],
@@ -8885,13 +10461,6 @@
             "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/jitterDemand"
           },
           {
-            "key": "slideBetween",
-            "name": "slideBetween",
-            "type": "boolean",
-            "initial": false,
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/slideBetween"
-          },
-          {
             "key": "hoodClear",
             "name": "hoodClear",
             "type": "boolean",
@@ -8904,18 +10473,11 @@
             "type": "boolean",
             "initial": false,
             "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/slideDeployed"
-          },
-          {
-            "key": "stateTime",
-            "name": "stateTime",
-            "type": "number",
-            "initial": 0,
-            "channel": "/RealOutputs/Mayhem/States/IntakeSequence/inputs/stateTime"
           }
         ],
         "transitions": [
           {
-            "id": "CLEARING_HOOD-to-PARKED-0",
+            "id": "CLEARING_HOOD-to-PARKED",
             "from": "CLEARING_HOOD",
             "to": "PARKED",
             "condition": {
@@ -8937,7 +10499,7 @@
             }
           },
           {
-            "id": "DEPLOYING-to-PARKED-1",
+            "id": "DEPLOYING-to-PARKED",
             "from": "DEPLOYING",
             "to": "PARKED",
             "condition": {
@@ -8959,7 +10521,7 @@
             }
           },
           {
-            "id": "READY-to-PARKED-2",
+            "id": "READY-to-PARKED",
             "from": "READY",
             "to": "PARKED",
             "condition": {
@@ -8981,7 +10543,7 @@
             }
           },
           {
-            "id": "JITTERING-to-PARKED-3",
+            "id": "JITTERING-to-PARKED",
             "from": "JITTERING",
             "to": "PARKED",
             "condition": {
@@ -9003,7 +10565,7 @@
             }
           },
           {
-            "id": "PARKED-to-CLEARING_HOOD-4",
+            "id": "PARKED-to-CLEARING_HOOD",
             "from": "PARKED",
             "to": "CLEARING_HOOD",
             "condition": {
@@ -9023,15 +10585,15 @@
                 },
                 {
                   "kind": "signal",
-                  "key": "slideBetween",
+                  "key": "hoodClear",
                   "op": "eq",
-                  "value": true
+                  "value": false
                 }
               ]
             }
           },
           {
-            "id": "PARKED-to-DEPLOYING-5",
+            "id": "PARKED-to-DEPLOYING",
             "from": "PARKED",
             "to": "DEPLOYING",
             "condition": {
@@ -9051,93 +10613,26 @@
                 },
                 {
                   "kind": "signal",
-                  "key": "slideBetween",
+                  "key": "hoodClear",
                   "op": "eq",
-                  "value": false
+                  "value": true
                 }
               ]
             }
           },
           {
-            "id": "CLEARING_HOOD-to-DEPLOYING-6",
+            "id": "CLEARING_HOOD-to-DEPLOYING",
             "from": "CLEARING_HOOD",
             "to": "DEPLOYING",
             "condition": {
-              "kind": "all",
-              "conditions": [
-                {
-                  "kind": "signal",
-                  "key": "deploy",
-                  "op": "eq",
-                  "value": true
-                },
-                {
-                  "kind": "signal",
-                  "key": "hoodClear",
-                  "op": "eq",
-                  "value": true
-                }
-              ]
+              "kind": "signal",
+              "key": "hoodClear",
+              "op": "eq",
+              "value": true
             }
           },
           {
-            "id": "CLEARING_HOOD-to-FAULT-7",
-            "from": "CLEARING_HOOD",
-            "to": "FAULT",
-            "condition": {
-              "kind": "all",
-              "conditions": [
-                {
-                  "kind": "signal",
-                  "key": "deploy",
-                  "op": "eq",
-                  "value": true
-                },
-                {
-                  "kind": "signal",
-                  "key": "hoodClear",
-                  "op": "eq",
-                  "value": false
-                },
-                {
-                  "kind": "signal",
-                  "key": "stateTime",
-                  "op": "gt",
-                  "value": 2.5
-                }
-              ]
-            }
-          },
-          {
-            "id": "DEPLOYING-to-READY-8",
-            "from": "DEPLOYING",
-            "to": "READY",
-            "condition": {
-              "kind": "all",
-              "conditions": [
-                {
-                  "kind": "signal",
-                  "key": "deploy",
-                  "op": "eq",
-                  "value": true
-                },
-                {
-                  "kind": "signal",
-                  "key": "slideDeployed",
-                  "op": "eq",
-                  "value": true
-                },
-                {
-                  "kind": "signal",
-                  "key": "jitterDemand",
-                  "op": "eq",
-                  "value": false
-                }
-              ]
-            }
-          },
-          {
-            "id": "DEPLOYING-to-JITTERING-9",
+            "id": "DEPLOYING-to-JITTERING",
             "from": "DEPLOYING",
             "to": "JITTERING",
             "condition": {
@@ -9145,12 +10640,6 @@
               "conditions": [
                 {
                   "kind": "signal",
-                  "key": "deploy",
-                  "op": "eq",
-                  "value": true
-                },
-                {
-                  "kind": "signal",
                   "key": "slideDeployed",
                   "op": "eq",
                   "value": true
@@ -9165,35 +10654,18 @@
             }
           },
           {
-            "id": "DEPLOYING-to-FAULT-10",
+            "id": "DEPLOYING-to-READY",
             "from": "DEPLOYING",
-            "to": "FAULT",
+            "to": "READY",
             "condition": {
-              "kind": "all",
-              "conditions": [
-                {
-                  "kind": "signal",
-                  "key": "deploy",
-                  "op": "eq",
-                  "value": true
-                },
-                {
-                  "kind": "signal",
-                  "key": "slideDeployed",
-                  "op": "eq",
-                  "value": false
-                },
-                {
-                  "kind": "signal",
-                  "key": "stateTime",
-                  "op": "gt",
-                  "value": 3
-                }
-              ]
+              "kind": "signal",
+              "key": "slideDeployed",
+              "op": "eq",
+              "value": true
             }
           },
           {
-            "id": "READY-to-JITTERING-11",
+            "id": "READY-to-JITTERING",
             "from": "READY",
             "to": "JITTERING",
             "condition": {
@@ -9204,40 +10676,12 @@
             }
           },
           {
-            "id": "READY-to-CLEARING_HOOD-12",
-            "from": "READY",
-            "to": "CLEARING_HOOD",
-            "condition": {
-              "kind": "all",
-              "conditions": [
-                {
-                  "kind": "signal",
-                  "key": "deploy",
-                  "op": "eq",
-                  "value": true
-                },
-                {
-                  "kind": "signal",
-                  "key": "slideBetween",
-                  "op": "eq",
-                  "value": true
-                }
-              ]
-            }
-          },
-          {
-            "id": "JITTERING-to-CLEARING_HOOD-13",
+            "id": "JITTERING-to-CLEARING_HOOD",
             "from": "JITTERING",
             "to": "CLEARING_HOOD",
             "condition": {
               "kind": "all",
               "conditions": [
-                {
-                  "kind": "signal",
-                  "key": "deploy",
-                  "op": "eq",
-                  "value": true
-                },
                 {
                   "kind": "signal",
                   "key": "jitterDemand",
@@ -9246,39 +10690,22 @@
                 },
                 {
                   "kind": "signal",
-                  "key": "slideBetween",
+                  "key": "hoodClear",
                   "op": "eq",
-                  "value": true
+                  "value": false
                 }
               ]
             }
           },
           {
-            "id": "JITTERING-to-DEPLOYING-14",
+            "id": "JITTERING-to-DEPLOYING",
             "from": "JITTERING",
             "to": "DEPLOYING",
             "condition": {
-              "kind": "all",
-              "conditions": [
-                {
-                  "kind": "signal",
-                  "key": "deploy",
-                  "op": "eq",
-                  "value": true
-                },
-                {
-                  "kind": "signal",
-                  "key": "jitterDemand",
-                  "op": "eq",
-                  "value": false
-                },
-                {
-                  "kind": "signal",
-                  "key": "slideBetween",
-                  "op": "eq",
-                  "value": false
-                }
-              ]
+              "kind": "signal",
+              "key": "jitterDemand",
+              "op": "eq",
+              "value": false
             }
           }
         ],
@@ -9288,7 +10715,7 @@
         "format": "mayhem-machine",
         "version": 1,
         "id": "ShotCycle",
-        "name": "Shooting · prepare, aim and feed",
+        "name": "Shooting · spin up and feed",
         "initial": "OFF",
         "states": [
           {
@@ -9298,27 +10725,17 @@
           },
           {
             "id": "SPINNING_UP",
-            "name": "Prepare flywheel, hood and slide",
-            "source": "src/main/cpp/subsystems/Superstructure.cpp"
-          },
-          {
-            "id": "AIMING",
-            "name": "Wait for aiming tolerance",
+            "name": "Spin flywheel to the requested speed",
             "source": "src/main/cpp/subsystems/Superstructure.cpp"
           },
           {
             "id": "FEEDING",
-            "name": "Feed while every interlock holds",
+            "name": "Feed; latched until the shot request ends",
             "source": "src/main/cpp/subsystems/Superstructure.cpp"
           },
           {
             "id": "INHIBITED",
-            "name": "Trench / localization interlock",
-            "source": "src/main/cpp/subsystems/Superstructure.cpp"
-          },
-          {
-            "id": "FAULT",
-            "name": "Shot preparation or aim timeout",
+            "name": "Paused under the trench (hood forced down)",
             "source": "src/main/cpp/subsystems/Superstructure.cpp"
           }
         ],
@@ -9345,58 +10762,16 @@
             "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/flywheelReady"
           },
           {
-            "key": "pivotReady",
-            "name": "pivotReady",
-            "type": "boolean",
-            "initial": false,
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/pivotReady"
-          },
-          {
-            "key": "slideClear",
-            "name": "slideClear",
-            "type": "boolean",
-            "initial": false,
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/slideClear"
-          },
-          {
-            "key": "ready",
-            "name": "ready",
-            "type": "boolean",
-            "initial": false,
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/ready"
-          },
-          {
-            "key": "aimed",
-            "name": "aimed",
-            "type": "boolean",
-            "initial": false,
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/aimed"
-          },
-          {
             "key": "trench",
             "name": "trench",
             "type": "boolean",
             "initial": false,
             "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/trench"
-          },
-          {
-            "key": "poseValid",
-            "name": "poseValid",
-            "type": "boolean",
-            "initial": false,
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/poseValid"
-          },
-          {
-            "key": "stateTime",
-            "name": "stateTime",
-            "type": "number",
-            "initial": 0,
-            "channel": "/RealOutputs/Mayhem/States/ShotCycle/inputs/stateTime"
           }
         ],
         "transitions": [
           {
-            "id": "SPINNING_UP-to-OFF-0",
+            "id": "SPINNING_UP-to-OFF",
             "from": "SPINNING_UP",
             "to": "OFF",
             "condition": {
@@ -9418,29 +10793,7 @@
             }
           },
           {
-            "id": "AIMING-to-OFF-1",
-            "from": "AIMING",
-            "to": "OFF",
-            "condition": {
-              "kind": "any",
-              "conditions": [
-                {
-                  "kind": "signal",
-                  "key": "shotDemand",
-                  "op": "eq",
-                  "value": false
-                },
-                {
-                  "kind": "signal",
-                  "key": "enabled",
-                  "op": "eq",
-                  "value": false
-                }
-              ]
-            }
-          },
-          {
-            "id": "FEEDING-to-OFF-2",
+            "id": "FEEDING-to-OFF",
             "from": "FEEDING",
             "to": "OFF",
             "condition": {
@@ -9462,7 +10815,7 @@
             }
           },
           {
-            "id": "INHIBITED-to-OFF-3",
+            "id": "INHIBITED-to-OFF",
             "from": "INHIBITED",
             "to": "OFF",
             "condition": {
@@ -9484,106 +10837,7 @@
             }
           },
           {
-            "id": "SPINNING_UP-to-INHIBITED-4",
-            "from": "SPINNING_UP",
-            "to": "INHIBITED",
-            "condition": {
-              "kind": "all",
-              "conditions": [
-                {
-                  "kind": "signal",
-                  "key": "shotDemand",
-                  "op": "eq",
-                  "value": true
-                },
-                {
-                  "kind": "any",
-                  "conditions": [
-                    {
-                      "kind": "signal",
-                      "key": "trench",
-                      "op": "eq",
-                      "value": true
-                    },
-                    {
-                      "kind": "signal",
-                      "key": "poseValid",
-                      "op": "eq",
-                      "value": false
-                    }
-                  ]
-                }
-              ]
-            }
-          },
-          {
-            "id": "AIMING-to-INHIBITED-5",
-            "from": "AIMING",
-            "to": "INHIBITED",
-            "condition": {
-              "kind": "all",
-              "conditions": [
-                {
-                  "kind": "signal",
-                  "key": "shotDemand",
-                  "op": "eq",
-                  "value": true
-                },
-                {
-                  "kind": "any",
-                  "conditions": [
-                    {
-                      "kind": "signal",
-                      "key": "trench",
-                      "op": "eq",
-                      "value": true
-                    },
-                    {
-                      "kind": "signal",
-                      "key": "poseValid",
-                      "op": "eq",
-                      "value": false
-                    }
-                  ]
-                }
-              ]
-            }
-          },
-          {
-            "id": "FEEDING-to-INHIBITED-6",
-            "from": "FEEDING",
-            "to": "INHIBITED",
-            "condition": {
-              "kind": "all",
-              "conditions": [
-                {
-                  "kind": "signal",
-                  "key": "shotDemand",
-                  "op": "eq",
-                  "value": true
-                },
-                {
-                  "kind": "any",
-                  "conditions": [
-                    {
-                      "kind": "signal",
-                      "key": "trench",
-                      "op": "eq",
-                      "value": true
-                    },
-                    {
-                      "kind": "signal",
-                      "key": "poseValid",
-                      "op": "eq",
-                      "value": false
-                    }
-                  ]
-                }
-              ]
-            }
-          },
-          {
-            "id": "OFF-to-SPINNING_UP-7",
+            "id": "OFF-to-SPINNING_UP",
             "from": "OFF",
             "to": "SPINNING_UP",
             "condition": {
@@ -9605,300 +10859,47 @@
             }
           },
           {
-            "id": "SPINNING_UP-to-AIMING-8",
+            "id": "SPINNING_UP-to-INHIBITED",
             "from": "SPINNING_UP",
-            "to": "AIMING",
+            "to": "INHIBITED",
             "condition": {
-              "kind": "all",
-              "conditions": [
-                {
-                  "kind": "signal",
-                  "key": "shotDemand",
-                  "op": "eq",
-                  "value": true
-                },
-                {
-                  "kind": "all",
-                  "conditions": [
-                    {
-                      "kind": "signal",
-                      "key": "flywheelReady",
-                      "op": "eq",
-                      "value": true
-                    },
-                    {
-                      "kind": "signal",
-                      "key": "pivotReady",
-                      "op": "eq",
-                      "value": true
-                    },
-                    {
-                      "kind": "signal",
-                      "key": "slideClear",
-                      "op": "eq",
-                      "value": true
-                    }
-                  ]
-                },
-                {
-                  "kind": "signal",
-                  "key": "trench",
-                  "op": "eq",
-                  "value": false
-                },
-                {
-                  "kind": "signal",
-                  "key": "poseValid",
-                  "op": "eq",
-                  "value": true
-                }
-              ]
+              "kind": "signal",
+              "key": "trench",
+              "op": "eq",
+              "value": true
             }
           },
           {
-            "id": "SPINNING_UP-to-FAULT-9",
+            "id": "FEEDING-to-INHIBITED",
+            "from": "FEEDING",
+            "to": "INHIBITED",
+            "condition": {
+              "kind": "signal",
+              "key": "trench",
+              "op": "eq",
+              "value": true
+            }
+          },
+          {
+            "id": "SPINNING_UP-to-FEEDING",
             "from": "SPINNING_UP",
-            "to": "FAULT",
-            "condition": {
-              "kind": "all",
-              "conditions": [
-                {
-                  "kind": "signal",
-                  "key": "shotDemand",
-                  "op": "eq",
-                  "value": true
-                },
-                {
-                  "kind": "any",
-                  "conditions": [
-                    {
-                      "kind": "signal",
-                      "key": "flywheelReady",
-                      "op": "eq",
-                      "value": false
-                    },
-                    {
-                      "kind": "signal",
-                      "key": "pivotReady",
-                      "op": "eq",
-                      "value": false
-                    },
-                    {
-                      "kind": "signal",
-                      "key": "slideClear",
-                      "op": "eq",
-                      "value": false
-                    }
-                  ]
-                },
-                {
-                  "kind": "signal",
-                  "key": "stateTime",
-                  "op": "gt",
-                  "value": 4
-                }
-              ]
-            }
-          },
-          {
-            "id": "AIMING-to-SPINNING_UP-10",
-            "from": "AIMING",
-            "to": "SPINNING_UP",
-            "condition": {
-              "kind": "all",
-              "conditions": [
-                {
-                  "kind": "signal",
-                  "key": "shotDemand",
-                  "op": "eq",
-                  "value": true
-                },
-                {
-                  "kind": "any",
-                  "conditions": [
-                    {
-                      "kind": "signal",
-                      "key": "flywheelReady",
-                      "op": "eq",
-                      "value": false
-                    },
-                    {
-                      "kind": "signal",
-                      "key": "pivotReady",
-                      "op": "eq",
-                      "value": false
-                    },
-                    {
-                      "kind": "signal",
-                      "key": "slideClear",
-                      "op": "eq",
-                      "value": false
-                    }
-                  ]
-                }
-              ]
-            }
-          },
-          {
-            "id": "AIMING-to-FEEDING-11",
-            "from": "AIMING",
             "to": "FEEDING",
             "condition": {
-              "kind": "all",
-              "conditions": [
-                {
-                  "kind": "signal",
-                  "key": "shotDemand",
-                  "op": "eq",
-                  "value": true
-                },
-                {
-                  "kind": "signal",
-                  "key": "ready",
-                  "op": "eq",
-                  "value": true
-                }
-              ]
+              "kind": "signal",
+              "key": "flywheelReady",
+              "op": "eq",
+              "value": true
             }
           },
           {
-            "id": "AIMING-to-FAULT-12",
-            "from": "AIMING",
-            "to": "FAULT",
-            "condition": {
-              "kind": "all",
-              "conditions": [
-                {
-                  "kind": "signal",
-                  "key": "shotDemand",
-                  "op": "eq",
-                  "value": true
-                },
-                {
-                  "kind": "signal",
-                  "key": "aimed",
-                  "op": "eq",
-                  "value": false
-                },
-                {
-                  "kind": "signal",
-                  "key": "stateTime",
-                  "op": "gt",
-                  "value": 3
-                }
-              ]
-            }
-          },
-          {
-            "id": "FEEDING-to-SPINNING_UP-13",
-            "from": "FEEDING",
-            "to": "SPINNING_UP",
-            "condition": {
-              "kind": "all",
-              "conditions": [
-                {
-                  "kind": "signal",
-                  "key": "shotDemand",
-                  "op": "eq",
-                  "value": true
-                },
-                {
-                  "kind": "any",
-                  "conditions": [
-                    {
-                      "kind": "signal",
-                      "key": "flywheelReady",
-                      "op": "eq",
-                      "value": false
-                    },
-                    {
-                      "kind": "signal",
-                      "key": "pivotReady",
-                      "op": "eq",
-                      "value": false
-                    },
-                    {
-                      "kind": "signal",
-                      "key": "slideClear",
-                      "op": "eq",
-                      "value": false
-                    }
-                  ]
-                }
-              ]
-            }
-          },
-          {
-            "id": "FEEDING-to-AIMING-14",
-            "from": "FEEDING",
-            "to": "AIMING",
-            "condition": {
-              "kind": "all",
-              "conditions": [
-                {
-                  "kind": "signal",
-                  "key": "shotDemand",
-                  "op": "eq",
-                  "value": true
-                },
-                {
-                  "kind": "all",
-                  "conditions": [
-                    {
-                      "kind": "signal",
-                      "key": "flywheelReady",
-                      "op": "eq",
-                      "value": true
-                    },
-                    {
-                      "kind": "signal",
-                      "key": "pivotReady",
-                      "op": "eq",
-                      "value": true
-                    },
-                    {
-                      "kind": "signal",
-                      "key": "slideClear",
-                      "op": "eq",
-                      "value": true
-                    }
-                  ]
-                },
-                {
-                  "kind": "signal",
-                  "key": "aimed",
-                  "op": "eq",
-                  "value": false
-                }
-              ]
-            }
-          },
-          {
-            "id": "INHIBITED-to-SPINNING_UP-15",
+            "id": "INHIBITED-to-SPINNING_UP",
             "from": "INHIBITED",
             "to": "SPINNING_UP",
             "condition": {
-              "kind": "all",
-              "conditions": [
-                {
-                  "kind": "signal",
-                  "key": "shotDemand",
-                  "op": "eq",
-                  "value": true
-                },
-                {
-                  "kind": "signal",
-                  "key": "trench",
-                  "op": "eq",
-                  "value": false
-                },
-                {
-                  "kind": "signal",
-                  "key": "poseValid",
-                  "op": "eq",
-                  "value": true
-                }
-              ]
+              "kind": "signal",
+              "key": "trench",
+              "op": "eq",
+              "value": false
             }
           }
         ],

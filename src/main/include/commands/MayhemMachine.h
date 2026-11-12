@@ -27,9 +27,6 @@ class MayhemMachine final : private mayhem::RobotHooks {
   }
   void Reset() { m_runner.Start(); }
   std::string_view State() const { return m_runner.ActiveState(); }
-  bool Faulted() const {
-    return State() == "FAULT" || m_runner.Status() == mayhem::RunStatus::Failed;
-  }
   double StateTime() const { return frc::Timer::GetFPGATimestamp().value() - m_entered; }
 
  private:

@@ -128,7 +128,6 @@ void Superstructure::ConfigStateTransitions() {
   }}.OnTrue(m_intakeRollers.Off());
 
   m_shooterPivot.SetDefaultCommand(m_shooterPivot.SetPosition([this] { return HoodTarget(); }));
-  S(SS::CANCEL_ALL).WhileTrue(m_shooterPivot.Off().Repeatedly());
 
   frc2::Trigger{[=, this] {
     const auto phase = IntakePhase();
@@ -137,13 +136,17 @@ void Superstructure::ConfigStateTransitions() {
   frc2::Trigger{[=, this] {
     return enabled() && NeedsExtension() && IntakePhase() == "JITTERING";
   }}.WhileTrue(m_linearSlide.JitterIntake());
-  frc2::Trigger{[=, this] { return enabled() && !NeedsExtension(); }}.OnTrue(m_linearSlide.Off());
+  // As before the graphs: only IDLE and CANCEL_ALL turn the slide off; other states hold it.
+  frc2::Trigger{[=, this] {
+    return enabled() && (m_state == SS::IDLE || m_state == SS::CANCEL_ALL);
+  }}.OnTrue(m_linearSlide.Off());
 
-  // Rising readiness must persist for 60 ms; any loss stops feed immediately.
-  // State progression is observable separately from these physical output guards.
-  frc2::Trigger canFeed{
-      [=, this] { return enabled() && ShotPhase() == "FEEDING" && ReadyToShoot(); }};
-  canFeed.Debounce(.06_s).WhileTrue(m_indexer.SetIndexVel()).WhileTrue(m_feeder.SetFeedVel());
+  // FEEDING is entered once the flywheel first reaches speed and is latched until the shot request
+  // ends, so the speed dip as each piece goes through never stops the feed.
+  frc2::Trigger{[=, this] { return enabled() && ShotPhase() == "FEEDING"; }}
+      .Debounce(.02_s)
+      .WhileTrue(m_indexer.SetIndexVel())
+      .WhileTrue(m_feeder.SetFeedVel());
   frc2::Trigger{[=, this] { return enabled() && !IsShooting(); }}.OnTrue(m_indexer.Off());
   frc2::Trigger{[=, this] { return enabled() && !IsShooting() && m_state != SS::OUTTAKE; }}.OnTrue(
       m_feeder.Off());
@@ -176,17 +179,22 @@ bool Superstructure::Aimed() const {
                                                 m_shotCalculator.GetDriveAngle(), kAimToleranceRad);
 }
 double Superstructure::HoodTarget() const {
-  if (NeedsExtension() && m_linearSlide.AtPosition())
+  // The hood clears the slide whenever the slide is moving through the hood's travel.
+  const auto phase = IntakePhase();
+  if (m_linearSlide.AtPosition() && (phase == "CLEARING_HOOD" || phase == "DEPLOYING"))
     return kIntakeHoodPosition;
   if (IsShooting() || IsRevving())
     return m_inAllianceZone ? shooter_pivot::kHubLUT.Get(m_shotCalculator.GetDistance())
                             : shooter_pivot::kFeedLUT.Get(m_shotCalculator.GetDistance());
-  return IsIntaking() ? .02 : .05;
+  if (m_state == SS::INTAKE)
+    return m_linearSlide.AtPosition() ? kIntakeHoodPosition : .02;
+  return .05;
 }
 bool Superstructure::ReadyToShoot() const {
-  return frc::DriverStation::IsEnabled() && IsShooting() && PoseValid() &&
-         m_shooter.RequestedVelocity() > 0 && m_shooter.ReachedVelocity() &&
-         m_shooterPivot.ReachedPosition() && Aimed() && SlideClear() && !IsInTrenchApproachZone();
+  // Dashboard light: flywheel at a positive request and hood in place. Aim is logged separately
+  // and is not required, matching the driver's original A-button behavior.
+  return m_shooter.RequestedVelocity() > 0 && m_shooter.ReachedVelocity() &&
+         m_shooterPivot.ReachedPosition();
 }
 
 void Superstructure::UpdateTarget() {
@@ -232,12 +240,20 @@ void Superstructure::Periodic() {
   EvaluateState();
   m_intakeMachine->Tick();
   m_shotMachine->Tick();
-  if (m_intakeMachine->Faulted() || m_shotMachine->Faulted()) {
-    m_faultLog.Set(m_intakeMachine->Faulted() ? "Intake clearance/deployment timeout"
-                                              : "Shot preparation/aim timeout");
-    m_intent.Reset(SuperstructureIntent::Mode::Cancel);
-    EvaluateState();
-  }
+  // Slow phases are reported, never acted on: the driver's request keeps running.
+  const auto intakePhase = IntakePhase();
+  const double intakeTime = m_intakeMachine->StateTime();
+  const bool hoodStuck = intakePhase == "CLEARING_HOOD" && intakeTime > kHoodClearWarnSeconds;
+  const bool slideStuck = intakePhase == "DEPLOYING" && intakeTime > kDeployWarnSeconds;
+  const bool spinStuck =
+      ShotPhase() == "SPINNING_UP" && m_shotMachine->StateTime() > kSpinUpWarnSeconds;
+  m_hoodStuckAlert.Set(hoodStuck);
+  m_slideStuckAlert.Set(slideStuck);
+  m_spinUpAlert.Set(spinStuck);
+  m_faultLog.Set(hoodStuck    ? "Hood has not cleared the slide"
+                 : slideStuck ? "Slide has not deployed"
+                 : spinStuck  ? "Flywheel has not reached speed"
+                              : "");
   m_shooterPivot.SetTrenchOverride(IsInTrenchApproachZone());
   m_ready = ReadyToShoot();
   for (std::size_t i = 0; i < kInputs.size(); ++i) {
@@ -329,13 +345,6 @@ void Superstructure::RequestState(StructureState state, RequestSource source) {
     return;
   if (!m_intent.Request(ToString(state), source != RequestSource::Operator))
     return;
-  if (state != SS::CANCEL_ALL) {
-    if (m_intakeMachine->Faulted())
-      m_intakeMachine->Reset();
-    if (m_shotMachine->Faulted())
-      m_shotMachine->Reset();
-    m_faultLog.Set("");
-  }
   UpdateTarget();
   EvaluateState();
 }

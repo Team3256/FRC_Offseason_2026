@@ -14,6 +14,7 @@
 #include <frc/Timer.h>
 #include <frc/geometry/Pose2d.h>
 #include <frc/geometry/Translation2d.h>
+#include <frc/Alert.h>
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/button/Trigger.h>
 
@@ -109,6 +110,14 @@ class Superstructure : private mayhem::RobotHooks {
       "slideBetween", "hoodClear", "slideDeployed", "shotDemand"};
   std::array<std::unique_ptr<logging::Output<bool>>, kInputs.size()> m_inputLogs;
   logging::Output<std::string> m_faultLog{"Superstructure/Fault"};
+  static constexpr double kHoodClearWarnSeconds = 2.5;
+  static constexpr double kDeployWarnSeconds = 3.0;
+  static constexpr double kSpinUpWarnSeconds = 4.0;
+  frc::Alert m_hoodStuckAlert{"Intake: hood has not cleared the slide.",
+                              frc::Alert::AlertType::kWarning};
+  frc::Alert m_slideStuckAlert{"Intake: slide has not deployed.", frc::Alert::AlertType::kWarning};
+  frc::Alert m_spinUpAlert{"Shooter: flywheel has not reached speed.",
+                           frc::Alert::AlertType::kWarning};
   bool m_inAllianceZone = false;
   void ConfigStateTransitions();
   void EvaluateState();
