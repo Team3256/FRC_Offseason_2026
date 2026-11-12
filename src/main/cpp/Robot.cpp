@@ -115,6 +115,23 @@ void Robot::RobotPeriodic() {
       m_container->GetAutoChooser().Selected() != AutoChooser::kNoneName;
   m_alerts.Update(alertInputs);
 
+  DriverDashboard::Inputs dash;
+  dash.autoSelected = alertInputs.autoSelected;
+  dash.autoAtStartPose = m_container->IsAtAutoStartPose();
+  dash.batteryOk = !m_alerts.LowBattery();
+  dash.controllerConnected = !m_alerts.DriverControllerDisconnected();
+  dash.noBrownout = !m_alerts.BrownedOut();
+  dash.canOk = !m_alerts.HighCanUtilization();
+  dash.devicesConnected = phoenix_util::DisconnectedDeviceCount() == 0 &&
+                          phoenix_util::ConfigFailureCount() == 0;
+  dash.devicesCool = phoenix_util::HotDeviceCount() == 0;
+  dash.camerasConnected = m_container->GetVision().AllCamerasConnected();
+  dash.readyToShoot = m_container->GetSuperstructure().IsReadyToShoot();
+  dash.state = std::string{Superstructure::ToString(m_container->GetSuperstructure().GetState())};
+  dash.batteryVolts = alertInputs.batteryVolts;
+  dash.matchTimeSeconds = frc::DriverStation::GetMatchTime().value();
+  m_dashboard.Update(dash);
+
   m_lastLoopTimeMs = static_cast<double>(frc::RobotController::GetFPGATime() - startUs) / 1000.0;
   m_loopTimeLog->Set(m_lastLoopTimeMs);
 }

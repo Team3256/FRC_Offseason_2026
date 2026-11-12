@@ -56,6 +56,8 @@ class RobotContainer {
   frc::Field2d& GetField() { return m_field2d; }
   /** Start pose of the selected auto (alliance-correct) while disabled, for lining up. */
   const std::optional<frc::Pose2d>& GetAutoStartPose() const { return m_autoStartPose; }
+  /** True while the robot is within tolerance of the selected auto's start pose. */
+  bool IsAtAutoStartPose() const { return m_autoAtStart; }
 
   /** Robot within this distance and heading of the auto's start pose counts as lined up. */
   static constexpr double kAutoStartToleranceMeters = 0.15;
@@ -107,6 +109,7 @@ class RobotContainer {
   std::string m_autoPreviewName;
   bool m_autoPreviewRed = false;
   std::optional<frc::Pose2d> m_autoStartPose;
+  bool m_autoAtStart = false;
   logging::Output<double> m_autoStartDistanceLog{"Auto/StartPoseErrorMeters"};
   logging::Output<double> m_autoStartHeadingLog{"Auto/StartPoseErrorDegrees"};
   logging::Output<bool> m_autoAtStartLog{"Auto/AtStartPose"};

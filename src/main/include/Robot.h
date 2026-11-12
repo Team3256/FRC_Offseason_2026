@@ -13,6 +13,7 @@
 
 #include "RobotContainer.h"
 #include "logging/Logger.h"
+#include "utils/DriverDashboard.h"
 #include "utils/RobotAlerts.h"
 
 class Robot : public frc::TimedRobot {
@@ -50,6 +51,7 @@ class Robot : public frc::TimedRobot {
   std::unique_ptr<logging::Output<bool>> m_brownoutLog;
   std::unique_ptr<logging::Output<double>> m_canUtilLog;
   RobotAlerts m_alerts;
+  DriverDashboard m_dashboard;
   int64_t m_lastLoopStartUs = 0;
   double m_lastLoopTimeMs = 0.0;
   int m_canStatusCounter = 0;

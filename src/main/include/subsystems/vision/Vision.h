@@ -9,6 +9,7 @@
 
 #include <array>
 #include <functional>
+#include <algorithm>
 #include <memory>
 #include <span>
 #include <vector>
@@ -36,6 +37,10 @@ class Vision : public frc2::SubsystemBase {
 
   int AcceptedCount() const { return m_acceptedTotal; }
   int RejectedCount() const { return m_rejectedTotal; }
+  bool AllCamerasConnected() const {
+    return std::all_of(m_cameras.begin(), m_cameras.end(),
+                       [](const auto& cam) { return cam->inputs.connected; });
+  }
   const VisionIOInputs& Inputs(size_t camera) const { return m_cameras[camera]->inputs; }
 
  private:

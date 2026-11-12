@@ -245,7 +245,9 @@ void RobotContainer::UpdateAutoPreview() {
         std::abs((pose.Rotation() - m_autoStartPose->Rotation()).Degrees().value());
     m_autoStartDistanceLog.Set(distance);
     m_autoStartHeadingLog.Set(heading);
-    m_autoAtStartLog.Set(distance <= kAutoStartToleranceMeters &&
-                         heading <= kAutoStartToleranceDegrees);
+    m_autoAtStart = distance <= kAutoStartToleranceMeters && heading <= kAutoStartToleranceDegrees;
+    m_autoAtStartLog.Set(m_autoAtStart);
+  } else {
+    m_autoAtStart = false;
   }
 }
