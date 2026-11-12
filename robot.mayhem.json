@@ -1,7 +1,7 @@
 {
   "format": "mayhem-suite",
   "version": 1,
-  "revision": 7,
+  "revision": 8,
   "id": "team3256-offseason-2026",
   "name": "3256 Offseason 2026",
   "field": {
@@ -560,7 +560,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt pass at 5.14 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.0
+            "maxVelocity": 3.5
           }
         },
         {
@@ -725,7 +725,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt2 pass at 2.40 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.0
+            "maxVelocity": 3.5
           }
         },
         {
@@ -982,7 +982,8 @@
         "maxVelocity": 4.8,
         "maxAcceleration": 6.48,
         "maxAngularVelocity": 8,
-        "maxAngularAcceleration": 14
+        "maxAngularAcceleration": 14,
+        "translationKp": 3.5
       },
       "extensions": {
         "drivingTimeBudget": 6,
@@ -1445,7 +1446,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 4.86 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.0
+            "maxVelocity": 3.5
           }
         },
         {
@@ -1622,7 +1623,8 @@
         "maxVelocity": 4.8,
         "maxAcceleration": 6.48,
         "maxAngularVelocity": 8,
-        "maxAngularAcceleration": 14
+        "maxAngularAcceleration": 14,
+        "translationKp": 3.5
       },
       "extensions": {
         "drivingTimeBudget": 6,
@@ -2084,7 +2086,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 4.86 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.0
+            "maxVelocity": 3.5
           }
         },
         {
@@ -2633,7 +2635,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt2 pass at 5.18 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.0
+            "maxVelocity": 3.5
           }
         },
         {
@@ -2994,7 +2996,8 @@
         "maxVelocity": 4.8,
         "maxAcceleration": 6.48,
         "maxAngularVelocity": 8,
-        "maxAngularAcceleration": 14
+        "maxAngularAcceleration": 14,
+        "translationKp": 3.5
       },
       "extensions": {
         "drivingTimeBudget": 6,
@@ -3529,7 +3532,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 4.97 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.0
+            "maxVelocity": 3.5
           }
         },
         {
@@ -3730,7 +3733,8 @@
         "maxVelocity": 4.8,
         "maxAcceleration": 6.48,
         "maxAngularVelocity": 8,
-        "maxAngularAcceleration": 14
+        "maxAngularAcceleration": 14,
+        "translationKp": 3.5
       },
       "extensions": {
         "drivingTimeBudget": 6,
@@ -4264,7 +4268,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 4.97 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.0
+            "maxVelocity": 3.5
           }
         },
         {
@@ -4813,7 +4817,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBump2xPt2 pass at 5.67 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.0
+            "maxVelocity": 3.5
           }
         },
         {
@@ -5198,7 +5202,8 @@
         "maxVelocity": 4.8,
         "maxAcceleration": 6.48,
         "maxAngularVelocity": 8,
-        "maxAngularAcceleration": 14
+        "maxAngularAcceleration": 14,
+        "translationKp": 3.5
       },
       "extensions": {
         "drivingTimeBudget": 6,
