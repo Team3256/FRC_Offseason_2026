@@ -16,7 +16,7 @@
 #include <networktables/NetworkTableInstance.h>
 
 #include "RobotHarness.h"
-#include "mayhem/Trajectory.h"
+#include "commands/MayhemAutos.h"
 #include "utils/RobotAlerts.h"
 
 using SS = Superstructure::StructureState;
@@ -194,7 +194,7 @@ TEST(FeatureSimTest, ReadyToShootLightsUpWhileShooting) {
   EXPECT_FALSE(ss.IsReadyToShoot()) << "flywheel is off";
   h.Driver().SetAButton(true);
   h.Step();
-  EXPECT_TRUE(h.StepUntil([&] { return ss.IsReadyToShoot(); }, 200));
   h.Driver().SetAButton(false);
+  EXPECT_TRUE(h.StepUntil([&] { return ss.IsReadyToShoot(); }, 150));
   EXPECT_EQ(ss.GetState(), SS::SHOOT);
 }

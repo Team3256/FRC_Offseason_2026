@@ -19,7 +19,7 @@ ROUTINES = {
     "depot-sweep-x2": ["DepotTrenchSweepBumpPt1", "DepotTrenchSweepBump2xPt2"],
 }
 INTAKE = {"intake", "intake2"}
-def load(name): return json.load(open(repo / f"src/main/deploy/mayhem/{name}.mtraj"))
+def load(name): return json.load(open(repo / f"tools/mayhem/solved/{name}.mtraj"))
 def heading_at(samples, t):
     best = min(samples, key=lambda s: abs(s["t"] - t)); return W(best["heading"])
 def pass_nodes(rid, pi, name, last_pass):

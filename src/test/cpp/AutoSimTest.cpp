@@ -12,14 +12,17 @@
 #include <cstdlib>
 #include <filesystem>
 #include <fstream>
+#include <numbers>
 #include <sstream>
 #include <string>
 #include <vector>
 
+#include <frc/MathUtil.h>
 #include <gtest/gtest.h>
 
+#include "FieldConstants.h"
 #include "RobotHarness.h"
-#include "mayhem/Trajectory.h"
+#include "commands/MayhemAutos.h"
 
 using SS = Superstructure::StructureState;
 
@@ -27,16 +30,32 @@ namespace {
 
 struct AutoCase {
   const char* chooserName;
-  std::vector<const char*> trajectories;  // in the order they run
-  int shots;                              // AlignAndShoot calls
+  int shots;  // alignAndShoot steps
 };
 
-frc::Pose2d Expected(const char* traj, bool red, bool end) {
-  auto t = mayhem::trajectory_loader::Load(traj);
-  if (red) {
-    t = t->Flipped();
+// Driving time allowed for each pass between shots (the old solved passes took 2.4-5.7 s).
+constexpr double kPassBudgetSeconds = 7.5;
+// Median angle between the intake (robot front) and the direction of travel while intaking near
+// the centerline pickup. The old solved paths had 17-48 degrees.
+constexpr double kIntakeLeadingDegrees = 35;
+
+const robot_mayhem::AutoDefinition& Definition(const char* name) {
+  const auto* def = suite_autos::Find(name);
+  EXPECT_NE(def, nullptr) << name;
+  return *def;
+}
+
+frc::Pose2d Expected(const robot_mayhem::AutoDefinition& def, bool red, bool end) {
+  if (!end) {
+    return suite_autos::ToWpi(suite_autos::Resolve(def.start, red));
   }
-  return end ? t->FinalPose() : t->InitialPose();
+  mayhem::Pose last = def.start;
+  for (std::size_t i = 0; i < def.routine.nodeCount; ++i) {
+    if (def.routine.nodes[i].kind == mayhem::NodeKind::Pose) {
+      last = def.routine.nodes[i].goal.pose;
+    }
+  }
+  return suite_autos::ToWpi(suite_autos::Resolve(last, red));
 }
 
 double Distance(const frc::Pose2d& a, const frc::Pose2d& b) {
@@ -55,7 +74,11 @@ void RunAuto(const AutoCase& c, bool red) {
   std::vector<SS> visited;
   auto& ss = h.C().GetSuperstructure();
   auto& dt = h.C().GetDrivetrain();
-  const frc::Pose2d start = Expected(c.trajectories.front(), red, false);
+  const auto& def = Definition(c.chooserName);
+  const frc::Pose2d start = Expected(def, red, false);
+  std::vector<double> passes, intakeErrors;
+  double passStart = -1;
+  frc::Pose2d lastPose = dt.State().Pose;
   bool resetSeen = false;
   auto status =
       nt::NetworkTableInstance::GetDefault().GetTable("AdvantageKit/RealOutputs/Mayhem/Auto");
@@ -75,6 +98,23 @@ void RunAuto(const AutoCase& c, bool red) {
     result = status->GetString("Status", "");
     const auto node = graph->GetString("state", "");
     const auto pose = dt.State().Pose;
+    const bool driving = node.find("-pass") != std::string::npos;
+    if (driving && passStart < 0)
+      passStart = i * .02;
+    if (!driving && passStart >= 0) {
+      passes.push_back(i * .02 - passStart);
+      passStart = -1;
+    }
+    const auto step = pose.Translation() - lastPose.Translation();
+    const double speed = step.Norm().value() / .02;
+    if (driving && ss.GetState() == SS::INTAKE && speed > 0.8 &&
+        std::abs(pose.X().value() - field_constants::fieldLength / 2) < 1.0) {
+      const double travel = std::atan2(step.Y().value(), step.X().value());
+      intakeErrors.push_back(std::abs(
+          frc::AngleModulus(units::radian_t{pose.Rotation().Radians().value() - travel}).value()) *
+                             180 / std::numbers::pi);
+    }
+    lastPose = pose;
     minY = std::min(minY, pose.Y().value());
     maxY = std::max(maxY, pose.Y().value());
     minX = std::min(minX, pose.X().value());
@@ -100,14 +140,20 @@ void RunAuto(const AutoCase& c, bool red) {
   EXPECT_LT(maxY, 8.069 - .32) << "bumper approaches the upper wall";
   EXPECT_GT(minX, .32) << "bumper approaches the alliance wall";
   EXPECT_EQ(result, "Completed") << c.chooserName << (red ? " red" : " blue") << "\n" << graphTrace;
-  EXPECT_TRUE(resetSeen) << "odometry was not reset to the start of " << c.trajectories.front();
+  EXPECT_TRUE(resetSeen) << "odometry was not reset to the start of " << c.chooserName;
 
-  // the robot ends where the last path ends (it may have turned in place to aim afterwards). A path
-  // that ends moving hands over without braking, so the robot coasts on until AlignAndShoot.
-  const frc::Pose2d end = Expected(c.trajectories.back(), red, true);
-  const double endSpeed =
-      mayhem::trajectory_loader::Load(c.trajectories.back())->FinalSample().Speed();
-  EXPECT_LT(Distance(dt.State().Pose, end), 0.35 + 0.2 * endSpeed)
+  ASSERT_EQ(passes.size(), static_cast<size_t>(c.shots));
+  for (double pass : passes) {
+    EXPECT_LT(pass, kPassBudgetSeconds) << c.chooserName << " drove too long before shooting";
+  }
+  ASSERT_GT(intakeErrors.size(), 10u) << "never intaked while driving through the pickup";
+  std::sort(intakeErrors.begin(), intakeErrors.end());
+  EXPECT_LT(intakeErrors[intakeErrors.size() / 2], kIntakeLeadingDegrees)
+      << c.chooserName << ": the intake must lead through the pickup";
+
+  // the robot ends where the last pass ends (it may have turned in place to aim afterwards)
+  const frc::Pose2d end = Expected(def, red, true);
+  EXPECT_LT(Distance(dt.State().Pose, end), 0.3)
       << c.chooserName << (red ? " red" : " blue") << ": ended at (" << dt.State().Pose.X().value()
       << ", " << dt.State().Pose.Y().value() << "), path ends at (" << end.X().value() << ", "
       << end.Y().value() << ")";
@@ -132,11 +178,8 @@ void RunAuto(const AutoCase& c, bool red) {
 }
 
 const std::vector<AutoCase> kAutos = {
-    {"Depot Trench Sweep Depot", {"DepotTrenchSweepDepotPt", "DepotTrenchSweepDepotPt2"}, 2},
-    {"Outpost Trench Sweep", {"OutpostTrenchSweepBumpPt1"}, 1},
-    {"Outpost Trench Sweep x2", {"OutpostTrenchSweepBumpPt1", "OutpostTrenchSweepBumpPt2"}, 2},
-    {"Depot Trench Sweep", {"DepotTrenchSweepBumpPt1"}, 1},
-    {"Depot Trench Sweep x2", {"DepotTrenchSweepBumpPt1", "DepotTrenchSweepBump2xPt2"}, 2},
+    {"Depot Trench Sweep Depot", 2}, {"Outpost Trench Sweep", 1}, {"Outpost Trench Sweep x2", 2},
+    {"Depot Trench Sweep", 1},       {"Depot Trench Sweep x2", 2},
 };
 
 }  // namespace
@@ -189,7 +232,7 @@ TEST(AutoSimTest, DisablingMidAutoStopsEverything) {
   // the path follower (inside the routine's reset-then-follow sequence) owns the drivetrain
   ASSERT_NE(dt.GetCurrentCommand(), nullptr);
   EXPECT_NE(dt.GetCurrentCommand(), dt.GetDefaultCommand());
-  const double startX = Expected("DepotTrenchSweepBumpPt1", false, false).X().value();
+  const double startX = Expected(Definition("Depot Trench Sweep"), false, false).X().value();
   h.Disable();
   h.Step(2);
   EXPECT_EQ(dt.GetCurrentCommand(), nullptr);

@@ -1,7 +1,7 @@
 {
   "format": "mayhem-suite",
   "version": 1,
-  "revision": 6,
+  "revision": 7,
   "id": "team3256-offseason-2026",
   "name": "3256 Offseason 2026",
   "field": {
@@ -12633,9 +12633,9 @@
             }
           },
           {
-            "id": "PARKED-to-DEPLOYING",
+            "id": "PARKED-to-JITTERING",
             "from": "PARKED",
-            "to": "DEPLOYING",
+            "to": "JITTERING",
             "condition": {
               "kind": "all",
               "conditions": [
@@ -12653,7 +12653,51 @@
                 },
                 {
                   "kind": "signal",
+                  "key": "jitterDemand",
+                  "op": "eq",
+                  "value": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "PARKED-to-DEPLOYING",
+            "from": "PARKED",
+            "to": "DEPLOYING",
+            "condition": {
+              "kind": "all",
+              "conditions": [
+                {
+                  "kind": "signal",
+                  "key": "enabled",
+                  "op": "eq",
+                  "value": true
+                },
+                {
+                  "kind": "signal",
+                  "key": "deploy",
+                  "op": "eq",
+                  "value": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "CLEARING_HOOD-to-JITTERING",
+            "from": "CLEARING_HOOD",
+            "to": "JITTERING",
+            "condition": {
+              "kind": "all",
+              "conditions": [
+                {
+                  "kind": "signal",
                   "key": "hoodClear",
+                  "op": "eq",
+                  "value": true
+                },
+                {
+                  "kind": "signal",
+                  "key": "jitterDemand",
                   "op": "eq",
                   "value": true
                 }
@@ -12676,21 +12720,10 @@
             "from": "DEPLOYING",
             "to": "JITTERING",
             "condition": {
-              "kind": "all",
-              "conditions": [
-                {
-                  "kind": "signal",
-                  "key": "slideDeployed",
-                  "op": "eq",
-                  "value": true
-                },
-                {
-                  "kind": "signal",
-                  "key": "jitterDemand",
-                  "op": "eq",
-                  "value": true
-                }
-              ]
+              "kind": "signal",
+              "key": "jitterDemand",
+              "op": "eq",
+              "value": true
             }
           },
           {

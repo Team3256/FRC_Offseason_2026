@@ -18,7 +18,7 @@
 #include "Constants.h"
 #include "Telemetry.h"
 #include "commands/MayhemAutos.h"
-#include "mayhem/Auto.h"
+#include "commands/AutoChooser.h"
 #include "subsystems/Superstructure.h"
 #include "subsystems/feeder/Feeder.h"
 #include "subsystems/indexer/Indexer.h"
@@ -52,7 +52,7 @@ class RobotContainer {
   Feeder& GetFeeder() { return m_feeder; }
   Indexer& GetIndexer() { return m_indexer; }
   Vision& GetVision() { return m_vision; }
-  mayhem::AutoChooser& GetAutoChooser() { return m_mayhemAutoChooser; }
+  AutoChooser& GetAutoChooser() { return m_mayhemAutoChooser; }
   frc::Field2d& GetField() { return m_field2d; }
   /** Start pose of the selected auto (alliance-correct) while disabled, for lining up. */
   const std::optional<frc::Pose2d>& GetAutoStartPose() const { return m_autoStartPose; }
@@ -74,7 +74,7 @@ class RobotContainer {
   ctre::phoenix6::swerve::requests::FieldCentric& DriveRequest(double maxSpeed, double maxAngular);
 
   // One chooser for all Mayhem autonomous routines.
-  mayhem::AutoChooser m_mayhemAutoChooser;
+  AutoChooser m_mayhemAutoChooser;
 
  public:
   MappedXboxController m_driverController{constants::controller::kDriverControllerPort, "Driver"};

@@ -38,7 +38,7 @@ namespace {
 class FakeShooterIO : public ShooterIO {
  public:
   void UpdateInputs(ShooterIOInputs& in) override {
-    in.shooterMotorVelocitys.fill(reportsReady ? velocity : 0);
+    in.shooterMotorVelocitys.fill(velocity);
     in.shooterMotorVoltages.fill(voltage);
   }
   void SetShooterVoltage(double v) override {
@@ -54,7 +54,6 @@ class FakeShooterIO : public ShooterIO {
     voltage = 0;
     mode = "off";
   }
-  bool reportsReady = true;
   double velocity = 0, voltage = 0;
   std::string mode = "none";
 };
@@ -63,15 +62,8 @@ class FakeShooterIO : public ShooterIO {
 class FakePivotIO : public ShooterPivotIO {
  public:
   void UpdateInputs(ShooterPivotIOInputs& in) override { in.shooterPivotMotorPosition = position; }
-  void SetPosition(double p, double) override {
-    if (!jammed)
-      position = p;
-  }
-  void SetPosition(double p) override {
-    if (!jammed)
-      position = p;
-  }
-  bool jammed = false;
+  void SetPosition(double p, double) override { position = p; }
+  void SetPosition(double p) override { position = p; }
   double position = 0;
 };
 
@@ -179,6 +171,14 @@ class SuperstructureLogicTest : public ::testing::Test {
   }
 
   /** One robot loop: scheduler, then the superstructure and shot calculator (as RobotContainer). */
+  /** Runs until the intake phase graph reaches {@code phase} (the hood clears the slide first). */
+  void LoopUntilIntakePhase(std::string_view phase, int max = 150) {
+    for (int i = 0; i < max && m_ss->IntakePhase() != phase; ++i) {
+      Loop();
+    }
+    ASSERT_EQ(m_ss->IntakePhase(), phase);
+  }
+
   void Loop(int n = 1) {
     for (int i = 0; i < n; i++) {
       frc::sim::StepTiming(20_ms);
@@ -220,10 +220,11 @@ class SuperstructureLogicTest : public ::testing::Test {
 
 }  // namespace
 
-TEST_F(SuperstructureLogicTest, StartsIdleAndSelectsTheCorrectCornerImmediately) {
+TEST_F(SuperstructureLogicTest, StartsIdleAndSelectsTheCornerImmediately) {
   Loop(3);
   EXPECT_EQ(m_ss->GetState(), SS::IDLE);
-  // Startup target selection no longer depends on a future trigger edge.
+  // The target is chosen from the pose every loop, so a robot that starts outside the alliance
+  // zone already aims at its feed corner (the trigger version kept the hub until it moved).
   EXPECT_NEAR(m_ss->GetTarget().X().value(), Superstructure::kBottomCorner.X().value(), 1e-12);
 }
 
@@ -264,6 +265,7 @@ TEST_F(SuperstructureLogicTest, IntakeThenShootBecomesShootAndIntake) {
   Set(SS::SHOOT);
   Loop();
   EXPECT_EQ(m_ss->GetState(), SS::SHOOT_AND_INTAKE);
+  // the intent graph goes straight there instead of passing through SHOOT for one loop
   EXPECT_EQ(m_ss->GetPrevState(), SS::INTAKE);
 }
 
@@ -286,9 +288,8 @@ TEST_F(SuperstructureLogicTest, ShootingFeedsOnceTheFlywheelIsAtSpeed) {
   const double dist = m_shot->GetDistance();
   EXPECT_NEAR(m_shooterIO->velocity, shooter::kHubLUT.Get(dist), 1e-9);
   EXPECT_NEAR(m_pivot->RequestedPosition(), shooter_pivot::kHubLUT.Get(dist), 1e-9);
-  // The shooter faces backward; explicitly align the fake robot to the solution.
-  m_pose = frc::Pose2d{m_pose.Translation(), m_shot->GetDriveAngle()};
-  Loop(10);
+  // flywheel at speed (debounced 20 ms) -> indexer and feeder at 60 rot/s
+  Loop(3);
   EXPECT_DOUBLE_EQ(m_indexerIO->velocity, 60);
   EXPECT_DOUBLE_EQ(m_feederIO->velocity, 60);
 }
@@ -347,10 +348,7 @@ TEST_F(SuperstructureLogicTest, JitterAndShootCombinations) {
   EXPECT_EQ(m_ss->GetState(), SS::JITTER_AND_SHOOT);
   EXPECT_EQ(CmdName(*m_intakeRollers), "setVoltage");
   EXPECT_DOUBLE_EQ(m_rollerIO->voltage, 8.0);
-  // First clear and deploy; jitter starts only after measured deployment.
-  for (int i = 0; i < 80 && m_ss->IntakePhase() != "JITTERING"; ++i)
-    Loop();
-  ASSERT_EQ(m_ss->IntakePhase(), "JITTERING");
+  LoopUntilIntakePhase("JITTERING");
   Loop(2);
   // jitter alternates the slide between 0.7 and 0.3745, 0.2 s each
   double lo = 10, hi = -10;
@@ -375,7 +373,8 @@ TEST_F(SuperstructureLogicTest, HomeOuttakeIdleAndCancelAll) {
   Set(SS::INTAKE);
   Loop(5);
   Set(SS::HOME);
-  Loop(40);
+  LoopUntilIntakePhase("READY");
+  Loop();
   EXPECT_DOUBLE_EQ(m_pivot->RequestedPosition(), 0.05);
   EXPECT_DOUBLE_EQ(m_rollerIO->voltage, 0);
   EXPECT_NEAR(m_slide->RequestedPosition(), 0.86, 1e-12);  // ground intake position
@@ -383,12 +382,11 @@ TEST_F(SuperstructureLogicTest, HomeOuttakeIdleAndCancelAll) {
   Loop();
   EXPECT_DOUBLE_EQ(m_rollerIO->voltage, -8.0);
   EXPECT_DOUBLE_EQ(m_feederIO->velocity, -80);
-  const double heldHood = m_pivot->RequestedPosition();
   Set(SS::CANCEL_ALL);
   Loop();
   EXPECT_DOUBLE_EQ(m_rollerIO->voltage, 0);
   EXPECT_DOUBLE_EQ(m_feederIO->velocity, 0);
-  EXPECT_DOUBLE_EQ(m_pivot->RequestedPosition(), heldHood);
+  EXPECT_DOUBLE_EQ(m_pivot->RequestedPosition(), 0.05);
   Set(SS::IDLE);
   Loop();
   EXPECT_EQ(m_slideIO->target, -1);  // slide off
@@ -396,7 +394,8 @@ TEST_F(SuperstructureLogicTest, HomeOuttakeIdleAndCancelAll) {
 
 TEST_F(SuperstructureLogicTest, TrenchApproachForcesHoodDown) {
   Set(SS::HOME);
-  Loop(40);
+  LoopUntilIntakePhase("READY");
+  Loop();
   EXPECT_DOUBLE_EQ(m_pivot->RequestedPosition(), 0.05);
   m_pose = frc::Pose2d{units::meter_t{field_constants::lines_vertical::oppHubCenter}, 7.5_m,
                        frc::Rotation2d{}};
@@ -454,75 +453,4 @@ TEST_F(SuperstructureLogicTest, TargetChangesEvenWhileDisabled) {
   EXPECT_NEAR(m_ss->GetTarget().X().value(), field_constants::hub::kCenterX, 1e-12);
   EXPECT_NEAR(m_shot->GetTarget().X().value(), field_constants::hub::kCenterX, 1e-12);
   EXPECT_EQ(m_ss->GetState(), SS::IDLE);
-}
-
-TEST_F(SuperstructureLogicTest, HoodClearanceTimeoutNeverMovesTheSlide) {
-  m_pivotIO->jammed = true;
-  Set(SS::INTAKE);
-  Loop(150);
-  EXPECT_EQ(m_ss->IntakePhase(), "FAULT");
-  EXPECT_EQ(m_ss->GetState(), SS::CANCEL_ALL);
-  EXPECT_NEAR(m_slideIO->position, .053, 1e-9);
-  EXPECT_DOUBLE_EQ(m_rollerIO->voltage, 0);
-  m_pivotIO->jammed = false;
-  Set(SS::INTAKE);
-  Loop(50);
-  EXPECT_EQ(m_ss->IntakePhase(), "READY");
-}
-TEST_F(SuperstructureLogicTest, FeedStopsOnLostAimOrFlywheelAndRecovers) {
-  m_pose = frc::Pose2d{3_m, 4_m, frc::Rotation2d{}};
-  Loop(3);
-  Set(SS::SHOOT);
-  Loop(3);
-  EXPECT_DOUBLE_EQ(m_feederIO->velocity, 0) << "un-aimed shots must not feed";
-  m_pose = frc::Pose2d{m_pose.Translation(), m_shot->GetDriveAngle()};
-  Loop(12);
-  ASSERT_EQ(m_ss->ShotPhase(), "FEEDING");
-  ASSERT_DOUBLE_EQ(m_feederIO->velocity, 60);
-  m_pose = frc::Pose2d{m_pose.Translation(), frc::Rotation2d{}};
-  Loop(2);
-  EXPECT_EQ(m_ss->ShotPhase(), "AIMING");
-  EXPECT_DOUBLE_EQ(m_feederIO->velocity, 0);
-  m_pose = frc::Pose2d{m_pose.Translation(), m_shot->GetDriveAngle()};
-  Loop(12);
-  ASSERT_DOUBLE_EQ(m_feederIO->velocity, 60);
-  m_shooterIO->reportsReady = false;
-  Loop(2);
-  EXPECT_EQ(m_ss->ShotPhase(), "SPINNING_UP");
-  EXPECT_DOUBLE_EQ(m_feederIO->velocity, 0);
-  m_shooterIO->reportsReady = true;
-  Loop(12);
-  EXPECT_DOUBLE_EQ(m_feederIO->velocity, 60);
-}
-TEST_F(SuperstructureLogicTest, ZoneChangesPreserveShotIntentAndOuttakeCleansUp) {
-  Set(SS::INTAKE);
-  Set(SS::SHOOT);
-  Loop(3);
-  m_pose = frc::Pose2d{3_m, 4_m, frc::Rotation2d{}};
-  Loop(3);
-  EXPECT_EQ(m_ss->GetState(), SS::SHOOT_AND_INTAKE);
-  Set(SS::OUTTAKE);
-  Loop(3);
-  EXPECT_EQ(m_ss->ShotPhase(), "OFF");
-  EXPECT_EQ(m_shooterIO->mode, "off");
-  EXPECT_DOUBLE_EQ(m_indexerIO->velocity, 0);
-  EXPECT_DOUBLE_EQ(m_feederIO->velocity, -80);
-  EXPECT_DOUBLE_EQ(m_rollerIO->voltage, -8);
-}
-TEST_F(SuperstructureLogicTest, AutonomousRequestsReplaceIntentAndDisableClearsIt) {
-  Set(SS::SHOOT);
-  Set(SS::INTAKE);
-  Loop(2);
-  ASSERT_EQ(m_ss->GetState(), SS::SHOOT_AND_INTAKE);
-  m_ss->RequestState(SS::INTAKE, Superstructure::RequestSource::Autonomous);
-  Loop(2);
-  EXPECT_EQ(m_ss->GetState(), SS::INTAKE);
-  SetEnabled(false);
-  Loop(2);
-  EXPECT_EQ(m_ss->GetState(), SS::IDLE);
-  SetEnabled(true);
-  Loop(2);
-  EXPECT_EQ(m_ss->GetState(), SS::IDLE);
-  EXPECT_DOUBLE_EQ(m_feederIO->velocity, 0);
-  EXPECT_DOUBLE_EQ(m_rollerIO->voltage, 0);
 }

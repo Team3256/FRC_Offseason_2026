@@ -111,19 +111,23 @@ class SuiteCommand final : public frc2::CommandHelper<frc2::Command, SuiteComman
       return;
     dtLog_.Set(dt);
     const auto p = Pose();
-    auto out = runner_->Tick(p, Velocity(), dt);
+    // A single slow loop (first enabled loop, log flush) must not fail the whole routine.
+    const auto out = runner_->Tick(p, Velocity(), std::min(dt, kMaxDt));
     if (runner_->Status() == mayhem::RunStatus::Running && aligning_) {
-      const double error = mayhem::Wrap(shots_.GetDriveAngle().Radians().value() - p.heading);
-      out = {0, 0, std::clamp(4.0 * error, -6.0, 6.0)};
-      if (std::abs(error) <= 3.0 * std::numbers::pi / 180.0 && !shotRequested_) {
+      // Same as the original AlignAndShoot: the drivetrain's heading controller turns to the
+      // lookahead shot, and SHOOT is requested once within 3 degrees.
+      align_.get()->Execute();
+      if (!shotRequested_ &&
+          ShotCalculator::IsAimed(drive_.State().Pose.Rotation(), shots_.GetDriveAngle(),
+                                  3.0 * std::numbers::pi / 180.0)) {
         ss_.RequestState(Superstructure::StructureState::SHOOT,
                          Superstructure::RequestSource::Autonomous);
         shotRequested_ = true;
       }
-      readySeen_ = readySeen_ || ss_.IsReadyToShoot();
       aimedLog_.Set(shotRequested_);
+    } else {
+      Output(out);
     }
-    Output(out);
     const auto status = runner_->Status();
     if (status == mayhem::RunStatus::Failed && !failureHandled_) {
       failureHandled_ = true;
@@ -153,6 +157,8 @@ class SuiteCommand final : public frc2::CommandHelper<frc2::Command, SuiteComman
   void End(bool interrupted) override {
     if (runner_)
       runner_->Cancel();
+    if (aligning_)
+      align_.get()->End(true);
     aligning_ = false;
     Output({});
     if (interrupted)
@@ -181,9 +187,7 @@ class SuiteCommand final : public frc2::CommandHelper<frc2::Command, SuiteComman
   }
   void BeginAction(std::string_view action) override {
     if (action == "drivetrain.alignAndShoot") {
-      ss_.RequestState(Superstructure::StructureState::REV,
-                       Superstructure::RequestSource::Autonomous);
-      readySeen_ = false;
+      align_.get()->Initialize();
       aligning_ = true;
       shotRequested_ = false;
       actionStart_ = frc::Timer::GetFPGATimestamp().value();
@@ -201,11 +205,9 @@ class SuiteCommand final : public frc2::CommandHelper<frc2::Command, SuiteComman
   }
   mayhem::ActionStatus TickAction(std::string_view action) override {
     if (action == "drivetrain.alignAndShoot") {
-      // Preserve the original 3.5-second aiming/shooting window; readiness does
-      // not shorten it. If not aimed, no SHOOT request is issued.
-      return frc::Timer::GetFPGATimestamp().value() - actionStart_ >= 3.5
-                 ? (shotRequested_ && readySeen_ ? mayhem::ActionStatus::Succeeded
-                                                 : mayhem::ActionStatus::Failed)
+      // The original 3.5 s aim-and-shoot window; the routine always continues afterwards.
+      return frc::Timer::GetFPGATimestamp().value() - actionStart_ >= kShootWindowSeconds
+                 ? mayhem::ActionStatus::Succeeded
                  : mayhem::ActionStatus::Running;
     }
     constexpr std::string_view prefix = "superstructure.setState.";
@@ -216,9 +218,11 @@ class SuiteCommand final : public frc2::CommandHelper<frc2::Command, SuiteComman
           return mayhem::ActionStatus::Succeeded;
     return mayhem::ActionStatus::Failed;
   }
-  void EndAction(std::string_view action, bool) override {
-    if (action == "drivetrain.alignAndShoot")
+  void EndAction(std::string_view action, bool interrupted) override {
+    if (action == "drivetrain.alignAndShoot" && aligning_) {
+      align_.get()->End(interrupted);
       aligning_ = false;
+    }
   }
   void PathEvent(std::string_view action) override { BeginAction(action); }
   void StateEntered(std::string_view id) override {
@@ -246,7 +250,11 @@ class SuiteCommand final : public frc2::CommandHelper<frc2::Command, SuiteComman
   std::unique_ptr<mayhem::AutoRunner> runner_;
   MayhemObserver observer_{"Autonomous"};
   double last_ = 0, actionStart_ = 0;
-  bool aligning_ = false, shotRequested_ = false, failureHandled_ = false, readySeen_ = false;
+  static constexpr double kMaxDt = 0.1;
+  static constexpr double kShootWindowSeconds = 3.5;
+  frc2::CommandPtr align_ = drive_.RotateToLookahead(
+      shots_, [] { return 0.0; }, [] { return 0.0; });
+  bool aligning_ = false, shotRequested_ = false, failureHandled_ = false;
   logging::Output<std::string> statusLog_{"Mayhem/Auto/Status"}, nameLog_{"Mayhem/Auto/Name"};
   logging::Output<double> dtLog_{"Mayhem/Auto/DeltaSeconds"};
   logging::Output<bool> aimedLog_{"Mayhem/Auto/ShotAimAcquired"};

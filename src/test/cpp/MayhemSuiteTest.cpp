@@ -55,21 +55,21 @@ TEST(MayhemSuiteTest, SupervisorPrioritizesIntentAndPreservesShootingAcrossZones
   tick();
   EXPECT_EQ(h.state, "CANCEL_ALL");
 }
-TEST(MayhemSuiteTest, IntakeGraphRequiresClearanceAndDeploymentAndFaultsOnTimeout) {
+TEST(MayhemSuiteTest, IntakeGraphClearsTheHoodBeforeTheSlideMoves) {
   Hooks h;
-  h.inputs = {{"enabled", true},      {"deploy", true},     {"jitterDemand", false},
-              {"slideBetween", true}, {"hoodClear", false}, {"slideDeployed", false},
-              {"stateTime", 0.0}};
+  h.inputs = {{"enabled", true},
+              {"deploy", true},
+              {"jitterDemand", false},
+              {"hoodClear", false},
+              {"slideDeployed", false}};
   mayhem::AutoRunner machine(robot_mayhem::IntakeSequence::routine, h);
   machine.Start();
   auto tick = [&] { machine.Tick({}, {}, .02); };
   tick();
   EXPECT_EQ(h.state, "CLEARING_HOOD");
   tick();
-  EXPECT_EQ(h.state, "CLEARING_HOOD");
+  EXPECT_EQ(h.state, "CLEARING_HOOD") << "the slide waits for the hood";
   h.inputs["hoodClear"] = true;
-  tick();
-  EXPECT_EQ(h.state, "DEPLOYING");
   tick();
   EXPECT_EQ(h.state, "DEPLOYING");
   h.inputs["slideDeployed"] = true;
@@ -81,37 +81,30 @@ TEST(MayhemSuiteTest, IntakeGraphRequiresClearanceAndDeploymentAndFaultsOnTimeou
   h.inputs["deploy"] = false;
   tick();
   EXPECT_EQ(h.state, "PARKED");
+  // Jitter from parked starts as soon as the hood is clear; it does not deploy first.
   h.inputs["deploy"] = true;
   h.inputs["hoodClear"] = false;
-  h.inputs["stateTime"] = 0.0;
   tick();
-  h.inputs["stateTime"] = 2.6;
+  EXPECT_EQ(h.state, "CLEARING_HOOD");
+  h.inputs["hoodClear"] = true;
   tick();
-  EXPECT_EQ(h.state, "FAULT");
+  EXPECT_EQ(h.state, "JITTERING");
 }
-TEST(MayhemSuiteTest, ShotGraphExposesPreparationAimFeedAndInterlockRecovery) {
+TEST(MayhemSuiteTest, ShotGraphFeedsOnceAtSpeedAndPausesUnderTheTrench) {
   Hooks h;
-  h.inputs = {{"enabled", true},     {"shotDemand", true}, {"flywheelReady", false},
-              {"pivotReady", false}, {"slideClear", true}, {"ready", false},
-              {"aimed", false},      {"trench", false},    {"poseValid", true},
-              {"stateTime", 0.0}};
+  h.inputs = {{"enabled", true}, {"shotDemand", true}, {"flywheelReady", false}, {"trench", false}};
   mayhem::AutoRunner machine(robot_mayhem::ShotCycle::routine, h);
   machine.Start();
   auto tick = [&] { machine.Tick({}, {}, .02); };
   tick();
   EXPECT_EQ(h.state, "SPINNING_UP");
   h.inputs["flywheelReady"] = true;
-  h.inputs["pivotReady"] = true;
-  tick();
-  EXPECT_EQ(h.state, "AIMING");
-  h.inputs["aimed"] = true;
-  h.inputs["ready"] = true;
   tick();
   EXPECT_EQ(h.state, "FEEDING");
-  h.inputs["aimed"] = false;
-  h.inputs["ready"] = false;
+  // the speed dip as a piece goes through does not stop the feed
+  h.inputs["flywheelReady"] = false;
   tick();
-  EXPECT_EQ(h.state, "AIMING");
+  EXPECT_EQ(h.state, "FEEDING");
   h.inputs["trench"] = true;
   tick();
   EXPECT_EQ(h.state, "INHIBITED");

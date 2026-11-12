@@ -112,7 +112,7 @@ void Robot::RobotPeriodic() {
   alertInputs.driverControllerConnected =
       frc::DriverStation::IsJoystickConnected(constants::controller::kDriverControllerPort);
   alertInputs.autoSelected =
-      m_container->GetAutoChooser().Selected() != mayhem::AutoChooser::kNoneName;
+      m_container->GetAutoChooser().Selected() != AutoChooser::kNoneName;
   m_alerts.Update(alertInputs);
 
   m_lastLoopTimeMs = static_cast<double>(frc::RobotController::GetFPGATime() - startUs) / 1000.0;
