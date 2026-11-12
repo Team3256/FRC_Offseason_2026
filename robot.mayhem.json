@@ -1,7 +1,7 @@
 {
   "format": "mayhem-suite",
   "version": 1,
-  "revision": 9,
+  "revision": 11,
   "id": "team3256-offseason-2026",
   "name": "3256 Offseason 2026",
   "field": {
@@ -19,10 +19,10 @@
       "heading": -1.5781595858076165
     },
     "constraints": {
-      "maxVelocity": 4.8,
-      "maxAcceleration": 6.48,
-      "maxAngularVelocity": 8,
-      "maxAngularAcceleration": 14,
+      "maxVelocity": 4.51,
+      "maxAcceleration": 8.34,
+      "maxAngularVelocity": 7.28,
+      "maxAngularAcceleration": 14.1,
       "translationKp": 5,
       "rotationKp": 4
     }
@@ -979,11 +979,11 @@
       ],
       "stateChannel": "/Mayhem/States/Autonomous/state",
       "constraints": {
-        "maxVelocity": 4.8,
-        "maxAcceleration": 6.48,
-        "maxAngularVelocity": 8,
-        "maxAngularAcceleration": 14,
-        "translationKp": 3.5
+        "maxVelocity": 4.51,
+        "maxAcceleration": 8.34,
+        "maxAngularVelocity": 7.28,
+        "maxAngularAcceleration": 14.1,
+        "translationKp": 4.5
       },
       "extensions": {
         "drivingTimeBudget": 6,
@@ -1072,7 +1072,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 0.81 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 4.6,
+            "maxVelocity": 4.51,
             "handoffRadius": 0.3
           }
         },
@@ -1620,11 +1620,11 @@
       ],
       "stateChannel": "/Mayhem/States/Autonomous/state",
       "constraints": {
-        "maxVelocity": 4.8,
-        "maxAcceleration": 6.48,
-        "maxAngularVelocity": 8,
-        "maxAngularAcceleration": 14,
-        "translationKp": 3.5
+        "maxVelocity": 4.51,
+        "maxAcceleration": 8.34,
+        "maxAngularVelocity": 7.28,
+        "maxAngularAcceleration": 14.1,
+        "translationKp": 4.5
       },
       "extensions": {
         "drivingTimeBudget": 6,
@@ -1712,7 +1712,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 0.81 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 4.6,
+            "maxVelocity": 4.51,
             "handoffRadius": 0.3
           }
         },
@@ -2993,11 +2993,11 @@
       ],
       "stateChannel": "/Mayhem/States/Autonomous/state",
       "constraints": {
-        "maxVelocity": 4.8,
-        "maxAcceleration": 6.48,
-        "maxAngularVelocity": 8,
-        "maxAngularAcceleration": 14,
-        "translationKp": 3.5
+        "maxVelocity": 4.51,
+        "maxAcceleration": 8.34,
+        "maxAngularVelocity": 7.28,
+        "maxAngularAcceleration": 14.1,
+        "translationKp": 4.5
       },
       "extensions": {
         "drivingTimeBudget": 6,
@@ -3086,7 +3086,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 0.78 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 4.66,
+            "maxVelocity": 4.51,
             "handoffRadius": 0.3
           }
         },
@@ -3117,7 +3117,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 0.94 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 4.53,
+            "maxVelocity": 4.51,
             "handoffRadius": 0.3
           }
         },
@@ -3429,7 +3429,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 4.09 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 4.67,
+            "maxVelocity": 4.51,
             "handoffRadius": 0.3
           }
         },
@@ -3453,7 +3453,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 4.25 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 4.69,
+            "maxVelocity": 4.51,
             "handoffRadius": 0.3
           }
         },
@@ -3730,11 +3730,11 @@
       ],
       "stateChannel": "/Mayhem/States/Autonomous/state",
       "constraints": {
-        "maxVelocity": 4.8,
-        "maxAcceleration": 6.48,
-        "maxAngularVelocity": 8,
-        "maxAngularAcceleration": 14,
-        "translationKp": 3.5
+        "maxVelocity": 4.51,
+        "maxAcceleration": 8.34,
+        "maxAngularVelocity": 7.28,
+        "maxAngularAcceleration": 14.1,
+        "translationKp": 4.5
       },
       "extensions": {
         "drivingTimeBudget": 6,
@@ -3822,7 +3822,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 0.78 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 4.66,
+            "maxVelocity": 4.51,
             "handoffRadius": 0.3
           }
         },
@@ -3853,7 +3853,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 0.94 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 4.53,
+            "maxVelocity": 4.51,
             "handoffRadius": 0.3
           }
         },
@@ -4165,7 +4165,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 4.09 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 4.67,
+            "maxVelocity": 4.51,
             "handoffRadius": 0.3
           }
         },
@@ -4189,7 +4189,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 4.25 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 4.69,
+            "maxVelocity": 4.51,
             "handoffRadius": 0.3
           }
         },
@@ -5199,11 +5199,11 @@
       ],
       "stateChannel": "/Mayhem/States/Autonomous/state",
       "constraints": {
-        "maxVelocity": 4.8,
-        "maxAcceleration": 6.48,
-        "maxAngularVelocity": 8,
-        "maxAngularAcceleration": 14,
-        "translationKp": 3.5
+        "maxVelocity": 4.51,
+        "maxAcceleration": 8.34,
+        "maxAngularVelocity": 7.28,
+        "maxAngularAcceleration": 14.1,
+        "translationKp": 4.5
       },
       "extensions": {
         "drivingTimeBudget": 6,

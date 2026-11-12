@@ -34,8 +34,8 @@ struct AutoCase {
 };
 
 // Driving time allowed for each pass between shots (the old solved passes took 2.4-5.7 s; these
-// take 2.6-6.0 s).
-constexpr double kPassBudgetSeconds = 6.5;
+// take 2.5-5.9 s).
+constexpr double kPassBudgetSeconds = 6.0;
 // Median angle between the intake (robot front) and the direction of travel while intaking near
 // the centerline pickup. The old solved paths had 17-48 degrees.
 constexpr double kIntakeLeadingDegrees = 35;

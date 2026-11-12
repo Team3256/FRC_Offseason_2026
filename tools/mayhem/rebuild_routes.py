@@ -8,7 +8,8 @@ usage: routes.py <robot repo> [json overrides]
 import json, math, sys
 from pathlib import Path
 repo = Path(sys.argv[1]); P = repo / "robot.mayhem.json"
-cfg = dict(speedScale=1.0, cornerRadius=0.3, spacing=0.6, minDt=0.15, lookahead=0.2, vfloor=0.8, vmax=4.8, finalCap=3.5, translationKp=3.5, capRule="end")
+cfg = dict(speedScale=1.0, cornerRadius=0.3, spacing=0.6, minDt=0.15, lookahead=0.2, vfloor=0.8, vmax=4.8, finalCap=3.5, translationKp=4.5, capRule="end")
+cfg["vmax"] = json.loads(P.read_text())["robot"]["constraints"]["maxVelocity"]
 if len(sys.argv) > 2: cfg.update(json.loads(sys.argv[2]))
 W = lambda a: math.atan2(math.sin(a), math.cos(a))
 ROUTINES = {
