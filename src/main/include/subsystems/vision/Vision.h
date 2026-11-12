@@ -7,9 +7,9 @@
 
 #pragma once
 
+#include <algorithm>
 #include <array>
 #include <functional>
-#include <algorithm>
 #include <memory>
 #include <span>
 #include <vector>

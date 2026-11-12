@@ -111,8 +111,7 @@ void Robot::RobotPeriodic() {
   alertInputs.loopTimeMs = m_lastLoopTimeMs;
   alertInputs.driverControllerConnected =
       frc::DriverStation::IsJoystickConnected(constants::controller::kDriverControllerPort);
-  alertInputs.autoSelected =
-      m_container->GetAutoChooser().Selected() != AutoChooser::kNoneName;
+  alertInputs.autoSelected = m_container->GetAutoChooser().Selected() != AutoChooser::kNoneName;
   m_alerts.Update(alertInputs);
 
   DriverDashboard::Inputs dash;
@@ -122,8 +121,8 @@ void Robot::RobotPeriodic() {
   dash.controllerConnected = !m_alerts.DriverControllerDisconnected();
   dash.noBrownout = !m_alerts.BrownedOut();
   dash.canOk = !m_alerts.HighCanUtilization();
-  dash.devicesConnected = phoenix_util::DisconnectedDeviceCount() == 0 &&
-                          phoenix_util::ConfigFailureCount() == 0;
+  dash.devicesConnected =
+      phoenix_util::DisconnectedDeviceCount() == 0 && phoenix_util::ConfigFailureCount() == 0;
   dash.devicesCool = phoenix_util::HotDeviceCount() == 0;
   dash.camerasConnected = m_container->GetVision().AllCamerasConnected();
   dash.readyToShoot = m_container->GetSuperstructure().IsReadyToShoot();

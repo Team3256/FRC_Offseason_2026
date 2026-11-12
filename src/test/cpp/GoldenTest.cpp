@@ -7,7 +7,8 @@
 
 // Behavioural equivalence with the original Java implementation. The CSV files in
 // src/test/resources/golden were produced by tools/golden/generate.sh, which runs the ORIGINAL
-// Java code (the robot's Java TrenchAssist / ShotCalculator / FieldConstants). Each test feeds the C++ port the same inputs.
+// Java code (the robot's Java TrenchAssist / ShotCalculator / FieldConstants). Each test feeds the
+// C++ port the same inputs.
 
 #include <cmath>
 #include <string>

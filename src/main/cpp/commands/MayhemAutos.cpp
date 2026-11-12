@@ -252,8 +252,8 @@ class SuiteCommand final : public frc2::CommandHelper<frc2::Command, SuiteComman
   double last_ = 0, actionStart_ = 0;
   static constexpr double kMaxDt = 0.1;
   static constexpr double kShootWindowSeconds = 3.5;
-  frc2::CommandPtr align_ = drive_.RotateToLookahead(
-      shots_, [] { return 0.0; }, [] { return 0.0; });
+  frc2::CommandPtr align_ =
+      drive_.RotateToLookahead(shots_, [] { return 0.0; }, [] { return 0.0; });
   bool aligning_ = false, shotRequested_ = false, failureHandled_ = false;
   logging::Output<std::string> statusLog_{"Mayhem/Auto/Status"}, nameLog_{"Mayhem/Auto/Name"};
   logging::Output<double> dtLog_{"Mayhem/Auto/DeltaSeconds"};

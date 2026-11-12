@@ -11,10 +11,10 @@
 #include <functional>
 #include <string_view>
 
+#include <frc/Alert.h>
 #include <frc/Timer.h>
 #include <frc/geometry/Pose2d.h>
 #include <frc/geometry/Translation2d.h>
-#include <frc/Alert.h>
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/button/Trigger.h>
 

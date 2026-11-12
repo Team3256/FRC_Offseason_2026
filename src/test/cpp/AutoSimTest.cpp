@@ -110,9 +110,10 @@ void RunAuto(const AutoCase& c, bool red) {
     if (driving && ss.GetState() == SS::INTAKE && speed > 0.8 &&
         std::abs(pose.X().value() - field_constants::fieldLength / 2) < 1.0) {
       const double travel = std::atan2(step.Y().value(), step.X().value());
-      intakeErrors.push_back(std::abs(
-          frc::AngleModulus(units::radian_t{pose.Rotation().Radians().value() - travel}).value()) *
-                             180 / std::numbers::pi);
+      intakeErrors.push_back(
+          std::abs(frc::AngleModulus(units::radian_t{pose.Rotation().Radians().value() - travel})
+                       .value()) *
+          180 / std::numbers::pi);
     }
     lastPose = pose;
     minY = std::min(minY, pose.Y().value());
@@ -178,7 +179,7 @@ void RunAuto(const AutoCase& c, bool red) {
 }
 
 const std::vector<AutoCase> kAutos = {
-    {"Depot Trench Sweep Depot", 2}, {"Outpost Trench Sweep", 1}, {"Outpost Trench Sweep x2", 2},
+    {"Depot Trench Sweep Depot", 2}, {"Outpost Trench Sweep", 1},  {"Outpost Trench Sweep x2", 2},
     {"Depot Trench Sweep", 1},       {"Depot Trench Sweep x2", 2},
 };
 

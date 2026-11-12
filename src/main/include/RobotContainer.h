@@ -17,8 +17,8 @@
 
 #include "Constants.h"
 #include "Telemetry.h"
-#include "commands/MayhemAutos.h"
 #include "commands/AutoChooser.h"
+#include "commands/MayhemAutos.h"
 #include "subsystems/Superstructure.h"
 #include "subsystems/feeder/Feeder.h"
 #include "subsystems/indexer/Indexer.h"
