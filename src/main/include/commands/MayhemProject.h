@@ -21,57 +21,113 @@ inline bool guard_11([[maybe_unused]] const mayhem::RobotHooks& h) { return (std
 inline bool guard_12([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
 inline bool guard_13([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
 inline bool guard_14([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
-inline constexpr std::array<mayhem::PathMarker,2> markers_0 = {{{mayhem::MarkerKind::Rotation,0.33,-1.5781074240716904,"",true},{mayhem::MarkerKind::Rotation,0.67,-1.5780865891188316,"",true}}};
+inline bool guard_15([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_16([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_17([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_18([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_19([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_20([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_21([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_22([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_23([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_24([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_25([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_26([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_27([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_28([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline constexpr std::array<mayhem::PathMarker,0> markers_0 = {{}};
 inline constexpr std::array<std::string_view,0> during_0 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_1 = {{{mayhem::MarkerKind::Rotation,0.33,-1.5780604250039518,"",true},{mayhem::MarkerKind::Rotation,0.67,-1.57804986613397,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_1 = {{}};
 inline constexpr std::array<std::string_view,0> during_1 = {};
-inline constexpr std::array<mayhem::PathMarker,3> markers_2 = {{{mayhem::MarkerKind::Event,0.0,0.0,"superstructure.setState.INTAKE",true},{mayhem::MarkerKind::Rotation,0.33,-1.5764880714668408,"",true},{mayhem::MarkerKind::Rotation,0.67,-1.5731174014112428,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_2 = {{}};
 inline constexpr std::array<std::string_view,0> during_2 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_3 = {{{mayhem::MarkerKind::Rotation,0.33,-1.5700316396706187,"",true},{mayhem::MarkerKind::Rotation,0.67,-1.5704664241644823,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,1> markers_3 = {{{mayhem::MarkerKind::Event,0.628,0.0,"superstructure.setState.INTAKE",true}}};
 inline constexpr std::array<std::string_view,0> during_3 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_4 = {{{mayhem::MarkerKind::Rotation,0.33,-1.5714630358009047,"",true},{mayhem::MarkerKind::Rotation,0.67,-1.571498621533553,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_4 = {{}};
 inline constexpr std::array<std::string_view,0> during_4 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_5 = {{{mayhem::MarkerKind::Rotation,0.33,-1.9128677012484776,"",true},{mayhem::MarkerKind::Rotation,0.67,-2.9995468652257564,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_5 = {{}};
 inline constexpr std::array<std::string_view,0> during_5 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_6 = {{{mayhem::MarkerKind::Rotation,0.33,1.7966385300559449,"",true},{mayhem::MarkerKind::Rotation,0.67,2.666320857857695,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_6 = {{}};
 inline constexpr std::array<std::string_view,0> during_6 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_7 = {{{mayhem::MarkerKind::Rotation,0.33,3.141227219966643,"",true},{mayhem::MarkerKind::Rotation,0.67,-3.1413268797702583,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_7 = {{}};
 inline constexpr std::array<std::string_view,0> during_7 = {};
-inline constexpr std::array<mayhem::PathMarker,3> markers_8 = {{{mayhem::MarkerKind::Rotation,0.33,-3.1383851235941482,"",true},{mayhem::MarkerKind::Rotation,0.67,-3.134615817894698,"",true},{mayhem::MarkerKind::Event,1.0,0.0,"superstructure.setState.IDLE",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_8 = {{}};
 inline constexpr std::array<std::string_view,0> during_8 = {};
 inline constexpr std::array<mayhem::PathMarker,0> markers_9 = {{}};
 inline constexpr std::array<std::string_view,0> during_9 = {};
-inline constexpr std::array<mayhem::PathMarker,3> markers_10 = {{{mayhem::MarkerKind::Event,0.0,0.0,"superstructure.setState.INTAKE",true},{mayhem::MarkerKind::Rotation,0.33,2.5987762286220235,"",true},{mayhem::MarkerKind::Rotation,0.67,2.9154487826756466,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_10 = {{}};
 inline constexpr std::array<std::string_view,0> during_10 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_11 = {{{mayhem::MarkerKind::Rotation,0.33,-3.1345416772077015,"",true},{mayhem::MarkerKind::Rotation,0.67,-3.134584745513679,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_11 = {{}};
 inline constexpr std::array<std::string_view,0> during_11 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_12 = {{{mayhem::MarkerKind::Rotation,0.33,-3.1348419011638855,"",true},{mayhem::MarkerKind::Rotation,0.67,-3.133885265888298,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_12 = {{}};
 inline constexpr std::array<std::string_view,0> during_12 = {};
-inline constexpr std::array<mayhem::PathMarker,3> markers_13 = {{{mayhem::MarkerKind::Rotation,0.33,-3.1297573240716763,"",true},{mayhem::MarkerKind::Rotation,0.67,-3.1279560359974643,"",true},{mayhem::MarkerKind::Event,1.0,0.0,"superstructure.setState.IDLE",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_13 = {{}};
 inline constexpr std::array<std::string_view,0> during_13 = {};
 inline constexpr std::array<mayhem::PathMarker,0> markers_14 = {{}};
 inline constexpr std::array<std::string_view,0> during_14 = {};
 inline constexpr std::array<mayhem::PathMarker,0> markers_15 = {{}};
 inline constexpr std::array<std::string_view,0> during_15 = {};
-inline constexpr std::array<mayhem::AutoNode,16> nodes = {{
-{"depot-sweep-depot-pass1-p1",mayhem::NodeKind::Pose,{{5.917369365692139,7.451943397521973,-1.5780683973681608},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_0.data(),markers_0.size()},5.0,"",{4.35,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_0.data(),during_0.size(),1,true},
-{"depot-sweep-depot-pass1-p2",mayhem::NodeKind::Pose,{{6.746590614318848,7.468600749969482,-1.5780407438110844},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_1.data(),markers_1.size()},5.0,"",{4.52,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_1.data(),during_1.size(),2,true},
-{"depot-sweep-depot-pass1-p3",mayhem::NodeKind::Pose,{{7.961645126342773,7.152379512786865,-1.5707963267948966},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_2.data(),markers_2.size()},5.0,"",{3.89,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_2.data(),during_2.size(),3,true},
-{"depot-sweep-depot-pass1-p4",mayhem::NodeKind::Pose,{{8.267547607421875,5.51769495010376,-1.5710859903049725},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_3.data(),markers_3.size()},5.0,"",{4.34,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_3.data(),during_3.size(),4,true},
-{"depot-sweep-depot-pass1-p5",mayhem::NodeKind::Pose,{{8.008646488189697,4.230517387390137,-1.5707963267948966},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_4.data(),markers_4.size()},5.0,"",{4.4,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_4.data(),during_4.size(),5,true},
-{"depot-sweep-depot-pass1-p6",mayhem::NodeKind::Pose,{{6.837206840515137,3.8443679809570312,1.721646509618392},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_5.data(),markers_5.size()},5.0,"",{2.97,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_5.data(),during_5.size(),6,true},
-{"depot-sweep-depot-pass1-p7",mayhem::NodeKind::Pose,{{5.907866954803467,5.774714469909668,-3.141592653589793},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_6.data(),markers_6.size()},5.0,"",{3.29,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_6.data(),during_6.size(),7,true},
-{"depot-sweep-depot-pass1-p8",mayhem::NodeKind::Pose,{{3.718986988067627,5.7749505043029785,-3.1403949799422173},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_7.data(),markers_7.size()},5.0,"",{4.66,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_7.data(),during_7.size(),8,true},
-{"depot-sweep-depot-pass1-p9",mayhem::NodeKind::Pose,{{2.3732357025146484,5.920820236206055,-3.1293769255222594},0.1,0.08,0.3,0.04,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,true,false,true,markers_8.data(),markers_8.size()},5.0,"",{4.18,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_8.data(),during_8.size(),9,false},
-{"align-shoot-0",mayhem::NodeKind::Custom,{},4.0,"drivetrain.alignAndShoot",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_9.data(),during_9.size(),10,false},
-{"depot-sweep-depot-pass2-p1",mayhem::NodeKind::Pose,{{1.553783893585205,5.939030170440674,-3.134606656540777},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_10.data(),markers_10.size()},5.0,"",{2.13,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_10.data(),during_10.size(),11,true},
-{"depot-sweep-depot-pass2-p2",mayhem::NodeKind::Pose,{{0.822157621383667,5.953590393066406,-3.1345794393924082},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_11.data(),markers_11.size()},5.0,"",{1.0,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_11.data(),during_11.size(),12,true},
-{"depot-sweep-depot-pass2-p3",mayhem::NodeKind::Pose,{{1.8086225986480713,5.944235324859619,-3.1321264819099772},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_12.data(),markers_12.size()},5.0,"",{2.5,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_12.data(),during_12.size(),13,true},
-{"depot-sweep-depot-pass2-p4",mayhem::NodeKind::Pose,{{2.446075916290283,5.392728805541992,-3.1261339787892517},0.1,0.08,0.3,0.04,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,true,false,true,markers_13.data(),markers_13.size()},5.0,"",{2.97,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_13.data(),during_13.size(),14,false},
-{"align-shoot-1",mayhem::NodeKind::Custom,{},4.0,"drivetrain.alignAndShoot",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_14.data(),during_14.size(),15,false},
-{"done",mayhem::NodeKind::Finish,{},1.0,"",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_15.data(),during_15.size(),-1,false},
+inline constexpr std::array<mayhem::PathMarker,0> markers_16 = {{}};
+inline constexpr std::array<std::string_view,0> during_16 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_17 = {{}};
+inline constexpr std::array<std::string_view,0> during_17 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_18 = {{}};
+inline constexpr std::array<std::string_view,0> during_18 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_19 = {{}};
+inline constexpr std::array<std::string_view,0> during_19 = {};
+inline constexpr std::array<mayhem::PathMarker,1> markers_20 = {{{mayhem::MarkerKind::Event,1.0,0.0,"superstructure.setState.IDLE",true}}};
+inline constexpr std::array<std::string_view,0> during_20 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_21 = {{}};
+inline constexpr std::array<std::string_view,0> during_21 = {};
+inline constexpr std::array<mayhem::PathMarker,1> markers_22 = {{{mayhem::MarkerKind::Event,0.0,0.0,"superstructure.setState.INTAKE",true}}};
+inline constexpr std::array<std::string_view,0> during_22 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_23 = {{}};
+inline constexpr std::array<std::string_view,0> during_23 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_24 = {{}};
+inline constexpr std::array<std::string_view,0> during_24 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_25 = {{}};
+inline constexpr std::array<std::string_view,0> during_25 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_26 = {{}};
+inline constexpr std::array<std::string_view,0> during_26 = {};
+inline constexpr std::array<mayhem::PathMarker,1> markers_27 = {{{mayhem::MarkerKind::Event,1.0,0.0,"superstructure.setState.IDLE",true}}};
+inline constexpr std::array<std::string_view,0> during_27 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_28 = {{}};
+inline constexpr std::array<std::string_view,0> during_28 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_29 = {{}};
+inline constexpr std::array<std::string_view,0> during_29 = {};
+inline constexpr std::array<mayhem::AutoNode,30> nodes = {{
+{"depot-sweep-depot-pass1-p1",mayhem::NodeKind::Pose,{{5.021,7.431,-1.5781},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_0.data(),markers_0.size()},5.0,"",{1.36,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_0.data(),during_0.size(),1,true},
+{"depot-sweep-depot-pass1-p2",mayhem::NodeKind::Pose,{{5.677,7.442,-1.5781},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_1.data(),markers_1.size()},5.0,"",{3.7,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_1.data(),during_1.size(),2,true},
+{"depot-sweep-depot-pass1-p3",mayhem::NodeKind::Pose,{{6.346,7.474,-1.5781},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_2.data(),markers_2.size()},5.0,"",{3.44,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_2.data(),during_2.size(),3,true},
+{"depot-sweep-depot-pass1-p4",mayhem::NodeKind::Pose,{{6.961,7.453,-1.5776},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_3.data(),markers_3.size()},5.0,"",{2.89,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_3.data(),during_3.size(),4,true},
+{"depot-sweep-depot-pass1-p5",mayhem::NodeKind::Pose,{{7.574,7.298,-1.5731},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_4.data(),markers_4.size()},5.0,"",{2.62,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_4.data(),during_4.size(),5,true},
+{"depot-sweep-depot-pass1-p6",mayhem::NodeKind::Pose,{{8.035,6.907,-1.5702},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_5.data(),markers_5.size()},5.0,"",{2.62,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_5.data(),during_5.size(),6,true},
+{"depot-sweep-depot-pass1-p7",mayhem::NodeKind::Pose,{{8.254,6.279,-1.5703},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_6.data(),markers_6.size()},5.0,"",{3.0,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_6.data(),during_6.size(),7,true},
+{"depot-sweep-depot-pass1-p8",mayhem::NodeKind::Pose,{{8.274,5.639,-1.571},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_7.data(),markers_7.size()},5.0,"",{3.87,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_7.data(),during_7.size(),8,true},
+{"depot-sweep-depot-pass1-p9",mayhem::NodeKind::Pose,{{8.22,4.983,-1.5715},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_8.data(),markers_8.size()},5.0,"",{3.17,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_8.data(),during_8.size(),9,true},
+{"depot-sweep-depot-pass1-p10",mayhem::NodeKind::Pose,{{8.07,4.373,-1.571},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_9.data(),markers_9.size()},5.0,"",{2.62,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_9.data(),during_9.size(),10,true},
+{"depot-sweep-depot-pass1-p11",mayhem::NodeKind::Pose,{{7.758,3.795,-1.9129},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_10.data(),markers_10.size()},5.0,"",{1.76,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_10.data(),during_10.size(),11,true},
+{"depot-sweep-depot-pass1-p12",mayhem::NodeKind::Pose,{{7.199,3.485,2.69},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_11.data(),markers_11.size()},5.0,"",{1.5,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_11.data(),during_11.size(),12,true},
+{"depot-sweep-depot-pass1-p13",mayhem::NodeKind::Pose,{{6.837,3.844,1.7216},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_12.data(),markers_12.size()},5.0,"",{1.86,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_12.data(),during_12.size(),13,true},
+{"depot-sweep-depot-pass1-p14",mayhem::NodeKind::Pose,{{6.684,4.527,1.7966},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_13.data(),markers_13.size()},5.0,"",{2.79,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_13.data(),during_13.size(),14,true},
+{"depot-sweep-depot-pass1-p15",mayhem::NodeKind::Pose,{{6.574,5.117,2.4295},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_14.data(),markers_14.size()},5.0,"",{2.24,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_14.data(),during_14.size(),15,true},
+{"depot-sweep-depot-pass1-p16",mayhem::NodeKind::Pose,{{6.212,5.644,3.0495},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_15.data(),markers_15.size()},5.0,"",{2.13,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_15.data(),during_15.size(),16,true},
+{"depot-sweep-depot-pass1-p17",mayhem::NodeKind::Pose,{{5.908,5.775,-3.1416},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_16.data(),markers_16.size()},5.0,"",{2.24,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_16.data(),during_16.size(),17,true},
+{"depot-sweep-depot-pass1-p18",mayhem::NodeKind::Pose,{{4.924,5.778,3.1414},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_17.data(),markers_17.size()},5.0,"",{3.29,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_17.data(),during_17.size(),18,true},
+{"depot-sweep-depot-pass1-p19",mayhem::NodeKind::Pose,{{3.719,5.775,-3.1404},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_18.data(),markers_18.size()},5.0,"",{2.96,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_18.data(),during_18.size(),19,true},
+{"depot-sweep-depot-pass1-p20",mayhem::NodeKind::Pose,{{3.043,5.839,-3.1365},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_19.data(),markers_19.size()},5.0,"",{1.73,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_19.data(),during_19.size(),20,true},
+{"depot-sweep-depot-pass1-p21",mayhem::NodeKind::Pose,{{2.373,5.921,-3.1294},0.1,0.08,0.3,0.04,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,true,false,true,markers_20.data(),markers_20.size()},5.0,"",{3.0,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_20.data(),during_20.size(),21,false},
+{"align-shoot-0",mayhem::NodeKind::Custom,{},4.0,"drivetrain.alignAndShoot",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_21.data(),during_21.size(),22,false},
+{"depot-sweep-depot-pass2-p1",mayhem::NodeKind::Pose,{{1.743,5.935,3.0461},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_22.data(),markers_22.size()},5.0,"",{1.0,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_22.data(),during_22.size(),23,true},
+{"depot-sweep-depot-pass2-p2",mayhem::NodeKind::Pose,{{1.117,5.949,-3.1346},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_23.data(),markers_23.size()},5.0,"",{1.0,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_23.data(),during_23.size(),24,true},
+{"depot-sweep-depot-pass2-p3",mayhem::NodeKind::Pose,{{0.822,5.954,-3.1346},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_24.data(),markers_24.size()},5.0,"",{0.8,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_24.data(),during_24.size(),25,true},
+{"depot-sweep-depot-pass2-p4",mayhem::NodeKind::Pose,{{1.279,5.944,-3.1348},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_25.data(),markers_25.size()},5.0,"",{1.74,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_25.data(),during_25.size(),26,true},
+{"depot-sweep-depot-pass2-p5",mayhem::NodeKind::Pose,{{1.809,5.944,-3.1321},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_26.data(),markers_26.size()},5.0,"",{2.19,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_26.data(),during_26.size(),27,true},
+{"depot-sweep-depot-pass2-p6",mayhem::NodeKind::Pose,{{2.446,5.393,-3.1261},0.1,0.08,0.3,0.04,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,true,false,true,markers_27.data(),markers_27.size()},5.0,"",{3.0,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_27.data(),during_27.size(),28,false},
+{"align-shoot-1",mayhem::NodeKind::Custom,{},4.0,"drivetrain.alignAndShoot",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_28.data(),during_28.size(),29,false},
+{"done",mayhem::NodeKind::Finish,{},1.0,"",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_29.data(),during_29.size(),-1,false},
 }};
-inline constexpr std::array<mayhem::AutoTransition,15> transitions = {{
+inline constexpr std::array<mayhem::AutoTransition,29> transitions = {{
 {"depot-sweep-depot/t0","depot-sweep-depot-pass1-p1","depot-sweep-depot-pass1-p2",guard_0},
 {"depot-sweep-depot/t1","depot-sweep-depot-pass1-p2","depot-sweep-depot-pass1-p3",guard_1},
 {"depot-sweep-depot/t2","depot-sweep-depot-pass1-p3","depot-sweep-depot-pass1-p4",guard_2},
@@ -80,13 +136,27 @@ inline constexpr std::array<mayhem::AutoTransition,15> transitions = {{
 {"depot-sweep-depot/t5","depot-sweep-depot-pass1-p6","depot-sweep-depot-pass1-p7",guard_5},
 {"depot-sweep-depot/t6","depot-sweep-depot-pass1-p7","depot-sweep-depot-pass1-p8",guard_6},
 {"depot-sweep-depot/t7","depot-sweep-depot-pass1-p8","depot-sweep-depot-pass1-p9",guard_7},
-{"depot-sweep-depot/t8","depot-sweep-depot-pass1-p9","align-shoot-0",guard_8},
-{"depot-sweep-depot/t9","align-shoot-0","depot-sweep-depot-pass2-p1",guard_9},
-{"depot-sweep-depot/t10","depot-sweep-depot-pass2-p1","depot-sweep-depot-pass2-p2",guard_10},
-{"depot-sweep-depot/t11","depot-sweep-depot-pass2-p2","depot-sweep-depot-pass2-p3",guard_11},
-{"depot-sweep-depot/t12","depot-sweep-depot-pass2-p3","depot-sweep-depot-pass2-p4",guard_12},
-{"depot-sweep-depot/t13","depot-sweep-depot-pass2-p4","align-shoot-1",guard_13},
-{"depot-sweep-depot/t14","align-shoot-1","done",guard_14},
+{"depot-sweep-depot/t8","depot-sweep-depot-pass1-p9","depot-sweep-depot-pass1-p10",guard_8},
+{"depot-sweep-depot/t9","depot-sweep-depot-pass1-p10","depot-sweep-depot-pass1-p11",guard_9},
+{"depot-sweep-depot/t10","depot-sweep-depot-pass1-p11","depot-sweep-depot-pass1-p12",guard_10},
+{"depot-sweep-depot/t11","depot-sweep-depot-pass1-p12","depot-sweep-depot-pass1-p13",guard_11},
+{"depot-sweep-depot/t12","depot-sweep-depot-pass1-p13","depot-sweep-depot-pass1-p14",guard_12},
+{"depot-sweep-depot/t13","depot-sweep-depot-pass1-p14","depot-sweep-depot-pass1-p15",guard_13},
+{"depot-sweep-depot/t14","depot-sweep-depot-pass1-p15","depot-sweep-depot-pass1-p16",guard_14},
+{"depot-sweep-depot/t15","depot-sweep-depot-pass1-p16","depot-sweep-depot-pass1-p17",guard_15},
+{"depot-sweep-depot/t16","depot-sweep-depot-pass1-p17","depot-sweep-depot-pass1-p18",guard_16},
+{"depot-sweep-depot/t17","depot-sweep-depot-pass1-p18","depot-sweep-depot-pass1-p19",guard_17},
+{"depot-sweep-depot/t18","depot-sweep-depot-pass1-p19","depot-sweep-depot-pass1-p20",guard_18},
+{"depot-sweep-depot/t19","depot-sweep-depot-pass1-p20","depot-sweep-depot-pass1-p21",guard_19},
+{"depot-sweep-depot/t20","depot-sweep-depot-pass1-p21","align-shoot-0",guard_20},
+{"depot-sweep-depot/t21","align-shoot-0","depot-sweep-depot-pass2-p1",guard_21},
+{"depot-sweep-depot/t22","depot-sweep-depot-pass2-p1","depot-sweep-depot-pass2-p2",guard_22},
+{"depot-sweep-depot/t23","depot-sweep-depot-pass2-p2","depot-sweep-depot-pass2-p3",guard_23},
+{"depot-sweep-depot/t24","depot-sweep-depot-pass2-p3","depot-sweep-depot-pass2-p4",guard_24},
+{"depot-sweep-depot/t25","depot-sweep-depot-pass2-p4","depot-sweep-depot-pass2-p5",guard_25},
+{"depot-sweep-depot/t26","depot-sweep-depot-pass2-p5","depot-sweep-depot-pass2-p6",guard_26},
+{"depot-sweep-depot/t27","depot-sweep-depot-pass2-p6","align-shoot-1",guard_27},
+{"depot-sweep-depot/t28","align-shoot-1","done",guard_28},
 }};
 inline constexpr mayhem::RoutineView routine{"depot-sweep-depot","depot-sweep-depot-pass1-p1",nodes.data(),nodes.size(),transitions.data(),transitions.size()};
 }
@@ -100,39 +170,79 @@ inline bool guard_5([[maybe_unused]] const mayhem::RobotHooks& h) { return (std:
 inline bool guard_6([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
 inline bool guard_7([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
 inline bool guard_8([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
-inline constexpr std::array<mayhem::PathMarker,2> markers_0 = {{{mayhem::MarkerKind::Rotation,0.33,1.6096335483696655,"",true},{mayhem::MarkerKind::Rotation,0.67,1.6184468956884672,"",true}}};
+inline bool guard_9([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_10([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_11([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_12([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_13([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_14([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_15([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_16([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_17([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_18([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline constexpr std::array<mayhem::PathMarker,0> markers_0 = {{}};
 inline constexpr std::array<std::string_view,0> during_0 = {};
-inline constexpr std::array<mayhem::PathMarker,3> markers_1 = {{{mayhem::MarkerKind::Event,0.0,0.0,"superstructure.setState.INTAKE",true},{mayhem::MarkerKind::Rotation,0.33,1.5389577098545313,"",true},{mayhem::MarkerKind::Rotation,0.67,1.5290092632879653,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_1 = {{}};
 inline constexpr std::array<std::string_view,0> during_1 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_2 = {{{mayhem::MarkerKind::Rotation,0.33,1.7293366863723478,"",true},{mayhem::MarkerKind::Rotation,0.67,2.0129372613550727,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_2 = {{}};
 inline constexpr std::array<std::string_view,0> during_2 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_3 = {{{mayhem::MarkerKind::Rotation,0.33,2.7643310152018246,"",true},{mayhem::MarkerKind::Rotation,0.67,-3.118041948737765,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,1> markers_3 = {{{mayhem::MarkerKind::Event,0.412,0.0,"superstructure.setState.INTAKE",true}}};
 inline constexpr std::array<std::string_view,0> during_3 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_4 = {{{mayhem::MarkerKind::Rotation,0.33,-1.9443103773353327,"",true},{mayhem::MarkerKind::Rotation,0.67,-1.7716541496420481,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_4 = {{}};
 inline constexpr std::array<std::string_view,0> during_4 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_5 = {{{mayhem::MarkerKind::Rotation,0.33,-1.6340417646451615,"",true},{mayhem::MarkerKind::Rotation,0.67,-1.6116663093556973,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_5 = {{}};
 inline constexpr std::array<std::string_view,0> during_5 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_6 = {{{mayhem::MarkerKind::Rotation,0.33,-1.5750998974788681,"",true},{mayhem::MarkerKind::Rotation,0.67,-1.5725427884816974,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_6 = {{}};
 inline constexpr std::array<std::string_view,0> during_6 = {};
-inline constexpr std::array<mayhem::PathMarker,3> markers_7 = {{{mayhem::MarkerKind::Rotation,0.33,-1.5715622394127327,"",true},{mayhem::MarkerKind::Rotation,0.67,-1.5713439279889718,"",true},{mayhem::MarkerKind::Event,1.0,0.0,"superstructure.setState.IDLE",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_7 = {{}};
 inline constexpr std::array<std::string_view,0> during_7 = {};
 inline constexpr std::array<mayhem::PathMarker,0> markers_8 = {{}};
 inline constexpr std::array<std::string_view,0> during_8 = {};
 inline constexpr std::array<mayhem::PathMarker,0> markers_9 = {{}};
 inline constexpr std::array<std::string_view,0> during_9 = {};
-inline constexpr std::array<mayhem::AutoNode,10> nodes = {{
-{"outpost-sweep-pass1-p1",mayhem::NodeKind::Pose,{{6.808750152587891,0.7213001251220703,1.5876764448267884},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_0.data(),markers_0.size()},5.0,"",{4.64,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_0.data(),during_0.size(),1,true},
-{"outpost-sweep-pass1-p2",mayhem::NodeKind::Pose,{{8.09508991241455,1.2475299835205078,1.5707963267948966},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_1.data(),markers_1.size()},5.0,"",{4.22,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_1.data(),during_1.size(),2,true},
-{"outpost-sweep-pass1-p3",mayhem::NodeKind::Pose,{{8.357044219970703,3.038424015045166,2.3480651661976477},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_2.data(),markers_2.size()},5.0,"",{4.0,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_2.data(),during_2.size(),3,true},
-{"outpost-sweep-pass1-p4",mayhem::NodeKind::Pose,{{7.861546993255615,4.129741668701172,-2.4393357220807865},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_3.data(),markers_3.size()},5.0,"",{3.84,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_3.data(),during_3.size(),4,true},
-{"outpost-sweep-pass1-p5",mayhem::NodeKind::Pose,{{7.109304428100586,3.1960248947143555,-1.6671877305760374},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_4.data(),markers_4.size()},5.0,"",{3.47,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_4.data(),during_4.size(),5,true},
-{"outpost-sweep-pass1-p6",mayhem::NodeKind::Pose,{{6.477420330047607,2.3584601879119873,-1.585576097494504},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_5.data(),markers_5.size()},5.0,"",{3.47,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_5.data(),during_5.size(),6,true},
-{"outpost-sweep-pass1-p7",mayhem::NodeKind::Pose,{{5.9577202796936035,2.4942758083343506,-1.5718003778390177},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_6.data(),markers_6.size()},5.0,"",{2.61,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_6.data(),during_6.size(),7,true},
-{"outpost-sweep-pass1-p8",mayhem::NodeKind::Pose,{{3.261570692062378,2.2805001735687256,-1.5707976144648772},0.1,0.08,0.3,0.04,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,true,false,true,markers_7.data(),markers_7.size()},5.0,"",{4.47,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_7.data(),during_7.size(),8,false},
-{"align-shoot-0",mayhem::NodeKind::Custom,{},4.0,"drivetrain.alignAndShoot",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_8.data(),during_8.size(),9,false},
-{"done",mayhem::NodeKind::Finish,{},1.0,"",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_9.data(),during_9.size(),-1,false},
+inline constexpr std::array<mayhem::PathMarker,0> markers_10 = {{}};
+inline constexpr std::array<std::string_view,0> during_10 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_11 = {{}};
+inline constexpr std::array<std::string_view,0> during_11 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_12 = {{}};
+inline constexpr std::array<std::string_view,0> during_12 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_13 = {{}};
+inline constexpr std::array<std::string_view,0> during_13 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_14 = {{}};
+inline constexpr std::array<std::string_view,0> during_14 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_15 = {{}};
+inline constexpr std::array<std::string_view,0> during_15 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_16 = {{}};
+inline constexpr std::array<std::string_view,0> during_16 = {};
+inline constexpr std::array<mayhem::PathMarker,1> markers_17 = {{{mayhem::MarkerKind::Event,1.0,0.0,"superstructure.setState.IDLE",true}}};
+inline constexpr std::array<std::string_view,0> during_17 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_18 = {{}};
+inline constexpr std::array<std::string_view,0> during_18 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_19 = {{}};
+inline constexpr std::array<std::string_view,0> during_19 = {};
+inline constexpr std::array<mayhem::AutoNode,20> nodes = {{
+{"outpost-sweep-pass1-p1",mayhem::NodeKind::Pose,{{5.06,0.662,1.6044},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_0.data(),markers_0.size()},5.0,"",{1.31,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_0.data(),during_0.size(),1,true},
+{"outpost-sweep-pass1-p2",mayhem::NodeKind::Pose,{{5.764,0.66,1.6164},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_1.data(),markers_1.size()},5.0,"",{3.71,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_1.data(),during_1.size(),2,true},
+{"outpost-sweep-pass1-p3",mayhem::NodeKind::Pose,{{6.514,0.689,1.6098},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_2.data(),markers_2.size()},5.0,"",{3.69,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_2.data(),during_2.size(),3,true},
+{"outpost-sweep-pass1-p4",mayhem::NodeKind::Pose,{{7.181,0.783,1.5523},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_3.data(),markers_3.size()},5.0,"",{2.99,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_3.data(),during_3.size(),4,true},
+{"outpost-sweep-pass1-p5",mayhem::NodeKind::Pose,{{7.774,0.995,1.529},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_4.data(),markers_4.size()},5.0,"",{2.78,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_4.data(),during_4.size(),5,true},
+{"outpost-sweep-pass1-p6",mayhem::NodeKind::Pose,{{8.263,1.481,1.6352},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_5.data(),markers_5.size()},5.0,"",{2.78,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_5.data(),during_5.size(),6,true},
+{"outpost-sweep-pass1-p7",mayhem::NodeKind::Pose,{{8.439,2.079,1.8543},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_6.data(),markers_6.size()},5.0,"",{3.01,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_6.data(),during_6.size(),7,true},
+{"outpost-sweep-pass1-p8",mayhem::NodeKind::Pose,{{8.398,2.84,2.215},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_7.data(),markers_7.size()},5.0,"",{2.94,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_7.data(),during_7.size(),8,true},
+{"outpost-sweep-pass1-p9",mayhem::NodeKind::Pose,{{8.246,3.502,2.7643},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_8.data(),markers_8.size()},5.0,"",{2.11,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_8.data(),during_8.size(),9,true},
+{"outpost-sweep-pass1-p10",mayhem::NodeKind::Pose,{{7.937,4.104,-2.5922},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_9.data(),markers_9.size()},5.0,"",{1.11,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_9.data(),during_9.size(),10,true},
+{"outpost-sweep-pass1-p11",mayhem::NodeKind::Pose,{{7.407,3.781,-1.8514},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_10.data(),markers_10.size()},5.0,"",{1.47,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_10.data(),during_10.size(),11,true},
+{"outpost-sweep-pass1-p12",mayhem::NodeKind::Pose,{{7.109,3.196,-1.6672},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_11.data(),markers_11.size()},5.0,"",{2.54,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_11.data(),during_11.size(),12,true},
+{"outpost-sweep-pass1-p13",mayhem::NodeKind::Pose,{{6.867,2.623,-1.6223},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_12.data(),markers_12.size()},5.0,"",{1.57,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_12.data(),during_12.size(),13,true},
+{"outpost-sweep-pass1-p14",mayhem::NodeKind::Pose,{{6.477,2.358,-1.5856},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_13.data(),markers_13.size()},5.0,"",{1.46,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_13.data(),during_13.size(),14,true},
+{"outpost-sweep-pass1-p15",mayhem::NodeKind::Pose,{{5.958,2.494,-1.5718},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_14.data(),markers_14.size()},5.0,"",{2.43,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_14.data(),during_14.size(),15,true},
+{"outpost-sweep-pass1-p16",mayhem::NodeKind::Pose,{{4.949,2.5,-1.5715},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_15.data(),markers_15.size()},5.0,"",{3.66,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_15.data(),during_15.size(),16,true},
+{"outpost-sweep-pass1-p17",mayhem::NodeKind::Pose,{{3.673,2.497,-1.5712},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_16.data(),markers_16.size()},5.0,"",{1.67,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_16.data(),during_16.size(),17,true},
+{"outpost-sweep-pass1-p18",mayhem::NodeKind::Pose,{{3.041,2.496,-1.5708},0.1,0.08,0.3,0.04,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,true,false,true,markers_17.data(),markers_17.size()},5.0,"",{3.0,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_17.data(),during_17.size(),18,false},
+{"align-shoot-0",mayhem::NodeKind::Custom,{},4.0,"drivetrain.alignAndShoot",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_18.data(),during_18.size(),19,false},
+{"done",mayhem::NodeKind::Finish,{},1.0,"",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_19.data(),during_19.size(),-1,false},
 }};
-inline constexpr std::array<mayhem::AutoTransition,9> transitions = {{
+inline constexpr std::array<mayhem::AutoTransition,19> transitions = {{
 {"outpost-sweep/t0","outpost-sweep-pass1-p1","outpost-sweep-pass1-p2",guard_0},
 {"outpost-sweep/t1","outpost-sweep-pass1-p2","outpost-sweep-pass1-p3",guard_1},
 {"outpost-sweep/t2","outpost-sweep-pass1-p3","outpost-sweep-pass1-p4",guard_2},
@@ -140,8 +250,18 @@ inline constexpr std::array<mayhem::AutoTransition,9> transitions = {{
 {"outpost-sweep/t4","outpost-sweep-pass1-p5","outpost-sweep-pass1-p6",guard_4},
 {"outpost-sweep/t5","outpost-sweep-pass1-p6","outpost-sweep-pass1-p7",guard_5},
 {"outpost-sweep/t6","outpost-sweep-pass1-p7","outpost-sweep-pass1-p8",guard_6},
-{"outpost-sweep/t7","outpost-sweep-pass1-p8","align-shoot-0",guard_7},
-{"outpost-sweep/t8","align-shoot-0","done",guard_8},
+{"outpost-sweep/t7","outpost-sweep-pass1-p8","outpost-sweep-pass1-p9",guard_7},
+{"outpost-sweep/t8","outpost-sweep-pass1-p9","outpost-sweep-pass1-p10",guard_8},
+{"outpost-sweep/t9","outpost-sweep-pass1-p10","outpost-sweep-pass1-p11",guard_9},
+{"outpost-sweep/t10","outpost-sweep-pass1-p11","outpost-sweep-pass1-p12",guard_10},
+{"outpost-sweep/t11","outpost-sweep-pass1-p12","outpost-sweep-pass1-p13",guard_11},
+{"outpost-sweep/t12","outpost-sweep-pass1-p13","outpost-sweep-pass1-p14",guard_12},
+{"outpost-sweep/t13","outpost-sweep-pass1-p14","outpost-sweep-pass1-p15",guard_13},
+{"outpost-sweep/t14","outpost-sweep-pass1-p15","outpost-sweep-pass1-p16",guard_14},
+{"outpost-sweep/t15","outpost-sweep-pass1-p16","outpost-sweep-pass1-p17",guard_15},
+{"outpost-sweep/t16","outpost-sweep-pass1-p17","outpost-sweep-pass1-p18",guard_16},
+{"outpost-sweep/t17","outpost-sweep-pass1-p18","align-shoot-0",guard_17},
+{"outpost-sweep/t18","align-shoot-0","done",guard_18},
 }};
 inline constexpr mayhem::RoutineView routine{"outpost-sweep","outpost-sweep-pass1-p1",nodes.data(),nodes.size(),transitions.data(),transitions.size()};
 }
@@ -164,66 +284,162 @@ inline bool guard_14([[maybe_unused]] const mayhem::RobotHooks& h) { return (std
 inline bool guard_15([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
 inline bool guard_16([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
 inline bool guard_17([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
-inline constexpr std::array<mayhem::PathMarker,2> markers_0 = {{{mayhem::MarkerKind::Rotation,0.33,1.6096335483696655,"",true},{mayhem::MarkerKind::Rotation,0.67,1.6184468956884672,"",true}}};
+inline bool guard_18([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_19([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_20([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_21([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_22([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_23([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_24([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_25([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_26([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_27([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_28([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_29([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_30([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_31([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_32([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_33([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_34([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_35([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_36([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_37([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_38([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_39([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_40([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_41([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline constexpr std::array<mayhem::PathMarker,0> markers_0 = {{}};
 inline constexpr std::array<std::string_view,0> during_0 = {};
-inline constexpr std::array<mayhem::PathMarker,3> markers_1 = {{{mayhem::MarkerKind::Event,0.0,0.0,"superstructure.setState.INTAKE",true},{mayhem::MarkerKind::Rotation,0.33,1.5389577098545313,"",true},{mayhem::MarkerKind::Rotation,0.67,1.5290092632879653,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_1 = {{}};
 inline constexpr std::array<std::string_view,0> during_1 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_2 = {{{mayhem::MarkerKind::Rotation,0.33,1.7293366863723478,"",true},{mayhem::MarkerKind::Rotation,0.67,2.0129372613550727,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_2 = {{}};
 inline constexpr std::array<std::string_view,0> during_2 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_3 = {{{mayhem::MarkerKind::Rotation,0.33,2.7643310152018246,"",true},{mayhem::MarkerKind::Rotation,0.67,-3.118041948737765,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,1> markers_3 = {{{mayhem::MarkerKind::Event,0.412,0.0,"superstructure.setState.INTAKE",true}}};
 inline constexpr std::array<std::string_view,0> during_3 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_4 = {{{mayhem::MarkerKind::Rotation,0.33,-1.9443103773353327,"",true},{mayhem::MarkerKind::Rotation,0.67,-1.7716541496420481,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_4 = {{}};
 inline constexpr std::array<std::string_view,0> during_4 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_5 = {{{mayhem::MarkerKind::Rotation,0.33,-1.6340417646451615,"",true},{mayhem::MarkerKind::Rotation,0.67,-1.6116663093556973,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_5 = {{}};
 inline constexpr std::array<std::string_view,0> during_5 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_6 = {{{mayhem::MarkerKind::Rotation,0.33,-1.5750998974788681,"",true},{mayhem::MarkerKind::Rotation,0.67,-1.5725427884816974,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_6 = {{}};
 inline constexpr std::array<std::string_view,0> during_6 = {};
-inline constexpr std::array<mayhem::PathMarker,3> markers_7 = {{{mayhem::MarkerKind::Rotation,0.33,-1.5715622394127327,"",true},{mayhem::MarkerKind::Rotation,0.67,-1.5713439279889718,"",true},{mayhem::MarkerKind::Event,1.0,0.0,"superstructure.setState.IDLE",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_7 = {{}};
 inline constexpr std::array<std::string_view,0> during_7 = {};
 inline constexpr std::array<mayhem::PathMarker,0> markers_8 = {{}};
 inline constexpr std::array<std::string_view,0> during_8 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_9 = {{{mayhem::MarkerKind::Rotation,0.33,-2.6887638366769187,"",true},{mayhem::MarkerKind::Rotation,0.67,2.7068864736980243,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_9 = {{}};
 inline constexpr std::array<std::string_view,0> during_9 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_10 = {{{mayhem::MarkerKind::Rotation,0.33,1.3640316368255114,"",true},{mayhem::MarkerKind::Rotation,0.67,1.4634308313318842,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_10 = {{}};
 inline constexpr std::array<std::string_view,0> during_10 = {};
-inline constexpr std::array<mayhem::PathMarker,3> markers_11 = {{{mayhem::MarkerKind::Event,0.0,0.0,"superstructure.setState.INTAKE",true},{mayhem::MarkerKind::Rotation,0.33,1.5821591738146863,"",true},{mayhem::MarkerKind::Rotation,0.67,1.5701344082406206,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_11 = {{}};
 inline constexpr std::array<std::string_view,0> during_11 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_12 = {{{mayhem::MarkerKind::Rotation,0.33,1.724575707162009,"",true},{mayhem::MarkerKind::Rotation,0.67,2.068272599347497,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_12 = {{}};
 inline constexpr std::array<std::string_view,0> during_12 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_13 = {{{mayhem::MarkerKind::Rotation,0.33,2.917786575543358,"",true},{mayhem::MarkerKind::Rotation,0.67,-2.981128210248563,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_13 = {{}};
 inline constexpr std::array<std::string_view,0> during_13 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_14 = {{{mayhem::MarkerKind::Rotation,0.33,-1.7433763119625454,"",true},{mayhem::MarkerKind::Rotation,0.67,-1.5802303220509382,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_14 = {{}};
 inline constexpr std::array<std::string_view,0> during_14 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_15 = {{{mayhem::MarkerKind::Rotation,0.33,-1.5706257593726238,"",true},{mayhem::MarkerKind::Rotation,0.67,-1.5706098547581202,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_15 = {{}};
 inline constexpr std::array<std::string_view,0> during_15 = {};
-inline constexpr std::array<mayhem::PathMarker,3> markers_16 = {{{mayhem::MarkerKind::Rotation,0.33,-1.5706869422019831,"",true},{mayhem::MarkerKind::Rotation,0.67,-1.5707198993451121,"",true},{mayhem::MarkerKind::Event,1.0,0.0,"superstructure.setState.IDLE",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_16 = {{}};
 inline constexpr std::array<std::string_view,0> during_16 = {};
-inline constexpr std::array<mayhem::PathMarker,0> markers_17 = {{}};
+inline constexpr std::array<mayhem::PathMarker,1> markers_17 = {{{mayhem::MarkerKind::Event,1.0,0.0,"superstructure.setState.IDLE",true}}};
 inline constexpr std::array<std::string_view,0> during_17 = {};
 inline constexpr std::array<mayhem::PathMarker,0> markers_18 = {{}};
 inline constexpr std::array<std::string_view,0> during_18 = {};
-inline constexpr std::array<mayhem::AutoNode,19> nodes = {{
-{"outpost-sweep-x2-pass1-p1",mayhem::NodeKind::Pose,{{6.808750152587891,0.7213001251220703,1.5876764448267884},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_0.data(),markers_0.size()},5.0,"",{4.64,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_0.data(),during_0.size(),1,true},
-{"outpost-sweep-x2-pass1-p2",mayhem::NodeKind::Pose,{{8.09508991241455,1.2475299835205078,1.5707963267948966},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_1.data(),markers_1.size()},5.0,"",{4.22,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_1.data(),during_1.size(),2,true},
-{"outpost-sweep-x2-pass1-p3",mayhem::NodeKind::Pose,{{8.357044219970703,3.038424015045166,2.3480651661976477},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_2.data(),markers_2.size()},5.0,"",{4.0,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_2.data(),during_2.size(),3,true},
-{"outpost-sweep-x2-pass1-p4",mayhem::NodeKind::Pose,{{7.861546993255615,4.129741668701172,-2.4393357220807865},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_3.data(),markers_3.size()},5.0,"",{3.84,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_3.data(),during_3.size(),4,true},
-{"outpost-sweep-x2-pass1-p5",mayhem::NodeKind::Pose,{{7.109304428100586,3.1960248947143555,-1.6671877305760374},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_4.data(),markers_4.size()},5.0,"",{3.47,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_4.data(),during_4.size(),5,true},
-{"outpost-sweep-x2-pass1-p6",mayhem::NodeKind::Pose,{{6.477420330047607,2.3584601879119873,-1.585576097494504},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_5.data(),markers_5.size()},5.0,"",{3.47,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_5.data(),during_5.size(),6,true},
-{"outpost-sweep-x2-pass1-p7",mayhem::NodeKind::Pose,{{5.9577202796936035,2.4942758083343506,-1.5718003778390177},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_6.data(),markers_6.size()},5.0,"",{2.61,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_6.data(),during_6.size(),7,true},
-{"outpost-sweep-x2-pass1-p8",mayhem::NodeKind::Pose,{{3.261570692062378,2.2805001735687256,-1.5707976144648772},0.1,0.08,0.3,0.04,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,true,false,true,markers_7.data(),markers_7.size()},5.0,"",{4.47,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_7.data(),during_7.size(),8,false},
-{"align-shoot-0",mayhem::NodeKind::Custom,{},4.0,"drivetrain.alignAndShoot",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_8.data(),during_8.size(),9,false},
-{"outpost-sweep-x2-pass2-p1",mayhem::NodeKind::Pose,{{4.561631917953491,0.5839888155460358,1.5817600987500609},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_9.data(),markers_9.size()},5.0,"",{3.63,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_9.data(),during_9.size(),10,true},
-{"outpost-sweep-x2-pass2-p2",mayhem::NodeKind::Pose,{{6.2732415199279785,0.7107254266738892,1.5707963267948968},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_10.data(),markers_10.size()},5.0,"",{4.3,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_10.data(),during_10.size(),11,true},
-{"outpost-sweep-x2-pass2-p3",mayhem::NodeKind::Pose,{{7.207128524780273,1.3017642498016357,1.5707963267948968},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_11.data(),markers_11.size()},5.0,"",{4.01,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_11.data(),during_11.size(),12,true},
-{"outpost-sweep-x2-pass2-p4",mayhem::NodeKind::Pose,{{7.169681549072266,3.8196463584899902,2.7236286781032275},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_12.data(),markers_12.size()},5.0,"",{3.7,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_12.data(),during_12.size(),13,true},
-{"outpost-sweep-x2-pass2-p5",mayhem::NodeKind::Pose,{{6.558131694793701,4.169934272766113,-2.439335722080786},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_13.data(),markers_13.size()},5.0,"",{2.77,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_13.data(),during_13.size(),14,true},
-{"outpost-sweep-x2-pass2-p6",mayhem::NodeKind::Pose,{{6.078281879425049,2.49299955368042,-1.5707963267948966},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_14.data(),markers_14.size()},5.0,"",{3.12,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_14.data(),during_14.size(),15,true},
-{"outpost-sweep-x2-pass2-p7",mayhem::NodeKind::Pose,{{5.697820663452148,2.338970184326172,-1.5706365949548056},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_15.data(),markers_15.size()},5.0,"",{2.19,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_15.data(),during_15.size(),16,true},
-{"outpost-sweep-x2-pass2-p8",mayhem::NodeKind::Pose,{{3.0964581966400146,2.5064547061920166,-1.5707963267948966},0.1,0.08,0.3,0.04,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,true,false,true,markers_16.data(),markers_16.size()},5.0,"",{4.23,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_16.data(),during_16.size(),17,false},
-{"align-shoot-1",mayhem::NodeKind::Custom,{},4.0,"drivetrain.alignAndShoot",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_17.data(),during_17.size(),18,false},
-{"done",mayhem::NodeKind::Finish,{},1.0,"",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_18.data(),during_18.size(),-1,false},
+inline constexpr std::array<mayhem::PathMarker,0> markers_19 = {{}};
+inline constexpr std::array<std::string_view,0> during_19 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_20 = {{}};
+inline constexpr std::array<std::string_view,0> during_20 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_21 = {{}};
+inline constexpr std::array<std::string_view,0> during_21 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_22 = {{}};
+inline constexpr std::array<std::string_view,0> during_22 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_23 = {{}};
+inline constexpr std::array<std::string_view,0> during_23 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_24 = {{}};
+inline constexpr std::array<std::string_view,0> during_24 = {};
+inline constexpr std::array<mayhem::PathMarker,1> markers_25 = {{{mayhem::MarkerKind::Event,0.789,0.0,"superstructure.setState.INTAKE",true}}};
+inline constexpr std::array<std::string_view,0> during_25 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_26 = {{}};
+inline constexpr std::array<std::string_view,0> during_26 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_27 = {{}};
+inline constexpr std::array<std::string_view,0> during_27 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_28 = {{}};
+inline constexpr std::array<std::string_view,0> during_28 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_29 = {{}};
+inline constexpr std::array<std::string_view,0> during_29 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_30 = {{}};
+inline constexpr std::array<std::string_view,0> during_30 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_31 = {{}};
+inline constexpr std::array<std::string_view,0> during_31 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_32 = {{}};
+inline constexpr std::array<std::string_view,0> during_32 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_33 = {{}};
+inline constexpr std::array<std::string_view,0> during_33 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_34 = {{}};
+inline constexpr std::array<std::string_view,0> during_34 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_35 = {{}};
+inline constexpr std::array<std::string_view,0> during_35 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_36 = {{}};
+inline constexpr std::array<std::string_view,0> during_36 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_37 = {{}};
+inline constexpr std::array<std::string_view,0> during_37 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_38 = {{}};
+inline constexpr std::array<std::string_view,0> during_38 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_39 = {{}};
+inline constexpr std::array<std::string_view,0> during_39 = {};
+inline constexpr std::array<mayhem::PathMarker,1> markers_40 = {{{mayhem::MarkerKind::Event,1.0,0.0,"superstructure.setState.IDLE",true}}};
+inline constexpr std::array<std::string_view,0> during_40 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_41 = {{}};
+inline constexpr std::array<std::string_view,0> during_41 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_42 = {{}};
+inline constexpr std::array<std::string_view,0> during_42 = {};
+inline constexpr std::array<mayhem::AutoNode,43> nodes = {{
+{"outpost-sweep-x2-pass1-p1",mayhem::NodeKind::Pose,{{5.06,0.662,1.6044},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_0.data(),markers_0.size()},5.0,"",{1.31,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_0.data(),during_0.size(),1,true},
+{"outpost-sweep-x2-pass1-p2",mayhem::NodeKind::Pose,{{5.764,0.66,1.6164},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_1.data(),markers_1.size()},5.0,"",{3.71,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_1.data(),during_1.size(),2,true},
+{"outpost-sweep-x2-pass1-p3",mayhem::NodeKind::Pose,{{6.514,0.689,1.6098},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_2.data(),markers_2.size()},5.0,"",{3.69,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_2.data(),during_2.size(),3,true},
+{"outpost-sweep-x2-pass1-p4",mayhem::NodeKind::Pose,{{7.181,0.783,1.5523},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_3.data(),markers_3.size()},5.0,"",{2.99,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_3.data(),during_3.size(),4,true},
+{"outpost-sweep-x2-pass1-p5",mayhem::NodeKind::Pose,{{7.774,0.995,1.529},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_4.data(),markers_4.size()},5.0,"",{2.78,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_4.data(),during_4.size(),5,true},
+{"outpost-sweep-x2-pass1-p6",mayhem::NodeKind::Pose,{{8.263,1.481,1.6352},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_5.data(),markers_5.size()},5.0,"",{2.78,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_5.data(),during_5.size(),6,true},
+{"outpost-sweep-x2-pass1-p7",mayhem::NodeKind::Pose,{{8.439,2.079,1.8543},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_6.data(),markers_6.size()},5.0,"",{3.01,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_6.data(),during_6.size(),7,true},
+{"outpost-sweep-x2-pass1-p8",mayhem::NodeKind::Pose,{{8.398,2.84,2.215},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_7.data(),markers_7.size()},5.0,"",{2.94,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_7.data(),during_7.size(),8,true},
+{"outpost-sweep-x2-pass1-p9",mayhem::NodeKind::Pose,{{8.246,3.502,2.7643},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_8.data(),markers_8.size()},5.0,"",{2.11,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_8.data(),during_8.size(),9,true},
+{"outpost-sweep-x2-pass1-p10",mayhem::NodeKind::Pose,{{7.937,4.104,-2.5922},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_9.data(),markers_9.size()},5.0,"",{1.11,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_9.data(),during_9.size(),10,true},
+{"outpost-sweep-x2-pass1-p11",mayhem::NodeKind::Pose,{{7.407,3.781,-1.8514},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_10.data(),markers_10.size()},5.0,"",{1.47,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_10.data(),during_10.size(),11,true},
+{"outpost-sweep-x2-pass1-p12",mayhem::NodeKind::Pose,{{7.109,3.196,-1.6672},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_11.data(),markers_11.size()},5.0,"",{2.54,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_11.data(),during_11.size(),12,true},
+{"outpost-sweep-x2-pass1-p13",mayhem::NodeKind::Pose,{{6.867,2.623,-1.6223},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_12.data(),markers_12.size()},5.0,"",{1.57,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_12.data(),during_12.size(),13,true},
+{"outpost-sweep-x2-pass1-p14",mayhem::NodeKind::Pose,{{6.477,2.358,-1.5856},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_13.data(),markers_13.size()},5.0,"",{1.46,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_13.data(),during_13.size(),14,true},
+{"outpost-sweep-x2-pass1-p15",mayhem::NodeKind::Pose,{{5.958,2.494,-1.5718},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_14.data(),markers_14.size()},5.0,"",{2.43,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_14.data(),during_14.size(),15,true},
+{"outpost-sweep-x2-pass1-p16",mayhem::NodeKind::Pose,{{4.949,2.5,-1.5715},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_15.data(),markers_15.size()},5.0,"",{3.66,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_15.data(),during_15.size(),16,true},
+{"outpost-sweep-x2-pass1-p17",mayhem::NodeKind::Pose,{{3.673,2.497,-1.5712},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_16.data(),markers_16.size()},5.0,"",{1.67,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_16.data(),during_16.size(),17,true},
+{"outpost-sweep-x2-pass1-p18",mayhem::NodeKind::Pose,{{3.041,2.496,-1.5708},0.1,0.08,0.3,0.04,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,true,false,true,markers_17.data(),markers_17.size()},5.0,"",{3.0,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_17.data(),during_17.size(),18,false},
+{"align-shoot-0",mayhem::NodeKind::Custom,{},4.0,"drivetrain.alignAndShoot",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_18.data(),during_18.size(),19,false},
+{"outpost-sweep-x2-pass2-p1",mayhem::NodeKind::Pose,{{3.055,1.871,-2.0718},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_19.data(),markers_19.size()},5.0,"",{1.41,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_19.data(),during_19.size(),20,true},
+{"outpost-sweep-x2-pass2-p2",mayhem::NodeKind::Pose,{{3.285,1.249,-2.8098},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_20.data(),markers_20.size()},5.0,"",{2.98,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_20.data(),during_20.size(),21,true},
+{"outpost-sweep-x2-pass2-p3",mayhem::NodeKind::Pose,{{3.77,0.791,2.5759},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_21.data(),markers_21.size()},5.0,"",{2.98,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_21.data(),during_21.size(),22,true},
+{"outpost-sweep-x2-pass2-p4",mayhem::NodeKind::Pose,{{4.339,0.608,1.7993},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_22.data(),markers_22.size()},5.0,"",{3.25,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_22.data(),during_22.size(),23,true},
+{"outpost-sweep-x2-pass2-p5",mayhem::NodeKind::Pose,{{5.063,0.548,1.3671},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_23.data(),markers_23.size()},5.0,"",{3.86,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_23.data(),during_23.size(),24,true},
+{"outpost-sweep-x2-pass2-p6",mayhem::NodeKind::Pose,{{5.745,0.578,1.4634},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_24.data(),markers_24.size()},5.0,"",{3.78,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_24.data(),during_24.size(),25,true},
+{"outpost-sweep-x2-pass2-p7",mayhem::NodeKind::Pose,{{6.402,0.758,1.5807},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_25.data(),markers_25.size()},5.0,"",{3.42,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_25.data(),during_25.size(),26,true},
+{"outpost-sweep-x2-pass2-p8",mayhem::NodeKind::Pose,{{6.953,1.064,1.5701},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_26.data(),markers_26.size()},5.0,"",{3.26,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_26.data(),during_26.size(),27,true},
+{"outpost-sweep-x2-pass2-p9",mayhem::NodeKind::Pose,{{7.363,1.511,1.5904},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_27.data(),markers_27.size()},5.0,"",{3.26,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_27.data(),during_27.size(),28,true},
+{"outpost-sweep-x2-pass2-p10",mayhem::NodeKind::Pose,{{7.6,2.126,1.7246},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_28.data(),markers_28.size()},5.0,"",{3.38,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_28.data(),during_28.size(),29,true},
+{"outpost-sweep-x2-pass2-p11",mayhem::NodeKind::Pose,{{7.603,2.835,1.9954},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_29.data(),markers_29.size()},5.0,"",{3.35,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_29.data(),during_29.size(),30,true},
+{"outpost-sweep-x2-pass2-p12",mayhem::NodeKind::Pose,{{7.37,3.512,2.4205},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_30.data(),markers_30.size()},5.0,"",{2.37,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_30.data(),during_30.size(),31,true},
+{"outpost-sweep-x2-pass2-p13",mayhem::NodeKind::Pose,{{6.924,4.075,3.1113},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_31.data(),markers_31.size()},5.0,"",{1.27,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_31.data(),during_31.size(),32,true},
+{"outpost-sweep-x2-pass2-p14",mayhem::NodeKind::Pose,{{6.558,4.17,-2.4393},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_32.data(),markers_32.size()},5.0,"",{1.03,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_32.data(),during_32.size(),33,true},
+{"outpost-sweep-x2-pass2-p15",mayhem::NodeKind::Pose,{{6.45,3.982,-2.065},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_33.data(),markers_33.size()},5.0,"",{1.65,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_33.data(),during_33.size(),34,true},
+{"outpost-sweep-x2-pass2-p16",mayhem::NodeKind::Pose,{{6.407,3.278,-1.6109},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_34.data(),markers_34.size()},5.0,"",{2.49,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_34.data(),during_34.size(),35,true},
+{"outpost-sweep-x2-pass2-p17",mayhem::NodeKind::Pose,{{6.235,2.684,-1.5726},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_35.data(),markers_35.size()},5.0,"",{2.01,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_35.data(),during_35.size(),36,true},
+{"outpost-sweep-x2-pass2-p18",mayhem::NodeKind::Pose,{{5.698,2.339,-1.5706},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_36.data(),markers_36.size()},5.0,"",{2.08,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_36.data(),during_36.size(),37,true},
+{"outpost-sweep-x2-pass2-p19",mayhem::NodeKind::Pose,{{5.013,2.379,-1.5707},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_37.data(),markers_37.size()},5.0,"",{3.01,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_37.data(),during_37.size(),38,true},
+{"outpost-sweep-x2-pass2-p20",mayhem::NodeKind::Pose,{{4.407,2.422,-1.5707},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_38.data(),markers_38.size()},5.0,"",{2.95,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_38.data(),during_38.size(),39,true},
+{"outpost-sweep-x2-pass2-p21",mayhem::NodeKind::Pose,{{3.765,2.464,-1.5707},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_39.data(),markers_39.size()},5.0,"",{1.77,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_39.data(),during_39.size(),40,true},
+{"outpost-sweep-x2-pass2-p22",mayhem::NodeKind::Pose,{{3.096,2.506,-1.5708},0.1,0.08,0.3,0.04,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,true,false,true,markers_40.data(),markers_40.size()},5.0,"",{3.0,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_40.data(),during_40.size(),41,false},
+{"align-shoot-1",mayhem::NodeKind::Custom,{},4.0,"drivetrain.alignAndShoot",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_41.data(),during_41.size(),42,false},
+{"done",mayhem::NodeKind::Finish,{},1.0,"",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_42.data(),during_42.size(),-1,false},
 }};
-inline constexpr std::array<mayhem::AutoTransition,18> transitions = {{
+inline constexpr std::array<mayhem::AutoTransition,42> transitions = {{
 {"outpost-sweep-x2/t0","outpost-sweep-x2-pass1-p1","outpost-sweep-x2-pass1-p2",guard_0},
 {"outpost-sweep-x2/t1","outpost-sweep-x2-pass1-p2","outpost-sweep-x2-pass1-p3",guard_1},
 {"outpost-sweep-x2/t2","outpost-sweep-x2-pass1-p3","outpost-sweep-x2-pass1-p4",guard_2},
@@ -231,17 +447,41 @@ inline constexpr std::array<mayhem::AutoTransition,18> transitions = {{
 {"outpost-sweep-x2/t4","outpost-sweep-x2-pass1-p5","outpost-sweep-x2-pass1-p6",guard_4},
 {"outpost-sweep-x2/t5","outpost-sweep-x2-pass1-p6","outpost-sweep-x2-pass1-p7",guard_5},
 {"outpost-sweep-x2/t6","outpost-sweep-x2-pass1-p7","outpost-sweep-x2-pass1-p8",guard_6},
-{"outpost-sweep-x2/t7","outpost-sweep-x2-pass1-p8","align-shoot-0",guard_7},
-{"outpost-sweep-x2/t8","align-shoot-0","outpost-sweep-x2-pass2-p1",guard_8},
-{"outpost-sweep-x2/t9","outpost-sweep-x2-pass2-p1","outpost-sweep-x2-pass2-p2",guard_9},
-{"outpost-sweep-x2/t10","outpost-sweep-x2-pass2-p2","outpost-sweep-x2-pass2-p3",guard_10},
-{"outpost-sweep-x2/t11","outpost-sweep-x2-pass2-p3","outpost-sweep-x2-pass2-p4",guard_11},
-{"outpost-sweep-x2/t12","outpost-sweep-x2-pass2-p4","outpost-sweep-x2-pass2-p5",guard_12},
-{"outpost-sweep-x2/t13","outpost-sweep-x2-pass2-p5","outpost-sweep-x2-pass2-p6",guard_13},
-{"outpost-sweep-x2/t14","outpost-sweep-x2-pass2-p6","outpost-sweep-x2-pass2-p7",guard_14},
-{"outpost-sweep-x2/t15","outpost-sweep-x2-pass2-p7","outpost-sweep-x2-pass2-p8",guard_15},
-{"outpost-sweep-x2/t16","outpost-sweep-x2-pass2-p8","align-shoot-1",guard_16},
-{"outpost-sweep-x2/t17","align-shoot-1","done",guard_17},
+{"outpost-sweep-x2/t7","outpost-sweep-x2-pass1-p8","outpost-sweep-x2-pass1-p9",guard_7},
+{"outpost-sweep-x2/t8","outpost-sweep-x2-pass1-p9","outpost-sweep-x2-pass1-p10",guard_8},
+{"outpost-sweep-x2/t9","outpost-sweep-x2-pass1-p10","outpost-sweep-x2-pass1-p11",guard_9},
+{"outpost-sweep-x2/t10","outpost-sweep-x2-pass1-p11","outpost-sweep-x2-pass1-p12",guard_10},
+{"outpost-sweep-x2/t11","outpost-sweep-x2-pass1-p12","outpost-sweep-x2-pass1-p13",guard_11},
+{"outpost-sweep-x2/t12","outpost-sweep-x2-pass1-p13","outpost-sweep-x2-pass1-p14",guard_12},
+{"outpost-sweep-x2/t13","outpost-sweep-x2-pass1-p14","outpost-sweep-x2-pass1-p15",guard_13},
+{"outpost-sweep-x2/t14","outpost-sweep-x2-pass1-p15","outpost-sweep-x2-pass1-p16",guard_14},
+{"outpost-sweep-x2/t15","outpost-sweep-x2-pass1-p16","outpost-sweep-x2-pass1-p17",guard_15},
+{"outpost-sweep-x2/t16","outpost-sweep-x2-pass1-p17","outpost-sweep-x2-pass1-p18",guard_16},
+{"outpost-sweep-x2/t17","outpost-sweep-x2-pass1-p18","align-shoot-0",guard_17},
+{"outpost-sweep-x2/t18","align-shoot-0","outpost-sweep-x2-pass2-p1",guard_18},
+{"outpost-sweep-x2/t19","outpost-sweep-x2-pass2-p1","outpost-sweep-x2-pass2-p2",guard_19},
+{"outpost-sweep-x2/t20","outpost-sweep-x2-pass2-p2","outpost-sweep-x2-pass2-p3",guard_20},
+{"outpost-sweep-x2/t21","outpost-sweep-x2-pass2-p3","outpost-sweep-x2-pass2-p4",guard_21},
+{"outpost-sweep-x2/t22","outpost-sweep-x2-pass2-p4","outpost-sweep-x2-pass2-p5",guard_22},
+{"outpost-sweep-x2/t23","outpost-sweep-x2-pass2-p5","outpost-sweep-x2-pass2-p6",guard_23},
+{"outpost-sweep-x2/t24","outpost-sweep-x2-pass2-p6","outpost-sweep-x2-pass2-p7",guard_24},
+{"outpost-sweep-x2/t25","outpost-sweep-x2-pass2-p7","outpost-sweep-x2-pass2-p8",guard_25},
+{"outpost-sweep-x2/t26","outpost-sweep-x2-pass2-p8","outpost-sweep-x2-pass2-p9",guard_26},
+{"outpost-sweep-x2/t27","outpost-sweep-x2-pass2-p9","outpost-sweep-x2-pass2-p10",guard_27},
+{"outpost-sweep-x2/t28","outpost-sweep-x2-pass2-p10","outpost-sweep-x2-pass2-p11",guard_28},
+{"outpost-sweep-x2/t29","outpost-sweep-x2-pass2-p11","outpost-sweep-x2-pass2-p12",guard_29},
+{"outpost-sweep-x2/t30","outpost-sweep-x2-pass2-p12","outpost-sweep-x2-pass2-p13",guard_30},
+{"outpost-sweep-x2/t31","outpost-sweep-x2-pass2-p13","outpost-sweep-x2-pass2-p14",guard_31},
+{"outpost-sweep-x2/t32","outpost-sweep-x2-pass2-p14","outpost-sweep-x2-pass2-p15",guard_32},
+{"outpost-sweep-x2/t33","outpost-sweep-x2-pass2-p15","outpost-sweep-x2-pass2-p16",guard_33},
+{"outpost-sweep-x2/t34","outpost-sweep-x2-pass2-p16","outpost-sweep-x2-pass2-p17",guard_34},
+{"outpost-sweep-x2/t35","outpost-sweep-x2-pass2-p17","outpost-sweep-x2-pass2-p18",guard_35},
+{"outpost-sweep-x2/t36","outpost-sweep-x2-pass2-p18","outpost-sweep-x2-pass2-p19",guard_36},
+{"outpost-sweep-x2/t37","outpost-sweep-x2-pass2-p19","outpost-sweep-x2-pass2-p20",guard_37},
+{"outpost-sweep-x2/t38","outpost-sweep-x2-pass2-p20","outpost-sweep-x2-pass2-p21",guard_38},
+{"outpost-sweep-x2/t39","outpost-sweep-x2-pass2-p21","outpost-sweep-x2-pass2-p22",guard_39},
+{"outpost-sweep-x2/t40","outpost-sweep-x2-pass2-p22","align-shoot-1",guard_40},
+{"outpost-sweep-x2/t41","align-shoot-1","done",guard_41},
 }};
 inline constexpr mayhem::RoutineView routine{"outpost-sweep-x2","outpost-sweep-x2-pass1-p1",nodes.data(),nodes.size(),transitions.data(),transitions.size()};
 }
@@ -255,39 +495,91 @@ inline bool guard_5([[maybe_unused]] const mayhem::RobotHooks& h) { return (std:
 inline bool guard_6([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
 inline bool guard_7([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
 inline bool guard_8([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
-inline constexpr std::array<mayhem::PathMarker,2> markers_0 = {{{mayhem::MarkerKind::Rotation,0.33,-1.5913910224211132,"",true},{mayhem::MarkerKind::Rotation,0.67,-1.6024706802603776,"",true}}};
+inline bool guard_9([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_10([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_11([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_12([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_13([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_14([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_15([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_16([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_17([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_18([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_19([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_20([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_21([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline constexpr std::array<mayhem::PathMarker,0> markers_0 = {{}};
 inline constexpr std::array<std::string_view,0> during_0 = {};
-inline constexpr std::array<mayhem::PathMarker,3> markers_1 = {{{mayhem::MarkerKind::Event,0.0,0.0,"superstructure.setState.INTAKE",true},{mayhem::MarkerKind::Rotation,0.33,-1.549444817820314,"",true},{mayhem::MarkerKind::Rotation,0.67,-1.5270710096123825,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_1 = {{}};
 inline constexpr std::array<std::string_view,0> during_1 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_2 = {{{mayhem::MarkerKind::Rotation,0.33,-1.7157371340686294,"",true},{mayhem::MarkerKind::Rotation,0.67,-2.051476936419134,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_2 = {{}};
 inline constexpr std::array<std::string_view,0> during_2 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_3 = {{{mayhem::MarkerKind::Rotation,0.33,3.0260540323227745,"",true},{mayhem::MarkerKind::Rotation,0.67,2.6369535513886575,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,1> markers_3 = {{{mayhem::MarkerKind::Event,0.583,0.0,"superstructure.setState.INTAKE",true}}};
 inline constexpr std::array<std::string_view,0> during_3 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_4 = {{{mayhem::MarkerKind::Rotation,0.33,1.8406620084468506,"",true},{mayhem::MarkerKind::Rotation,0.67,1.6081922289504915,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_4 = {{}};
 inline constexpr std::array<std::string_view,0> during_4 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_5 = {{{mayhem::MarkerKind::Rotation,0.33,1.538180035389524,"",true},{mayhem::MarkerKind::Rotation,0.67,1.543666470827888,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_5 = {{}};
 inline constexpr std::array<std::string_view,0> during_5 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_6 = {{{mayhem::MarkerKind::Rotation,0.33,1.557854730599802,"",true},{mayhem::MarkerKind::Rotation,0.67,1.563958218500597,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_6 = {{}};
 inline constexpr std::array<std::string_view,0> during_6 = {};
-inline constexpr std::array<mayhem::PathMarker,3> markers_7 = {{{mayhem::MarkerKind::Rotation,0.33,1.5651406844013735,"",true},{mayhem::MarkerKind::Rotation,0.67,1.565167529334292,"",true},{mayhem::MarkerKind::Event,1.0,0.0,"superstructure.setState.IDLE",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_7 = {{}};
 inline constexpr std::array<std::string_view,0> during_7 = {};
 inline constexpr std::array<mayhem::PathMarker,0> markers_8 = {{}};
 inline constexpr std::array<std::string_view,0> during_8 = {};
 inline constexpr std::array<mayhem::PathMarker,0> markers_9 = {{}};
 inline constexpr std::array<std::string_view,0> during_9 = {};
-inline constexpr std::array<mayhem::AutoNode,10> nodes = {{
-{"depot-sweep-pass1-p1",mayhem::NodeKind::Pose,{{6.808750152587891,7.367390155792236,-1.5769331042075985},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_0.data(),markers_0.size()},5.0,"",{4.75,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_0.data(),during_0.size(),1,true},
-{"depot-sweep-pass1-p2",mayhem::NodeKind::Pose,{{8.13407039642334,6.724220275878906,-1.5374749236070606},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_1.data(),markers_1.size()},5.0,"",{4.72,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_1.data(),during_1.size(),2,true},
-{"depot-sweep-pass1-p3",mayhem::NodeKind::Pose,{{8.289714813232422,3.976468086242676,-2.870740044426886},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_2.data(),markers_2.size()},5.0,"",{3.79,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_2.data(),during_2.size(),3,true},
-{"depot-sweep-pass1-p4",mayhem::NodeKind::Pose,{{7.451920986175537,4.151540279388428,2.2565258377011834},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_3.data(),markers_3.size()},5.0,"",{2.25,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_3.data(),during_3.size(),4,true},
-{"depot-sweep-pass1-p5",mayhem::NodeKind::Pose,{{7.291816234588623,5.639632225036621,1.543025350661669},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_4.data(),markers_4.size()},5.0,"",{2.88,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_4.data(),during_4.size(),5,true},
-{"depot-sweep-pass1-p6",mayhem::NodeKind::Pose,{{6.357276439666748,5.671311378479004,1.5542880605543055},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_5.data(),markers_5.size()},5.0,"",{3.49,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_5.data(),during_5.size(),6,true},
-{"depot-sweep-pass1-p7",mayhem::NodeKind::Pose,{{5.8028883934021,5.671311378479004,1.5651202668777844},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_6.data(),markers_6.size()},5.0,"",{4.31,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_6.data(),during_6.size(),7,true},
-{"depot-sweep-pass1-p8",mayhem::NodeKind::Pose,{{3.3028502464294434,5.700842380523682,1.565258762938835},0.1,0.08,0.3,0.04,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,true,false,true,markers_7.data(),markers_7.size()},5.0,"",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_7.data(),during_7.size(),8,false},
-{"align-shoot-0",mayhem::NodeKind::Custom,{},4.0,"drivetrain.alignAndShoot",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_8.data(),during_8.size(),9,false},
-{"done",mayhem::NodeKind::Finish,{},1.0,"",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_9.data(),during_9.size(),-1,false},
+inline constexpr std::array<mayhem::PathMarker,0> markers_10 = {{}};
+inline constexpr std::array<std::string_view,0> during_10 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_11 = {{}};
+inline constexpr std::array<std::string_view,0> during_11 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_12 = {{}};
+inline constexpr std::array<std::string_view,0> during_12 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_13 = {{}};
+inline constexpr std::array<std::string_view,0> during_13 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_14 = {{}};
+inline constexpr std::array<std::string_view,0> during_14 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_15 = {{}};
+inline constexpr std::array<std::string_view,0> during_15 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_16 = {{}};
+inline constexpr std::array<std::string_view,0> during_16 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_17 = {{}};
+inline constexpr std::array<std::string_view,0> during_17 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_18 = {{}};
+inline constexpr std::array<std::string_view,0> during_18 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_19 = {{}};
+inline constexpr std::array<std::string_view,0> during_19 = {};
+inline constexpr std::array<mayhem::PathMarker,1> markers_20 = {{{mayhem::MarkerKind::Event,1.0,0.0,"superstructure.setState.IDLE",true}}};
+inline constexpr std::array<std::string_view,0> during_20 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_21 = {{}};
+inline constexpr std::array<std::string_view,0> during_21 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_22 = {{}};
+inline constexpr std::array<std::string_view,0> during_22 = {};
+inline constexpr std::array<mayhem::AutoNode,23> nodes = {{
+{"depot-sweep-pass1-p1",mayhem::NodeKind::Pose,{{5.092,7.439,-1.5893},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_0.data(),markers_0.size()},5.0,"",{1.37,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_0.data(),during_0.size(),1,true},
+{"depot-sweep-pass1-p2",mayhem::NodeKind::Pose,{{5.725,7.459,-1.6019},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_1.data(),markers_1.size()},5.0,"",{3.71,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_1.data(),during_1.size(),2,true},
+{"depot-sweep-pass1-p3",mayhem::NodeKind::Pose,{{6.389,7.439,-1.5924},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_2.data(),markers_2.size()},5.0,"",{4.41,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_2.data(),during_2.size(),3,true},
+{"depot-sweep-pass1-p4",mayhem::NodeKind::Pose,{{7.097,7.289,-1.5587},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_3.data(),markers_3.size()},5.0,"",{3.95,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_3.data(),during_3.size(),4,true},
+{"depot-sweep-pass1-p5",mayhem::NodeKind::Pose,{{7.726,7.016,-1.5271},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_4.data(),markers_4.size()},5.0,"",{3.73,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_4.data(),during_4.size(),5,true},
+{"depot-sweep-pass1-p6",mayhem::NodeKind::Pose,{{8.27,6.593,-1.5516},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_5.data(),markers_5.size()},5.0,"",{3.63,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_5.data(),during_5.size(),6,true},
+{"depot-sweep-pass1-p7",mayhem::NodeKind::Pose,{{8.676,5.981,-1.6698},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_6.data(),markers_6.size()},5.0,"",{3.54,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_6.data(),during_6.size(),7,true},
+{"depot-sweep-pass1-p8",mayhem::NodeKind::Pose,{{8.837,5.284,-1.8959},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_7.data(),markers_7.size()},5.0,"",{3.24,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_7.data(),during_7.size(),8,true},
+{"depot-sweep-pass1-p9",mayhem::NodeKind::Pose,{{8.748,4.623,-2.2322},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_8.data(),markers_8.size()},5.0,"",{2.66,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_8.data(),during_8.size(),9,true},
+{"depot-sweep-pass1-p10",mayhem::NodeKind::Pose,{{8.382,4.047,-2.7582},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_9.data(),markers_9.size()},5.0,"",{2.07,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_9.data(),during_9.size(),10,true},
+{"depot-sweep-pass1-p11",mayhem::NodeKind::Pose,{{7.805,3.87,2.8311},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_10.data(),markers_10.size()},5.0,"",{1.8,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_10.data(),during_10.size(),11,true},
+{"depot-sweep-pass1-p12",mayhem::NodeKind::Pose,{{7.452,4.152,2.2565},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_11.data(),markers_11.size()},5.0,"",{1.84,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_11.data(),during_11.size(),12,true},
+{"depot-sweep-pass1-p13",mayhem::NodeKind::Pose,{{7.438,5.115,1.6082},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_12.data(),markers_12.size()},5.0,"",{1.55,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_12.data(),during_12.size(),13,true},
+{"depot-sweep-pass1-p14",mayhem::NodeKind::Pose,{{7.292,5.64,1.543},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_13.data(),markers_13.size()},5.0,"",{1.43,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_13.data(),during_13.size(),14,true},
+{"depot-sweep-pass1-p15",mayhem::NodeKind::Pose,{{6.553,5.685,1.5486},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_14.data(),markers_14.size()},5.0,"",{2.37,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_14.data(),during_14.size(),15,true},
+{"depot-sweep-pass1-p16",mayhem::NodeKind::Pose,{{5.952,5.667,1.564},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_15.data(),markers_15.size()},5.0,"",{4.12,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_15.data(),during_15.size(),16,true},
+{"depot-sweep-pass1-p17",mayhem::NodeKind::Pose,{{5.259,5.688,1.5651},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_16.data(),markers_16.size()},5.0,"",{4.49,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_16.data(),during_16.size(),17,true},
+{"depot-sweep-pass1-p18",mayhem::NodeKind::Pose,{{4.543,5.695,1.5652},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_17.data(),markers_17.size()},5.0,"",{3.52,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_17.data(),during_17.size(),18,true},
+{"depot-sweep-pass1-p19",mayhem::NodeKind::Pose,{{3.911,5.7,1.5652},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_18.data(),markers_18.size()},5.0,"",{2.54,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_18.data(),during_18.size(),19,true},
+{"depot-sweep-pass1-p20",mayhem::NodeKind::Pose,{{3.273,5.705,1.5652},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_19.data(),markers_19.size()},5.0,"",{1.17,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_19.data(),during_19.size(),20,true},
+{"depot-sweep-pass1-p21",mayhem::NodeKind::Pose,{{2.85,5.709,1.5653},0.1,0.08,0.3,0.04,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,true,false,true,markers_20.data(),markers_20.size()},5.0,"",{3.0,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_20.data(),during_20.size(),21,false},
+{"align-shoot-0",mayhem::NodeKind::Custom,{},4.0,"drivetrain.alignAndShoot",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_21.data(),during_21.size(),22,false},
+{"done",mayhem::NodeKind::Finish,{},1.0,"",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_22.data(),during_22.size(),-1,false},
 }};
-inline constexpr std::array<mayhem::AutoTransition,9> transitions = {{
+inline constexpr std::array<mayhem::AutoTransition,22> transitions = {{
 {"depot-sweep/t0","depot-sweep-pass1-p1","depot-sweep-pass1-p2",guard_0},
 {"depot-sweep/t1","depot-sweep-pass1-p2","depot-sweep-pass1-p3",guard_1},
 {"depot-sweep/t2","depot-sweep-pass1-p3","depot-sweep-pass1-p4",guard_2},
@@ -295,8 +587,21 @@ inline constexpr std::array<mayhem::AutoTransition,9> transitions = {{
 {"depot-sweep/t4","depot-sweep-pass1-p5","depot-sweep-pass1-p6",guard_4},
 {"depot-sweep/t5","depot-sweep-pass1-p6","depot-sweep-pass1-p7",guard_5},
 {"depot-sweep/t6","depot-sweep-pass1-p7","depot-sweep-pass1-p8",guard_6},
-{"depot-sweep/t7","depot-sweep-pass1-p8","align-shoot-0",guard_7},
-{"depot-sweep/t8","align-shoot-0","done",guard_8},
+{"depot-sweep/t7","depot-sweep-pass1-p8","depot-sweep-pass1-p9",guard_7},
+{"depot-sweep/t8","depot-sweep-pass1-p9","depot-sweep-pass1-p10",guard_8},
+{"depot-sweep/t9","depot-sweep-pass1-p10","depot-sweep-pass1-p11",guard_9},
+{"depot-sweep/t10","depot-sweep-pass1-p11","depot-sweep-pass1-p12",guard_10},
+{"depot-sweep/t11","depot-sweep-pass1-p12","depot-sweep-pass1-p13",guard_11},
+{"depot-sweep/t12","depot-sweep-pass1-p13","depot-sweep-pass1-p14",guard_12},
+{"depot-sweep/t13","depot-sweep-pass1-p14","depot-sweep-pass1-p15",guard_13},
+{"depot-sweep/t14","depot-sweep-pass1-p15","depot-sweep-pass1-p16",guard_14},
+{"depot-sweep/t15","depot-sweep-pass1-p16","depot-sweep-pass1-p17",guard_15},
+{"depot-sweep/t16","depot-sweep-pass1-p17","depot-sweep-pass1-p18",guard_16},
+{"depot-sweep/t17","depot-sweep-pass1-p18","depot-sweep-pass1-p19",guard_17},
+{"depot-sweep/t18","depot-sweep-pass1-p19","depot-sweep-pass1-p20",guard_18},
+{"depot-sweep/t19","depot-sweep-pass1-p20","depot-sweep-pass1-p21",guard_19},
+{"depot-sweep/t20","depot-sweep-pass1-p21","align-shoot-0",guard_20},
+{"depot-sweep/t21","align-shoot-0","done",guard_21},
 }};
 inline constexpr mayhem::RoutineView routine{"depot-sweep","depot-sweep-pass1-p1",nodes.data(),nodes.size(),transitions.data(),transitions.size()};
 }
@@ -318,63 +623,175 @@ inline bool guard_13([[maybe_unused]] const mayhem::RobotHooks& h) { return (std
 inline bool guard_14([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
 inline bool guard_15([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
 inline bool guard_16([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
-inline constexpr std::array<mayhem::PathMarker,2> markers_0 = {{{mayhem::MarkerKind::Rotation,0.33,-1.5913910224211132,"",true},{mayhem::MarkerKind::Rotation,0.67,-1.6024706802603776,"",true}}};
+inline bool guard_17([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_18([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_19([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_20([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_21([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_22([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_23([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_24([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_25([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_26([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_27([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_28([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_29([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_30([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_31([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_32([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_33([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_34([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_35([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_36([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_37([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_38([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_39([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_40([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_41([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_42([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_43([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline bool guard_44([[maybe_unused]] const mayhem::RobotHooks& h) { return (std::optional<bool>{true}).value_or(false); }
+inline constexpr std::array<mayhem::PathMarker,0> markers_0 = {{}};
 inline constexpr std::array<std::string_view,0> during_0 = {};
-inline constexpr std::array<mayhem::PathMarker,3> markers_1 = {{{mayhem::MarkerKind::Event,0.0,0.0,"superstructure.setState.INTAKE",true},{mayhem::MarkerKind::Rotation,0.33,-1.549444817820314,"",true},{mayhem::MarkerKind::Rotation,0.67,-1.5270710096123825,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_1 = {{}};
 inline constexpr std::array<std::string_view,0> during_1 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_2 = {{{mayhem::MarkerKind::Rotation,0.33,-1.7157371340686294,"",true},{mayhem::MarkerKind::Rotation,0.67,-2.051476936419134,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_2 = {{}};
 inline constexpr std::array<std::string_view,0> during_2 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_3 = {{{mayhem::MarkerKind::Rotation,0.33,3.0260540323227745,"",true},{mayhem::MarkerKind::Rotation,0.67,2.6369535513886575,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,1> markers_3 = {{{mayhem::MarkerKind::Event,0.583,0.0,"superstructure.setState.INTAKE",true}}};
 inline constexpr std::array<std::string_view,0> during_3 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_4 = {{{mayhem::MarkerKind::Rotation,0.33,1.8406620084468506,"",true},{mayhem::MarkerKind::Rotation,0.67,1.6081922289504915,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_4 = {{}};
 inline constexpr std::array<std::string_view,0> during_4 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_5 = {{{mayhem::MarkerKind::Rotation,0.33,1.538180035389524,"",true},{mayhem::MarkerKind::Rotation,0.67,1.543666470827888,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_5 = {{}};
 inline constexpr std::array<std::string_view,0> during_5 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_6 = {{{mayhem::MarkerKind::Rotation,0.33,1.557854730599802,"",true},{mayhem::MarkerKind::Rotation,0.67,1.563958218500597,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_6 = {{}};
 inline constexpr std::array<std::string_view,0> during_6 = {};
-inline constexpr std::array<mayhem::PathMarker,3> markers_7 = {{{mayhem::MarkerKind::Rotation,0.33,1.5651406844013735,"",true},{mayhem::MarkerKind::Rotation,0.67,1.565167529334292,"",true},{mayhem::MarkerKind::Event,1.0,0.0,"superstructure.setState.IDLE",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_7 = {{}};
 inline constexpr std::array<std::string_view,0> during_7 = {};
 inline constexpr std::array<mayhem::PathMarker,0> markers_8 = {{}};
 inline constexpr std::array<std::string_view,0> during_8 = {};
-inline constexpr std::array<mayhem::PathMarker,3> markers_9 = {{{mayhem::MarkerKind::Event,0.0,0.0,"superstructure.setState.INTAKE",true},{mayhem::MarkerKind::Rotation,0.33,0.7407446892635663,"",true},{mayhem::MarkerKind::Rotation,0.67,0.28310608089224243,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_9 = {{}};
 inline constexpr std::array<std::string_view,0> during_9 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_10 = {{{mayhem::MarkerKind::Rotation,0.33,-0.029778945793371602,"",true},{mayhem::MarkerKind::Rotation,0.67,-0.5765938450052152,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_10 = {{}};
 inline constexpr std::array<std::string_view,0> during_10 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_11 = {{{mayhem::MarkerKind::Rotation,0.33,-2.1256216422486602,"",true},{mayhem::MarkerKind::Rotation,0.67,-2.587193688825343,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_11 = {{}};
 inline constexpr std::array<std::string_view,0> during_11 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_12 = {{{mayhem::MarkerKind::Rotation,0.33,-3.09819405370607,"",true},{mayhem::MarkerKind::Rotation,0.67,2.823023209137393,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_12 = {{}};
 inline constexpr std::array<std::string_view,0> during_12 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_13 = {{{mayhem::MarkerKind::Rotation,0.33,2.06356643770657,"",true},{mayhem::MarkerKind::Rotation,0.67,1.7538083593843938,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_13 = {{}};
 inline constexpr std::array<std::string_view,0> during_13 = {};
-inline constexpr std::array<mayhem::PathMarker,2> markers_14 = {{{mayhem::MarkerKind::Rotation,0.33,1.5717197162363041,"",true},{mayhem::MarkerKind::Rotation,0.67,1.5715048523646227,"",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_14 = {{}};
 inline constexpr std::array<std::string_view,0> during_14 = {};
-inline constexpr std::array<mayhem::PathMarker,3> markers_15 = {{{mayhem::MarkerKind::Rotation,0.33,1.5708081539656942,"",true},{mayhem::MarkerKind::Rotation,0.67,1.5708045232498125,"",true},{mayhem::MarkerKind::Event,1.0,0.0,"superstructure.setState.IDLE",true}}};
+inline constexpr std::array<mayhem::PathMarker,0> markers_15 = {{}};
 inline constexpr std::array<std::string_view,0> during_15 = {};
 inline constexpr std::array<mayhem::PathMarker,0> markers_16 = {{}};
 inline constexpr std::array<std::string_view,0> during_16 = {};
 inline constexpr std::array<mayhem::PathMarker,0> markers_17 = {{}};
 inline constexpr std::array<std::string_view,0> during_17 = {};
-inline constexpr std::array<mayhem::AutoNode,18> nodes = {{
-{"depot-sweep-x2-pass1-p1",mayhem::NodeKind::Pose,{{6.808750152587891,7.367390155792236,-1.5769331042075985},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_0.data(),markers_0.size()},5.0,"",{4.75,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_0.data(),during_0.size(),1,true},
-{"depot-sweep-x2-pass1-p2",mayhem::NodeKind::Pose,{{8.13407039642334,6.724220275878906,-1.5374749236070606},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_1.data(),markers_1.size()},5.0,"",{4.72,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_1.data(),during_1.size(),2,true},
-{"depot-sweep-x2-pass1-p3",mayhem::NodeKind::Pose,{{8.289714813232422,3.976468086242676,-2.870740044426886},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_2.data(),markers_2.size()},5.0,"",{3.79,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_2.data(),during_2.size(),3,true},
-{"depot-sweep-x2-pass1-p4",mayhem::NodeKind::Pose,{{7.451920986175537,4.151540279388428,2.2565258377011834},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_3.data(),markers_3.size()},5.0,"",{2.25,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_3.data(),during_3.size(),4,true},
-{"depot-sweep-x2-pass1-p5",mayhem::NodeKind::Pose,{{7.291816234588623,5.639632225036621,1.543025350661669},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_4.data(),markers_4.size()},5.0,"",{2.88,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_4.data(),during_4.size(),5,true},
-{"depot-sweep-x2-pass1-p6",mayhem::NodeKind::Pose,{{6.357276439666748,5.671311378479004,1.5542880605543055},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_5.data(),markers_5.size()},5.0,"",{3.49,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_5.data(),during_5.size(),6,true},
-{"depot-sweep-x2-pass1-p7",mayhem::NodeKind::Pose,{{5.8028883934021,5.671311378479004,1.5651202668777844},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_6.data(),markers_6.size()},5.0,"",{4.31,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_6.data(),during_6.size(),7,true},
-{"depot-sweep-x2-pass1-p8",mayhem::NodeKind::Pose,{{3.3028502464294434,5.700842380523682,1.565258762938835},0.1,0.08,0.3,0.04,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,true,false,true,markers_7.data(),markers_7.size()},5.0,"",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_7.data(),during_7.size(),8,false},
-{"align-shoot-0",mayhem::NodeKind::Custom,{},4.0,"drivetrain.alignAndShoot",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_8.data(),during_8.size(),9,false},
-{"depot-sweep-x2-pass2-p1",mayhem::NodeKind::Pose,{{3.8728718757629395,7.394465446472168,-0.00823551100551747},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_9.data(),markers_9.size()},5.0,"",{3.48,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_9.data(),during_9.size(),10,true},
-{"depot-sweep-x2-pass2-p2",mayhem::NodeKind::Pose,{{7.223076820373535,6.3395209312438965,-1.57648582397899},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_10.data(),markers_10.size()},5.0,"",{4.16,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_10.data(),during_10.size(),11,true},
-{"depot-sweep-x2-pass2-p3",mayhem::NodeKind::Pose,{{7.271740913391113,4.328139305114746,-2.869415674618889},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_11.data(),markers_11.size()},5.0,"",{4.32,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_11.data(),during_11.size(),12,true},
-{"depot-sweep-x2-pass2-p4",mayhem::NodeKind::Pose,{{6.926433086395264,3.297602891921997,2.477763161117936},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_12.data(),markers_12.size()},5.0,"",{4.09,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_12.data(),during_12.size(),13,true},
-{"depot-sweep-x2-pass2-p5",mayhem::NodeKind::Pose,{{5.978299617767334,3.3325552940368652,1.5707963267948968},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_13.data(),markers_13.size()},5.0,"",{2.31,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_13.data(),during_13.size(),14,true},
-{"depot-sweep-x2-pass2-p6",mayhem::NodeKind::Pose,{{6.009660243988037,5.574310302734375,1.570816652634606},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_14.data(),markers_14.size()},5.0,"",{3.6,6.48,8.0,14.0,5.0,4.0,0.35,2.0,0.0},during_14.data(),during_14.size(),15,true},
-{"depot-sweep-x2-pass2-p7",mayhem::NodeKind::Pose,{{2.840000867843628,5.628466606140137,1.5707963267948968},0.1,0.08,0.3,0.04,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,true,false,true,markers_15.data(),markers_15.size()},5.0,"",{4.44,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_15.data(),during_15.size(),16,false},
-{"align-shoot-1",mayhem::NodeKind::Custom,{},4.0,"drivetrain.alignAndShoot",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_16.data(),during_16.size(),17,false},
-{"done",mayhem::NodeKind::Finish,{},1.0,"",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_17.data(),during_17.size(),-1,false},
+inline constexpr std::array<mayhem::PathMarker,0> markers_18 = {{}};
+inline constexpr std::array<std::string_view,0> during_18 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_19 = {{}};
+inline constexpr std::array<std::string_view,0> during_19 = {};
+inline constexpr std::array<mayhem::PathMarker,1> markers_20 = {{{mayhem::MarkerKind::Event,1.0,0.0,"superstructure.setState.IDLE",true}}};
+inline constexpr std::array<std::string_view,0> during_20 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_21 = {{}};
+inline constexpr std::array<std::string_view,0> during_21 = {};
+inline constexpr std::array<mayhem::PathMarker,1> markers_22 = {{{mayhem::MarkerKind::Event,0.0,0.0,"superstructure.setState.INTAKE",true}}};
+inline constexpr std::array<std::string_view,0> during_22 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_23 = {{}};
+inline constexpr std::array<std::string_view,0> during_23 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_24 = {{}};
+inline constexpr std::array<std::string_view,0> during_24 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_25 = {{}};
+inline constexpr std::array<std::string_view,0> during_25 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_26 = {{}};
+inline constexpr std::array<std::string_view,0> during_26 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_27 = {{}};
+inline constexpr std::array<std::string_view,0> during_27 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_28 = {{}};
+inline constexpr std::array<std::string_view,0> during_28 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_29 = {{}};
+inline constexpr std::array<std::string_view,0> during_29 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_30 = {{}};
+inline constexpr std::array<std::string_view,0> during_30 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_31 = {{}};
+inline constexpr std::array<std::string_view,0> during_31 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_32 = {{}};
+inline constexpr std::array<std::string_view,0> during_32 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_33 = {{}};
+inline constexpr std::array<std::string_view,0> during_33 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_34 = {{}};
+inline constexpr std::array<std::string_view,0> during_34 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_35 = {{}};
+inline constexpr std::array<std::string_view,0> during_35 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_36 = {{}};
+inline constexpr std::array<std::string_view,0> during_36 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_37 = {{}};
+inline constexpr std::array<std::string_view,0> during_37 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_38 = {{}};
+inline constexpr std::array<std::string_view,0> during_38 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_39 = {{}};
+inline constexpr std::array<std::string_view,0> during_39 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_40 = {{}};
+inline constexpr std::array<std::string_view,0> during_40 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_41 = {{}};
+inline constexpr std::array<std::string_view,0> during_41 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_42 = {{}};
+inline constexpr std::array<std::string_view,0> during_42 = {};
+inline constexpr std::array<mayhem::PathMarker,1> markers_43 = {{{mayhem::MarkerKind::Event,1.0,0.0,"superstructure.setState.IDLE",true}}};
+inline constexpr std::array<std::string_view,0> during_43 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_44 = {{}};
+inline constexpr std::array<std::string_view,0> during_44 = {};
+inline constexpr std::array<mayhem::PathMarker,0> markers_45 = {{}};
+inline constexpr std::array<std::string_view,0> during_45 = {};
+inline constexpr std::array<mayhem::AutoNode,46> nodes = {{
+{"depot-sweep-x2-pass1-p1",mayhem::NodeKind::Pose,{{5.092,7.439,-1.5893},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_0.data(),markers_0.size()},5.0,"",{1.37,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_0.data(),during_0.size(),1,true},
+{"depot-sweep-x2-pass1-p2",mayhem::NodeKind::Pose,{{5.725,7.459,-1.6019},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_1.data(),markers_1.size()},5.0,"",{3.71,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_1.data(),during_1.size(),2,true},
+{"depot-sweep-x2-pass1-p3",mayhem::NodeKind::Pose,{{6.389,7.439,-1.5924},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_2.data(),markers_2.size()},5.0,"",{4.41,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_2.data(),during_2.size(),3,true},
+{"depot-sweep-x2-pass1-p4",mayhem::NodeKind::Pose,{{7.097,7.289,-1.5587},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_3.data(),markers_3.size()},5.0,"",{3.95,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_3.data(),during_3.size(),4,true},
+{"depot-sweep-x2-pass1-p5",mayhem::NodeKind::Pose,{{7.726,7.016,-1.5271},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_4.data(),markers_4.size()},5.0,"",{3.73,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_4.data(),during_4.size(),5,true},
+{"depot-sweep-x2-pass1-p6",mayhem::NodeKind::Pose,{{8.27,6.593,-1.5516},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_5.data(),markers_5.size()},5.0,"",{3.63,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_5.data(),during_5.size(),6,true},
+{"depot-sweep-x2-pass1-p7",mayhem::NodeKind::Pose,{{8.676,5.981,-1.6698},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_6.data(),markers_6.size()},5.0,"",{3.54,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_6.data(),during_6.size(),7,true},
+{"depot-sweep-x2-pass1-p8",mayhem::NodeKind::Pose,{{8.837,5.284,-1.8959},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_7.data(),markers_7.size()},5.0,"",{3.24,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_7.data(),during_7.size(),8,true},
+{"depot-sweep-x2-pass1-p9",mayhem::NodeKind::Pose,{{8.748,4.623,-2.2322},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_8.data(),markers_8.size()},5.0,"",{2.66,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_8.data(),during_8.size(),9,true},
+{"depot-sweep-x2-pass1-p10",mayhem::NodeKind::Pose,{{8.382,4.047,-2.7582},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_9.data(),markers_9.size()},5.0,"",{2.07,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_9.data(),during_9.size(),10,true},
+{"depot-sweep-x2-pass1-p11",mayhem::NodeKind::Pose,{{7.805,3.87,2.8311},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_10.data(),markers_10.size()},5.0,"",{1.8,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_10.data(),during_10.size(),11,true},
+{"depot-sweep-x2-pass1-p12",mayhem::NodeKind::Pose,{{7.452,4.152,2.2565},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_11.data(),markers_11.size()},5.0,"",{1.84,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_11.data(),during_11.size(),12,true},
+{"depot-sweep-x2-pass1-p13",mayhem::NodeKind::Pose,{{7.438,5.115,1.6082},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_12.data(),markers_12.size()},5.0,"",{1.55,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_12.data(),during_12.size(),13,true},
+{"depot-sweep-x2-pass1-p14",mayhem::NodeKind::Pose,{{7.292,5.64,1.543},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_13.data(),markers_13.size()},5.0,"",{1.43,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_13.data(),during_13.size(),14,true},
+{"depot-sweep-x2-pass1-p15",mayhem::NodeKind::Pose,{{6.553,5.685,1.5486},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_14.data(),markers_14.size()},5.0,"",{2.37,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_14.data(),during_14.size(),15,true},
+{"depot-sweep-x2-pass1-p16",mayhem::NodeKind::Pose,{{5.952,5.667,1.564},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_15.data(),markers_15.size()},5.0,"",{4.12,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_15.data(),during_15.size(),16,true},
+{"depot-sweep-x2-pass1-p17",mayhem::NodeKind::Pose,{{5.259,5.688,1.5651},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_16.data(),markers_16.size()},5.0,"",{4.49,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_16.data(),during_16.size(),17,true},
+{"depot-sweep-x2-pass1-p18",mayhem::NodeKind::Pose,{{4.543,5.695,1.5652},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_17.data(),markers_17.size()},5.0,"",{3.52,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_17.data(),during_17.size(),18,true},
+{"depot-sweep-x2-pass1-p19",mayhem::NodeKind::Pose,{{3.911,5.7,1.5652},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_18.data(),markers_18.size()},5.0,"",{2.54,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_18.data(),during_18.size(),19,true},
+{"depot-sweep-x2-pass1-p20",mayhem::NodeKind::Pose,{{3.273,5.705,1.5652},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_19.data(),markers_19.size()},5.0,"",{1.17,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_19.data(),during_19.size(),20,true},
+{"depot-sweep-x2-pass1-p21",mayhem::NodeKind::Pose,{{2.85,5.709,1.5653},0.1,0.08,0.3,0.04,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,true,false,true,markers_20.data(),markers_20.size()},5.0,"",{3.0,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_20.data(),during_20.size(),21,false},
+{"align-shoot-0",mayhem::NodeKind::Custom,{},4.0,"drivetrain.alignAndShoot",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_21.data(),during_21.size(),22,false},
+{"depot-sweep-x2-pass2-p1",mayhem::NodeKind::Pose,{{2.963,6.35,0.8254},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_22.data(),markers_22.size()},5.0,"",{1.31,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_22.data(),during_22.size(),23,true},
+{"depot-sweep-x2-pass2-p2",mayhem::NodeKind::Pose,{{3.296,6.939,0.2831},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_23.data(),markers_23.size()},5.0,"",{3.22,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_23.data(),during_23.size(),24,true},
+{"depot-sweep-x2-pass2-p3",mayhem::NodeKind::Pose,{{3.779,7.343,0.0145},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_24.data(),markers_24.size()},5.0,"",{3.41,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_24.data(),during_24.size(),25,true},
+{"depot-sweep-x2-pass2-p4",mayhem::NodeKind::Pose,{{4.392,7.581,-0.0376},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_25.data(),markers_25.size()},5.0,"",{3.57,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_25.data(),during_25.size(),26,true},
+{"depot-sweep-x2-pass2-p5",mayhem::NodeKind::Pose,{{4.989,7.636,-0.0161},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_26.data(),markers_26.size()},5.0,"",{4.06,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_26.data(),during_26.size(),27,true},
+{"depot-sweep-x2-pass2-p6",mayhem::NodeKind::Pose,{{5.62,7.556,-0.158},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_27.data(),markers_27.size()},5.0,"",{3.93,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_27.data(),during_27.size(),28,true},
+{"depot-sweep-x2-pass2-p7",mayhem::NodeKind::Pose,{{6.212,7.341,-0.4796},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_28.data(),markers_28.size()},5.0,"",{3.72,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_28.data(),during_28.size(),29,true},
+{"depot-sweep-x2-pass2-p8",mayhem::NodeKind::Pose,{{6.815,6.911,-1.0024},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_29.data(),markers_29.size()},5.0,"",{3.63,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_29.data(),during_29.size(),30,true},
+{"depot-sweep-x2-pass2-p9",mayhem::NodeKind::Pose,{{7.223,6.34,-1.5765},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_30.data(),markers_30.size()},5.0,"",{3.63,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_30.data(),during_30.size(),31,true},
+{"depot-sweep-x2-pass2-p10",mayhem::NodeKind::Pose,{{7.416,5.683,-2.1256},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_31.data(),markers_31.size()},5.0,"",{3.73,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_31.data(),during_31.size(),32,true},
+{"depot-sweep-x2-pass2-p11",mayhem::NodeKind::Pose,{{7.407,4.942,-2.5872},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_32.data(),markers_32.size()},5.0,"",{3.82,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_32.data(),during_32.size(),33,true},
+{"depot-sweep-x2-pass2-p12",mayhem::NodeKind::Pose,{{7.126,3.717,2.9428},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_33.data(),markers_33.size()},5.0,"",{2.31,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_33.data(),during_33.size(),34,true},
+{"depot-sweep-x2-pass2-p13",mayhem::NodeKind::Pose,{{6.926,3.298,2.4778},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_34.data(),markers_34.size()},5.0,"",{1.89,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_34.data(),during_34.size(),35,true},
+{"depot-sweep-x2-pass2-p14",mayhem::NodeKind::Pose,{{6.192,3.085,1.6526},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_35.data(),markers_35.size()},5.0,"",{1.71,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_35.data(),during_35.size(),36,true},
+{"depot-sweep-x2-pass2-p15",mayhem::NodeKind::Pose,{{5.978,3.333,1.5708},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_36.data(),markers_36.size()},5.0,"",{2.02,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_36.data(),during_36.size(),37,true},
+{"depot-sweep-x2-pass2-p16",mayhem::NodeKind::Pose,{{5.983,4.366,1.5717},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_37.data(),markers_37.size()},5.0,"",{2.6,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_37.data(),during_37.size(),38,true},
+{"depot-sweep-x2-pass2-p17",mayhem::NodeKind::Pose,{{6.151,4.945,1.5714},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_38.data(),markers_38.size()},5.0,"",{1.58,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_38.data(),during_38.size(),39,true},
+{"depot-sweep-x2-pass2-p18",mayhem::NodeKind::Pose,{{6.08,5.545,1.5708},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_39.data(),markers_39.size()},5.0,"",{1.16,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_39.data(),during_39.size(),40,true},
+{"depot-sweep-x2-pass2-p19",mayhem::NodeKind::Pose,{{5.416,5.59,1.5708},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_40.data(),markers_40.size()},5.0,"",{2.08,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_40.data(),during_40.size(),41,true},
+{"depot-sweep-x2-pass2-p20",mayhem::NodeKind::Pose,{{4.781,5.597,1.5708},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_41.data(),markers_41.size()},5.0,"",{3.69,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_41.data(),during_41.size(),42,true},
+{"depot-sweep-x2-pass2-p21",mayhem::NodeKind::Pose,{{3.532,5.617,1.5708},0.12,0.2,0.3,0.0,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,false,false,true,markers_42.data(),markers_42.size()},5.0,"",{1.84,6.48,8.0,14.0,5.0,4.0,0.3,2.0,0.0},during_42.data(),during_42.size(),43,true},
+{"depot-sweep-x2-pass2-p22",mayhem::NodeKind::Pose,{{2.84,5.628,1.5708},0.1,0.08,0.3,0.04,0.0,mayhem::HeadingMode::Fixed,0.0,0.0,true,false,true,markers_43.data(),markers_43.size()},5.0,"",{3.0,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_43.data(),during_43.size(),44,false},
+{"align-shoot-1",mayhem::NodeKind::Custom,{},4.0,"drivetrain.alignAndShoot",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_44.data(),during_44.size(),45,false},
+{"done",mayhem::NodeKind::Finish,{},1.0,"",{4.8,6.48,8.0,14.0,5.0,4.0,0.45,2.0,0.0},during_45.data(),during_45.size(),-1,false},
 }};
-inline constexpr std::array<mayhem::AutoTransition,17> transitions = {{
+inline constexpr std::array<mayhem::AutoTransition,45> transitions = {{
 {"depot-sweep-x2/t0","depot-sweep-x2-pass1-p1","depot-sweep-x2-pass1-p2",guard_0},
 {"depot-sweep-x2/t1","depot-sweep-x2-pass1-p2","depot-sweep-x2-pass1-p3",guard_1},
 {"depot-sweep-x2/t2","depot-sweep-x2-pass1-p3","depot-sweep-x2-pass1-p4",guard_2},
@@ -382,16 +799,44 @@ inline constexpr std::array<mayhem::AutoTransition,17> transitions = {{
 {"depot-sweep-x2/t4","depot-sweep-x2-pass1-p5","depot-sweep-x2-pass1-p6",guard_4},
 {"depot-sweep-x2/t5","depot-sweep-x2-pass1-p6","depot-sweep-x2-pass1-p7",guard_5},
 {"depot-sweep-x2/t6","depot-sweep-x2-pass1-p7","depot-sweep-x2-pass1-p8",guard_6},
-{"depot-sweep-x2/t7","depot-sweep-x2-pass1-p8","align-shoot-0",guard_7},
-{"depot-sweep-x2/t8","align-shoot-0","depot-sweep-x2-pass2-p1",guard_8},
-{"depot-sweep-x2/t9","depot-sweep-x2-pass2-p1","depot-sweep-x2-pass2-p2",guard_9},
-{"depot-sweep-x2/t10","depot-sweep-x2-pass2-p2","depot-sweep-x2-pass2-p3",guard_10},
-{"depot-sweep-x2/t11","depot-sweep-x2-pass2-p3","depot-sweep-x2-pass2-p4",guard_11},
-{"depot-sweep-x2/t12","depot-sweep-x2-pass2-p4","depot-sweep-x2-pass2-p5",guard_12},
-{"depot-sweep-x2/t13","depot-sweep-x2-pass2-p5","depot-sweep-x2-pass2-p6",guard_13},
-{"depot-sweep-x2/t14","depot-sweep-x2-pass2-p6","depot-sweep-x2-pass2-p7",guard_14},
-{"depot-sweep-x2/t15","depot-sweep-x2-pass2-p7","align-shoot-1",guard_15},
-{"depot-sweep-x2/t16","align-shoot-1","done",guard_16},
+{"depot-sweep-x2/t7","depot-sweep-x2-pass1-p8","depot-sweep-x2-pass1-p9",guard_7},
+{"depot-sweep-x2/t8","depot-sweep-x2-pass1-p9","depot-sweep-x2-pass1-p10",guard_8},
+{"depot-sweep-x2/t9","depot-sweep-x2-pass1-p10","depot-sweep-x2-pass1-p11",guard_9},
+{"depot-sweep-x2/t10","depot-sweep-x2-pass1-p11","depot-sweep-x2-pass1-p12",guard_10},
+{"depot-sweep-x2/t11","depot-sweep-x2-pass1-p12","depot-sweep-x2-pass1-p13",guard_11},
+{"depot-sweep-x2/t12","depot-sweep-x2-pass1-p13","depot-sweep-x2-pass1-p14",guard_12},
+{"depot-sweep-x2/t13","depot-sweep-x2-pass1-p14","depot-sweep-x2-pass1-p15",guard_13},
+{"depot-sweep-x2/t14","depot-sweep-x2-pass1-p15","depot-sweep-x2-pass1-p16",guard_14},
+{"depot-sweep-x2/t15","depot-sweep-x2-pass1-p16","depot-sweep-x2-pass1-p17",guard_15},
+{"depot-sweep-x2/t16","depot-sweep-x2-pass1-p17","depot-sweep-x2-pass1-p18",guard_16},
+{"depot-sweep-x2/t17","depot-sweep-x2-pass1-p18","depot-sweep-x2-pass1-p19",guard_17},
+{"depot-sweep-x2/t18","depot-sweep-x2-pass1-p19","depot-sweep-x2-pass1-p20",guard_18},
+{"depot-sweep-x2/t19","depot-sweep-x2-pass1-p20","depot-sweep-x2-pass1-p21",guard_19},
+{"depot-sweep-x2/t20","depot-sweep-x2-pass1-p21","align-shoot-0",guard_20},
+{"depot-sweep-x2/t21","align-shoot-0","depot-sweep-x2-pass2-p1",guard_21},
+{"depot-sweep-x2/t22","depot-sweep-x2-pass2-p1","depot-sweep-x2-pass2-p2",guard_22},
+{"depot-sweep-x2/t23","depot-sweep-x2-pass2-p2","depot-sweep-x2-pass2-p3",guard_23},
+{"depot-sweep-x2/t24","depot-sweep-x2-pass2-p3","depot-sweep-x2-pass2-p4",guard_24},
+{"depot-sweep-x2/t25","depot-sweep-x2-pass2-p4","depot-sweep-x2-pass2-p5",guard_25},
+{"depot-sweep-x2/t26","depot-sweep-x2-pass2-p5","depot-sweep-x2-pass2-p6",guard_26},
+{"depot-sweep-x2/t27","depot-sweep-x2-pass2-p6","depot-sweep-x2-pass2-p7",guard_27},
+{"depot-sweep-x2/t28","depot-sweep-x2-pass2-p7","depot-sweep-x2-pass2-p8",guard_28},
+{"depot-sweep-x2/t29","depot-sweep-x2-pass2-p8","depot-sweep-x2-pass2-p9",guard_29},
+{"depot-sweep-x2/t30","depot-sweep-x2-pass2-p9","depot-sweep-x2-pass2-p10",guard_30},
+{"depot-sweep-x2/t31","depot-sweep-x2-pass2-p10","depot-sweep-x2-pass2-p11",guard_31},
+{"depot-sweep-x2/t32","depot-sweep-x2-pass2-p11","depot-sweep-x2-pass2-p12",guard_32},
+{"depot-sweep-x2/t33","depot-sweep-x2-pass2-p12","depot-sweep-x2-pass2-p13",guard_33},
+{"depot-sweep-x2/t34","depot-sweep-x2-pass2-p13","depot-sweep-x2-pass2-p14",guard_34},
+{"depot-sweep-x2/t35","depot-sweep-x2-pass2-p14","depot-sweep-x2-pass2-p15",guard_35},
+{"depot-sweep-x2/t36","depot-sweep-x2-pass2-p15","depot-sweep-x2-pass2-p16",guard_36},
+{"depot-sweep-x2/t37","depot-sweep-x2-pass2-p16","depot-sweep-x2-pass2-p17",guard_37},
+{"depot-sweep-x2/t38","depot-sweep-x2-pass2-p17","depot-sweep-x2-pass2-p18",guard_38},
+{"depot-sweep-x2/t39","depot-sweep-x2-pass2-p18","depot-sweep-x2-pass2-p19",guard_39},
+{"depot-sweep-x2/t40","depot-sweep-x2-pass2-p19","depot-sweep-x2-pass2-p20",guard_40},
+{"depot-sweep-x2/t41","depot-sweep-x2-pass2-p20","depot-sweep-x2-pass2-p21",guard_41},
+{"depot-sweep-x2/t42","depot-sweep-x2-pass2-p21","depot-sweep-x2-pass2-p22",guard_42},
+{"depot-sweep-x2/t43","depot-sweep-x2-pass2-p22","align-shoot-1",guard_43},
+{"depot-sweep-x2/t44","align-shoot-1","done",guard_44},
 }};
 inline constexpr mayhem::RoutineView routine{"depot-sweep-x2","depot-sweep-x2-pass1-p1",nodes.data(),nodes.size(),transitions.data(),transitions.size()};
 }
@@ -762,11 +1207,16 @@ return text; }();
 inline const std::string ShotCycleManifest = [] { std::string text; text.reserve(2660);
 text += "{\"format\":\"mayhem-machine\",\"version\":1,\"id\":\"ShotCycle\",\"name\":\"Shooting \\u00b7 spin up and feed\",\"initial\":\"OFF\",\"states\":[{\"id\":\"OFF\",\"name\":\"No shot requested\",\"source\":\"src/main/cpp/subsystems/Superstructure.cpp\"},{\"id\":\"SPINNING_UP\",\"name\":\"Spin flywheel to the requested speed\",\"source\":\"src/main/cpp/subsystems/Superstructure.cpp\"},{\"id\":\"FEEDING\",\"name\":\"Feed; latched until the shot request ends\",\"source\":\"src/main/cpp/subsystems/Superstructure.cpp\"},{\"id\":\"INHIBITED\",\"name\":\"Paused under the trench (hood forced down)\",\"source\":\"src/main/cpp/subsystems/Superstructure.cpp\"}],\"inputs\":[{\"key\":\"enabled\",\"name\":\"enabled\",\"type\":\"boolean\",\"initial\":false,\"channel\":\"/RealOutputs/Mayhem/States/Superstructure/inputs/enabled\"},{\"key\":\"shotDemand\",\"name\":\"shotDemand\",\"type\":\"boolean\",\"initial\":false,\"channel\":\"/RealOutputs/Mayhem/States/Superstructure/inputs/shotDemand\"},{\"key\":\"flywheelReady\",\"name\":\"flywheelReady\",\"type\":\"boolean\",\"initial\":false,\"channel\":\"/RealOutputs/Mayhem/States/Superstructure/inputs/flywheelReady\"},{\"key\":\"trench\",\"name\":\"trench\",\"type\":\"boolean\",\"initial\":false,\"channel\":\"/RealOutputs/Mayhem/States/Superstructure/inputs/trench\"}],\"transitions\":[{\"id\":\"SPINNING_UP-to-OFF\",\"from\":\"SPINNING_UP\",\"to\":\"OFF\",\"condition\":{\"kind\":\"any\",\"conditions\":[{\"kind\":\"signal\",\"key\":\"shotDemand\",\"op\":\"eq\",\"value\":false},{\"kind\":\"signal\",\"key\":\"enabled\",\"op\":\"eq\",\"value\":false}]}},{\"id\":\"FEEDING-to-OFF\",\"from\":\"FEEDING\",\"to\":\"OFF\",\"condition\":{\"kind\":\"any\",\"conditions\":[{\"kind\":\"signal\",\"key\":\"shotDemand\",\"op\":\"eq\",\"value\":false},{\"kind\":\"signal\",\"key\":\"enabled\",\"op\":\"eq\",\"value\":false}]}},{\"id\":\"INHIBITED-to-OFF\",\"from\":\"INHIBITED\",\"to\":\"OFF\",\"condition\":{\"kind\":\"any\",\"conditions\":[{\"kind\":\"signal\",\"key\":\"shotDemand\",\"op\":\"eq\",\"value\":false},{\"kind\":\"signal\",\"key\":\"enabled\",\"op\":\"eq\",\"value\":false}]}},{\"id\":\"OFF-to-SPINNING_UP\",\"from\":\"OFF\",\"to\":\"SPINNING_UP\",\"condition\":{\"kind\":\"all\",\"conditions\":[{\"kind\":\"signal\",\"key\":\"enabled\",\"op\":\"eq\",\"value\":true},{\"kind\":\"signal\",\"key\":\"shotDemand\",\"op\":\"eq\",\"value\":true}]}},{\"id\":\"SPINNING_UP-to-INHIBITED\",\"from\":\"SPINNING_UP\",\"to\":\"INHIBITED\",\"condition\":{\"kind\":\"signal\",\"key\":\"trench\",\"op\":\"eq\",\"value\":true}},{\"id\":\"FEEDING-to-INHIBITED\",\"from\":\"FEEDING\",\"to\":\"INHIBITED\",\"condition\":{\"kind\":\"signal\",\"key\":\"trench\",\"op\":\"eq\",\"value\":true}},{\"id\":\"SPINNING_UP-to-FEEDING\",\"from\":\"SPINNING_UP\",\"to\":\"FEEDING\",\"condition\":{\"kind\":\"signal\",\"key\":\"flywheelReady\",\"op\":\"eq\",\"value\":true}},{\"id\":\"INHIBITED-to-SPINNING_UP\",\"from\":\"INHIBITED\",\"to\":\"SPINNING_UP\",\"condition\":{\"kind\":\"signal\",\"key\":\"trench\",\"op\":\"eq\",\"value\":false}}],\"stateChannel\":\"/Mayhem/States/ShotCycle/state\"}";
 return text; }();
-inline const std::string AutonomousManifest = [] { std::string text; text.reserve(15087);
-text += "{\"format\":\"mayhem-machine\",\"version\":1,\"id\":\"Autonomous\",\"name\":\"Autonomous\",\"initial\":\"depot-sweep-depot-pass1-p1\",\"states\":[{\"id\":\"depot-sweep-depot-pass1-p1\",\"name\":\"DepotTrenchSweepDepotPt waypoint 1\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p2\",\"name\":\"DepotTrenchSweepDepotPt waypoint 2\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p3\",\"name\":\"DepotTrenchSweepDepotPt waypoint 3\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p4\",\"name\":\"DepotTrenchSweepDepotPt waypoint 4\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p5\",\"name\":\"DepotTrenchSweepDepotPt waypoint 5\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p6\",\"name\":\"DepotTrenchSweepDepotPt waypoint 6\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p7\",\"name\":\"DepotTrenchSweepDepotPt waypoint 7\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p8\",\"name\":\"DepotTrenchSweepDepotPt waypoint 8\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p9\",\"name\":\"DepotTrenchSweepDepotPt waypoint 9\",\"source\":\"robot.mayhem.json\"},{\"id\":\"align-shoot-0\",\"name\":\"Aim and shoot\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass2-p1\",\"name\":\"DepotTrenchSweepDepotPt2 waypoint 1\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass2-p2\",\"name\":\"DepotTrenchSweepDepotPt2 waypoint 2\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass2-p3\",\"name\":\"DepotTrenchSweepDepotPt2 waypoint 3\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass2-p4\",\"name\":\"DepotTrenchSweepDepotPt2 waypoint 4\",\"source\":\"robot.mayhem.json\"},{\"id\":\"align-shoot-1\",\"name\":\"Aim and shoot\",\"source\":\"robot.mayhem.json\"},{\"id\":\"done\",\"name\":\"Auto complete\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p1\",\"name\":\"OutpostTrenchSweepBumpPt1 waypoint 1\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p2\",\"name\":\"OutpostTrenchSweepBumpPt1 waypoint 2\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p3\",\"name\":\"OutpostTrenchSweepBumpPt1 waypoint 3\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p4\",\"name\":\"OutpostTrenchSweepBumpPt1 waypoint 4\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p5\",\"name\":\"OutpostTrenchSweepBumpPt1 waypoint 5\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p6\",\"name\":\"OutpostTrenchSweepBumpPt1 waypoint 6\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p7\",\"name\":\"OutpostTrenchSweepBumpPt1 waypoint 7\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p8\",\"name\":\"OutpostTrenchSweepBumpPt1 waypoint 8\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p1\",\"name\":\"OutpostTrenchSweepBumpPt1 waypoint 1\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p2\",\"name\":\"OutpostTrenchSweepBumpPt1 waypoint 2\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p3\",\"name\":\"OutpostTrenchSweepBumpPt1 waypoint 3\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p4\",\"name\":\"OutpostTrenchSweepBumpPt1 waypoint 4\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p5\",\"name\":\"OutpostTrenchSweepBumpPt1 waypoint 5\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p6\",\"name\":\"OutpostTrenchSweepBumpPt1 waypoint 6\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p7\",\"name\":\"OutpostTrenchSweepBumpPt1 waypoint 7\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p8\",\"name\":\"OutpostTrenchSweepBumpPt1 waypoint 8\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p1\",\"name\":\"OutpostTrenchSweepBumpPt2 waypoint 1\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p2\",\"name\":\"OutpostTrenchSweepBumpPt2 waypoint 2\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p3\",\"name\":\"OutpostTrenchSweepBumpPt2 waypoint 3\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p4\",\"name\":\"OutpostTrenchSweepBumpPt2 waypoint 4\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p5\",\"name\":\"OutpostTrenchSweepB";
-text += "umpPt2 waypoint 5\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p6\",\"name\":\"OutpostTrenchSweepBumpPt2 waypoint 6\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p7\",\"name\":\"OutpostTrenchSweepBumpPt2 waypoint 7\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p8\",\"name\":\"OutpostTrenchSweepBumpPt2 waypoint 8\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p1\",\"name\":\"DepotTrenchSweepBumpPt1 waypoint 1\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p2\",\"name\":\"DepotTrenchSweepBumpPt1 waypoint 2\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p3\",\"name\":\"DepotTrenchSweepBumpPt1 waypoint 3\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p4\",\"name\":\"DepotTrenchSweepBumpPt1 waypoint 4\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p5\",\"name\":\"DepotTrenchSweepBumpPt1 waypoint 5\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p6\",\"name\":\"DepotTrenchSweepBumpPt1 waypoint 6\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p7\",\"name\":\"DepotTrenchSweepBumpPt1 waypoint 7\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p8\",\"name\":\"DepotTrenchSweepBumpPt1 waypoint 8\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p1\",\"name\":\"DepotTrenchSweepBumpPt1 waypoint 1\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p2\",\"name\":\"DepotTrenchSweepBumpPt1 waypoint 2\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p3\",\"name\":\"DepotTrenchSweepBumpPt1 waypoint 3\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p4\",\"name\":\"DepotTrenchSweepBumpPt1 waypoint 4\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p5\",\"name\":\"DepotTrenchSweepBumpPt1 waypoint 5\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p6\",\"name\":\"DepotTrenchSweepBumpPt1 waypoint 6\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p7\",\"name\":\"DepotTrenchSweepBumpPt1 waypoint 7\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p8\",\"name\":\"DepotTrenchSweepBumpPt1 waypoint 8\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p1\",\"name\":\"DepotTrenchSweepBump2xPt2 waypoint 1\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p2\",\"name\":\"DepotTrenchSweepBump2xPt2 waypoint 2\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p3\",\"name\":\"DepotTrenchSweepBump2xPt2 waypoint 3\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p4\",\"name\":\"DepotTrenchSweepBump2xPt2 waypoint 4\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p5\",\"name\":\"DepotTrenchSweepBump2xPt2 waypoint 5\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p6\",\"name\":\"DepotTrenchSweepBump2xPt2 waypoint 6\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p7\",\"name\":\"DepotTrenchSweepBump2xPt2 waypoint 7\",\"source\":\"robot.mayhem.json\"}],\"transitions\":[{\"id\":\"depot-sweep-depot/t0\",\"from\":\"depot-sweep-depot-pass1-p1\",\"to\":\"depot-sweep-depot-pass1-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t1\",\"from\":\"depot-sweep-depot-pass1-p2\",\"to\":\"depot-sweep-depot-pass1-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t2\",\"from\":\"depot-sweep-depot-pass1-p3\",\"to\":\"depot-sweep-depot-pass1-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t3\",\"from\":\"depot-sweep-depot-pass1-p4\",\"to\":\"depot-sweep-depot-pass1-p5\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t4\",\"from\":\"depot-sweep-depot-pass1-p5\",\"to\":\"depot-sweep-depot-pass1-p6\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t5\",\"from\":\"depot-sweep-depot-pass1-p6\",\"to\":\"depot-sweep-depot-pass1-p7\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t6\",\"from\":\"depot-sweep-depot-pass1-p7\",\"to\":\"depot-sweep-depot-pass1-p8\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t7\",\"from\":\"depot-sweep-depot-pass1-p8\",\"to\":\"depot-sweep-depot-pass1-p9\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t8\",\"from\":\"depot-sweep-depot-pass1-p9\",\"to\":\"align-shoot-0\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-d";
-text += "epot/t9\",\"from\":\"align-shoot-0\",\"to\":\"depot-sweep-depot-pass2-p1\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t10\",\"from\":\"depot-sweep-depot-pass2-p1\",\"to\":\"depot-sweep-depot-pass2-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t11\",\"from\":\"depot-sweep-depot-pass2-p2\",\"to\":\"depot-sweep-depot-pass2-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t12\",\"from\":\"depot-sweep-depot-pass2-p3\",\"to\":\"depot-sweep-depot-pass2-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t13\",\"from\":\"depot-sweep-depot-pass2-p4\",\"to\":\"align-shoot-1\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t14\",\"from\":\"align-shoot-1\",\"to\":\"done\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t0\",\"from\":\"outpost-sweep-pass1-p1\",\"to\":\"outpost-sweep-pass1-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t1\",\"from\":\"outpost-sweep-pass1-p2\",\"to\":\"outpost-sweep-pass1-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t2\",\"from\":\"outpost-sweep-pass1-p3\",\"to\":\"outpost-sweep-pass1-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t3\",\"from\":\"outpost-sweep-pass1-p4\",\"to\":\"outpost-sweep-pass1-p5\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t4\",\"from\":\"outpost-sweep-pass1-p5\",\"to\":\"outpost-sweep-pass1-p6\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t5\",\"from\":\"outpost-sweep-pass1-p6\",\"to\":\"outpost-sweep-pass1-p7\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t6\",\"from\":\"outpost-sweep-pass1-p7\",\"to\":\"outpost-sweep-pass1-p8\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t7\",\"from\":\"outpost-sweep-pass1-p8\",\"to\":\"align-shoot-0\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t8\",\"from\":\"align-shoot-0\",\"to\":\"done\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t0\",\"from\":\"outpost-sweep-x2-pass1-p1\",\"to\":\"outpost-sweep-x2-pass1-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t1\",\"from\":\"outpost-sweep-x2-pass1-p2\",\"to\":\"outpost-sweep-x2-pass1-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t2\",\"from\":\"outpost-sweep-x2-pass1-p3\",\"to\":\"outpost-sweep-x2-pass1-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t3\",\"from\":\"outpost-sweep-x2-pass1-p4\",\"to\":\"outpost-sweep-x2-pass1-p5\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t4\",\"from\":\"outpost-sweep-x2-pass1-p5\",\"to\":\"outpost-sweep-x2-pass1-p6\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t5\",\"from\":\"outpost-sweep-x2-pass1-p6\",\"to\":\"outpost-sweep-x2-pass1-p7\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t6\",\"from\":\"outpost-sweep-x2-pass1-p7\",\"to\":\"outpost-sweep-x2-pass1-p8\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t7\",\"from\":\"outpost-sweep-x2-pass1-p8\",\"to\":\"align-shoot-0\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t8\",\"from\":\"align-shoot-0\",\"to\":\"outpost-sweep-x2-pass2-p1\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t9\",\"from\":\"outpost-sweep-x2-pass2-p1\",\"to\":\"outpost-sweep-x2-pass2-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t10\",\"from\":\"outpost-sweep-x2-pass2-p2\",\"to\":\"outpost-sweep-x2-pass2-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t11\",\"from\":\"outpost-sweep-x2-pass2-p3\",\"to\":\"outpost-sweep-x2-pass2-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t12\",\"from\":\"outpost-sweep-x2-pass2-p4\",\"to\":\"outpost-sweep-x2-pass2-p5\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t13\",\"from\":\"outpost-sweep-x2-pass2-p5\",\"to\":\"outpost-sweep-x2-pass2-p6\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t14\",\"from\":\"outpost-sweep-x2-pass2-p6\",\"to\":\"outpost-sweep-x2-pass2-p7\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t15\",\"from\":\"outpost-sweep-x2-pass2-p7\",\"to\":\"outpost-sweep-x2-pass2-p8\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t16\",\"from\":\"outpost-sweep-x2-pass2-p8\",\"to\":\"align-shoot-1\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t17\",\"from\":\"align-shoot-1\",\"to\":\"done\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t0\",\"from\":\"depot-sweep-pa";
-text += "ss1-p1\",\"to\":\"depot-sweep-pass1-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t1\",\"from\":\"depot-sweep-pass1-p2\",\"to\":\"depot-sweep-pass1-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t2\",\"from\":\"depot-sweep-pass1-p3\",\"to\":\"depot-sweep-pass1-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t3\",\"from\":\"depot-sweep-pass1-p4\",\"to\":\"depot-sweep-pass1-p5\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t4\",\"from\":\"depot-sweep-pass1-p5\",\"to\":\"depot-sweep-pass1-p6\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t5\",\"from\":\"depot-sweep-pass1-p6\",\"to\":\"depot-sweep-pass1-p7\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t6\",\"from\":\"depot-sweep-pass1-p7\",\"to\":\"depot-sweep-pass1-p8\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t7\",\"from\":\"depot-sweep-pass1-p8\",\"to\":\"align-shoot-0\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t8\",\"from\":\"align-shoot-0\",\"to\":\"done\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t0\",\"from\":\"depot-sweep-x2-pass1-p1\",\"to\":\"depot-sweep-x2-pass1-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t1\",\"from\":\"depot-sweep-x2-pass1-p2\",\"to\":\"depot-sweep-x2-pass1-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t2\",\"from\":\"depot-sweep-x2-pass1-p3\",\"to\":\"depot-sweep-x2-pass1-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t3\",\"from\":\"depot-sweep-x2-pass1-p4\",\"to\":\"depot-sweep-x2-pass1-p5\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t4\",\"from\":\"depot-sweep-x2-pass1-p5\",\"to\":\"depot-sweep-x2-pass1-p6\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t5\",\"from\":\"depot-sweep-x2-pass1-p6\",\"to\":\"depot-sweep-x2-pass1-p7\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t6\",\"from\":\"depot-sweep-x2-pass1-p7\",\"to\":\"depot-sweep-x2-pass1-p8\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t7\",\"from\":\"depot-sweep-x2-pass1-p8\",\"to\":\"align-shoot-0\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t8\",\"from\":\"align-shoot-0\",\"to\":\"depot-sweep-x2-pass2-p1\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t9\",\"from\":\"depot-sweep-x2-pass2-p1\",\"to\":\"depot-sweep-x2-pass2-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t10\",\"from\":\"depot-sweep-x2-pass2-p2\",\"to\":\"depot-sweep-x2-pass2-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t11\",\"from\":\"depot-sweep-x2-pass2-p3\",\"to\":\"depot-sweep-x2-pass2-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t12\",\"from\":\"depot-sweep-x2-pass2-p4\",\"to\":\"depot-sweep-x2-pass2-p5\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t13\",\"from\":\"depot-sweep-x2-pass2-p5\",\"to\":\"depot-sweep-x2-pass2-p6\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t14\",\"from\":\"depot-sweep-x2-pass2-p6\",\"to\":\"depot-sweep-x2-pass2-p7\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t15\",\"from\":\"depot-sweep-x2-pass2-p7\",\"to\":\"align-shoot-1\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t16\",\"from\":\"align-shoot-1\",\"to\":\"done\",\"condition\":{\"kind\":\"always\"}}],\"inputs\":[{\"key\":\"superstructure.ready\",\"name\":\"Ready to shoot\",\"type\":\"boolean\",\"initial\":false}],\"stateChannel\":\"/Mayhem/States/Autonomous/state\"}";
+inline const std::string AutonomousManifest = [] { std::string text; text.reserve(35434);
+text += "{\"format\":\"mayhem-machine\",\"version\":1,\"id\":\"Autonomous\",\"name\":\"Autonomous\",\"initial\":\"depot-sweep-depot-pass1-p1\",\"states\":[{\"id\":\"depot-sweep-depot-pass1-p1\",\"name\":\"DepotTrenchSweepDepotPt @ 0.44s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p2\",\"name\":\"DepotTrenchSweepDepotPt @ 0.63s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p3\",\"name\":\"DepotTrenchSweepDepotPt @ 0.78s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p4\",\"name\":\"DepotTrenchSweepDepotPt @ 0.93s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p5\",\"name\":\"DepotTrenchSweepDepotPt @ 1.14s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p6\",\"name\":\"DepotTrenchSweepDepotPt @ 1.36s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p7\",\"name\":\"DepotTrenchSweepDepotPt @ 1.59s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p8\",\"name\":\"DepotTrenchSweepDepotPt @ 1.76s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p9\",\"name\":\"DepotTrenchSweepDepotPt @ 1.92s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p10\",\"name\":\"DepotTrenchSweepDepotPt @ 2.10s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p11\",\"name\":\"DepotTrenchSweepDepotPt @ 2.33s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p12\",\"name\":\"DepotTrenchSweepDepotPt @ 2.71s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p13\",\"name\":\"DepotTrenchSweepDepotPt @ 3.02s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p14\",\"name\":\"DepotTrenchSweepDepotPt @ 3.29s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p15\",\"name\":\"DepotTrenchSweepDepotPt @ 3.48s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p16\",\"name\":\"DepotTrenchSweepDepotPt @ 3.75s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p17\",\"name\":\"DepotTrenchSweepDepotPt @ 3.90s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p18\",\"name\":\"DepotTrenchSweepDepotPt @ 4.22s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p19\",\"name\":\"DepotTrenchSweepDepotPt @ 4.50s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p20\",\"name\":\"DepotTrenchSweepDepotPt @ 4.69s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass1-p21\",\"name\":\"DepotTrenchSweepDepotPt @ 5.14s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"align-shoot-0\",\"name\":\"Aim and shoot\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass2-p1\",\"name\":\"DepotTrenchSweepDepotPt2 @ 0.48s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass2-p2\",\"name\":\"DepotTrenchSweepDepotPt2 @ 1.05s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass2-p3\",\"name\":\"DepotTrenchSweepDepotPt2 @ 1.49s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass2-p4\",\"name\":\"DepotTrenchSweepDepotPt2 @ 1.82s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass2-p5\",\"name\":\"DepotTrenchSweepDepotPt2 @ 2.04s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-depot-pass2-p6\",\"name\":\"DepotTrenchSweepDepotPt2 @ 2.40s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"align-shoot-1\",\"name\":\"Aim and shoot\",\"source\":\"robot.mayhem.json\"},{\"id\":\"done\",\"name\":\"Auto complete\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p1\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 0.44s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p2\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 0.64s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p3\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 0.81s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p4\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 0.97s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p5\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 1.16s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p6\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 1.41s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p7\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 1.61s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p8\",\"name\":\"OutpostTren";
+text += "chSweepBumpPt1 @ 1.82s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p9\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 2.02s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p10\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 2.37s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p11\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 2.79s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p12\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 3.00s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p13\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 3.23s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p14\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 3.53s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p15\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 3.79s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p16\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 4.08s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p17\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 4.41s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-pass1-p18\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 4.86s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p1\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 0.44s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p2\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 0.64s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p3\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 0.81s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p4\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 0.97s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p5\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 1.16s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p6\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 1.41s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p7\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 1.61s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p8\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 1.82s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p9\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 2.02s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p10\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 2.37s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p11\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 2.79s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p12\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 3.00s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p13\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 3.23s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p14\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 3.53s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p15\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 3.79s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p16\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 4.08s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p17\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 4.41s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass1-p18\",\"name\":\"OutpostTrenchSweepBumpPt1 @ 4.86s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p1\",\"name\":\"OutpostTrenchSweepBumpPt2 @ 0.45s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p2\",\"name\":\"OutpostTrenchSweepBumpPt2 @ 0.67s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p3\",\"name\":\"OutpostTrenchSweepBumpPt2 @ 0.90s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p4\",\"name\":\"OutpostTrenchSweepBumpPt2 @ 1.09s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p5\",\"name\":\"OutpostTrenchSweepBumpPt2 @ 1.28s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p6\",\"name\":\"OutpostTrenchSweepBumpPt2 @ 1.45s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p7\",\"name\":\"OutpostTrenchSweepBumpPt2 @ 1.61s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p8\",\"name\":\"OutpostTrenchSweepBumpPt2 @ 1.79s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p9\",\"name\":\"OutpostTrenchSweepBumpPt2 @ 1.97s\",\"source\":\"robot.mayhem.json\"}";
+text += ",{\"id\":\"outpost-sweep-x2-pass2-p10\",\"name\":\"OutpostTrenchSweepBumpPt2 @ 2.17s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p11\",\"name\":\"OutpostTrenchSweepBumpPt2 @ 2.37s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p12\",\"name\":\"OutpostTrenchSweepBumpPt2 @ 2.57s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p13\",\"name\":\"OutpostTrenchSweepBumpPt2 @ 2.84s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p14\",\"name\":\"OutpostTrenchSweepBumpPt2 @ 3.14s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p15\",\"name\":\"OutpostTrenchSweepBumpPt2 @ 3.31s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p16\",\"name\":\"OutpostTrenchSweepBumpPt2 @ 3.60s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p17\",\"name\":\"OutpostTrenchSweepBumpPt2 @ 3.83s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p18\",\"name\":\"OutpostTrenchSweepBumpPt2 @ 4.15s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p19\",\"name\":\"OutpostTrenchSweepBumpPt2 @ 4.39s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p20\",\"name\":\"OutpostTrenchSweepBumpPt2 @ 4.54s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p21\",\"name\":\"OutpostTrenchSweepBumpPt2 @ 4.72s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"outpost-sweep-x2-pass2-p22\",\"name\":\"OutpostTrenchSweepBumpPt2 @ 5.18s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p1\",\"name\":\"DepotTrenchSweepBumpPt1 @ 0.45s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p2\",\"name\":\"DepotTrenchSweepBumpPt1 @ 0.63s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p3\",\"name\":\"DepotTrenchSweepBumpPt1 @ 0.78s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p4\",\"name\":\"DepotTrenchSweepBumpPt1 @ 0.94s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p5\",\"name\":\"DepotTrenchSweepBumpPt1 @ 1.10s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p6\",\"name\":\"DepotTrenchSweepBumpPt1 @ 1.28s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p7\",\"name\":\"DepotTrenchSweepBumpPt1 @ 1.48s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p8\",\"name\":\"DepotTrenchSweepBumpPt1 @ 1.68s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p9\",\"name\":\"DepotTrenchSweepBumpPt1 @ 1.88s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p10\",\"name\":\"DepotTrenchSweepBumpPt1 @ 2.13s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p11\",\"name\":\"DepotTrenchSweepBumpPt1 @ 2.44s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p12\",\"name\":\"DepotTrenchSweepBumpPt1 @ 2.69s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p13\",\"name\":\"DepotTrenchSweepBumpPt1 @ 3.09s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p14\",\"name\":\"DepotTrenchSweepBumpPt1 @ 3.42s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p15\",\"name\":\"DepotTrenchSweepBumpPt1 @ 3.77s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p16\",\"name\":\"DepotTrenchSweepBumpPt1 @ 3.94s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p17\",\"name\":\"DepotTrenchSweepBumpPt1 @ 4.09s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p18\",\"name\":\"DepotTrenchSweepBumpPt1 @ 4.25s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p19\",\"name\":\"DepotTrenchSweepBumpPt1 @ 4.40s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p20\",\"name\":\"DepotTrenchSweepBumpPt1 @ 4.61s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-pass1-p21\",\"name\":\"DepotTrenchSweepBumpPt1 @ 4.97s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p1\",\"name\":\"DepotTrenchSweepBumpPt1 @ 0.45s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p2\",\"name\":\"DepotTrenchSweepBumpPt1 @ 0.63s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p3\",\"name\":\"DepotTrenchSweepBumpPt1 @ 0.78s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p4\",\"name\":\"DepotTrenchSweepBumpPt1 @ 0.94s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p5\",\"name\":\"DepotTrenchSweepBumpPt1 @ 1.10s";
+text += "\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p6\",\"name\":\"DepotTrenchSweepBumpPt1 @ 1.28s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p7\",\"name\":\"DepotTrenchSweepBumpPt1 @ 1.48s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p8\",\"name\":\"DepotTrenchSweepBumpPt1 @ 1.68s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p9\",\"name\":\"DepotTrenchSweepBumpPt1 @ 1.88s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p10\",\"name\":\"DepotTrenchSweepBumpPt1 @ 2.13s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p11\",\"name\":\"DepotTrenchSweepBumpPt1 @ 2.44s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p12\",\"name\":\"DepotTrenchSweepBumpPt1 @ 2.69s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p13\",\"name\":\"DepotTrenchSweepBumpPt1 @ 3.09s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p14\",\"name\":\"DepotTrenchSweepBumpPt1 @ 3.42s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p15\",\"name\":\"DepotTrenchSweepBumpPt1 @ 3.77s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p16\",\"name\":\"DepotTrenchSweepBumpPt1 @ 3.94s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p17\",\"name\":\"DepotTrenchSweepBumpPt1 @ 4.09s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p18\",\"name\":\"DepotTrenchSweepBumpPt1 @ 4.25s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p19\",\"name\":\"DepotTrenchSweepBumpPt1 @ 4.40s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p20\",\"name\":\"DepotTrenchSweepBumpPt1 @ 4.61s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass1-p21\",\"name\":\"DepotTrenchSweepBumpPt1 @ 4.97s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p1\",\"name\":\"DepotTrenchSweepBump2xPt2 @ 0.47s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p2\",\"name\":\"DepotTrenchSweepBump2xPt2 @ 0.68s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p3\",\"name\":\"DepotTrenchSweepBump2xPt2 @ 0.87s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p4\",\"name\":\"DepotTrenchSweepBump2xPt2 @ 1.05s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p5\",\"name\":\"DepotTrenchSweepBump2xPt2 @ 1.21s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p6\",\"name\":\"DepotTrenchSweepBump2xPt2 @ 1.36s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p7\",\"name\":\"DepotTrenchSweepBump2xPt2 @ 1.52s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p8\",\"name\":\"DepotTrenchSweepBump2xPt2 @ 1.71s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p9\",\"name\":\"DepotTrenchSweepBump2xPt2 @ 1.90s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p10\",\"name\":\"DepotTrenchSweepBump2xPt2 @ 2.09s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p11\",\"name\":\"DepotTrenchSweepBump2xPt2 @ 2.27s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p12\",\"name\":\"DepotTrenchSweepBump2xPt2 @ 2.60s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p13\",\"name\":\"DepotTrenchSweepBump2xPt2 @ 2.77s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p14\",\"name\":\"DepotTrenchSweepBump2xPt2 @ 3.22s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p15\",\"name\":\"DepotTrenchSweepBump2xPt2 @ 3.40s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p16\",\"name\":\"DepotTrenchSweepBump2xPt2 @ 3.79s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p17\",\"name\":\"DepotTrenchSweepBump2xPt2 @ 3.98s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p18\",\"name\":\"DepotTrenchSweepBump2xPt2 @ 4.36s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p19\",\"name\":\"DepotTrenchSweepBump2xPt2 @ 4.71s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p20\",\"name\":\"DepotTrenchSweepBump2xPt2 @ 4.88s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p21\",\"name\":\"DepotTrenchSweepBump2xPt2 @ 5.20s\",\"source\":\"robot.mayhem.json\"},{\"id\":\"depot-sweep-x2-pass2-p22\",\"name\":\"DepotTrenchSweepBump2xPt2 @ 5.67s\",\"source\":\"robot";
+text += ".mayhem.json\"}],\"transitions\":[{\"id\":\"depot-sweep-depot/t0\",\"from\":\"depot-sweep-depot-pass1-p1\",\"to\":\"depot-sweep-depot-pass1-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t1\",\"from\":\"depot-sweep-depot-pass1-p2\",\"to\":\"depot-sweep-depot-pass1-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t2\",\"from\":\"depot-sweep-depot-pass1-p3\",\"to\":\"depot-sweep-depot-pass1-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t3\",\"from\":\"depot-sweep-depot-pass1-p4\",\"to\":\"depot-sweep-depot-pass1-p5\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t4\",\"from\":\"depot-sweep-depot-pass1-p5\",\"to\":\"depot-sweep-depot-pass1-p6\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t5\",\"from\":\"depot-sweep-depot-pass1-p6\",\"to\":\"depot-sweep-depot-pass1-p7\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t6\",\"from\":\"depot-sweep-depot-pass1-p7\",\"to\":\"depot-sweep-depot-pass1-p8\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t7\",\"from\":\"depot-sweep-depot-pass1-p8\",\"to\":\"depot-sweep-depot-pass1-p9\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t8\",\"from\":\"depot-sweep-depot-pass1-p9\",\"to\":\"depot-sweep-depot-pass1-p10\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t9\",\"from\":\"depot-sweep-depot-pass1-p10\",\"to\":\"depot-sweep-depot-pass1-p11\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t10\",\"from\":\"depot-sweep-depot-pass1-p11\",\"to\":\"depot-sweep-depot-pass1-p12\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t11\",\"from\":\"depot-sweep-depot-pass1-p12\",\"to\":\"depot-sweep-depot-pass1-p13\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t12\",\"from\":\"depot-sweep-depot-pass1-p13\",\"to\":\"depot-sweep-depot-pass1-p14\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t13\",\"from\":\"depot-sweep-depot-pass1-p14\",\"to\":\"depot-sweep-depot-pass1-p15\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t14\",\"from\":\"depot-sweep-depot-pass1-p15\",\"to\":\"depot-sweep-depot-pass1-p16\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t15\",\"from\":\"depot-sweep-depot-pass1-p16\",\"to\":\"depot-sweep-depot-pass1-p17\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t16\",\"from\":\"depot-sweep-depot-pass1-p17\",\"to\":\"depot-sweep-depot-pass1-p18\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t17\",\"from\":\"depot-sweep-depot-pass1-p18\",\"to\":\"depot-sweep-depot-pass1-p19\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t18\",\"from\":\"depot-sweep-depot-pass1-p19\",\"to\":\"depot-sweep-depot-pass1-p20\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t19\",\"from\":\"depot-sweep-depot-pass1-p20\",\"to\":\"depot-sweep-depot-pass1-p21\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t20\",\"from\":\"depot-sweep-depot-pass1-p21\",\"to\":\"align-shoot-0\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t21\",\"from\":\"align-shoot-0\",\"to\":\"depot-sweep-depot-pass2-p1\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t22\",\"from\":\"depot-sweep-depot-pass2-p1\",\"to\":\"depot-sweep-depot-pass2-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t23\",\"from\":\"depot-sweep-depot-pass2-p2\",\"to\":\"depot-sweep-depot-pass2-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t24\",\"from\":\"depot-sweep-depot-pass2-p3\",\"to\":\"depot-sweep-depot-pass2-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t25\",\"from\":\"depot-sweep-depot-pass2-p4\",\"to\":\"depot-sweep-depot-pass2-p5\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t26\",\"from\":\"depot-sweep-depot-pass2-p5\",\"to\":\"depot-sweep-depot-pass2-p6\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t27\",\"from\":\"depot-sweep-depot-pass2-p6\",\"to\":\"align-shoot-1\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-depot/t28\",\"from\":\"align-shoot-1\",\"to\":\"done\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t0\",\"from\":\"outpost-sweep-pass1-p1\",\"to\":\"outpost-sweep-pass1-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t1\",\"from\":\"outpost-sweep-pass1-p2\",\"to\":\"outpost-sweep-pass1-p3\",\"condition\":{\"kind\":\"alwa";
+text += "ys\"}},{\"id\":\"outpost-sweep/t2\",\"from\":\"outpost-sweep-pass1-p3\",\"to\":\"outpost-sweep-pass1-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t3\",\"from\":\"outpost-sweep-pass1-p4\",\"to\":\"outpost-sweep-pass1-p5\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t4\",\"from\":\"outpost-sweep-pass1-p5\",\"to\":\"outpost-sweep-pass1-p6\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t5\",\"from\":\"outpost-sweep-pass1-p6\",\"to\":\"outpost-sweep-pass1-p7\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t6\",\"from\":\"outpost-sweep-pass1-p7\",\"to\":\"outpost-sweep-pass1-p8\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t7\",\"from\":\"outpost-sweep-pass1-p8\",\"to\":\"outpost-sweep-pass1-p9\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t8\",\"from\":\"outpost-sweep-pass1-p9\",\"to\":\"outpost-sweep-pass1-p10\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t9\",\"from\":\"outpost-sweep-pass1-p10\",\"to\":\"outpost-sweep-pass1-p11\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t10\",\"from\":\"outpost-sweep-pass1-p11\",\"to\":\"outpost-sweep-pass1-p12\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t11\",\"from\":\"outpost-sweep-pass1-p12\",\"to\":\"outpost-sweep-pass1-p13\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t12\",\"from\":\"outpost-sweep-pass1-p13\",\"to\":\"outpost-sweep-pass1-p14\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t13\",\"from\":\"outpost-sweep-pass1-p14\",\"to\":\"outpost-sweep-pass1-p15\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t14\",\"from\":\"outpost-sweep-pass1-p15\",\"to\":\"outpost-sweep-pass1-p16\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t15\",\"from\":\"outpost-sweep-pass1-p16\",\"to\":\"outpost-sweep-pass1-p17\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t16\",\"from\":\"outpost-sweep-pass1-p17\",\"to\":\"outpost-sweep-pass1-p18\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t17\",\"from\":\"outpost-sweep-pass1-p18\",\"to\":\"align-shoot-0\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep/t18\",\"from\":\"align-shoot-0\",\"to\":\"done\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t0\",\"from\":\"outpost-sweep-x2-pass1-p1\",\"to\":\"outpost-sweep-x2-pass1-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t1\",\"from\":\"outpost-sweep-x2-pass1-p2\",\"to\":\"outpost-sweep-x2-pass1-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t2\",\"from\":\"outpost-sweep-x2-pass1-p3\",\"to\":\"outpost-sweep-x2-pass1-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t3\",\"from\":\"outpost-sweep-x2-pass1-p4\",\"to\":\"outpost-sweep-x2-pass1-p5\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t4\",\"from\":\"outpost-sweep-x2-pass1-p5\",\"to\":\"outpost-sweep-x2-pass1-p6\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t5\",\"from\":\"outpost-sweep-x2-pass1-p6\",\"to\":\"outpost-sweep-x2-pass1-p7\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t6\",\"from\":\"outpost-sweep-x2-pass1-p7\",\"to\":\"outpost-sweep-x2-pass1-p8\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t7\",\"from\":\"outpost-sweep-x2-pass1-p8\",\"to\":\"outpost-sweep-x2-pass1-p9\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t8\",\"from\":\"outpost-sweep-x2-pass1-p9\",\"to\":\"outpost-sweep-x2-pass1-p10\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t9\",\"from\":\"outpost-sweep-x2-pass1-p10\",\"to\":\"outpost-sweep-x2-pass1-p11\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t10\",\"from\":\"outpost-sweep-x2-pass1-p11\",\"to\":\"outpost-sweep-x2-pass1-p12\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t11\",\"from\":\"outpost-sweep-x2-pass1-p12\",\"to\":\"outpost-sweep-x2-pass1-p13\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t12\",\"from\":\"outpost-sweep-x2-pass1-p13\",\"to\":\"outpost-sweep-x2-pass1-p14\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t13\",\"from\":\"outpost-sweep-x2-pass1-p14\",\"to\":\"outpost-sweep-x2-pass1-p15\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t14\",\"from\":\"outpost-sweep-x2-pass1-p15\",\"to\":\"outpost-sweep-x2-pass1-p16\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t15\",\"from\":\"outpost-sweep-x2-pass1-p16\",\"to\":\"out";
+text += "post-sweep-x2-pass1-p17\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t16\",\"from\":\"outpost-sweep-x2-pass1-p17\",\"to\":\"outpost-sweep-x2-pass1-p18\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t17\",\"from\":\"outpost-sweep-x2-pass1-p18\",\"to\":\"align-shoot-0\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t18\",\"from\":\"align-shoot-0\",\"to\":\"outpost-sweep-x2-pass2-p1\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t19\",\"from\":\"outpost-sweep-x2-pass2-p1\",\"to\":\"outpost-sweep-x2-pass2-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t20\",\"from\":\"outpost-sweep-x2-pass2-p2\",\"to\":\"outpost-sweep-x2-pass2-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t21\",\"from\":\"outpost-sweep-x2-pass2-p3\",\"to\":\"outpost-sweep-x2-pass2-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t22\",\"from\":\"outpost-sweep-x2-pass2-p4\",\"to\":\"outpost-sweep-x2-pass2-p5\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t23\",\"from\":\"outpost-sweep-x2-pass2-p5\",\"to\":\"outpost-sweep-x2-pass2-p6\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t24\",\"from\":\"outpost-sweep-x2-pass2-p6\",\"to\":\"outpost-sweep-x2-pass2-p7\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t25\",\"from\":\"outpost-sweep-x2-pass2-p7\",\"to\":\"outpost-sweep-x2-pass2-p8\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t26\",\"from\":\"outpost-sweep-x2-pass2-p8\",\"to\":\"outpost-sweep-x2-pass2-p9\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t27\",\"from\":\"outpost-sweep-x2-pass2-p9\",\"to\":\"outpost-sweep-x2-pass2-p10\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t28\",\"from\":\"outpost-sweep-x2-pass2-p10\",\"to\":\"outpost-sweep-x2-pass2-p11\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t29\",\"from\":\"outpost-sweep-x2-pass2-p11\",\"to\":\"outpost-sweep-x2-pass2-p12\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t30\",\"from\":\"outpost-sweep-x2-pass2-p12\",\"to\":\"outpost-sweep-x2-pass2-p13\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t31\",\"from\":\"outpost-sweep-x2-pass2-p13\",\"to\":\"outpost-sweep-x2-pass2-p14\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t32\",\"from\":\"outpost-sweep-x2-pass2-p14\",\"to\":\"outpost-sweep-x2-pass2-p15\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t33\",\"from\":\"outpost-sweep-x2-pass2-p15\",\"to\":\"outpost-sweep-x2-pass2-p16\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t34\",\"from\":\"outpost-sweep-x2-pass2-p16\",\"to\":\"outpost-sweep-x2-pass2-p17\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t35\",\"from\":\"outpost-sweep-x2-pass2-p17\",\"to\":\"outpost-sweep-x2-pass2-p18\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t36\",\"from\":\"outpost-sweep-x2-pass2-p18\",\"to\":\"outpost-sweep-x2-pass2-p19\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t37\",\"from\":\"outpost-sweep-x2-pass2-p19\",\"to\":\"outpost-sweep-x2-pass2-p20\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t38\",\"from\":\"outpost-sweep-x2-pass2-p20\",\"to\":\"outpost-sweep-x2-pass2-p21\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t39\",\"from\":\"outpost-sweep-x2-pass2-p21\",\"to\":\"outpost-sweep-x2-pass2-p22\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t40\",\"from\":\"outpost-sweep-x2-pass2-p22\",\"to\":\"align-shoot-1\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"outpost-sweep-x2/t41\",\"from\":\"align-shoot-1\",\"to\":\"done\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t0\",\"from\":\"depot-sweep-pass1-p1\",\"to\":\"depot-sweep-pass1-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t1\",\"from\":\"depot-sweep-pass1-p2\",\"to\":\"depot-sweep-pass1-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t2\",\"from\":\"depot-sweep-pass1-p3\",\"to\":\"depot-sweep-pass1-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t3\",\"from\":\"depot-sweep-pass1-p4\",\"to\":\"depot-sweep-pass1-p5\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t4\",\"from\":\"depot-sweep-pass1-p5\",\"to\":\"depot-sweep-pass1-p6\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t5\",\"from\":\"depot-sweep-pass1-p6\",\"to\":\"depot-sweep-pass1-p7\",\"condition\":{\"k";
+text += "ind\":\"always\"}},{\"id\":\"depot-sweep/t6\",\"from\":\"depot-sweep-pass1-p7\",\"to\":\"depot-sweep-pass1-p8\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t7\",\"from\":\"depot-sweep-pass1-p8\",\"to\":\"depot-sweep-pass1-p9\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t8\",\"from\":\"depot-sweep-pass1-p9\",\"to\":\"depot-sweep-pass1-p10\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t9\",\"from\":\"depot-sweep-pass1-p10\",\"to\":\"depot-sweep-pass1-p11\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t10\",\"from\":\"depot-sweep-pass1-p11\",\"to\":\"depot-sweep-pass1-p12\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t11\",\"from\":\"depot-sweep-pass1-p12\",\"to\":\"depot-sweep-pass1-p13\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t12\",\"from\":\"depot-sweep-pass1-p13\",\"to\":\"depot-sweep-pass1-p14\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t13\",\"from\":\"depot-sweep-pass1-p14\",\"to\":\"depot-sweep-pass1-p15\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t14\",\"from\":\"depot-sweep-pass1-p15\",\"to\":\"depot-sweep-pass1-p16\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t15\",\"from\":\"depot-sweep-pass1-p16\",\"to\":\"depot-sweep-pass1-p17\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t16\",\"from\":\"depot-sweep-pass1-p17\",\"to\":\"depot-sweep-pass1-p18\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t17\",\"from\":\"depot-sweep-pass1-p18\",\"to\":\"depot-sweep-pass1-p19\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t18\",\"from\":\"depot-sweep-pass1-p19\",\"to\":\"depot-sweep-pass1-p20\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t19\",\"from\":\"depot-sweep-pass1-p20\",\"to\":\"depot-sweep-pass1-p21\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t20\",\"from\":\"depot-sweep-pass1-p21\",\"to\":\"align-shoot-0\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep/t21\",\"from\":\"align-shoot-0\",\"to\":\"done\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t0\",\"from\":\"depot-sweep-x2-pass1-p1\",\"to\":\"depot-sweep-x2-pass1-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t1\",\"from\":\"depot-sweep-x2-pass1-p2\",\"to\":\"depot-sweep-x2-pass1-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t2\",\"from\":\"depot-sweep-x2-pass1-p3\",\"to\":\"depot-sweep-x2-pass1-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t3\",\"from\":\"depot-sweep-x2-pass1-p4\",\"to\":\"depot-sweep-x2-pass1-p5\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t4\",\"from\":\"depot-sweep-x2-pass1-p5\",\"to\":\"depot-sweep-x2-pass1-p6\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t5\",\"from\":\"depot-sweep-x2-pass1-p6\",\"to\":\"depot-sweep-x2-pass1-p7\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t6\",\"from\":\"depot-sweep-x2-pass1-p7\",\"to\":\"depot-sweep-x2-pass1-p8\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t7\",\"from\":\"depot-sweep-x2-pass1-p8\",\"to\":\"depot-sweep-x2-pass1-p9\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t8\",\"from\":\"depot-sweep-x2-pass1-p9\",\"to\":\"depot-sweep-x2-pass1-p10\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t9\",\"from\":\"depot-sweep-x2-pass1-p10\",\"to\":\"depot-sweep-x2-pass1-p11\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t10\",\"from\":\"depot-sweep-x2-pass1-p11\",\"to\":\"depot-sweep-x2-pass1-p12\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t11\",\"from\":\"depot-sweep-x2-pass1-p12\",\"to\":\"depot-sweep-x2-pass1-p13\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t12\",\"from\":\"depot-sweep-x2-pass1-p13\",\"to\":\"depot-sweep-x2-pass1-p14\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t13\",\"from\":\"depot-sweep-x2-pass1-p14\",\"to\":\"depot-sweep-x2-pass1-p15\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t14\",\"from\":\"depot-sweep-x2-pass1-p15\",\"to\":\"depot-sweep-x2-pass1-p16\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t15\",\"from\":\"depot-sweep-x2-pass1-p16\",\"to\":\"depot-sweep-x2-pass1-p17\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t16\",\"from\":\"depot-sweep-x2-pass1-p17\",\"to\":\"depot-sweep-x2-pass1-p18\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t17\",\"from\":\"depot-sweep-x2-pass1-p18\",\"to\":\"depot-sweep-x2-pass1-p19\",\"condition\":";
+text += "{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t18\",\"from\":\"depot-sweep-x2-pass1-p19\",\"to\":\"depot-sweep-x2-pass1-p20\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t19\",\"from\":\"depot-sweep-x2-pass1-p20\",\"to\":\"depot-sweep-x2-pass1-p21\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t20\",\"from\":\"depot-sweep-x2-pass1-p21\",\"to\":\"align-shoot-0\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t21\",\"from\":\"align-shoot-0\",\"to\":\"depot-sweep-x2-pass2-p1\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t22\",\"from\":\"depot-sweep-x2-pass2-p1\",\"to\":\"depot-sweep-x2-pass2-p2\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t23\",\"from\":\"depot-sweep-x2-pass2-p2\",\"to\":\"depot-sweep-x2-pass2-p3\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t24\",\"from\":\"depot-sweep-x2-pass2-p3\",\"to\":\"depot-sweep-x2-pass2-p4\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t25\",\"from\":\"depot-sweep-x2-pass2-p4\",\"to\":\"depot-sweep-x2-pass2-p5\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t26\",\"from\":\"depot-sweep-x2-pass2-p5\",\"to\":\"depot-sweep-x2-pass2-p6\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t27\",\"from\":\"depot-sweep-x2-pass2-p6\",\"to\":\"depot-sweep-x2-pass2-p7\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t28\",\"from\":\"depot-sweep-x2-pass2-p7\",\"to\":\"depot-sweep-x2-pass2-p8\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t29\",\"from\":\"depot-sweep-x2-pass2-p8\",\"to\":\"depot-sweep-x2-pass2-p9\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t30\",\"from\":\"depot-sweep-x2-pass2-p9\",\"to\":\"depot-sweep-x2-pass2-p10\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t31\",\"from\":\"depot-sweep-x2-pass2-p10\",\"to\":\"depot-sweep-x2-pass2-p11\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t32\",\"from\":\"depot-sweep-x2-pass2-p11\",\"to\":\"depot-sweep-x2-pass2-p12\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t33\",\"from\":\"depot-sweep-x2-pass2-p12\",\"to\":\"depot-sweep-x2-pass2-p13\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t34\",\"from\":\"depot-sweep-x2-pass2-p13\",\"to\":\"depot-sweep-x2-pass2-p14\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t35\",\"from\":\"depot-sweep-x2-pass2-p14\",\"to\":\"depot-sweep-x2-pass2-p15\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t36\",\"from\":\"depot-sweep-x2-pass2-p15\",\"to\":\"depot-sweep-x2-pass2-p16\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t37\",\"from\":\"depot-sweep-x2-pass2-p16\",\"to\":\"depot-sweep-x2-pass2-p17\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t38\",\"from\":\"depot-sweep-x2-pass2-p17\",\"to\":\"depot-sweep-x2-pass2-p18\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t39\",\"from\":\"depot-sweep-x2-pass2-p18\",\"to\":\"depot-sweep-x2-pass2-p19\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t40\",\"from\":\"depot-sweep-x2-pass2-p19\",\"to\":\"depot-sweep-x2-pass2-p20\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t41\",\"from\":\"depot-sweep-x2-pass2-p20\",\"to\":\"depot-sweep-x2-pass2-p21\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t42\",\"from\":\"depot-sweep-x2-pass2-p21\",\"to\":\"depot-sweep-x2-pass2-p22\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t43\",\"from\":\"depot-sweep-x2-pass2-p22\",\"to\":\"align-shoot-1\",\"condition\":{\"kind\":\"always\"}},{\"id\":\"depot-sweep-x2/t44\",\"from\":\"align-shoot-1\",\"to\":\"done\",\"condition\":{\"kind\":\"always\"}}],\"inputs\":[{\"key\":\"superstructure.ready\",\"name\":\"Ready to shoot\",\"type\":\"boolean\",\"initial\":false}],\"stateChannel\":\"/Mayhem/States/Autonomous/state\"}";
 return text; }();
 struct AutoDefinition { std::string_view name; mayhem::RoutineView routine; mayhem::Pose start; };
 inline constexpr std::array<AutoDefinition,5> autos = {{
