@@ -51,7 +51,7 @@ Deliberate improvements. None of them changes what a button press ends up doing:
 Each routine follows its original solved sweep, sampled every ~0.6 m from the `.mtraj` passes in
 `tools/mayhem/solved/`. Every point carries the solved heading and speed, so the robot crosses the
 trench sideways and **leads with the intake down the centerline pickup**.
-`tools/mayhem/rebuild_routes.py . '{"finalCap":3.5,"translationKp":3.5}'` rebuilds the routines.
+`tools/mayhem/rebuild_routes.py .` rebuilds the routines.
 
 After each pass, `drivetrain.alignAndShoot` behaves like the original AlignAndShoot:
 - the drivetrain's heading controller turns to the lookahead shot;
@@ -67,7 +67,7 @@ The simulation checks every routine on both alliances:
 - wall clearance;
 - the end pose.
 
-The Mayhem follower is still about 1.2 s slower per pass than the old time-optimal trajectories;
+Each pass drives within ~0.4 s of the old solved time (2.6-6.0 s per pass);
 see the PR for the numbers.
 
 ## Logs

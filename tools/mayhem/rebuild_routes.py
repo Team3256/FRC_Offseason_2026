@@ -8,7 +8,7 @@ usage: routes.py <robot repo> [json overrides]
 import json, math, sys
 from pathlib import Path
 repo = Path(sys.argv[1]); P = repo / "robot.mayhem.json"
-cfg = dict(speedScale=1.0, cornerRadius=0.3, spacing=0.6, minDt=0.15, lookahead=0.2, vfloor=0.8, vmax=4.8, finalCap=3.0)
+cfg = dict(speedScale=1.0, cornerRadius=0.3, spacing=0.6, minDt=0.15, lookahead=0.2, vfloor=0.8, vmax=4.8, finalCap=3.5, translationKp=3.5, capRule="end")
 if len(sys.argv) > 2: cfg.update(json.loads(sys.argv[2]))
 W = lambda a: math.atan2(math.sin(a), math.cos(a))
 ROUTINES = {
@@ -46,7 +46,11 @@ def pass_nodes(rid, pi, name, last_pass):
     for i, t in enumerate(merged):
         x = at(t); final = i == len(merged) - 1
         window = [speed(y) for y in s if prev_t <= y["t"] <= t + cfg["lookahead"]]
-        cap = min(cfg["vmax"], max(cfg["vfloor"], min(window[len(window)//3:] or [speed(x)]) * cfg["speedScale"]))
+        if cfg["capRule"] == "window":
+            base = min(window[len(window)//3:] or [speed(x)])
+        else:  # the solved speed where the segment ends: brake only as much as the solved path did
+            base = speed(x)
+        cap = min(cfg["vmax"], max(cfg["vfloor"], base * cfg["speedScale"]))
         if final: cap = cfg["finalCap"]
         markers = []
         if prev_t <= intake_t < t or (intake_t == 0 and i == 0):

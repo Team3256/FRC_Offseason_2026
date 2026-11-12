@@ -1,7 +1,7 @@
 {
   "format": "mayhem-suite",
   "version": 1,
-  "revision": 8,
+  "revision": 9,
   "id": "team3256-offseason-2026",
   "name": "3256 Offseason 2026",
   "field": {
@@ -66,7 +66,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt pass at 0.44 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.36,
+            "maxVelocity": 2.84,
             "handoffRadius": 0.3
           }
         },
@@ -90,7 +90,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt pass at 0.63 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.7,
+            "maxVelocity": 4.06,
             "handoffRadius": 0.3
           }
         },
@@ -114,7 +114,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt pass at 0.78 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.44,
+            "maxVelocity": 4.43,
             "handoffRadius": 0.3
           }
         },
@@ -145,7 +145,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt pass at 0.93 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.89,
+            "maxVelocity": 3.58,
             "handoffRadius": 0.3
           }
         },
@@ -169,7 +169,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt pass at 1.14 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.62,
+            "maxVelocity": 2.81,
             "handoffRadius": 0.3
           }
         },
@@ -193,7 +193,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt pass at 1.36 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.62,
+            "maxVelocity": 2.67,
             "handoffRadius": 0.3
           }
         },
@@ -217,7 +217,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt pass at 1.59 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.0,
+            "maxVelocity": 3.33,
             "handoffRadius": 0.3
           }
         },
@@ -241,7 +241,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt pass at 1.76 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.87,
+            "maxVelocity": 4.2,
             "handoffRadius": 0.3
           }
         },
@@ -265,7 +265,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt pass at 1.92 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.17,
+            "maxVelocity": 4.0,
             "handoffRadius": 0.3
           }
         },
@@ -289,7 +289,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt pass at 2.10 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.62,
+            "maxVelocity": 3.17,
             "handoffRadius": 0.3
           }
         },
@@ -313,7 +313,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt pass at 2.33 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.76,
+            "maxVelocity": 2.4,
             "handoffRadius": 0.3
           }
         },
@@ -361,7 +361,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt pass at 3.02 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.86,
+            "maxVelocity": 2.02,
             "handoffRadius": 0.3
           }
         },
@@ -385,7 +385,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt pass at 3.29 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.79,
+            "maxVelocity": 3.19,
             "handoffRadius": 0.3
           }
         },
@@ -409,7 +409,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt pass at 3.48 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.24,
+            "maxVelocity": 2.79,
             "handoffRadius": 0.3
           }
         },
@@ -433,7 +433,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt pass at 3.75 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.13,
+            "maxVelocity": 2.14,
             "handoffRadius": 0.3
           }
         },
@@ -481,7 +481,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt pass at 4.22 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.29,
+            "maxVelocity": 4.08,
             "handoffRadius": 0.3
           }
         },
@@ -505,7 +505,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt pass at 4.50 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.96,
+            "maxVelocity": 4.18,
             "handoffRadius": 0.3
           }
         },
@@ -529,7 +529,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt pass at 4.69 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.73,
+            "maxVelocity": 2.96,
             "handoffRadius": 0.3
           }
         },
@@ -598,7 +598,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt2 pass at 0.48 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.0,
+            "maxVelocity": 1.76,
             "handoffRadius": 0.3
           }
         },
@@ -670,7 +670,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt2 pass at 1.82 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.74,
+            "maxVelocity": 2.45,
             "handoffRadius": 0.3
           }
         },
@@ -694,7 +694,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt2 pass at 2.04 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.19,
+            "maxVelocity": 2.21,
             "handoffRadius": 0.3
           }
         },
@@ -1024,7 +1024,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 0.44 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.31,
+            "maxVelocity": 2.83,
             "handoffRadius": 0.3
           }
         },
@@ -1048,7 +1048,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 0.64 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.71,
+            "maxVelocity": 4.14,
             "handoffRadius": 0.3
           }
         },
@@ -1072,7 +1072,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 0.81 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.69,
+            "maxVelocity": 4.6,
             "handoffRadius": 0.3
           }
         },
@@ -1103,7 +1103,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 0.97 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.99,
+            "maxVelocity": 3.69,
             "handoffRadius": 0.3
           }
         },
@@ -1127,7 +1127,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 1.16 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.78,
+            "maxVelocity": 2.99,
             "handoffRadius": 0.3
           }
         },
@@ -1151,7 +1151,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 1.41 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.78,
+            "maxVelocity": 2.82,
             "handoffRadius": 0.3
           }
         },
@@ -1175,7 +1175,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 1.61 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.01,
+            "maxVelocity": 3.32,
             "handoffRadius": 0.3
           }
         },
@@ -1199,7 +1199,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 1.82 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.94,
+            "maxVelocity": 4.0,
             "handoffRadius": 0.3
           }
         },
@@ -1223,7 +1223,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 2.02 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.11,
+            "maxVelocity": 2.94,
             "handoffRadius": 0.3
           }
         },
@@ -1247,7 +1247,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 2.37 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.11,
+            "maxVelocity": 1.19,
             "handoffRadius": 0.3
           }
         },
@@ -1271,7 +1271,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 2.79 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.47,
+            "maxVelocity": 2.56,
             "handoffRadius": 0.3
           }
         },
@@ -1295,7 +1295,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 3.00 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.54,
+            "maxVelocity": 3.47,
             "handoffRadius": 0.3
           }
         },
@@ -1319,7 +1319,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 3.23 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.57,
+            "maxVelocity": 2.15,
             "handoffRadius": 0.3
           }
         },
@@ -1343,7 +1343,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 3.53 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.46,
+            "maxVelocity": 1.5,
             "handoffRadius": 0.3
           }
         },
@@ -1367,7 +1367,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 3.79 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.43,
+            "maxVelocity": 2.61,
             "handoffRadius": 0.3
           }
         },
@@ -1391,7 +1391,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 4.08 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.66,
+            "maxVelocity": 4.32,
             "handoffRadius": 0.3
           }
         },
@@ -1415,7 +1415,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 4.41 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.67,
+            "maxVelocity": 2.86,
             "handoffRadius": 0.3
           }
         },
@@ -1664,7 +1664,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 0.44 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.31,
+            "maxVelocity": 2.83,
             "handoffRadius": 0.3
           }
         },
@@ -1688,7 +1688,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 0.64 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.71,
+            "maxVelocity": 4.14,
             "handoffRadius": 0.3
           }
         },
@@ -1712,7 +1712,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 0.81 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.69,
+            "maxVelocity": 4.6,
             "handoffRadius": 0.3
           }
         },
@@ -1743,7 +1743,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 0.97 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.99,
+            "maxVelocity": 3.69,
             "handoffRadius": 0.3
           }
         },
@@ -1767,7 +1767,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 1.16 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.78,
+            "maxVelocity": 2.99,
             "handoffRadius": 0.3
           }
         },
@@ -1791,7 +1791,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 1.41 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.78,
+            "maxVelocity": 2.82,
             "handoffRadius": 0.3
           }
         },
@@ -1815,7 +1815,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 1.61 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.01,
+            "maxVelocity": 3.32,
             "handoffRadius": 0.3
           }
         },
@@ -1839,7 +1839,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 1.82 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.94,
+            "maxVelocity": 4.0,
             "handoffRadius": 0.3
           }
         },
@@ -1863,7 +1863,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 2.02 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.11,
+            "maxVelocity": 2.94,
             "handoffRadius": 0.3
           }
         },
@@ -1887,7 +1887,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 2.37 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.11,
+            "maxVelocity": 1.19,
             "handoffRadius": 0.3
           }
         },
@@ -1911,7 +1911,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 2.79 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.47,
+            "maxVelocity": 2.56,
             "handoffRadius": 0.3
           }
         },
@@ -1935,7 +1935,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 3.00 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.54,
+            "maxVelocity": 3.47,
             "handoffRadius": 0.3
           }
         },
@@ -1959,7 +1959,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 3.23 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.57,
+            "maxVelocity": 2.15,
             "handoffRadius": 0.3
           }
         },
@@ -1983,7 +1983,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 3.53 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.46,
+            "maxVelocity": 1.5,
             "handoffRadius": 0.3
           }
         },
@@ -2007,7 +2007,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 3.79 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.43,
+            "maxVelocity": 2.61,
             "handoffRadius": 0.3
           }
         },
@@ -2031,7 +2031,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 4.08 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.66,
+            "maxVelocity": 4.32,
             "handoffRadius": 0.3
           }
         },
@@ -2055,7 +2055,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 4.41 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.67,
+            "maxVelocity": 2.86,
             "handoffRadius": 0.3
           }
         },
@@ -2117,7 +2117,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt2 pass at 0.45 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.41,
+            "maxVelocity": 2.71,
             "handoffRadius": 0.3
           }
         },
@@ -2141,7 +2141,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt2 pass at 0.67 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.98,
+            "maxVelocity": 3.05,
             "handoffRadius": 0.3
           }
         },
@@ -2165,7 +2165,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt2 pass at 0.90 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.98,
+            "maxVelocity": 3.0,
             "handoffRadius": 0.3
           }
         },
@@ -2189,7 +2189,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt2 pass at 1.09 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.25,
+            "maxVelocity": 3.36,
             "handoffRadius": 0.3
           }
         },
@@ -2213,7 +2213,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt2 pass at 1.28 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.86,
+            "maxVelocity": 4.05,
             "handoffRadius": 0.3
           }
         },
@@ -2237,7 +2237,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt2 pass at 1.45 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.78,
+            "maxVelocity": 4.3,
             "handoffRadius": 0.3
           }
         },
@@ -2268,7 +2268,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt2 pass at 1.61 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.42,
+            "maxVelocity": 3.89,
             "handoffRadius": 0.3
           }
         },
@@ -2292,7 +2292,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt2 pass at 1.79 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.26,
+            "maxVelocity": 3.42,
             "handoffRadius": 0.3
           }
         },
@@ -2340,7 +2340,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt2 pass at 2.17 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.38,
+            "maxVelocity": 3.43,
             "handoffRadius": 0.3
           }
         },
@@ -2364,7 +2364,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt2 pass at 2.37 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.35,
+            "maxVelocity": 3.69,
             "handoffRadius": 0.3
           }
         },
@@ -2388,7 +2388,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt2 pass at 2.57 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.37,
+            "maxVelocity": 3.35,
             "handoffRadius": 0.3
           }
         },
@@ -2412,7 +2412,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt2 pass at 2.84 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.27,
+            "maxVelocity": 1.97,
             "handoffRadius": 0.3
           }
         },
@@ -2484,7 +2484,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt2 pass at 3.60 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.49,
+            "maxVelocity": 3.12,
             "handoffRadius": 0.3
           }
         },
@@ -2508,7 +2508,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt2 pass at 3.83 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.01,
+            "maxVelocity": 2.3,
             "handoffRadius": 0.3
           }
         },
@@ -2532,7 +2532,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt2 pass at 4.15 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.08,
+            "maxVelocity": 2.19,
             "handoffRadius": 0.3
           }
         },
@@ -2556,7 +2556,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt2 pass at 4.39 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.01,
+            "maxVelocity": 3.6,
             "handoffRadius": 0.3
           }
         },
@@ -2580,7 +2580,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt2 pass at 4.54 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.95,
+            "maxVelocity": 4.13,
             "handoffRadius": 0.3
           }
         },
@@ -2604,7 +2604,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt2 pass at 4.72 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.77,
+            "maxVelocity": 2.95,
             "handoffRadius": 0.3
           }
         },
@@ -3038,7 +3038,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 0.45 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.37,
+            "maxVelocity": 2.93,
             "handoffRadius": 0.3
           }
         },
@@ -3062,7 +3062,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 0.63 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.71,
+            "maxVelocity": 4.1,
             "handoffRadius": 0.3
           }
         },
@@ -3086,7 +3086,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 0.78 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 4.41,
+            "maxVelocity": 4.66,
             "handoffRadius": 0.3
           }
         },
@@ -3117,7 +3117,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 0.94 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.95,
+            "maxVelocity": 4.53,
             "handoffRadius": 0.3
           }
         },
@@ -3141,7 +3141,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 1.10 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.73,
+            "maxVelocity": 4.03,
             "handoffRadius": 0.3
           }
         },
@@ -3165,7 +3165,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 1.28 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.63,
+            "maxVelocity": 3.73,
             "handoffRadius": 0.3
           }
         },
@@ -3189,7 +3189,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 1.48 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.54,
+            "maxVelocity": 3.61,
             "handoffRadius": 0.3
           }
         },
@@ -3213,7 +3213,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 1.68 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.24,
+            "maxVelocity": 3.5,
             "handoffRadius": 0.3
           }
         },
@@ -3237,7 +3237,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 1.88 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.66,
+            "maxVelocity": 3.11,
             "handoffRadius": 0.3
           }
         },
@@ -3261,7 +3261,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 2.13 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.07,
+            "maxVelocity": 2.37,
             "handoffRadius": 0.3
           }
         },
@@ -3285,7 +3285,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 2.44 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.8,
+            "maxVelocity": 1.84,
             "handoffRadius": 0.3
           }
         },
@@ -3309,7 +3309,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 2.69 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.84,
+            "maxVelocity": 1.97,
             "handoffRadius": 0.3
           }
         },
@@ -3333,7 +3333,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 3.09 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.55,
+            "maxVelocity": 2.4,
             "handoffRadius": 0.3
           }
         },
@@ -3381,7 +3381,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 3.77 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.37,
+            "maxVelocity": 3.13,
             "handoffRadius": 0.3
           }
         },
@@ -3429,7 +3429,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 4.09 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 4.49,
+            "maxVelocity": 4.67,
             "handoffRadius": 0.3
           }
         },
@@ -3453,7 +3453,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 4.25 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.52,
+            "maxVelocity": 4.69,
             "handoffRadius": 0.3
           }
         },
@@ -3477,7 +3477,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 4.40 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.54,
+            "maxVelocity": 3.71,
             "handoffRadius": 0.3
           }
         },
@@ -3501,7 +3501,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 4.61 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.17,
+            "maxVelocity": 2.34,
             "handoffRadius": 0.3
           }
         },
@@ -3774,7 +3774,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 0.45 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.37,
+            "maxVelocity": 2.93,
             "handoffRadius": 0.3
           }
         },
@@ -3798,7 +3798,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 0.63 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.71,
+            "maxVelocity": 4.1,
             "handoffRadius": 0.3
           }
         },
@@ -3822,7 +3822,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 0.78 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 4.41,
+            "maxVelocity": 4.66,
             "handoffRadius": 0.3
           }
         },
@@ -3853,7 +3853,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 0.94 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.95,
+            "maxVelocity": 4.53,
             "handoffRadius": 0.3
           }
         },
@@ -3877,7 +3877,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 1.10 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.73,
+            "maxVelocity": 4.03,
             "handoffRadius": 0.3
           }
         },
@@ -3901,7 +3901,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 1.28 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.63,
+            "maxVelocity": 3.73,
             "handoffRadius": 0.3
           }
         },
@@ -3925,7 +3925,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 1.48 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.54,
+            "maxVelocity": 3.61,
             "handoffRadius": 0.3
           }
         },
@@ -3949,7 +3949,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 1.68 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.24,
+            "maxVelocity": 3.5,
             "handoffRadius": 0.3
           }
         },
@@ -3973,7 +3973,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 1.88 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.66,
+            "maxVelocity": 3.11,
             "handoffRadius": 0.3
           }
         },
@@ -3997,7 +3997,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 2.13 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.07,
+            "maxVelocity": 2.37,
             "handoffRadius": 0.3
           }
         },
@@ -4021,7 +4021,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 2.44 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.8,
+            "maxVelocity": 1.84,
             "handoffRadius": 0.3
           }
         },
@@ -4045,7 +4045,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 2.69 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.84,
+            "maxVelocity": 1.97,
             "handoffRadius": 0.3
           }
         },
@@ -4069,7 +4069,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 3.09 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.55,
+            "maxVelocity": 2.4,
             "handoffRadius": 0.3
           }
         },
@@ -4117,7 +4117,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 3.77 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.37,
+            "maxVelocity": 3.13,
             "handoffRadius": 0.3
           }
         },
@@ -4165,7 +4165,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 4.09 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 4.49,
+            "maxVelocity": 4.67,
             "handoffRadius": 0.3
           }
         },
@@ -4189,7 +4189,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 4.25 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.52,
+            "maxVelocity": 4.69,
             "handoffRadius": 0.3
           }
         },
@@ -4213,7 +4213,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 4.40 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.54,
+            "maxVelocity": 3.71,
             "handoffRadius": 0.3
           }
         },
@@ -4237,7 +4237,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 4.61 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.17,
+            "maxVelocity": 2.34,
             "handoffRadius": 0.3
           }
         },
@@ -4306,7 +4306,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBump2xPt2 pass at 0.47 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.31,
+            "maxVelocity": 2.77,
             "handoffRadius": 0.3
           }
         },
@@ -4330,7 +4330,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBump2xPt2 pass at 0.68 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.22,
+            "maxVelocity": 3.35,
             "handoffRadius": 0.3
           }
         },
@@ -4354,7 +4354,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBump2xPt2 pass at 0.87 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.41,
+            "maxVelocity": 3.45,
             "handoffRadius": 0.3
           }
         },
@@ -4378,7 +4378,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBump2xPt2 pass at 1.05 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.57,
+            "maxVelocity": 3.71,
             "handoffRadius": 0.3
           }
         },
@@ -4426,7 +4426,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBump2xPt2 pass at 1.36 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.93,
+            "maxVelocity": 4.15,
             "handoffRadius": 0.3
           }
         },
@@ -4450,7 +4450,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBump2xPt2 pass at 1.52 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.72,
+            "maxVelocity": 3.99,
             "handoffRadius": 0.3
           }
         },
@@ -4474,7 +4474,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBump2xPt2 pass at 1.71 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.63,
+            "maxVelocity": 3.72,
             "handoffRadius": 0.3
           }
         },
@@ -4498,7 +4498,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBump2xPt2 pass at 1.90 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.63,
+            "maxVelocity": 3.64,
             "handoffRadius": 0.3
           }
         },
@@ -4522,7 +4522,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBump2xPt2 pass at 2.09 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.73,
+            "maxVelocity": 3.84,
             "handoffRadius": 0.3
           }
         },
@@ -4546,7 +4546,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBump2xPt2 pass at 2.27 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.82,
+            "maxVelocity": 4.21,
             "handoffRadius": 0.3
           }
         },
@@ -4570,7 +4570,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBump2xPt2 pass at 2.60 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.31,
+            "maxVelocity": 3.03,
             "handoffRadius": 0.3
           }
         },
@@ -4594,7 +4594,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBump2xPt2 pass at 2.77 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.89,
+            "maxVelocity": 2.31,
             "handoffRadius": 0.3
           }
         },
@@ -4618,7 +4618,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBump2xPt2 pass at 3.22 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.71,
+            "maxVelocity": 1.74,
             "handoffRadius": 0.3
           }
         },
@@ -4666,7 +4666,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBump2xPt2 pass at 3.79 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.6,
+            "maxVelocity": 3.6,
             "handoffRadius": 0.3
           }
         },
@@ -4690,7 +4690,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBump2xPt2 pass at 3.98 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.58,
+            "maxVelocity": 2.6,
             "handoffRadius": 0.3
           }
         },
@@ -4738,7 +4738,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBump2xPt2 pass at 4.71 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 2.08,
+            "maxVelocity": 3.0,
             "handoffRadius": 0.3
           }
         },
@@ -4762,7 +4762,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBump2xPt2 pass at 4.88 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.69,
+            "maxVelocity": 4.15,
             "handoffRadius": 0.3
           }
         },
@@ -4786,7 +4786,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBump2xPt2 pass at 5.20 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.84,
+            "maxVelocity": 3.0,
             "handoffRadius": 0.3
           }
         },
