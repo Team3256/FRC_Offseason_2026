@@ -200,6 +200,6 @@ Robot behaviour is the same. The deliberate differences:
 ### Mayhem Suite overhaul
 
 The robot now executes `robot.mayhem.json` through the new Mayhem C++ graph runner
-and pose follower. Regenerate with `python3 tools/mayhem/export.py` after edits.
+and pose follower. Regenerate with `tools/mayhem/export.sh` after edits.
 See [the integration guide](docs/mayhem/README.md) for state ownership, log mapping,
 telemetry, build instructions and migration limits.

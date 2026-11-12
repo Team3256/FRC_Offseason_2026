@@ -6,10 +6,16 @@
 - the five autonomous routines (chooser names and order come from the project), and
 - the three superstructure state machines (`Superstructure`, `IntakeSequence`, `ShotCycle`).
 
-`python3 tools/mayhem/export.py` turns the project into `src/main/include/commands/MayhemProject.h`.
-Commit both together; CI runs `export.py --check` and fails on a stale header.
-The Mayhem C++ headers are vendored in `src/main/include/mayhem/*.hpp` (hashes in
-`vendor-snapshot.json`, BLine-Lib license in `BLine-Lib-LICENSE.txt`).
+`tools/mayhem/export.sh` runs Mayhem's own C++ exporter and writes
+`src/main/include/commands/MayhemProject.h` (namespace `mayhem_generated`). Commit both files together.
+CI runs `tools/mayhem/export.sh --check`: it validates the project, fails on a stale header, and
+fails if the vendored headers differ from Mayhem. The script uses the Mayhem commit recorded in
+`docs/mayhem/vendor-snapshot.json`. It clones that commit into `build/mayhem-tools`, or uses
+`MAYHEM_DIR` if set, and needs Node 24+.
+
+The Mayhem C++ headers are vendored in `src/main/include/mayhem/*.hpp` by
+`node <Mayhem>/scripts/mayhem.mjs vendor . --snapshot docs/mayhem/vendor-snapshot.json`. The BLine-Lib
+license is in `BLine-Lib-LICENSE.txt`. Switch to the `MayhemCpp.json` vendordep once Mayhem hosts it.
 
 ## Driver controls: same inputs, same outcomes
 
@@ -44,14 +50,19 @@ Deliberate improvements. None of them changes what a button press ends up doing:
 - `ShotCycle`: OFF → SPINNING_UP → FEEDING (latched), plus INHIBITED under the trench. The indexer
   and feeder run in FEEDING.
 
-`tools/mayhem/phase_graphs.py robot.mayhem.json` regenerates the two phase graphs.
+`tools/mayhem/phase_graphs.py robot.mayhem.json` regenerates the two phase graphs, plus every
+transition's name and description and every input's category. Categories: operator = driver
+request, sensor = measured, internal = derived in code. The robot runs all three with
+`mayhem::StateMachine`.
 
 ## Autonomous
 
 Each routine follows its original solved sweep, sampled every ~0.6 m from the `.mtraj` passes in
 `tools/mayhem/solved/`. Every point carries the solved heading and speed, so the robot crosses the
 trench sideways and **leads with the intake down the centerline pickup**.
-`tools/mayhem/rebuild_routes.py .` rebuilds the routines.
+`tools/mayhem/rebuild_routes.py .` rebuilds the routines. Drivetrain limits come from
+`tools/mayhem/robot_limits.py --write`; it uses the motor curve, gearing and slip current from
+`TunerConstants.h` at 150 lb.
 
 After each pass, `drivetrain.alignAndShoot` behaves like the original AlignAndShoot:
 - the drivetrain's heading controller turns to the lookahead shot;

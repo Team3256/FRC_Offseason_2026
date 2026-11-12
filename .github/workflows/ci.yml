@@ -5,8 +5,11 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - name: Verify generated Mayhem graphs
-        run: python3 tools/mayhem/export.py --check
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Verify the Mayhem project, generated header and vendored headers
+        run: tools/mayhem/export.sh --check
       - name: Check C++ formatting (clang-format)
         run: |
           clang-format --version

@@ -153,7 +153,7 @@ TEST(FeatureSimTest, AutoPreviewShowsTheSelectedRoutineForEachAlliance) {
     h.Step(2);
     const auto* definition = suite_autos::Find("Depot Trench Sweep x2");
     ASSERT_NE(definition, nullptr);
-    const auto first = suite_autos::ToWpi(suite_autos::Resolve(definition->start, red));
+    const auto first = suite_autos::ToWpi(suite_autos::Resolve(definition->startPose, red));
     ASSERT_TRUE(h.C().GetAutoStartPose().has_value());
     EXPECT_LT(Distance(*h.C().GetAutoStartPose(), first), 1e-9);
     const auto path = h.C().GetField().GetObject("AutoPath")->GetPoses();

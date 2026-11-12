@@ -16,7 +16,6 @@
 #include <frc2/command/Commands.h>
 
 #include "FieldConstants.h"
-#include "commands/MayhemProject.h"
 #include "logging/LoggedTracer.h"
 #include "subsystems/feeder/Feeder.h"
 #include "subsystems/indexer/Indexer.h"
@@ -85,18 +84,11 @@ Superstructure::Superstructure(Indexer& indexer, ShooterPivot& shooterPivot, Sho
                        std::make_index_sequence<kNumStates>{})},
       m_target{field_constants::hub::kTarget2d, frc::Rotation2d{}} {
   m_stateTimer.Start();
-  m_observer.Describe(robot_mayhem::SuperstructureManifest);
-  for (const auto& edge : robot_mayhem::Superstructure::transitions)
-    m_observer.RegisterGuard(std::string{edge.id}, "condition");
-  m_machine = std::make_unique<mayhem::AutoRunner>(robot_mayhem::Superstructure::routine,
-                                                   static_cast<mayhem::RobotHooks&>(*this));
-  m_machine->Start();
-  auto signals = [this](std::string_view key) { return Signal(key); };
-  m_intakeMachine =
-      std::make_unique<MayhemMachine>("IntakeSequence", robot_mayhem::IntakeSequence::routine,
-                                      robot_mayhem::IntakeSequenceManifest, signals);
-  m_shotMachine = std::make_unique<MayhemMachine>("ShotCycle", robot_mayhem::ShotCycle::routine,
-                                                  robot_mayhem::ShotCycleManifest, signals);
+  auto clock = [] { return frc::Timer::GetFPGATimestamp().value(); };
+  m_machine.Attach(m_observer, clock);
+  m_intakeMachine.Attach(m_intakeObserver, clock);
+  m_shotMachine.Attach(m_shotObserver, clock);
+  m_lastTick = clock();
   for (std::size_t i = 0; i < kInputs.size(); ++i)
     m_inputLogs[i] = std::make_unique<logging::Output<bool>>(
         std::string{"Mayhem/States/Superstructure/inputs/"} + std::string{kInputs[i]});
@@ -225,28 +217,45 @@ void Superstructure::UpdateTarget() {
   m_target = frc::Pose2d{target, frc::Rotation2d{}};
   m_shotCalculator.SetTarget(target);
 }
-void Superstructure::EvaluateState() { m_machine->Tick({}, {}, .02); }
+void Superstructure::EvaluateState() {
+  // dt 0: guards run without advancing the graph's stateTime (used for synchronous requests).
+  if (m_machine.Tick(0)) {
+    for (int i = 0; i < kNumStates; ++i) {
+      const auto next = static_cast<SS>(i);
+      if (ToString(next) == m_machine.State() && next != m_state) {
+        m_prevState = m_state;
+        m_state = next;
+        m_stateTimer.Restart();
+      }
+    }
+  }
+}
 
 void Superstructure::Periodic() {
   UpdateTarget();
   if (!frc::DriverStation::IsEnabled()) {
     // Clear every old demand. Re-enabling never resumes a latched shot or outtake.
     m_intent.Reset();
-    if (m_intakeMachine->State() != "PARKED")
-      m_intakeMachine->Reset();
-    if (m_shotMachine->State() != "OFF")
-      m_shotMachine->Reset();
+    if (m_intakeMachine.State() != "PARKED")
+      m_intakeMachine.Reset();
+    if (m_shotMachine.State() != "OFF")
+      m_shotMachine.Reset();
   }
+  const double now = frc::Timer::GetFPGATimestamp().value();
+  const double dt = now - m_lastTick;
+  m_lastTick = now;
   EvaluateState();
-  m_intakeMachine->Tick();
-  m_shotMachine->Tick();
+  m_intakeMachine.Tick(dt);
+  m_shotMachine.Tick(dt);
+  m_intakeTimeLog.Set(m_intakeMachine.StateTime());
+  m_shotTimeLog.Set(m_shotMachine.StateTime());
   // Slow phases are reported, never acted on: the driver's request keeps running.
   const auto intakePhase = IntakePhase();
-  const double intakeTime = m_intakeMachine->StateTime();
+  const double intakeTime = m_intakeMachine.StateTime();
   const bool hoodStuck = intakePhase == "CLEARING_HOOD" && intakeTime > kHoodClearWarnSeconds;
   const bool slideStuck = intakePhase == "DEPLOYING" && intakeTime > kDeployWarnSeconds;
   const bool spinStuck =
-      ShotPhase() == "SPINNING_UP" && m_shotMachine->StateTime() > kSpinUpWarnSeconds;
+      ShotPhase() == "SPINNING_UP" && m_shotMachine.StateTime() > kSpinUpWarnSeconds;
   m_hoodStuckAlert.Set(hoodStuck);
   m_slideStuckAlert.Set(slideStuck);
   m_spinUpAlert.Set(spinStuck);
@@ -347,29 +356,6 @@ void Superstructure::RequestState(StructureState state, RequestSource source) {
     return;
   UpdateTarget();
   EvaluateState();
-}
-
-void Superstructure::StateEntered(std::string_view state) {
-  for (int i = 0; i < kNumStates; ++i) {
-    const auto next = static_cast<SS>(i);
-    if (ToString(next) != state)
-      continue;
-    if (m_state != next)
-      m_prevState = m_state;
-    m_state = next;
-    m_stateTimer.Restart();
-    m_observer.Enter("Superstructure", state, frc::Timer::GetFPGATimestamp().value());
-    return;
-  }
-}
-
-void Superstructure::GuardEvaluated(std::string_view edge, bool accepted) {
-  m_observer.Guard("Superstructure", edge, "condition", accepted,
-                   frc::Timer::GetFPGATimestamp().value());
-}
-void Superstructure::Transitioned(std::string_view edge, std::string_view from,
-                                  std::string_view to) {
-  m_observer.Transition("Superstructure", edge, from, to, frc::Timer::GetFPGATimestamp().value());
 }
 
 frc2::CommandPtr Superstructure::SetState(StructureState state) {

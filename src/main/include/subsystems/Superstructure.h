@@ -18,10 +18,10 @@
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/button/Trigger.h>
 
-#include "commands/MayhemMachine.h"
+#include "commands/MayhemProject.h"
 #include "commands/MayhemObserver.h"
 #include "logging/Logger.h"
-#include "mayhem/auto_runner.hpp"
+#include "mayhem/state_machine.hpp"
 #include "subsystems/SuperstructureIntent.h"
 
 class Indexer;
@@ -35,7 +35,7 @@ class ShotCalculator;
 /** Intent-driven Mayhem supervisor with orthogonal, sensor-driven intake and shot
  * phase graphs. The graph chooses operating modes; continuous interlocks own outputs.
  */
-class Superstructure : private mayhem::RobotHooks {
+class Superstructure {
  public:
   enum class StructureState {
     INTAKE,
@@ -63,8 +63,8 @@ class Superstructure : private mayhem::RobotHooks {
   /** Synchronous state request for Mayhem hooks; disabled requests are inhibited. */
   enum class RequestSource { Operator, Autonomous, Supervisor };
   void RequestState(StructureState state, RequestSource source = RequestSource::Operator);
-  std::string_view IntakePhase() const { return m_intakeMachine->State(); }
-  std::string_view ShotPhase() const { return m_shotMachine->State(); }
+  std::string_view IntakePhase() const { return m_intakeMachine.State(); }
+  std::string_view ShotPhase() const { return m_shotMachine.State(); }
   frc2::CommandPtr AddShootMultiplier(double amt);
 
   StructureState GetState() const { return m_state; }
@@ -92,17 +92,20 @@ class Superstructure : private mayhem::RobotHooks {
   static inline const frc::Translation2d kBottomCorner{1.5_m, 1.5_m};
 
  private:
-  mayhem::SignalValue Signal(std::string_view key) const override;
-  mayhem::ActionStatus TickAction(std::string_view) override {
-    return mayhem::ActionStatus::Succeeded;
-  }
-  void StateEntered(std::string_view state) override;
-  void GuardEvaluated(std::string_view edge, bool accepted) override;
-  void Transitioned(std::string_view edge, std::string_view from, std::string_view to) override;
-  MayhemObserver m_observer{"Superstructure"};
-  std::unique_ptr<mayhem::AutoRunner> m_machine;
+  mayhem::SignalValue Signal(std::string_view key) const;
   SuperstructureIntent m_intent;
-  std::unique_ptr<MayhemMachine> m_intakeMachine, m_shotMachine;
+  // The three graphs from robot.mayhem.json; observers publish them to the log and NT.
+  MayhemObserver m_observer{"Superstructure"}, m_intakeObserver{"IntakeSequence"},
+      m_shotObserver{"ShotCycle"};
+  mayhem::StateMachine m_machine{mayhem_generated::Superstructure::machine,
+                                 [this](std::string_view key) { return Signal(key); }};
+  mayhem::StateMachine m_intakeMachine{mayhem_generated::IntakeSequence::machine,
+                                       [this](std::string_view key) { return Signal(key); }};
+  mayhem::StateMachine m_shotMachine{mayhem_generated::ShotCycle::machine,
+                                     [this](std::string_view key) { return Signal(key); }};
+  double m_lastTick = 0;
+  logging::Output<double> m_intakeTimeLog{"Mayhem/States/IntakeSequence/inputs/stateTime"};
+  logging::Output<double> m_shotTimeLog{"Mayhem/States/ShotCycle/inputs/stateTime"};
   static constexpr std::array<std::string_view, 22> kInputs = {
       "enabled",      "poseValid", "cancel",        "home",           "outtake", "shoot",
       "intake",       "jitter",    "rev",           "inAllianceZone", "ready",   "flywheelReady",

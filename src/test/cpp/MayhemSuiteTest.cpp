@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <map>
 #include "commands/MayhemAutos.h"
+#include "mayhem/state_machine.hpp"
 
 namespace {
 class Hooks : public mayhem::RobotHooks {
@@ -28,9 +29,13 @@ TEST(MayhemSuiteTest, SupervisorPrioritizesIntentAndPreservesShootingAcrossZones
     h.inputs[key] = false;
   h.inputs["enabled"] = true;
   h.inputs["poseValid"] = true;
-  mayhem::AutoRunner machine(robot_mayhem::Superstructure::routine, h);
-  ASSERT_TRUE(machine.Start());
-  auto tick = [&] { machine.Tick({}, {}, .02); };
+  mayhem::StateMachine machine(mayhem_generated::Superstructure::machine,
+                               [&](std::string_view key) { return h.Signal(key); });
+  ASSERT_TRUE(machine.Valid());
+  auto tick = [&] {
+    machine.Tick(.02);
+    h.state = machine.State();
+  };
   h.inputs["intake"] = true;
   tick();
   EXPECT_EQ(h.state, "INTAKE");
@@ -62,9 +67,12 @@ TEST(MayhemSuiteTest, IntakeGraphClearsTheHoodBeforeTheSlideMoves) {
               {"jitterDemand", false},
               {"hoodClear", false},
               {"slideDeployed", false}};
-  mayhem::AutoRunner machine(robot_mayhem::IntakeSequence::routine, h);
-  machine.Start();
-  auto tick = [&] { machine.Tick({}, {}, .02); };
+  mayhem::StateMachine machine(mayhem_generated::IntakeSequence::machine,
+                               [&](std::string_view key) { return h.Signal(key); });
+  auto tick = [&] {
+    machine.Tick(.02);
+    h.state = machine.State();
+  };
   tick();
   EXPECT_EQ(h.state, "CLEARING_HOOD");
   tick();
@@ -93,9 +101,12 @@ TEST(MayhemSuiteTest, IntakeGraphClearsTheHoodBeforeTheSlideMoves) {
 TEST(MayhemSuiteTest, ShotGraphFeedsOnceAtSpeedAndPausesUnderTheTrench) {
   Hooks h;
   h.inputs = {{"enabled", true}, {"shotDemand", true}, {"flywheelReady", false}, {"trench", false}};
-  mayhem::AutoRunner machine(robot_mayhem::ShotCycle::routine, h);
-  machine.Start();
-  auto tick = [&] { machine.Tick({}, {}, .02); };
+  mayhem::StateMachine machine(mayhem_generated::ShotCycle::machine,
+                               [&](std::string_view key) { return h.Signal(key); });
+  auto tick = [&] {
+    machine.Tick(.02);
+    h.state = machine.State();
+  };
   tick();
   EXPECT_EQ(h.state, "SPINNING_UP");
   h.inputs["flywheelReady"] = true;
@@ -116,11 +127,11 @@ TEST(MayhemSuiteTest, ShotGraphFeedsOnceAtSpeedAndPausesUnderTheTrench) {
   EXPECT_EQ(h.state, "OFF");
 }
 TEST(MayhemSuiteTest, AllFiveGraphsReachTheirFinalNodeWithPoseFeedback) {
-  for (const auto& def : robot_mayhem::autos) {
+  for (const auto& def : mayhem_generated::routines) {
     SCOPED_TRACE(std::string{def.name});
     Hooks hooks;
     mayhem::AutoRunner runner(def.routine, hooks);
-    mayhem::Pose pose = def.start;
+    mayhem::Pose pose = def.startPose;
     mayhem::Velocity velocity{};
     ASSERT_TRUE(runner.Start());
     for (int i = 0; i < 6000 && runner.Status() == mayhem::RunStatus::Running; ++i) {
@@ -135,25 +146,25 @@ TEST(MayhemSuiteTest, AllFiveGraphsReachTheirFinalNodeWithPoseFeedback) {
 }
 TEST(MayhemSuiteTest, FrozenDrivetrainFailsAndCancelStopsOutput) {
   Hooks hooks;
-  const auto& def = robot_mayhem::autos[0];
+  const auto& def = mayhem_generated::routines[0];
   mayhem::AutoRunner runner(def.routine, hooks);
   runner.Start();
   for (int i = 0; i < 2000 && runner.Status() == mayhem::RunStatus::Running; ++i)
-    runner.Tick(def.start, {}, .02);
+    runner.Tick(def.startPose, {}, .02);
   EXPECT_EQ(runner.Status(), mayhem::RunStatus::Failed);
-  EXPECT_EQ(runner.Tick(def.start, {}, .02).vx, 0);
+  EXPECT_EQ(runner.Tick(def.startPose, {}, .02).vx, 0);
   runner.Start();
-  runner.Tick(def.start, {}, .02);
+  runner.Tick(def.startPose, {}, .02);
   runner.Cancel();
   EXPECT_EQ(runner.Status(), mayhem::RunStatus::Cancelled);
-  EXPECT_EQ(runner.Tick(def.start, {}, .02).vx, 0);
+  EXPECT_EQ(runner.Tick(def.startPose, {}, .02).vx, 0);
 }
 TEST(MayhemSuiteTest, PreviewAndAllianceTransformsUseExecutableGraph) {
-  for (const auto& def : robot_mayhem::autos)
+  for (const auto& def : mayhem_generated::routines)
     for (bool red : {false, true}) {
       const auto poses = suite_autos::Preview(def, red);
       ASSERT_GT(poses.size(), 2u);
-      EXPECT_NEAR(poses.front().X().value(), suite_autos::Resolve(def.start, red).x, 1e-9);
+      EXPECT_NEAR(poses.front().X().value(), suite_autos::Resolve(def.startPose, red).x, 1e-9);
       const mayhem::AutoNode* last = nullptr;
       for (std::size_t i = 0; i < def.routine.nodeCount; ++i)
         if (def.routine.nodes[i].kind == mayhem::NodeKind::Pose)

@@ -1,7 +1,7 @@
 {
   "format": "mayhem-suite",
   "version": 1,
-  "revision": 11,
+  "revision": 13,
   "id": "team3256-offseason-2026",
   "name": "3256 Offseason 2026",
   "field": {
@@ -32,7 +32,8 @@
       "key": "superstructure.ready",
       "name": "Ready to shoot",
       "type": "boolean",
-      "initial": false
+      "initial": false,
+      "category": "sensor"
     }
   ],
   "routines": [
@@ -5294,116 +5295,76 @@
         ],
         "inputs": [
           {
-            "key": "enabled",
-            "name": "Robot enabled",
-            "type": "boolean",
-            "initial": false,
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/enabled"
-          },
-          {
-            "key": "poseValid",
-            "name": "Finite robot pose and shot solution",
-            "type": "boolean",
-            "initial": true,
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/poseValid"
-          },
-          {
-            "key": "cancel",
-            "name": "Latched cancel",
-            "type": "boolean",
-            "initial": false,
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/cancel"
-          },
-          {
-            "key": "home",
-            "name": "Home request",
-            "type": "boolean",
-            "initial": false,
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/home"
-          },
-          {
-            "key": "outtake",
-            "name": "Outtake request",
-            "type": "boolean",
-            "initial": false,
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/outtake"
-          },
-          {
             "key": "shoot",
-            "name": "Shoot intent",
+            "name": "Shoot requested (A / auto)",
             "type": "boolean",
             "initial": false,
+            "category": "operator",
             "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/shoot"
           },
           {
             "key": "intake",
-            "name": "Intake intent",
+            "name": "Intake requested (X / auto)",
             "type": "boolean",
             "initial": false,
+            "category": "operator",
             "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/intake"
           },
           {
             "key": "jitter",
-            "name": "Jitter intent",
+            "name": "Jitter requested (Y)",
             "type": "boolean",
             "initial": false,
+            "category": "operator",
             "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/jitter"
           },
           {
-            "key": "rev",
-            "name": "Manual rev or eligible alliance zone",
+            "key": "home",
+            "name": "Home requested (B)",
             "type": "boolean",
             "initial": false,
+            "category": "operator",
+            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/home"
+          },
+          {
+            "key": "outtake",
+            "name": "Outtake requested (left trigger)",
+            "type": "boolean",
+            "initial": false,
+            "category": "operator",
+            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/outtake"
+          },
+          {
+            "key": "cancel",
+            "name": "Cancel all (auto ended or failed)",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/cancel"
+          },
+          {
+            "key": "rev",
+            "name": "Rev wanted (in alliance zone)",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
             "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/rev"
           },
           {
-            "key": "inAllianceZone",
-            "name": "Alliance zone with hysteresis",
+            "key": "enabled",
+            "name": "Robot enabled",
             "type": "boolean",
             "initial": false,
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/inAllianceZone"
+            "category": "internal",
+            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/enabled"
           },
           {
-            "key": "ready",
-            "name": "All feed interlocks satisfied",
+            "key": "poseValid",
+            "name": "Pose and shot distance valid",
             "type": "boolean",
             "initial": false,
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/ready"
-          },
-          {
-            "key": "flywheelReady",
-            "name": "Flywheel at nonzero requested speed",
-            "type": "boolean",
-            "initial": false,
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/flywheelReady"
-          },
-          {
-            "key": "pivotReady",
-            "name": "Hood at requested angle",
-            "type": "boolean",
-            "initial": false,
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/pivotReady"
-          },
-          {
-            "key": "aimed",
-            "name": "Within five degree aiming tolerance",
-            "type": "boolean",
-            "initial": false,
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/aimed"
-          },
-          {
-            "key": "trench",
-            "name": "Trench hood protection active",
-            "type": "boolean",
-            "initial": false,
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/trench"
-          },
-          {
-            "key": "slideClear",
-            "name": "Slide clear for the requested operation",
-            "type": "boolean",
-            "initial": false,
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/slideClear"
+            "category": "sensor",
+            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/poseValid"
           }
         ],
         "transitions": [
@@ -5438,7 +5399,9 @@
                   ]
                 }
               ]
-            }
+            },
+            "name": "Cancel / lost pose",
+            "description": "Highest priority: cancel requested, or the pose or shot distance is invalid."
           },
           {
             "id": "IDLE-to-HOME",
@@ -5477,7 +5440,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Home"
           },
           {
             "id": "IDLE-to-OUTTAKE",
@@ -5522,7 +5486,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Outtake"
           },
           {
             "id": "IDLE-to-JITTER_AND_SHOOT",
@@ -5584,7 +5549,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Shoot + jitter"
           },
           {
             "id": "IDLE-to-SHOOT_AND_INTAKE",
@@ -5652,7 +5618,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Shoot + intake"
           },
           {
             "id": "IDLE-to-SHOOT",
@@ -5720,7 +5687,8 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Shoot"
           },
           {
             "id": "IDLE-to-JITTER",
@@ -5782,7 +5750,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Jitter"
           },
           {
             "id": "IDLE-to-REV_AND_INTAKE",
@@ -5861,7 +5830,9 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Intake in zone",
+            "description": "Intaking inside the alliance zone pre-spins the flywheel."
           },
           {
             "id": "IDLE-to-INTAKE",
@@ -5940,7 +5911,8 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Intake"
           },
           {
             "id": "IDLE-to-REV",
@@ -6019,7 +5991,9 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Rev",
+            "description": "In the alliance zone with nothing else requested."
           },
           {
             "id": "INTAKE-to-CANCEL_ALL",
@@ -6052,7 +6026,9 @@
                   ]
                 }
               ]
-            }
+            },
+            "name": "Cancel / lost pose",
+            "description": "Highest priority: cancel requested, or the pose or shot distance is invalid."
           },
           {
             "id": "INTAKE-to-HOME",
@@ -6091,7 +6067,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Home"
           },
           {
             "id": "INTAKE-to-OUTTAKE",
@@ -6136,7 +6113,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Outtake"
           },
           {
             "id": "INTAKE-to-JITTER_AND_SHOOT",
@@ -6198,7 +6176,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Shoot + jitter"
           },
           {
             "id": "INTAKE-to-SHOOT_AND_INTAKE",
@@ -6266,7 +6245,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Shoot + intake"
           },
           {
             "id": "INTAKE-to-SHOOT",
@@ -6334,7 +6314,8 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Shoot"
           },
           {
             "id": "INTAKE-to-JITTER",
@@ -6396,7 +6377,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Jitter"
           },
           {
             "id": "INTAKE-to-REV_AND_INTAKE",
@@ -6475,7 +6457,9 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Intake in zone",
+            "description": "Intaking inside the alliance zone pre-spins the flywheel."
           },
           {
             "id": "INTAKE-to-REV",
@@ -6554,7 +6538,9 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Rev",
+            "description": "In the alliance zone with nothing else requested."
           },
           {
             "id": "INTAKE-to-IDLE",
@@ -6644,7 +6630,9 @@
                   ]
                 }
               ]
-            }
+            },
+            "name": "Nothing requested",
+            "description": "No request, or the robot was disabled."
           },
           {
             "id": "SHOOT-to-CANCEL_ALL",
@@ -6677,7 +6665,9 @@
                   ]
                 }
               ]
-            }
+            },
+            "name": "Cancel / lost pose",
+            "description": "Highest priority: cancel requested, or the pose or shot distance is invalid."
           },
           {
             "id": "SHOOT-to-HOME",
@@ -6716,7 +6706,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Home"
           },
           {
             "id": "SHOOT-to-OUTTAKE",
@@ -6761,7 +6752,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Outtake"
           },
           {
             "id": "SHOOT-to-JITTER_AND_SHOOT",
@@ -6823,7 +6815,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Shoot + jitter"
           },
           {
             "id": "SHOOT-to-SHOOT_AND_INTAKE",
@@ -6891,7 +6884,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Shoot + intake"
           },
           {
             "id": "SHOOT-to-JITTER",
@@ -6953,7 +6947,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Jitter"
           },
           {
             "id": "SHOOT-to-REV_AND_INTAKE",
@@ -7032,7 +7027,9 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Intake in zone",
+            "description": "Intaking inside the alliance zone pre-spins the flywheel."
           },
           {
             "id": "SHOOT-to-INTAKE",
@@ -7111,7 +7108,8 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Intake"
           },
           {
             "id": "SHOOT-to-REV",
@@ -7190,7 +7188,9 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Rev",
+            "description": "In the alliance zone with nothing else requested."
           },
           {
             "id": "SHOOT-to-IDLE",
@@ -7280,7 +7280,9 @@
                   ]
                 }
               ]
-            }
+            },
+            "name": "Nothing requested",
+            "description": "No request, or the robot was disabled."
           },
           {
             "id": "REV-to-CANCEL_ALL",
@@ -7313,7 +7315,9 @@
                   ]
                 }
               ]
-            }
+            },
+            "name": "Cancel / lost pose",
+            "description": "Highest priority: cancel requested, or the pose or shot distance is invalid."
           },
           {
             "id": "REV-to-HOME",
@@ -7352,7 +7356,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Home"
           },
           {
             "id": "REV-to-OUTTAKE",
@@ -7397,7 +7402,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Outtake"
           },
           {
             "id": "REV-to-JITTER_AND_SHOOT",
@@ -7459,7 +7465,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Shoot + jitter"
           },
           {
             "id": "REV-to-SHOOT_AND_INTAKE",
@@ -7527,7 +7534,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Shoot + intake"
           },
           {
             "id": "REV-to-SHOOT",
@@ -7595,7 +7603,8 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Shoot"
           },
           {
             "id": "REV-to-JITTER",
@@ -7657,7 +7666,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Jitter"
           },
           {
             "id": "REV-to-REV_AND_INTAKE",
@@ -7736,7 +7746,9 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Intake in zone",
+            "description": "Intaking inside the alliance zone pre-spins the flywheel."
           },
           {
             "id": "REV-to-INTAKE",
@@ -7815,7 +7827,8 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Intake"
           },
           {
             "id": "REV-to-IDLE",
@@ -7905,7 +7918,9 @@
                   ]
                 }
               ]
-            }
+            },
+            "name": "Nothing requested",
+            "description": "No request, or the robot was disabled."
           },
           {
             "id": "REV_AND_INTAKE-to-CANCEL_ALL",
@@ -7938,7 +7953,9 @@
                   ]
                 }
               ]
-            }
+            },
+            "name": "Cancel / lost pose",
+            "description": "Highest priority: cancel requested, or the pose or shot distance is invalid."
           },
           {
             "id": "REV_AND_INTAKE-to-HOME",
@@ -7977,7 +7994,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Home"
           },
           {
             "id": "REV_AND_INTAKE-to-OUTTAKE",
@@ -8022,7 +8040,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Outtake"
           },
           {
             "id": "REV_AND_INTAKE-to-JITTER_AND_SHOOT",
@@ -8084,7 +8103,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Shoot + jitter"
           },
           {
             "id": "REV_AND_INTAKE-to-SHOOT_AND_INTAKE",
@@ -8152,7 +8172,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Shoot + intake"
           },
           {
             "id": "REV_AND_INTAKE-to-SHOOT",
@@ -8220,7 +8241,8 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Shoot"
           },
           {
             "id": "REV_AND_INTAKE-to-JITTER",
@@ -8282,7 +8304,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Jitter"
           },
           {
             "id": "REV_AND_INTAKE-to-INTAKE",
@@ -8361,7 +8384,8 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Intake"
           },
           {
             "id": "REV_AND_INTAKE-to-REV",
@@ -8440,7 +8464,9 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Rev",
+            "description": "In the alliance zone with nothing else requested."
           },
           {
             "id": "REV_AND_INTAKE-to-IDLE",
@@ -8530,7 +8556,9 @@
                   ]
                 }
               ]
-            }
+            },
+            "name": "Nothing requested",
+            "description": "No request, or the robot was disabled."
           },
           {
             "id": "SHOOT_AND_INTAKE-to-CANCEL_ALL",
@@ -8563,7 +8591,9 @@
                   ]
                 }
               ]
-            }
+            },
+            "name": "Cancel / lost pose",
+            "description": "Highest priority: cancel requested, or the pose or shot distance is invalid."
           },
           {
             "id": "SHOOT_AND_INTAKE-to-HOME",
@@ -8602,7 +8632,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Home"
           },
           {
             "id": "SHOOT_AND_INTAKE-to-OUTTAKE",
@@ -8647,7 +8678,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Outtake"
           },
           {
             "id": "SHOOT_AND_INTAKE-to-JITTER_AND_SHOOT",
@@ -8709,7 +8741,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Shoot + jitter"
           },
           {
             "id": "SHOOT_AND_INTAKE-to-SHOOT",
@@ -8777,7 +8810,8 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Shoot"
           },
           {
             "id": "SHOOT_AND_INTAKE-to-JITTER",
@@ -8839,7 +8873,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Jitter"
           },
           {
             "id": "SHOOT_AND_INTAKE-to-REV_AND_INTAKE",
@@ -8918,7 +8953,9 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Intake in zone",
+            "description": "Intaking inside the alliance zone pre-spins the flywheel."
           },
           {
             "id": "SHOOT_AND_INTAKE-to-INTAKE",
@@ -8997,7 +9034,8 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Intake"
           },
           {
             "id": "SHOOT_AND_INTAKE-to-REV",
@@ -9076,7 +9114,9 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Rev",
+            "description": "In the alliance zone with nothing else requested."
           },
           {
             "id": "SHOOT_AND_INTAKE-to-IDLE",
@@ -9166,7 +9206,9 @@
                   ]
                 }
               ]
-            }
+            },
+            "name": "Nothing requested",
+            "description": "No request, or the robot was disabled."
           },
           {
             "id": "JITTER-to-CANCEL_ALL",
@@ -9199,7 +9241,9 @@
                   ]
                 }
               ]
-            }
+            },
+            "name": "Cancel / lost pose",
+            "description": "Highest priority: cancel requested, or the pose or shot distance is invalid."
           },
           {
             "id": "JITTER-to-HOME",
@@ -9238,7 +9282,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Home"
           },
           {
             "id": "JITTER-to-OUTTAKE",
@@ -9283,7 +9328,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Outtake"
           },
           {
             "id": "JITTER-to-JITTER_AND_SHOOT",
@@ -9345,7 +9391,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Shoot + jitter"
           },
           {
             "id": "JITTER-to-SHOOT_AND_INTAKE",
@@ -9413,7 +9460,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Shoot + intake"
           },
           {
             "id": "JITTER-to-SHOOT",
@@ -9481,7 +9529,8 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Shoot"
           },
           {
             "id": "JITTER-to-REV_AND_INTAKE",
@@ -9560,7 +9609,9 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Intake in zone",
+            "description": "Intaking inside the alliance zone pre-spins the flywheel."
           },
           {
             "id": "JITTER-to-INTAKE",
@@ -9639,7 +9690,8 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Intake"
           },
           {
             "id": "JITTER-to-REV",
@@ -9718,7 +9770,9 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Rev",
+            "description": "In the alliance zone with nothing else requested."
           },
           {
             "id": "JITTER-to-IDLE",
@@ -9808,7 +9862,9 @@
                   ]
                 }
               ]
-            }
+            },
+            "name": "Nothing requested",
+            "description": "No request, or the robot was disabled."
           },
           {
             "id": "JITTER_AND_SHOOT-to-CANCEL_ALL",
@@ -9841,7 +9897,9 @@
                   ]
                 }
               ]
-            }
+            },
+            "name": "Cancel / lost pose",
+            "description": "Highest priority: cancel requested, or the pose or shot distance is invalid."
           },
           {
             "id": "JITTER_AND_SHOOT-to-HOME",
@@ -9880,7 +9938,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Home"
           },
           {
             "id": "JITTER_AND_SHOOT-to-OUTTAKE",
@@ -9925,7 +9984,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Outtake"
           },
           {
             "id": "JITTER_AND_SHOOT-to-SHOOT_AND_INTAKE",
@@ -9993,7 +10053,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Shoot + intake"
           },
           {
             "id": "JITTER_AND_SHOOT-to-SHOOT",
@@ -10061,7 +10122,8 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Shoot"
           },
           {
             "id": "JITTER_AND_SHOOT-to-JITTER",
@@ -10123,7 +10185,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Jitter"
           },
           {
             "id": "JITTER_AND_SHOOT-to-REV_AND_INTAKE",
@@ -10202,7 +10265,9 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Intake in zone",
+            "description": "Intaking inside the alliance zone pre-spins the flywheel."
           },
           {
             "id": "JITTER_AND_SHOOT-to-INTAKE",
@@ -10281,7 +10346,8 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Intake"
           },
           {
             "id": "JITTER_AND_SHOOT-to-REV",
@@ -10360,7 +10426,9 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Rev",
+            "description": "In the alliance zone with nothing else requested."
           },
           {
             "id": "JITTER_AND_SHOOT-to-IDLE",
@@ -10450,7 +10518,9 @@
                   ]
                 }
               ]
-            }
+            },
+            "name": "Nothing requested",
+            "description": "No request, or the robot was disabled."
           },
           {
             "id": "HOME-to-CANCEL_ALL",
@@ -10483,7 +10553,9 @@
                   ]
                 }
               ]
-            }
+            },
+            "name": "Cancel / lost pose",
+            "description": "Highest priority: cancel requested, or the pose or shot distance is invalid."
           },
           {
             "id": "HOME-to-OUTTAKE",
@@ -10528,7 +10600,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Outtake"
           },
           {
             "id": "HOME-to-JITTER_AND_SHOOT",
@@ -10590,7 +10663,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Shoot + jitter"
           },
           {
             "id": "HOME-to-SHOOT_AND_INTAKE",
@@ -10658,7 +10732,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Shoot + intake"
           },
           {
             "id": "HOME-to-SHOOT",
@@ -10726,7 +10801,8 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Shoot"
           },
           {
             "id": "HOME-to-JITTER",
@@ -10788,7 +10864,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Jitter"
           },
           {
             "id": "HOME-to-REV_AND_INTAKE",
@@ -10867,7 +10944,9 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Intake in zone",
+            "description": "Intaking inside the alliance zone pre-spins the flywheel."
           },
           {
             "id": "HOME-to-INTAKE",
@@ -10946,7 +11025,8 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Intake"
           },
           {
             "id": "HOME-to-REV",
@@ -11025,7 +11105,9 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Rev",
+            "description": "In the alliance zone with nothing else requested."
           },
           {
             "id": "HOME-to-IDLE",
@@ -11115,7 +11197,9 @@
                   ]
                 }
               ]
-            }
+            },
+            "name": "Nothing requested",
+            "description": "No request, or the robot was disabled."
           },
           {
             "id": "OUTTAKE-to-CANCEL_ALL",
@@ -11148,7 +11232,9 @@
                   ]
                 }
               ]
-            }
+            },
+            "name": "Cancel / lost pose",
+            "description": "Highest priority: cancel requested, or the pose or shot distance is invalid."
           },
           {
             "id": "OUTTAKE-to-HOME",
@@ -11187,7 +11273,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Home"
           },
           {
             "id": "OUTTAKE-to-JITTER_AND_SHOOT",
@@ -11249,7 +11336,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Shoot + jitter"
           },
           {
             "id": "OUTTAKE-to-SHOOT_AND_INTAKE",
@@ -11317,7 +11405,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Shoot + intake"
           },
           {
             "id": "OUTTAKE-to-SHOOT",
@@ -11385,7 +11474,8 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Shoot"
           },
           {
             "id": "OUTTAKE-to-JITTER",
@@ -11447,7 +11537,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Jitter"
           },
           {
             "id": "OUTTAKE-to-REV_AND_INTAKE",
@@ -11526,7 +11617,9 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Intake in zone",
+            "description": "Intaking inside the alliance zone pre-spins the flywheel."
           },
           {
             "id": "OUTTAKE-to-INTAKE",
@@ -11605,7 +11698,8 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Intake"
           },
           {
             "id": "OUTTAKE-to-REV",
@@ -11684,7 +11778,9 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Rev",
+            "description": "In the alliance zone with nothing else requested."
           },
           {
             "id": "OUTTAKE-to-IDLE",
@@ -11774,7 +11870,9 @@
                   ]
                 }
               ]
-            }
+            },
+            "name": "Nothing requested",
+            "description": "No request, or the robot was disabled."
           },
           {
             "id": "CANCEL_ALL-to-HOME",
@@ -11813,7 +11911,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Home"
           },
           {
             "id": "CANCEL_ALL-to-OUTTAKE",
@@ -11858,7 +11957,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Outtake"
           },
           {
             "id": "CANCEL_ALL-to-JITTER_AND_SHOOT",
@@ -11920,7 +12020,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Shoot + jitter"
           },
           {
             "id": "CANCEL_ALL-to-SHOOT_AND_INTAKE",
@@ -11988,7 +12089,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Shoot + intake"
           },
           {
             "id": "CANCEL_ALL-to-SHOOT",
@@ -12056,7 +12158,8 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Shoot"
           },
           {
             "id": "CANCEL_ALL-to-JITTER",
@@ -12118,7 +12221,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Jitter"
           },
           {
             "id": "CANCEL_ALL-to-REV_AND_INTAKE",
@@ -12197,7 +12301,9 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Intake in zone",
+            "description": "Intaking inside the alliance zone pre-spins the flywheel."
           },
           {
             "id": "CANCEL_ALL-to-INTAKE",
@@ -12276,7 +12382,8 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Intake"
           },
           {
             "id": "CANCEL_ALL-to-REV",
@@ -12355,7 +12462,9 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Rev",
+            "description": "In the alliance zone with nothing else requested."
           },
           {
             "id": "CANCEL_ALL-to-IDLE",
@@ -12445,7 +12554,9 @@
                   ]
                 }
               ]
-            }
+            },
+            "name": "Nothing requested",
+            "description": "No request, or the robot was disabled."
           }
         ],
         "description": "Intent-driven supervisor. Stop/fault > home > outtake > shoot+jitter > shoot+intake > shoot > jitter > rev+intake > intake > rev > idle. Zones only request rev when no shot is requested. Disabled clears intent. Physical readiness gates the feeder continuously."
@@ -12486,38 +12597,43 @@
         "inputs": [
           {
             "key": "enabled",
-            "name": "enabled",
+            "name": "Robot enabled",
             "type": "boolean",
             "initial": false,
+            "category": "internal",
             "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/enabled"
           },
           {
-            "key": "deploy",
-            "name": "deploy",
-            "type": "boolean",
-            "initial": false,
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/deploy"
-          },
-          {
-            "key": "jitterDemand",
-            "name": "jitterDemand",
-            "type": "boolean",
-            "initial": false,
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/jitterDemand"
-          },
-          {
             "key": "hoodClear",
-            "name": "hoodClear",
+            "name": "Hood clear of the slide",
             "type": "boolean",
             "initial": false,
+            "category": "sensor",
             "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/hoodClear"
           },
           {
             "key": "slideDeployed",
-            "name": "slideDeployed",
+            "name": "Slide deployed",
             "type": "boolean",
             "initial": false,
+            "category": "sensor",
             "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/slideDeployed"
+          },
+          {
+            "key": "deploy",
+            "name": "Slide wanted",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/deploy"
+          },
+          {
+            "key": "jitterDemand",
+            "name": "Jitter wanted",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/jitterDemand"
           }
         ],
         "transitions": [
@@ -12541,7 +12657,9 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Intake not wanted",
+            "description": "Not intaking, jittering or homing, or disabled."
           },
           {
             "id": "DEPLOYING-to-PARKED",
@@ -12563,7 +12681,9 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Intake not wanted",
+            "description": "Not intaking, jittering or homing, or disabled."
           },
           {
             "id": "READY-to-PARKED",
@@ -12585,7 +12705,9 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Intake not wanted",
+            "description": "Not intaking, jittering or homing, or disabled."
           },
           {
             "id": "JITTERING-to-PARKED",
@@ -12607,7 +12729,9 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Intake not wanted",
+            "description": "Not intaking, jittering or homing, or disabled."
           },
           {
             "id": "PARKED-to-CLEARING_HOOD",
@@ -12635,7 +12759,9 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Slide wanted, hood in the way",
+            "description": "The slide is inside the hood's travel, so the hood lifts first."
           },
           {
             "id": "PARKED-to-JITTERING",
@@ -12663,7 +12789,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Jitter, hood clear"
           },
           {
             "id": "PARKED-to-DEPLOYING",
@@ -12685,7 +12812,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Slide wanted, hood clear"
           },
           {
             "id": "CLEARING_HOOD-to-JITTERING",
@@ -12707,7 +12835,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Hood clear: jitter"
           },
           {
             "id": "CLEARING_HOOD-to-DEPLOYING",
@@ -12718,7 +12847,8 @@
               "key": "hoodClear",
               "op": "eq",
               "value": true
-            }
+            },
+            "name": "Hood clear: deploy"
           },
           {
             "id": "DEPLOYING-to-JITTERING",
@@ -12729,7 +12859,8 @@
               "key": "jitterDemand",
               "op": "eq",
               "value": true
-            }
+            },
+            "name": "Jitter requested"
           },
           {
             "id": "DEPLOYING-to-READY",
@@ -12740,7 +12871,9 @@
               "key": "slideDeployed",
               "op": "eq",
               "value": true
-            }
+            },
+            "name": "Slide out",
+            "description": "Both slide encoders past 0.80."
           },
           {
             "id": "READY-to-JITTERING",
@@ -12751,7 +12884,8 @@
               "key": "jitterDemand",
               "op": "eq",
               "value": true
-            }
+            },
+            "name": "Jitter requested"
           },
           {
             "id": "JITTERING-to-CLEARING_HOOD",
@@ -12773,7 +12907,8 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Jitter over, hood in the way"
           },
           {
             "id": "JITTERING-to-DEPLOYING",
@@ -12784,7 +12919,8 @@
               "key": "jitterDemand",
               "op": "eq",
               "value": false
-            }
+            },
+            "name": "Jitter over: redeploy"
           }
         ],
         "stateChannel": "/Mayhem/States/IntakeSequence/state"
@@ -12820,31 +12956,35 @@
         "inputs": [
           {
             "key": "enabled",
-            "name": "enabled",
+            "name": "Robot enabled",
             "type": "boolean",
             "initial": false,
+            "category": "internal",
             "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/enabled"
           },
           {
-            "key": "shotDemand",
-            "name": "shotDemand",
+            "key": "trench",
+            "name": "Under a trench (pose)",
             "type": "boolean",
             "initial": false,
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/shotDemand"
+            "category": "sensor",
+            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/trench"
           },
           {
             "key": "flywheelReady",
-            "name": "flywheelReady",
+            "name": "Flywheel at speed",
             "type": "boolean",
             "initial": false,
+            "category": "sensor",
             "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/flywheelReady"
           },
           {
-            "key": "trench",
-            "name": "trench",
+            "key": "shotDemand",
+            "name": "Shot wanted",
             "type": "boolean",
             "initial": false,
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/trench"
+            "category": "internal",
+            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/shotDemand"
           }
         ],
         "transitions": [
@@ -12868,7 +13008,9 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Shot request ended",
+            "description": "Left SHOOT / SHOOT_AND_INTAKE / JITTER_AND_SHOOT, or disabled."
           },
           {
             "id": "FEEDING-to-OFF",
@@ -12890,7 +13032,9 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Shot request ended",
+            "description": "Left SHOOT / SHOOT_AND_INTAKE / JITTER_AND_SHOOT, or disabled."
           },
           {
             "id": "INHIBITED-to-OFF",
@@ -12912,7 +13056,9 @@
                   "value": false
                 }
               ]
-            }
+            },
+            "name": "Shot request ended",
+            "description": "Left SHOOT / SHOOT_AND_INTAKE / JITTER_AND_SHOOT, or disabled."
           },
           {
             "id": "OFF-to-SPINNING_UP",
@@ -12934,7 +13080,8 @@
                   "value": true
                 }
               ]
-            }
+            },
+            "name": "Shoot requested"
           },
           {
             "id": "SPINNING_UP-to-INHIBITED",
@@ -12945,7 +13092,9 @@
               "key": "trench",
               "op": "eq",
               "value": true
-            }
+            },
+            "name": "Under the trench",
+            "description": "The hood is forced flat there."
           },
           {
             "id": "FEEDING-to-INHIBITED",
@@ -12956,7 +13105,9 @@
               "key": "trench",
               "op": "eq",
               "value": true
-            }
+            },
+            "name": "Under the trench",
+            "description": "The hood is forced flat there."
           },
           {
             "id": "SPINNING_UP-to-FEEDING",
@@ -12967,7 +13118,9 @@
               "key": "flywheelReady",
               "op": "eq",
               "value": true
-            }
+            },
+            "name": "Flywheel at speed",
+            "description": "Feeding then stays on until the request ends; the dip as each piece goes through is ignored."
           },
           {
             "id": "INHIBITED-to-SPINNING_UP",
@@ -12978,7 +13131,8 @@
               "key": "trench",
               "op": "eq",
               "value": false
-            }
+            },
+            "name": "Out of the trench"
           }
         ],
         "stateChannel": "/Mayhem/States/ShotCycle/state"

@@ -40,17 +40,17 @@ constexpr double kPassBudgetSeconds = 6.0;
 // the centerline pickup. The old solved paths had 17-48 degrees.
 constexpr double kIntakeLeadingDegrees = 35;
 
-const robot_mayhem::AutoDefinition& Definition(const char* name) {
+const mayhem::RoutineInfo& Definition(const char* name) {
   const auto* def = suite_autos::Find(name);
   EXPECT_NE(def, nullptr) << name;
   return *def;
 }
 
-frc::Pose2d Expected(const robot_mayhem::AutoDefinition& def, bool red, bool end) {
+frc::Pose2d Expected(const mayhem::RoutineInfo& def, bool red, bool end) {
   if (!end) {
-    return suite_autos::ToWpi(suite_autos::Resolve(def.start, red));
+    return suite_autos::ToWpi(suite_autos::Resolve(def.startPose, red));
   }
-  mayhem::Pose last = def.start;
+  mayhem::Pose last = def.startPose;
   for (std::size_t i = 0; i < def.routine.nodeCount; ++i) {
     if (def.routine.nodes[i].kind == mayhem::NodeKind::Pose) {
       last = def.routine.nodes[i].goal.pose;

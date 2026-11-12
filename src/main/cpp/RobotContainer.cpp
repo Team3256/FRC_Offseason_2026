@@ -105,7 +105,7 @@ RobotContainer::RobotContainer()
 void RobotContainer::ConfigureMayhemAutoChooser() {
   // The project's routine order is the chooser order; new/renamed routines appear
   // automatically after regeneration, without a second hand-maintained table.
-  for (const auto& definition : robot_mayhem::autos) {
+  for (const auto& definition : mayhem_generated::routines) {
     const auto* def = &definition;
     m_mayhemAutoChooser.AddCmd(std::string{def->name}, [this, def] {
       return suite_autos::Command(*def, m_drivetrain, m_superstructure, m_shotCalculator);
@@ -227,7 +227,7 @@ void RobotContainer::UpdateAutoPreview() {
     m_autoStartPose.reset();
     std::vector<frc::Pose2d> path;
     if (const auto* def = suite_autos::Find(selected)) {
-      m_autoStartPose = suite_autos::ToWpi(suite_autos::Resolve(def->start, red));
+      m_autoStartPose = suite_autos::ToWpi(suite_autos::Resolve(def->startPose, red));
       path = suite_autos::Preview(*def, red);
     }
     m_autoPathObject->SetPoses(path);
