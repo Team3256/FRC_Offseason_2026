@@ -44,7 +44,10 @@ frc2::CommandPtr Shooter::SetVelocity(std::function<double()> velocity) {
            m_reqVelocity = velocity();
            m_io->SetShooterVelocity(m_reqVelocity);
          })
-      .FinallyDo([this] { m_io->Off(); });
+      .FinallyDo([this] {
+        m_reqVelocity = 0;
+        m_io->Off();
+      });
 }
 
 frc2::CommandPtr Shooter::ShootHub(std::function<double()> distance,
@@ -64,5 +67,8 @@ bool Shooter::ReachedVelocity() const {
 }
 
 frc2::CommandPtr Shooter::Off() {
-  return RunOnce([this] { m_io->Off(); });
+  return RunOnce([this] {
+    m_reqVelocity = 0;
+    m_io->Off();
+  });
 }

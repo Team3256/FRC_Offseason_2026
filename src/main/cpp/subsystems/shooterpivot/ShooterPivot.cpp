@@ -38,9 +38,10 @@ frc2::CommandPtr ShooterPivot::SetPosition(double position) {
 
 frc2::CommandPtr ShooterPivot::SetPosition(std::function<double()> position) {
   return Run([this, position = std::move(position)] {
-    m_reqPosition = m_trenchOverride ? 0.0 : position();
-    m_io->SetPosition(m_reqPosition, m_hoodVel);
-  });
+           m_reqPosition = m_trenchOverride ? 0.0 : position();
+           m_io->SetPosition(m_reqPosition, m_hoodVel);
+         })
+      .FinallyDo([this] { m_io->Off(); });
 }
 
 frc2::CommandPtr ShooterPivot::SetVoltage(double voltage) {

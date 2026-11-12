@@ -9,6 +9,10 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstdlib>
+#include <filesystem>
+#include <fstream>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -53,22 +57,49 @@ void RunAuto(const AutoCase& c, bool red) {
   auto& dt = h.C().GetDrivetrain();
   const frc::Pose2d start = Expected(c.trajectories.front(), red, false);
   bool resetSeen = false;
-  double total = 0;
-  for (auto* t : c.trajectories) {
-    total += mayhem::trajectory_loader::Load(t)->TotalTime();
-  }
-  const int loops = static_cast<int>((total + 3.6 * c.shots + 1.5) / 0.02);
-  double maxTrackingError = 0;
-  for (int i = 0; i < loops; i++) {
+  auto status =
+      nt::NetworkTableInstance::GetDefault().GetTable("AdvantageKit/RealOutputs/Mayhem/Auto");
+  // Pose/condition completion replaces the legacy trajectory clock. The watchdog
+  // remains bounded; a fault is a test failure, never treated as completion.
+  std::string result, graphTrace, previousNode;
+  std::ostringstream trace;
+  trace << "time,x,y,heading,mode,intake,shot,node,status\n";
+  double minY = 100, maxY = -100, minX = 100;
+  auto graph = nt::NetworkTableInstance::GetDefault().GetTable("Mayhem/States/Autonomous");
+  for (int i = 0; i < 3000; i++) {
     h.Step();
-    if (visited.empty() || visited.back() != ss.GetState()) {
+    if (visited.empty() || visited.back() != ss.GetState())
       visited.push_back(ss.GetState());
-    }
-    if (!resetSeen && i < 10 && Distance(dt.State().Pose, start) < 0.05) {
+    if (!resetSeen && i < 10 && Distance(dt.State().Pose, start) < 0.05)
       resetSeen = true;
+    result = status->GetString("Status", "");
+    const auto node = graph->GetString("state", "");
+    const auto pose = dt.State().Pose;
+    minY = std::min(minY, pose.Y().value());
+    maxY = std::max(maxY, pose.Y().value());
+    minX = std::min(minX, pose.X().value());
+    trace << i * .02 << ',' << pose.X().value() << ',' << pose.Y().value() << ','
+          << pose.Rotation().Radians().value() << ',' << Superstructure::ToString(ss.GetState())
+          << ',' << ss.IntakePhase() << ',' << ss.ShotPhase() << ',' << node << ',' << result
+          << '\n';
+    if (node != previousNode) {
+      graphTrace += node + " @ " + std::to_string(dt.State().Pose.X().value()) + "," +
+                    std::to_string(dt.State().Pose.Y().value()) + "\n";
+      previousNode = node;
     }
-    (void)maxTrackingError;
+    if (result == "Completed" || result == "Failed")
+      break;
   }
+  if (const char* folder = std::getenv("MAYHEM_AUTO_TRACE_DIR")) {
+    std::filesystem::create_directories(folder);
+    std::ofstream out{std::string{folder} + "/" + c.chooserName + (red ? "-red" : "-blue") +
+                      ".csv"};
+    out << trace.str();
+  }
+  EXPECT_GT(minY, .32) << "bumper approaches the lower wall";
+  EXPECT_LT(maxY, 8.069 - .32) << "bumper approaches the upper wall";
+  EXPECT_GT(minX, .32) << "bumper approaches the alliance wall";
+  EXPECT_EQ(result, "Completed") << c.chooserName << (red ? " red" : " blue") << "\n" << graphTrace;
   EXPECT_TRUE(resetSeen) << "odometry was not reset to the start of " << c.trajectories.front();
 
   // the robot ends where the last path ends (it may have turned in place to aim afterwards). A path
@@ -142,6 +173,9 @@ TEST(AutoSimTest, OutpostTrenchSweepX2Blue) { RunAuto(kAutos[2], false); }
 TEST(AutoSimTest, DepotTrenchSweepBlue) { RunAuto(kAutos[3], false); }
 TEST(AutoSimTest, DepotTrenchSweepX2Blue) { RunAuto(kAutos[4], false); }
 TEST(AutoSimTest, DepotTrenchSweepRed) { RunAuto(kAutos[3], true); }
+TEST(AutoSimTest, DepotTrenchSweepDepotRed) { RunAuto(kAutos[0], true); }
+TEST(AutoSimTest, OutpostTrenchSweepRed) { RunAuto(kAutos[1], true); }
+TEST(AutoSimTest, DepotTrenchSweepX2Red) { RunAuto(kAutos[4], true); }
 TEST(AutoSimTest, OutpostTrenchSweepX2Red) { RunAuto(kAutos[2], true); }
 
 TEST(AutoSimTest, DisablingMidAutoStopsEverything) {

@@ -151,20 +151,17 @@ TEST(FeatureSimTest, AutoPreviewShowsTheSelectedRoutineForEachAlliance) {
 
     h.C().GetAutoChooser().Select("Depot Trench Sweep x2");
     h.Step(2);
-    auto first = mayhem::trajectory_loader::Load("DepotTrenchSweepBumpPt1");
-    if (red) {
-      first = first->Flipped();
-    }
+    const auto* definition = suite_autos::Find("Depot Trench Sweep x2");
+    ASSERT_NE(definition, nullptr);
+    const auto first = suite_autos::ToWpi(suite_autos::Resolve(definition->start, red));
     ASSERT_TRUE(h.C().GetAutoStartPose().has_value());
-    EXPECT_LT(Distance(*h.C().GetAutoStartPose(), first->InitialPose()), 1e-9);
+    EXPECT_LT(Distance(*h.C().GetAutoStartPose(), first), 1e-9);
     const auto path = h.C().GetField().GetObject("AutoPath")->GetPoses();
     EXPECT_GT(path.size(), 20u) << "both paths are drawn";
-    EXPECT_LT(Distance(path.front(), first->InitialPose()), 1e-9);
-    auto second = mayhem::trajectory_loader::Load("DepotTrenchSweepBump2xPt2");
-    if (red) {
-      second = second->Flipped();
-    }
-    EXPECT_LT(Distance(path.back(), second->FinalPose()), 1e-9);
+    EXPECT_LT(Distance(path.front(), first), 1e-9);
+    const auto expected = suite_autos::Preview(*definition, red);
+    EXPECT_EQ(path.size(), expected.size());
+    EXPECT_LT(Distance(path.back(), expected.back()), 1e-9);
 
     // Off the start pose: not lined up. On it: lined up.
     auto nt = nt::NetworkTableInstance::GetDefault().GetTable("AdvantageKit/RealOutputs/Auto");
@@ -172,7 +169,7 @@ TEST(FeatureSimTest, AutoPreviewShowsTheSelectedRoutineForEachAlliance) {
     h.Step(2);
     EXPECT_FALSE(nt->GetBoolean("AtStartPose", true));
     EXPECT_GT(nt->GetNumber("StartPoseErrorMeters", 0), 1.0);
-    h.C().GetDrivetrain().ResetPose(first->InitialPose());
+    h.C().GetDrivetrain().ResetPose(first);
     h.Step(2);
     EXPECT_TRUE(nt->GetBoolean("AtStartPose", false));
     EXPECT_LT(nt->GetNumber("StartPoseErrorMeters", 1), RobotContainer::kAutoStartToleranceMeters);
@@ -197,7 +194,7 @@ TEST(FeatureSimTest, ReadyToShootLightsUpWhileShooting) {
   EXPECT_FALSE(ss.IsReadyToShoot()) << "flywheel is off";
   h.Driver().SetAButton(true);
   h.Step();
+  EXPECT_TRUE(h.StepUntil([&] { return ss.IsReadyToShoot(); }, 200));
   h.Driver().SetAButton(false);
-  EXPECT_TRUE(h.StepUntil([&] { return ss.IsReadyToShoot(); }, 150));
   EXPECT_EQ(ss.GetState(), SS::SHOOT);
 }

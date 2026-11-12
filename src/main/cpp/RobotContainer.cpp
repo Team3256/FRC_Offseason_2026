@@ -16,7 +16,6 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/button/RobotModeTriggers.h>
 
-#include "mayhem/CtreSwerve.h"
 #include "sim/SimMechs.h"
 #include "subsystems/linearslide/LinearSlideIOSim.h"
 #include "subsystems/linearslide/LinearSlideIOTalonFX.h"
@@ -93,18 +92,6 @@ RobotContainer::RobotContainer()
                        m_shooter,        m_intakeRollers,
                        m_linearSlide,    m_feeder,
                        m_shotCalculator, m_shotCalculator.GetRobotPoseSupplier()} {
-  mayhem::RecoveryConfig recoveryConfig;
-  recoveryConfig.persistenceLoops = 10;
-
-  // Mayhem factory shared by both Mayhem auto classes.
-  m_mayhemAutoFactory = mayhem::CtreSwerveAutoFactory(m_drivetrain);
-  m_mayhemAutoFactory->WithTelemetry(true).WithRecoveryConfig(recoveryConfig);
-
-  m_sweepDepotMayhemAutos = std::make_unique<SweepDepotMayhemAutos>(
-      *m_mayhemAutoFactory, m_superstructure, m_drivetrain, m_shotCalculator);
-  m_mayhemAutos = std::make_unique<SweepMayhemAutos>(*m_mayhemAutoFactory, m_superstructure,
-                                                     m_drivetrain, m_shotCalculator);
-
   ConfigureMayhemAutoChooser();
   ConfigureSwerve();
   ConfigureOperatorBinds();
@@ -116,19 +103,14 @@ RobotContainer::RobotContainer()
 }
 
 void RobotContainer::ConfigureMayhemAutoChooser() {
-  // Existing Depot routine: both Depot path segments.
-  m_mayhemAutoChooser.AddRoutine("Depot Trench Sweep Depot",
-                                 [this] { return m_sweepDepotMayhemAutos->TopTrenchSweepDepot(); });
-  // Bottom trench options.
-  m_mayhemAutoChooser.AddRoutine("Outpost Trench Sweep",
-                                 [this] { return m_mayhemAutos->BottomTrenchPart1Only(); });
-  m_mayhemAutoChooser.AddRoutine("Outpost Trench Sweep x2",
-                                 [this] { return m_mayhemAutos->BottomTrenchPart1And2(); });
-  // Top trench options.
-  m_mayhemAutoChooser.AddRoutine("Depot Trench Sweep",
-                                 [this] { return m_mayhemAutos->TopTrenchPart1Only(); });
-  m_mayhemAutoChooser.AddRoutine("Depot Trench Sweep x2",
-                                 [this] { return m_mayhemAutos->TopTrenchPart1And2(); });
+  // The project's routine order is the chooser order; new/renamed routines appear
+  // automatically after regeneration, without a second hand-maintained table.
+  for (const auto& definition : robot_mayhem::autos) {
+    const auto* def = &definition;
+    m_mayhemAutoChooser.AddCmd(std::string{def->name}, [this, def] {
+      return suite_autos::Command(*def, m_drivetrain, m_superstructure, m_shotCalculator);
+    });
+  }
 
   frc::SmartDashboard::PutData("Mayhem Auto Chooser", &m_mayhemAutoChooser);
 
@@ -237,28 +219,16 @@ void RobotContainer::UpdateAutoPreview() {
 
   // Rebuild the drawing only when the selection or the alliance changes.
   const std::string& selected = m_mayhemAutoChooser.Selected();
-  const bool red = m_mayhemAutoFactory->IsRed();
+  const bool red = suite_autos::IsRed();
   if (!m_autoPreviewShown || selected != m_autoPreviewName || red != m_autoPreviewRed) {
     m_autoPreviewShown = true;
     m_autoPreviewName = selected;
     m_autoPreviewRed = red;
     m_autoStartPose.reset();
     std::vector<frc::Pose2d> path;
-    if (auto routine = m_mayhemAutoChooser.SelectedRoutine()) {
-      constexpr double kSampleSpacing = 0.1;  // seconds of path between drawn poses
-      for (const auto& trajectory : routine->Trajectories()) {
-        const auto traj = trajectory->GetResolvedTrajectory();
-        if (!traj) {
-          continue;
-        }
-        if (!m_autoStartPose) {
-          m_autoStartPose = traj->InitialPose();
-        }
-        for (double t = 0; t < traj->TotalTime(); t += kSampleSpacing) {
-          path.push_back(traj->SampleAt(t).GetPose());
-        }
-        path.push_back(traj->FinalPose());
-      }
+    if (const auto* def = suite_autos::Find(selected)) {
+      m_autoStartPose = suite_autos::ToWpi(suite_autos::Resolve(def->start, red));
+      path = suite_autos::Preview(*def, red);
     }
     m_autoPathObject->SetPoses(path);
     if (m_autoStartPose) {

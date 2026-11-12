@@ -196,3 +196,10 @@ Robot behaviour is the same. The deliberate differences:
 4. In the pit, go through each button above with the robot on blocks. Then run each auto on the
    ground once per alliance color.
 5. Check `RealOutputs/LoopTimeMS` and the `LoggedTracer` timings in the log.
+
+### Mayhem Suite overhaul
+
+The robot now executes `robot.mayhem.json` through the new Mayhem C++ graph runner
+and pose follower. Regenerate with `python3 tools/mayhem/export.py` after edits.
+See [the integration guide](docs/mayhem/README.md) for state ownership, log mapping,
+telemetry, build instructions and migration limits.

@@ -93,7 +93,8 @@ TEST(RobotSimTest, ShootSpinsUpThenFeeds) {
   h.Step(5);
   h.Teleop();
   h.Step(5);
-  h.Tap(A);
+  h.Driver().SetAButton(true);
+  h.Step(2);
   auto& ss = h.C().GetSuperstructure();
   EXPECT_EQ(ss.GetState(), SS::SHOOT);
   auto& shooter = h.C().GetShooter();
@@ -103,8 +104,9 @@ TEST(RobotSimTest, ShootSpinsUpThenFeeds) {
   ASSERT_TRUE(h.StepUntil([&] { return shooter.ReachedVelocity(); }, 250))
       << "flywheel " << shooter.Inputs().shooterMotorVelocitys[0] << " / "
       << shooter.RequestedVelocity();
-  // indexer and feeder start (60 rot/s) once the flywheels are at speed
-  ASSERT_TRUE(h.StepUntil([&] { return h.C().GetIndexer().GetCurrentCommand() != nullptr; }, 10));
+  // Keep aim assist held until hood, flywheel and aim are physically ready.
+  ASSERT_TRUE(h.StepUntil([&] { return ss.IsReadyToShoot(); }, 150));
+  ASSERT_TRUE(h.StepUntil([&] { return h.C().GetIndexer().GetCurrentCommand() != nullptr; }, 20));
   EXPECT_EQ(h.C().GetIndexer().GetCurrentCommand()->GetName(), "setVelocity");
   ASSERT_NE(h.C().GetFeeder().GetCurrentCommand(), nullptr);
   EXPECT_EQ(h.C().GetFeeder().GetCurrentCommand()->GetName(), "setVelocity");
@@ -112,6 +114,7 @@ TEST(RobotSimTest, ShootSpinsUpThenFeeds) {
   ASSERT_TRUE(h.StepUntil([&] { return h.C().GetFeeder().Inputs().leftVelocity > 8; }, 100));
   // the hood follows the hub lookup table (clamped by the sim's travel)
   EXPECT_GT(h.C().GetShooterPivot().RequestedPosition(), 0.03);
+  h.Driver().SetAButton(false);
 }
 
 TEST(RobotSimTest, StateTransitionsCombineIntakeAndShoot) {
@@ -131,6 +134,8 @@ TEST(RobotSimTest, StateTransitionsCombineIntakeAndShoot) {
       [&] { return std::abs(h.C().GetShooterPivot().RequestedPosition() - 0.05) < 1e-9; }, 10));
   h.Tap(Y);  // JITTER after HOME
   EXPECT_EQ(ss.GetState(), SS::JITTER);
+  ASSERT_TRUE(h.StepUntil([&] { return ss.IntakePhase() == "JITTERING"; }, 200));
+  h.Step(2);
   // the slide jitters between 0.7 and 0.3745 every 0.2 s
   double minReq = 10;
   double maxReq = -10;

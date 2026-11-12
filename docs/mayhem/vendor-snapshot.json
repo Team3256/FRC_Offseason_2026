@@ -1,0 +1,13 @@
+{
+  "repository": "https://github.com/ryanabraham1/Mayhem",
+  "baseCommit": "ff5a692d1800206713ddbc4fd93ea67f7635380f",
+  "source": "lib-cpp/include/mayhem",
+  "note": "Snapshot of the local Mayhem suite C++ headers on 2026-11-11; hashes identify the exact vendored content, including the current BLine follower overhaul. Not the legacy Java Maven vendordep.",
+  "sha256": {
+    "auto_runner.hpp": "9fa224786cc2038d89a4f57f93ee759c18330102796e1e7de3910e702ea28e80",
+    "pose_controller.hpp": "8cc3908aa3364de07530bb5d34c9650fc10743c0db46f9263b78ec7797341faf",
+    "state_observer.hpp": "f3da45aa42845512e732b0f156ce59eb9ae20b132bc8b35aa3089cc1df65ffca",
+    "wpilib.hpp": "8a9cfd7f90ddb2719e764f76a955f8ad76886209b70c42b7c59ffd938b1302c9",
+    "networktables_observer.hpp": "8bc742a59cef8e713c142a5ff2fb01645b3e033e78bfe1c9cae68272a42f280d"
+  }
+}

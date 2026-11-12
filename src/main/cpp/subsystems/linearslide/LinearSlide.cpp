@@ -40,35 +40,38 @@ void LinearSlide::Periodic() {
 
 frc2::CommandPtr LinearSlide::SetPosition(double position) {
   return Run([this, position] {
-    m_reqPosition = position;
-    if (IsExtended()) {
-      m_io->SetExtendedPosition(position);
-    } else {
-      m_io->SetPosition(position);
-    }
-  });
+           m_reqPosition = position;
+           if (IsExtended()) {
+             m_io->SetExtendedPosition(position);
+           } else {
+             m_io->SetPosition(position);
+           }
+         })
+      .FinallyDo([this] { m_io->Off(); });
 }
 
 frc2::CommandPtr LinearSlide::SetNonExtendedPosition(double position) {
   return Run([this, position] {
-    m_reqPosition = position;
-    m_io->SetPosition(position);
-  });
+           m_reqPosition = position;
+           m_io->SetPosition(position);
+         })
+      .FinallyDo([this] { m_io->Off(); });
 }
 
 frc2::CommandPtr LinearSlide::SetPosition(std::function<double()> position) {
   return Run([this, position = std::move(position)] {
-    m_reqPosition = position();
-    if (IsExtended()) {
-      m_io->SetExtendedPosition(m_reqPosition);
-    } else {
-      m_io->SetPosition(m_reqPosition);
-    }
-  });
+           m_reqPosition = position();
+           if (IsExtended()) {
+             m_io->SetExtendedPosition(m_reqPosition);
+           } else {
+             m_io->SetPosition(m_reqPosition);
+           }
+         })
+      .FinallyDo([this] { m_io->Off(); });
 }
 
 frc2::CommandPtr LinearSlide::SetVoltage(double voltage) {
-  return Run([this, voltage] { m_io->SetVoltage(voltage); });
+  return Run([this, voltage] { m_io->SetVoltage(voltage); }).FinallyDo([this] { m_io->Off(); });
 }
 
 frc2::CommandPtr LinearSlide::Off() {

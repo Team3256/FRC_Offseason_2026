@@ -17,7 +17,11 @@
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/button/Trigger.h>
 
+#include "commands/MayhemMachine.h"
+#include "commands/MayhemObserver.h"
 #include "logging/Logger.h"
+#include "mayhem/auto_runner.hpp"
+#include "subsystems/SuperstructureIntent.h"
 
 class Indexer;
 class ShooterPivot;
@@ -27,13 +31,10 @@ class LinearSlide;
 class Feeder;
 class ShotCalculator;
 
-/**
- * The robot's state machine. Each state is a trigger; the bindings in ConfigStateTransitions()
- * start the mechanisms' commands when states are entered (and stop them when a whileTrue state is
- * left). Binding order matters (it is the order commands are scheduled in a loop), so it follows
- * the Java version line by line.
+/** Intent-driven Mayhem supervisor with orthogonal, sensor-driven intake and shot
+ * phase graphs. The graph chooses operating modes; continuous interlocks own outputs.
  */
-class Superstructure {
+class Superstructure : private mayhem::RobotHooks {
  public:
   enum class StructureState {
     INTAKE,
@@ -58,6 +59,11 @@ class Superstructure {
   void Periodic();
 
   frc2::CommandPtr SetState(StructureState state);
+  /** Synchronous state request for Mayhem hooks; disabled requests are inhibited. */
+  enum class RequestSource { Operator, Autonomous, Supervisor };
+  void RequestState(StructureState state, RequestSource source = RequestSource::Operator);
+  std::string_view IntakePhase() const { return m_intakeMachine->State(); }
+  std::string_view ShotPhase() const { return m_shotMachine->State(); }
   frc2::CommandPtr AddShootMultiplier(double amt);
 
   StructureState GetState() const { return m_state; }
@@ -65,7 +71,7 @@ class Superstructure {
   double GetVelMultiplier() const { return m_velMultiplier; }
   const frc::Pose2d& GetTarget() const { return m_target; }
 
-  /** Flywheel spun up to speed and hood in place, as of the last Periodic(). Telemetry only. */
+  /** All physical feed interlocks satisfied as of the last Periodic(). */
   bool IsReadyToShoot() const { return m_ready; }
 
   bool TargetBlueHub() const;
@@ -85,14 +91,41 @@ class Superstructure {
   static inline const frc::Translation2d kBottomCorner{1.5_m, 1.5_m};
 
  private:
+  mayhem::SignalValue Signal(std::string_view key) const override;
+  mayhem::ActionStatus TickAction(std::string_view) override {
+    return mayhem::ActionStatus::Succeeded;
+  }
+  void StateEntered(std::string_view state) override;
+  void GuardEvaluated(std::string_view edge, bool accepted) override;
+  void Transitioned(std::string_view edge, std::string_view from, std::string_view to) override;
+  MayhemObserver m_observer{"Superstructure"};
+  std::unique_ptr<mayhem::AutoRunner> m_machine;
+  SuperstructureIntent m_intent;
+  std::unique_ptr<MayhemMachine> m_intakeMachine, m_shotMachine;
+  static constexpr std::array<std::string_view, 22> kInputs = {
+      "enabled",      "poseValid", "cancel",        "home",           "outtake", "shoot",
+      "intake",       "jitter",    "rev",           "inAllianceZone", "ready",   "flywheelReady",
+      "pivotReady",   "aimed",     "trench",        "slideClear",     "deploy",  "jitterDemand",
+      "slideBetween", "hoodClear", "slideDeployed", "shotDemand"};
+  std::array<std::unique_ptr<logging::Output<bool>>, kInputs.size()> m_inputLogs;
+  logging::Output<std::string> m_faultLog{"Superstructure/Fault"};
+  bool m_inAllianceZone = false;
   void ConfigStateTransitions();
-  frc2::CommandPtr ChangeTarget(frc::Translation2d target);
-  frc2::CommandPtr ChangeTarget(std::function<frc::Translation2d()> target);
-  bool ReadyToShoot();
+  void EvaluateState();
+  void UpdateTarget();
+  bool IsShooting() const;
+  bool IsIntaking() const;
+  bool IsJittering() const;
+  bool IsRevving() const;
+  bool NeedsExtension() const;
+  bool PoseValid() const;
+  bool SlideClear() const;
+  bool Aimed() const;
+  double HoodTarget() const;
+  bool ReadyToShoot() const;
   bool GetAllianceBlue() const;
   bool IsRobotTopHalf() const;
   frc2::Trigger& S(StructureState s) { return StateTrigger(s); }
-  frc2::Trigger& P(StructureState s) { return m_prevStateTriggers[static_cast<int>(s)]; }
 
   StructureState m_state = StructureState::IDLE;
   StructureState m_prevState = StructureState::IDLE;
@@ -108,12 +141,6 @@ class Superstructure {
   std::function<frc::Pose2d()> m_robotPoseSupplier;
 
   std::array<frc2::Trigger, kNumStates> m_stateTriggers;
-  std::array<frc2::Trigger, kNumStates> m_prevStateTriggers;
-
-  frc2::Trigger m_targetBlueHub;
-  frc2::Trigger m_targetRedHub;
-  frc2::Trigger m_feedTopCorner;
-  frc2::Trigger m_feedBottomCorner;
 
   double m_velMultiplier = 1;
   bool m_ready = false;
@@ -124,6 +151,7 @@ class Superstructure {
   logging::Output<double> m_stateTimeLog{"Superstructure/StateTime"};
   logging::Output<double> m_velMultiplierLog{"Superstructure/VelMultiplier"};
   logging::Output<frc::Pose2d> m_targetLog{"Superstructure/Target"};
+  logging::Output<bool> m_feedAllowedLog{"Superstructure/FeedAllowed"};
   logging::Output<bool> m_readyFlywheelLog{"Superstructure/ReadyToShoot/Flywheel"};
   logging::Output<bool> m_readyPivotLog{"Superstructure/ReadyToShoot/Pivot"};
   logging::Output<bool> m_readyAimedLog{"Superstructure/ReadyToShoot/Aimed"};

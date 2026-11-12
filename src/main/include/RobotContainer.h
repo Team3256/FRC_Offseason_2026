@@ -113,10 +113,6 @@ class RobotContainer {
 
   Superstructure m_superstructure;
 
-  std::unique_ptr<mayhem::AutoFactory> m_mayhemAutoFactory;
-  std::unique_ptr<SweepDepotMayhemAutos> m_sweepDepotMayhemAutos;
-  std::unique_ptr<SweepMayhemAutos> m_mayhemAutos;
-
   ctre::phoenix6::swerve::requests::FieldCentric m_drive;
   ctre::phoenix6::swerve::requests::FieldCentricFacingAngle m_azimuth;
 };

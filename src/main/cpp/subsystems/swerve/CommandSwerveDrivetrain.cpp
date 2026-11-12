@@ -33,6 +33,12 @@ namespace subsystems {
 using namespace ctre::phoenix6;
 
 void CommandSwerveDrivetrain::Init() {
+  using namespace ctre::phoenix6::swerve;
+  m_suiteRequest.WithDriveRequestType(DriveRequestType::Velocity)
+      .WithForwardPerspective(requests::ForwardPerspectiveValue::BlueAlliance)
+      .WithDesaturateWheelSpeeds(true);
+  m_suiteRequest.WheelForceFeedforwardsX.assign(4, 0_N);
+  m_suiteRequest.WheelForceFeedforwardsY.assign(4, 0_N);
   // Publish the trench assist switch so it shows up on the dashboard (read in ApplyTrenchAssist)
   frc::SmartDashboard::SetDefaultBoolean("TrenchAssist/Enabled",
                                          swerve_constants::trench_assist::kUseTrenchAssist);
@@ -76,6 +82,11 @@ const CommandSwerveDrivetrain::SwerveDriveState& CommandSwerveDrivetrain::State(
 frc::ChassisSpeeds CommandSwerveDrivetrain::GetFieldRelativeSpeeds() {
   const auto& st = State();
   return frc::ChassisSpeeds::FromRobotRelativeSpeeds(st.Speeds, st.Pose.Rotation());
+}
+
+void CommandSwerveDrivetrain::ApplyMayhemSpeeds(frc::ChassisSpeeds speeds) {
+  m_suiteRequest.Speeds = speeds;
+  SetControl(m_suiteRequest);
 }
 
 void CommandSwerveDrivetrain::ResetPose(frc::Pose2d const& pose) {

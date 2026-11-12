@@ -82,6 +82,8 @@ class CommandSwerveDrivetrain : public frc2::SubsystemBase,
   frc::ChassisSpeeds ApplyTrenchAssist(const frc::ChassisSpeeds& operatorSpeeds);
 
   frc::ChassisSpeeds GetFieldRelativeSpeeds();
+  /** Blue-origin field speeds from Mayhem; request storage lives as long as the drivetrain. */
+  void ApplyMayhemSpeeds(frc::ChassisSpeeds speeds);
 
   /** Runs the wheel radius characterization routine (omegaDirection is 1 or -1). */
   frc2::CommandPtr WheelRadiusCharacterization(double omegaDirection);
@@ -108,6 +110,7 @@ class CommandSwerveDrivetrain : public frc2::SubsystemBase,
   void Shutdown();
 
  private:
+  ctre::phoenix6::swerve::requests::ApplyFieldSpeeds m_suiteRequest;
   void Init();
   void StartSimThread();
 
