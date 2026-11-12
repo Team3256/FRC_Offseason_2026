@@ -1,7 +1,7 @@
 {
   "format": "mayhem-suite",
   "version": 1,
-  "revision": 13,
+  "revision": 14,
   "id": "team3256-offseason-2026",
   "name": "3256 Offseason 2026",
   "field": {
@@ -542,7 +542,7 @@
             "x": 2.373,
             "y": 5.921,
             "heading": -3.1294,
-            "translationTolerance": 0.1,
+            "translationTolerance": 0.15,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
             "settleTime": 0.04,
@@ -561,7 +561,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt pass at 5.14 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.5
+            "maxVelocity": 3.0
           }
         },
         {
@@ -707,7 +707,7 @@
             "x": 2.446,
             "y": 5.393,
             "heading": -3.1261,
-            "translationTolerance": 0.1,
+            "translationTolerance": 0.15,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
             "settleTime": 0.04,
@@ -726,7 +726,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepDepotPt2 pass at 2.40 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.5
+            "maxVelocity": 3.0
           }
         },
         {
@@ -1428,7 +1428,7 @@
             "x": 3.041,
             "y": 2.496,
             "heading": -1.5708,
-            "translationTolerance": 0.1,
+            "translationTolerance": 0.15,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
             "settleTime": 0.04,
@@ -1447,7 +1447,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 4.86 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.5
+            "maxVelocity": 3.0
           }
         },
         {
@@ -2068,7 +2068,7 @@
             "x": 3.041,
             "y": 2.496,
             "heading": -1.5708,
-            "translationTolerance": 0.1,
+            "translationTolerance": 0.15,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
             "settleTime": 0.04,
@@ -2087,7 +2087,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt1 pass at 4.86 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.5
+            "maxVelocity": 3.0
           }
         },
         {
@@ -2617,7 +2617,7 @@
             "x": 3.096,
             "y": 2.506,
             "heading": -1.5708,
-            "translationTolerance": 0.1,
+            "translationTolerance": 0.15,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
             "settleTime": 0.04,
@@ -2636,7 +2636,7 @@
           "timeout": 5,
           "description": "Sampled from the solved OutpostTrenchSweepBumpPt2 pass at 5.18 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.5
+            "maxVelocity": 3.0
           }
         },
         {
@@ -3514,7 +3514,7 @@
             "x": 2.85,
             "y": 5.709,
             "heading": 1.5653,
-            "translationTolerance": 0.1,
+            "translationTolerance": 0.15,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
             "settleTime": 0.04,
@@ -3533,7 +3533,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 4.97 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.5
+            "maxVelocity": 3.0
           }
         },
         {
@@ -4250,7 +4250,7 @@
             "x": 2.85,
             "y": 5.709,
             "heading": 1.5653,
-            "translationTolerance": 0.1,
+            "translationTolerance": 0.15,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
             "settleTime": 0.04,
@@ -4269,7 +4269,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBumpPt1 pass at 4.97 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.5
+            "maxVelocity": 3.0
           }
         },
         {
@@ -4799,7 +4799,7 @@
             "x": 2.84,
             "y": 5.628,
             "heading": 1.5708,
-            "translationTolerance": 0.1,
+            "translationTolerance": 0.15,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
             "settleTime": 0.04,
@@ -4818,7 +4818,7 @@
           "timeout": 5,
           "description": "Sampled from the solved DepotTrenchSweepBump2xPt2 pass at 5.67 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.5
+            "maxVelocity": 3.0
           }
         },
         {

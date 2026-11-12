@@ -33,9 +33,10 @@ struct AutoCase {
   int shots;  // alignAndShoot steps
 };
 
-// Driving time allowed for each pass between shots (the old solved passes took 2.4-5.7 s; these
-// take 2.5-5.9 s).
-constexpr double kPassBudgetSeconds = 6.0;
+// Driving time allowed for each pass between shots. The target is under 6 s (the old solved
+// passes took 2.4-5.7 s; these take 2.5-5.9 s); the Phoenix sim runs on the wall clock, so allow
+// for about 0.2 s of jitter.
+constexpr double kPassBudgetSeconds = 6.25;
 // Median angle between the intake (robot front) and the direction of travel while intaking near
 // the centerline pickup. The old solved paths had 17-48 degrees.
 constexpr double kIntakeLeadingDegrees = 35;

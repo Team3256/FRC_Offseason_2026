@@ -18,8 +18,8 @@
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/button/Trigger.h>
 
-#include "commands/MayhemProject.h"
 #include "commands/MayhemObserver.h"
+#include "commands/MayhemProject.h"
 #include "logging/Logger.h"
 #include "mayhem/state_machine.hpp"
 #include "subsystems/SuperstructureIntent.h"

@@ -210,9 +210,8 @@ class SuiteCommand final : public frc2::CommandHelper<frc2::Command, SuiteComman
   logging::Output<frc::ChassisSpeeds> outputLog_{"Mayhem/Auto/FieldSpeeds"};
 };
 }  // namespace
-frc2::CommandPtr Command(const mayhem::RoutineInfo& def,
-                         subsystems::CommandSwerveDrivetrain& drive, Superstructure& ss,
-                         ShotCalculator& shots) {
+frc2::CommandPtr Command(const mayhem::RoutineInfo& def, subsystems::CommandSwerveDrivetrain& drive,
+                         Superstructure& ss, ShotCalculator& shots) {
   return frc2::CommandPtr{std::make_unique<SuiteCommand>(def, drive, ss, shots)};
 }
 }  // namespace suite_autos
