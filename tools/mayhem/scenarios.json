@@ -1,0 +1,55 @@
+{
+  "scenarios": [
+    {
+      "name": "Hold A shoots",
+      "steps": [
+        "teleop",
+        "wait 0.5",
+        "hold A 2",
+        "wait 0.5"
+      ],
+      "expect": [
+        "Shooter mode is SHOOTING by 0.7 s",
+        "Shooter mode is REV at 3 s"
+      ]
+    },
+    {
+      "name": "Outtaking blocks shooting (outside the zone)",
+      "steps": [
+        "teleop",
+        "wait 0.3",
+        "stick left 0 1",
+        "wait 1.2",
+        "stick left 0 0",
+        "wait 0.5",
+        "down LT",
+        "wait 0.3",
+        "down A",
+        "wait 1",
+        "up A",
+        "up LT",
+        "wait 0.5"
+      ],
+      "expect": [
+        "Shooter mode is OFF at 2.2 s",
+        "Shooter mode never SHOOTING",
+        "Intake mode is OUTTAKING by 2.2 s"
+      ]
+    },
+    {
+      "name": "X starts intaking, X again stows",
+      "steps": [
+        "teleop",
+        "wait 0.5",
+        "press X",
+        "wait 1",
+        "press X",
+        "wait 1"
+      ],
+      "expect": [
+        "Intake mode is INTAKING by 0.7 s",
+        "Intake mode is STOWED at 2.5 s"
+      ]
+    }
+  ]
+}
