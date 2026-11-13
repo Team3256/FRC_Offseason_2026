@@ -1,6 +1,7 @@
 #pragma once
 #include <frc/geometry/Pose2d.h>
 #include <memory>
+#include <string>
 #include <string_view>
 #include <vector>
 #include "commands/AutoChooser.h"
@@ -23,4 +24,8 @@ std::vector<frc::Pose2d> Preview(const mayhem::RoutineInfo& routine, bool red);
 std::unique_ptr<AutoRoutine> Routine(const mayhem::RoutineInfo& routine,
                                      subsystems::Drivetrain& drive, Superstructure& superstructure,
                                      ShotCalculator& shots);
+/** Every action, path event and signal the routine uses that the robot does not handle, one per
+ * line; empty when all are handled. */
+std::string UnboundReport(const mayhem::RoutineInfo& routine, subsystems::Drivetrain& drive,
+                          Superstructure& superstructure, ShotCalculator& shots);
 }  // namespace suite_autos

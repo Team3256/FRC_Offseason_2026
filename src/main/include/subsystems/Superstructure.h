@@ -7,7 +7,6 @@
 
 #pragma once
 
-#include <array>
 #include <functional>
 #include <string_view>
 
@@ -20,7 +19,6 @@
 #include "commands/MayhemObserver.h"
 #include "commands/MayhemProject.h"
 #include "logging/Logger.h"
-#include "mayhem/state_machine.hpp"
 
 class Indexer;
 class ShooterPivot;
@@ -42,8 +40,9 @@ class ShotCalculator;
  */
 class Superstructure {
  public:
-  enum class ShooterMode { OFF, REV, SHOOTING };
-  enum class IntakeMode { STOWED, INTAKING, JITTERING, DEPLOYED, OUTTAKING };
+  // The mode machines' generated states (OFF, REV, SHOOTING; STOWED, INTAKING, ...).
+  using ShooterMode = mayhem_generated::ShooterMode::State;
+  using IntakeMode = mayhem_generated::IntakeMode::State;
   static std::string_view ToString(ShooterMode mode);
   static std::string_view ToString(IntakeMode mode);
 
@@ -75,10 +74,10 @@ class Superstructure {
   /** Ticks the state machines and drives the mechanisms. Call once per loop, after the inputs. */
   void Periodic();
 
-  ShooterMode GetShooterMode() const { return m_shooterMode; }
-  IntakeMode GetIntakeMode() const { return m_intakeMode; }
-  std::string_view IntakePhase() const { return m_intakeMachine.State(); }
-  std::string_view ShotPhase() const { return m_shotMachine.State(); }
+  ShooterMode GetShooterMode() const { return m_shooterMachine.Current(); }
+  IntakeMode GetIntakeMode() const { return m_intakeModeMachine.Current(); }
+  std::string_view IntakePhase() const { return m_intakeMachine.StateName(); }
+  std::string_view ShotPhase() const { return m_shotMachine.StateName(); }
   /** Nudges the hub shot speed multiplier (D-pad), clamped to [0.7, 1.3]. Ignored while disabled.
    */
   void AddShootMultiplier(double amt);
@@ -101,34 +100,20 @@ class Superstructure {
   static inline const frc::Translation2d kBottomCorner{1.5_m, 1.5_m};
 
  private:
-  mayhem::SignalValue Signal(std::string_view key) const;
-  /** Ticks a mode machine with this loop's presses, then without them until it settles. */
-  void TickMode(mayhem::StateMachine& machine);
+  using IntakePhase_ = mayhem_generated::IntakeSequence::State;
+  using ShotPhase_ = mayhem_generated::ShotCycle::State;
   OperatorInputs m_operator;
-  /** Hides the one-loop presses and requests while a mode machine settles. */
-  bool m_settling = false;
   bool m_autoIntake = false, m_autoStow = false, m_autoShooting = false, m_stopAll = false;
-  // The four graphs from robot.mayhem.json; observers publish them to the log and NT.
+  // The four graphs from robot.mayhem.json; observers publish them (and every input) to the log
+  // and NT.
   MayhemObserver m_shooterObserver{"ShooterMode"}, m_intakeModeObserver{"IntakeMode"},
       m_intakeObserver{"IntakeSequence"}, m_shotObserver{"ShotCycle"};
-  mayhem::StateMachine m_shooterMachine{mayhem_generated::ShooterMode::machine,
-                                        [this](std::string_view key) { return Signal(key); }};
-  mayhem::StateMachine m_intakeModeMachine{mayhem_generated::IntakeMode::machine,
-                                           [this](std::string_view key) { return Signal(key); }};
-  mayhem::StateMachine m_intakeMachine{mayhem_generated::IntakeSequence::machine,
-                                       [this](std::string_view key) { return Signal(key); }};
-  mayhem::StateMachine m_shotMachine{mayhem_generated::ShotCycle::machine,
-                                     [this](std::string_view key) { return Signal(key); }};
-  double m_lastTick = 0;
+  mayhem_generated::ShooterMode::Machine m_shooterMachine;
+  mayhem_generated::IntakeMode::Machine m_intakeModeMachine;
+  mayhem_generated::IntakeSequence::Machine m_intakeMachine;
+  mayhem_generated::ShotCycle::Machine m_shotMachine;
   logging::Output<double> m_intakeTimeLog{"Mayhem/States/IntakeSequence/inputs/stateTime"};
   logging::Output<double> m_shotTimeLog{"Mayhem/States/ShotCycle/inputs/stateTime"};
-  static constexpr std::array<std::string_view, 21> kInputs = {
-      "enabled",       "stopAll",       "shootHeld",    "autoShooting",   "intakePressed",
-      "autoIntake",    "autoStow",      "jitterHeld",   "deployPressed",  "outtakeHeld",
-      "inAllianceZone", "ready",        "flywheelReady", "pivotReady",    "aimed",
-      "trench",        "deploy",        "jitterDemand", "hoodClear",      "slideDeployed",
-      "shotDemand"};
-  std::array<std::unique_ptr<logging::Output<bool>>, kInputs.size()> m_inputLogs;
   logging::Output<std::string> m_faultLog{"Superstructure/Fault"};
   static constexpr double kHoodClearWarnSeconds = 2.5;
   static constexpr double kDeployWarnSeconds = 3.0;
@@ -144,20 +129,20 @@ class Superstructure {
   /** Every mechanism's request for this loop, from the states. */
   void ApplyOutputs();
   void UpdateTarget();
-  bool IsShooting() const { return m_shooterMode == ShooterMode::SHOOTING; }
-  bool IsRevving() const { return m_shooterMode == ShooterMode::REV; }
-  bool IsIntaking() const { return m_intakeMode == IntakeMode::INTAKING; }
-  bool IsJittering() const { return m_intakeMode == IntakeMode::JITTERING; }
+  bool IsShooting() const { return m_shooterMachine.Is(ShooterMode::SHOOTING); }
+  bool IsRevving() const { return m_shooterMachine.Is(ShooterMode::REV); }
+  bool IsIntaking() const { return m_intakeModeMachine.Is(IntakeMode::INTAKING); }
+  bool IsJittering() const { return m_intakeModeMachine.Is(IntakeMode::JITTERING); }
   bool NeedsExtension() const;
+  bool FlywheelReady() const;
+  bool HoodClear() const;
+  bool SlideDeployed() const;
   bool ShotDistanceValid() const;
   bool Aimed() const;
   double HoodTarget() const;
   bool ReadyToShoot() const;
   bool GetAllianceBlue() const;
   bool IsRobotTopHalf() const;
-
-  ShooterMode m_shooterMode = ShooterMode::OFF;
-  IntakeMode m_intakeMode = IntakeMode::STOWED;
 
   Indexer& m_indexer;
   ShooterPivot& m_shooterPivot;

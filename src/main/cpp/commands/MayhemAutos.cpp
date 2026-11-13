@@ -1,8 +1,8 @@
 #include "commands/MayhemAutos.h"
+#include <frc/Alert.h>
 #include <frc/DriverStation.h>
 #include <frc/Timer.h>
 #include <algorithm>
-#include <cmath>
 #include <ctre/phoenix6/swerve/SwerveRequest.hpp>
 #include <numbers>
 #include "FieldConstants.h"
@@ -29,52 +29,61 @@ const mayhem::RoutineInfo* Find(std::string_view name) {
   return mayhem::FindRoutine(mayhem_generated::routines, name);
 }
 std::vector<frc::Pose2d> Preview(const mayhem::RoutineInfo& def, bool red) {
-  std::vector<frc::Pose2d> path{ToWpi(Resolve(def.startPose, red))};
-  for (std::size_t i = 0; i < def.routine.nodeCount; ++i) {
-    const auto& n = def.routine.nodes[i];
-    if (n.kind != mayhem::NodeKind::Pose)
-      continue;
-    const auto p = ToWpi(Resolve(n.goal.pose, red));
-    const auto from = path.back();
-    const int count = std::max(
-        1, static_cast<int>(std::ceil(from.Translation().Distance(p.Translation()).value() / .1)));
-    for (int j = 1; j <= count; ++j) {
-      const double f = double(j) / count;
-      path.emplace_back(from.Translation() + (p.Translation() - from.Translation()) * f,
-                        p.Rotation());
-    }
-  }
+  // The path Mayhem's editor drives (blends and corners included), about every 0.1 m.
+  std::vector<frc::Pose2d> path;
+  for (const auto& p : mayhem::PreviewPath(def, Transform(red), field_constants::kFieldLength,
+                                           field_constants::kFieldWidth))
+    path.push_back(ToWpi(p));
   return path;
 }
 namespace {
-class SuiteRoutine final : public AutoRoutine, private mayhem::RobotHooks {
+class SuiteRoutine final : public AutoRoutine {
  public:
   SuiteRoutine(const mayhem::RoutineInfo& def, subsystems::Drivetrain& drive, Superstructure& ss,
                ShotCalculator& shots)
       : def_(def), drive_(drive), ss_(ss), shots_(shots) {
-    // Enter/guard/transition and goal errors go to the log and NT under machine "Autonomous".
+    // Enter/guard/transition and goal errors go to the log and NT under machine "Autonomous". The
+    // clock also times Tick().
     runner_.Attach(observer_, mayhem_generated::autonomous::manifest,
                    [] { return frc::Timer::GetFPGATimestamp().value(); });
+    runner_.Bind("superstructure.intake", mayhem::Instant([this] { ss_.StartIntaking(); }))
+        .Bind("superstructure.stow", mayhem::Instant([this] { ss_.StowIntake(); }))
+        // Same as the original AlignAndShoot: turn to the lookahead shot and request SHOOT once
+        // aimed (Periodic). The step's 3.5 s window (onTimeout "succeed") ends it; a missed shot
+        // never aborts the routine.
+        .Bind("drivetrain.alignAndShoot", {[this] {
+                                             aligning_ = true;
+                                             shotRequested_ = false;
+                                           },
+                                           [] { return mayhem::ActionStatus::Running; },
+                                           [this](bool) {
+                                             aligning_ = false;
+                                             ss_.SetAutoShooting(false);
+                                           }})
+        .BindSignal("superstructure.ready",
+                    [this] { return mayhem::SignalValue{ss_.IsReadyToShoot()}; });
+    // Built while disabled, when the routine is selected: an action, event or signal in the project
+    // that nothing here handles is an error before the match, not a failed step during it.
+    std::string unbound = runner_.UnboundReport();
+    std::replace(unbound.begin(), unbound.end(), '\n', ';');
+    unboundAlert_.SetText("Auto \"" + std::string{def_.name} +
+                          "\" has unhandled Mayhem IDs: " + unbound);
+    unboundAlert_.Set(!unbound.empty());
   }
+  std::string Unbound() const { return runner_.UnboundReport(); }
   void Start() override {
     // Re-derived from the blue routine on every enable; measured odometry is never transformed.
     routine_.Apply(Transform(IsRed()));
     drive_.ResetPose(ToWpi(routine_.StartPose()));
-    last_ = frc::Timer::GetFPGATimestamp().value();
     failureHandled_ = false;
     runner_.Start(Velocity());
     statusLog_.Set("Running");
     nameLog_.Set(def_.name);
   }
   void Periodic() override {
-    const double now = frc::Timer::GetFPGATimestamp().value(), dt = now - last_;
-    last_ = now;
-    // Periodic() runs in the same loop as Start(). A zero dt is not a fault.
-    if (dt == 0)
-      return;
-    dtLog_.Set(dt);
-    // The runner clamps a slow loop (first enabled loop, log flush) instead of failing.
-    const auto out = runner_.Tick(Pose(), Velocity(), dt);
+    // dt from the runner's clock: zero in the loop that started it (the last command again), and a
+    // slow loop (first enabled loop, log flush) is clamped instead of failing.
+    const auto out = runner_.Tick(Pose(), Velocity());
     if (runner_.Status() == mayhem::RunStatus::Running && aligning_) {
       // Same as the original AlignAndShoot: the drivetrain's heading controller turns to the
       // lookahead shot, and SHOOT is requested once within 3 degrees.
@@ -127,41 +136,6 @@ class SuiteRoutine final : public AutoRoutine, private mayhem::RobotHooks {
     drive_.ApplyMayhemSpeeds({units::meters_per_second_t{v.vx}, units::meters_per_second_t{v.vy},
                               units::radians_per_second_t{v.omega}});
   }
-  mayhem::SignalValue Signal(std::string_view key) const override {
-    if (key == "superstructure.ready")
-      return ss_.IsReadyToShoot();
-    return {};
-  }
-  void BeginAction(std::string_view action) override {
-    if (action == "drivetrain.alignAndShoot") {
-      aligning_ = true;
-      shotRequested_ = false;
-      actionStart_ = frc::Timer::GetFPGATimestamp().value();
-      return;
-    }
-    if (action == "superstructure.intake")
-      ss_.StartIntaking();
-    else if (action == "superstructure.stow")
-      ss_.StowIntake();
-  }
-  mayhem::ActionStatus TickAction(std::string_view action) override {
-    if (action == "drivetrain.alignAndShoot") {
-      // The original 3.5 s aim-and-shoot window; the routine always continues afterwards.
-      return frc::Timer::GetFPGATimestamp().value() - actionStart_ >= kShootWindowSeconds
-                 ? mayhem::ActionStatus::Succeeded
-                 : mayhem::ActionStatus::Running;
-    }
-    if (action == "superstructure.intake" || action == "superstructure.stow")
-      return mayhem::ActionStatus::Succeeded;
-    return mayhem::ActionStatus::Failed;
-  }
-  void EndAction(std::string_view action, bool /*interrupted*/) override {
-    if (action == "drivetrain.alignAndShoot") {
-      aligning_ = false;
-      ss_.SetAutoShooting(false);
-    }
-  }
-  void PathEvent(std::string_view action) override { BeginAction(action); }
   const mayhem::RoutineInfo& def_;
   subsystems::Drivetrain& drive_;
   Superstructure& ss_;
@@ -169,12 +143,10 @@ class SuiteRoutine final : public AutoRoutine, private mayhem::RobotHooks {
   mayhem::AllianceRoutine routine_{def_, field_constants::kFieldLength,
                                    field_constants::kFieldWidth};
   MayhemObserver observer_{"Autonomous"};  // before the runner, which reports to it
-  mayhem::AutoRunner runner_{routine_.View(), static_cast<mayhem::RobotHooks&>(*this)};
-  double last_ = 0, actionStart_ = 0;
-  static constexpr double kShootWindowSeconds = 3.5;
+  mayhem::AutoRunner runner_{routine_.View()};
   bool aligning_ = false, shotRequested_ = false, failureHandled_ = false;
+  frc::Alert unboundAlert_{"", frc::Alert::AlertType::kError};
   logging::Output<std::string> statusLog_{"Mayhem/Auto/Status"}, nameLog_{"Mayhem/Auto/Name"};
-  logging::Output<double> dtLog_{"Mayhem/Auto/DeltaSeconds"};
   logging::Output<double> overrunLog_{"Mayhem/Auto/LoopOverruns"};
   logging::Output<bool> aimedLog_{"Mayhem/Auto/ShotAimAcquired"};
   logging::Output<frc::Pose2d> targetLog_{"Mayhem/Auto/Target"};
@@ -184,5 +156,9 @@ class SuiteRoutine final : public AutoRoutine, private mayhem::RobotHooks {
 std::unique_ptr<AutoRoutine> Routine(const mayhem::RoutineInfo& def, subsystems::Drivetrain& drive,
                                      Superstructure& ss, ShotCalculator& shots) {
   return std::make_unique<SuiteRoutine>(def, drive, ss, shots);
+}
+std::string UnboundReport(const mayhem::RoutineInfo& def, subsystems::Drivetrain& drive,
+                          Superstructure& ss, ShotCalculator& shots) {
+  return SuiteRoutine{def, drive, ss, shots}.Unbound();
 }
 }  // namespace suite_autos

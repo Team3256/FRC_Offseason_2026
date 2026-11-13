@@ -53,6 +53,57 @@
             "source": "src/main/cpp/subsystems/Superstructure.cpp"
           }
         ],
+        "inputs": [
+          {
+            "key": "shootHeld",
+            "name": "A held (shoot)",
+            "type": "boolean",
+            "initial": false,
+            "category": "operator",
+            "channel": "/RealOutputs/Mayhem/States/ShooterMode/inputs/shootHeld"
+          },
+          {
+            "key": "outtakeHeld",
+            "name": "Left trigger held (outtake)",
+            "type": "boolean",
+            "initial": false,
+            "category": "operator",
+            "channel": "/RealOutputs/Mayhem/States/ShooterMode/inputs/outtakeHeld"
+          },
+          {
+            "key": "autoShooting",
+            "name": "Auto is shooting",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "channel": "/RealOutputs/Mayhem/States/ShooterMode/inputs/autoShooting"
+          },
+          {
+            "key": "stopAll",
+            "name": "Stop everything (auto ended, or test mode)",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "event": true,
+            "channel": "/RealOutputs/Mayhem/States/ShooterMode/inputs/stopAll"
+          },
+          {
+            "key": "enabled",
+            "name": "Robot enabled",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "channel": "/RealOutputs/Mayhem/States/ShooterMode/inputs/enabled"
+          },
+          {
+            "key": "inAllianceZone",
+            "name": "In alliance zone (pose)",
+            "type": "boolean",
+            "initial": false,
+            "category": "sensor",
+            "channel": "/RealOutputs/Mayhem/States/ShooterMode/inputs/inAllianceZone"
+          }
+        ],
         "transitions": [
           {
             "id": "any-to-OFF",
@@ -215,56 +266,6 @@
             },
             "name": "Left alliance zone"
           }
-        ],
-        "inputs": [
-          {
-            "key": "shootHeld",
-            "name": "A held (shoot)",
-            "type": "boolean",
-            "initial": false,
-            "category": "operator",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/shootHeld"
-          },
-          {
-            "key": "outtakeHeld",
-            "name": "Left trigger held (outtake)",
-            "type": "boolean",
-            "initial": false,
-            "category": "operator",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/outtakeHeld"
-          },
-          {
-            "key": "autoShooting",
-            "name": "Auto is shooting",
-            "type": "boolean",
-            "initial": false,
-            "category": "internal",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/autoShooting"
-          },
-          {
-            "key": "stopAll",
-            "name": "Stop everything (auto ended, or test mode)",
-            "type": "boolean",
-            "initial": false,
-            "category": "internal",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/stopAll"
-          },
-          {
-            "key": "enabled",
-            "name": "Robot enabled",
-            "type": "boolean",
-            "initial": false,
-            "category": "internal",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/enabled"
-          },
-          {
-            "key": "inAllianceZone",
-            "name": "In alliance zone (pose)",
-            "type": "boolean",
-            "initial": false,
-            "category": "sensor",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/inAllianceZone"
-          }
         ]
       },
       {
@@ -305,6 +306,77 @@
             "name": "Outtaking",
             "description": "Rollers and feeder reverse; the shooter stops.",
             "source": "src/main/cpp/subsystems/Superstructure.cpp"
+          }
+        ],
+        "inputs": [
+          {
+            "key": "intakePressed",
+            "name": "X pressed (intake on / off)",
+            "type": "boolean",
+            "initial": false,
+            "category": "operator",
+            "event": true,
+            "channel": "/RealOutputs/Mayhem/States/IntakeMode/inputs/intakePressed"
+          },
+          {
+            "key": "jitterHeld",
+            "name": "Y held (jitter)",
+            "type": "boolean",
+            "initial": false,
+            "category": "operator",
+            "channel": "/RealOutputs/Mayhem/States/IntakeMode/inputs/jitterHeld"
+          },
+          {
+            "key": "deployPressed",
+            "name": "B pressed (slide out, rollers off)",
+            "type": "boolean",
+            "initial": false,
+            "category": "operator",
+            "event": true,
+            "channel": "/RealOutputs/Mayhem/States/IntakeMode/inputs/deployPressed"
+          },
+          {
+            "key": "outtakeHeld",
+            "name": "Left trigger held (outtake)",
+            "type": "boolean",
+            "initial": false,
+            "category": "operator",
+            "channel": "/RealOutputs/Mayhem/States/IntakeMode/inputs/outtakeHeld"
+          },
+          {
+            "key": "autoIntake",
+            "name": "Auto starts intaking",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "event": true,
+            "channel": "/RealOutputs/Mayhem/States/IntakeMode/inputs/autoIntake"
+          },
+          {
+            "key": "autoStow",
+            "name": "Auto stows the intake",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "event": true,
+            "channel": "/RealOutputs/Mayhem/States/IntakeMode/inputs/autoStow"
+          },
+          {
+            "key": "stopAll",
+            "name": "Stop everything (auto ended, or test mode)",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "event": true,
+            "channel": "/RealOutputs/Mayhem/States/IntakeMode/inputs/stopAll"
+          },
+          {
+            "key": "enabled",
+            "name": "Robot enabled",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "channel": "/RealOutputs/Mayhem/States/IntakeMode/inputs/enabled"
           }
         ],
         "transitions": [
@@ -503,141 +575,14 @@
             },
             "name": "B"
           }
-        ],
-        "inputs": [
-          {
-            "key": "intakePressed",
-            "name": "X pressed (intake on / off)",
-            "type": "boolean",
-            "initial": false,
-            "category": "operator",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/intakePressed"
-          },
-          {
-            "key": "jitterHeld",
-            "name": "Y held (jitter)",
-            "type": "boolean",
-            "initial": false,
-            "category": "operator",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/jitterHeld"
-          },
-          {
-            "key": "deployPressed",
-            "name": "B pressed (slide out, rollers off)",
-            "type": "boolean",
-            "initial": false,
-            "category": "operator",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/deployPressed"
-          },
-          {
-            "key": "outtakeHeld",
-            "name": "Left trigger held (outtake)",
-            "type": "boolean",
-            "initial": false,
-            "category": "operator",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/outtakeHeld"
-          },
-          {
-            "key": "autoIntake",
-            "name": "Auto starts intaking",
-            "type": "boolean",
-            "initial": false,
-            "category": "internal",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/autoIntake"
-          },
-          {
-            "key": "autoStow",
-            "name": "Auto stows the intake",
-            "type": "boolean",
-            "initial": false,
-            "category": "internal",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/autoStow"
-          },
-          {
-            "key": "stopAll",
-            "name": "Stop everything (auto ended, or test mode)",
-            "type": "boolean",
-            "initial": false,
-            "category": "internal",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/stopAll"
-          },
-          {
-            "key": "enabled",
-            "name": "Robot enabled",
-            "type": "boolean",
-            "initial": false,
-            "category": "internal",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/enabled"
-          }
         ]
       },
       {
         "format": "mayhem-machine",
+        "version": 1,
         "id": "IntakeSequence",
-        "initial": "PARKED",
-        "inputs": [
-          {
-            "key": "enabled",
-            "name": "Robot enabled",
-            "type": "boolean",
-            "initial": false,
-            "category": "internal",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/enabled"
-          },
-          {
-            "key": "hoodClear",
-            "name": "Hood clear of the slide",
-            "type": "boolean",
-            "initial": false,
-            "category": "sensor",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/hoodClear"
-          },
-          {
-            "key": "slideDeployed",
-            "name": "Slide deployed",
-            "type": "boolean",
-            "initial": false,
-            "category": "sensor",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/slideDeployed"
-          },
-          {
-            "key": "deploy",
-            "name": "Intake mode wants the slide out (X / Y / B)",
-            "type": "boolean",
-            "initial": false,
-            "category": "internal",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/deploy",
-            "derivedFrom": [
-              {
-                "machine": "IntakeMode",
-                "key": "intakePressed"
-              },
-              {
-                "machine": "IntakeMode",
-                "key": "jitterHeld"
-              },
-              {
-                "machine": "IntakeMode",
-                "key": "deployPressed"
-              }
-            ]
-          },
-          {
-            "key": "jitterDemand",
-            "name": "Intake mode is jittering (Y)",
-            "type": "boolean",
-            "initial": false,
-            "category": "internal",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/jitterDemand",
-            "derivedFrom": [
-              {
-                "machine": "IntakeMode",
-                "key": "jitterHeld"
-              }
-            ]
-          }
-        ],
         "name": "Intake · hood clearance and slide",
+        "initial": "PARKED",
         "stateChannel": "/Mayhem/States/IntakeSequence/state",
         "states": [
           {
@@ -664,6 +609,68 @@
             "id": "JITTERING",
             "name": "Jitter slide to settle pieces",
             "source": "src/main/cpp/subsystems/Superstructure.cpp"
+          }
+        ],
+        "inputs": [
+          {
+            "key": "enabled",
+            "name": "Robot enabled",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "channel": "/RealOutputs/Mayhem/States/IntakeSequence/inputs/enabled"
+          },
+          {
+            "key": "deploy",
+            "name": "Intake mode wants the slide out (X / Y / B)",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "channel": "/RealOutputs/Mayhem/States/IntakeSequence/inputs/deploy",
+            "derivedFrom": [
+              {
+                "machine": "IntakeMode",
+                "key": "intakePressed"
+              },
+              {
+                "machine": "IntakeMode",
+                "key": "jitterHeld"
+              },
+              {
+                "machine": "IntakeMode",
+                "key": "deployPressed"
+              }
+            ]
+          },
+          {
+            "key": "jitterDemand",
+            "name": "Intake mode is jittering (Y)",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "channel": "/RealOutputs/Mayhem/States/IntakeSequence/inputs/jitterDemand",
+            "derivedFrom": [
+              {
+                "machine": "IntakeMode",
+                "key": "jitterHeld"
+              }
+            ]
+          },
+          {
+            "key": "hoodClear",
+            "name": "Hood clear of the slide",
+            "type": "boolean",
+            "initial": false,
+            "category": "sensor",
+            "channel": "/RealOutputs/Mayhem/States/IntakeSequence/inputs/hoodClear"
+          },
+          {
+            "key": "slideDeployed",
+            "name": "Slide deployed",
+            "type": "boolean",
+            "initial": false,
+            "category": "sensor",
+            "channel": "/RealOutputs/Mayhem/States/IntakeSequence/inputs/slideDeployed"
           }
         ],
         "transitions": [
@@ -952,58 +959,14 @@
             },
             "name": "Jitter over: redeploy"
           }
-        ],
-        "version": 1
+        ]
       },
       {
         "format": "mayhem-machine",
+        "version": 1,
         "id": "ShotCycle",
-        "initial": "OFF",
-        "inputs": [
-          {
-            "key": "enabled",
-            "name": "Robot enabled",
-            "type": "boolean",
-            "initial": false,
-            "category": "internal",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/enabled"
-          },
-          {
-            "key": "trench",
-            "name": "Under a trench (pose)",
-            "type": "boolean",
-            "initial": false,
-            "category": "sensor",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/trench"
-          },
-          {
-            "key": "flywheelReady",
-            "name": "Flywheel at speed",
-            "type": "boolean",
-            "initial": false,
-            "category": "sensor",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/flywheelReady"
-          },
-          {
-            "key": "shotDemand",
-            "name": "Shooter mode is shooting (A / auto)",
-            "type": "boolean",
-            "initial": false,
-            "category": "internal",
-            "channel": "/RealOutputs/Mayhem/States/Superstructure/inputs/shotDemand",
-            "derivedFrom": [
-              {
-                "machine": "ShooterMode",
-                "key": "shootHeld"
-              },
-              {
-                "machine": "ShooterMode",
-                "key": "autoShooting"
-              }
-            ]
-          }
-        ],
         "name": "Shooter · spin up and feed",
+        "initial": "OFF",
         "stateChannel": "/Mayhem/States/ShotCycle/state",
         "states": [
           {
@@ -1025,6 +988,50 @@
             "id": "INHIBITED",
             "name": "Paused under the trench (hood forced down)",
             "source": "src/main/cpp/subsystems/Superstructure.cpp"
+          }
+        ],
+        "inputs": [
+          {
+            "key": "enabled",
+            "name": "Robot enabled",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "channel": "/RealOutputs/Mayhem/States/ShotCycle/inputs/enabled"
+          },
+          {
+            "key": "shotDemand",
+            "name": "Shooter mode is shooting (A / auto)",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "channel": "/RealOutputs/Mayhem/States/ShotCycle/inputs/shotDemand",
+            "derivedFrom": [
+              {
+                "machine": "ShooterMode",
+                "key": "shootHeld"
+              },
+              {
+                "machine": "ShooterMode",
+                "key": "autoShooting"
+              }
+            ]
+          },
+          {
+            "key": "trench",
+            "name": "Under a trench (pose)",
+            "type": "boolean",
+            "initial": false,
+            "category": "sensor",
+            "channel": "/RealOutputs/Mayhem/States/ShotCycle/inputs/trench"
+          },
+          {
+            "key": "flywheelReady",
+            "name": "Flywheel at speed",
+            "type": "boolean",
+            "initial": false,
+            "category": "sensor",
+            "channel": "/RealOutputs/Mayhem/States/ShotCycle/inputs/flywheelReady"
           }
         ],
         "transitions": [
@@ -1174,8 +1181,7 @@
             },
             "name": "Out of the trench"
           }
-        ],
-        "version": 1
+        ]
       }
     ],
     "source": {
@@ -1194,7 +1200,7 @@
   "format": "mayhem-suite",
   "id": "team3256-offseason-2026",
   "name": "3256 Offseason 2026",
-  "revision": 57,
+  "revision": 59,
   "robot": {
     "constraints": {
       "maxAcceleration": 8.34,
@@ -1333,7 +1339,7 @@
           "timeout": 5,
           "description": "Waypoint from the solved DepotTrenchSweepDepotPt pass at 1.54 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.0,
+            "maxVelocity": 3,
             "handoffRadius": 0.3
           }
         },
@@ -1580,7 +1586,7 @@
           "timeout": 5,
           "description": "Waypoint from the solved DepotTrenchSweepDepotPt pass at 5.14 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.0
+            "maxVelocity": 3
           }
         },
         {
@@ -1588,8 +1594,9 @@
           "name": "Aim and shoot",
           "kind": "custom",
           "action": "drivetrain.alignAndShoot",
-          "timeout": 4,
-          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window."
+          "timeout": 3.5,
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window; the routine then continues.",
+          "onTimeout": "succeed"
         },
         {
           "id": "depot-sweep-depot-pass2-p1",
@@ -1642,7 +1649,7 @@
           "timeout": 5,
           "description": "Waypoint from the solved DepotTrenchSweepDepotPt2 pass at 1.49 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 1.0,
+            "maxVelocity": 1,
             "handoffRadius": 0.3
           }
         },
@@ -1697,7 +1704,7 @@
           "timeout": 5,
           "description": "Waypoint from the solved DepotTrenchSweepDepotPt2 pass at 2.40 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.0
+            "maxVelocity": 3
           }
         },
         {
@@ -1705,8 +1712,9 @@
           "name": "Aim and shoot",
           "kind": "custom",
           "action": "drivetrain.alignAndShoot",
-          "timeout": 4,
-          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window."
+          "timeout": 3.5,
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window; the routine then continues.",
+          "onTimeout": "succeed"
         },
         {
           "id": "done",
@@ -1946,7 +1954,7 @@
             "markers": [
               {
                 "kind": "event",
-                "t": 0.0,
+                "t": 0,
                 "key": "superstructure.intake"
               }
             ]
@@ -2002,7 +2010,7 @@
           "timeout": 5,
           "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 1.87 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 4.0,
+            "maxVelocity": 4,
             "handoffRadius": 0.3
           }
         },
@@ -2201,7 +2209,7 @@
           "timeout": 5,
           "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 4.86 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.0
+            "maxVelocity": 3
           }
         },
         {
@@ -2209,8 +2217,9 @@
           "name": "Aim and shoot",
           "kind": "custom",
           "action": "drivetrain.alignAndShoot",
-          "timeout": 4,
-          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window."
+          "timeout": 3.5,
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window; the routine then continues.",
+          "onTimeout": "succeed"
         },
         {
           "id": "done",
@@ -2395,7 +2404,7 @@
             "markers": [
               {
                 "kind": "event",
-                "t": 0.0,
+                "t": 0,
                 "key": "superstructure.intake"
               }
             ]
@@ -2451,7 +2460,7 @@
           "timeout": 5,
           "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 1.87 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 4.0,
+            "maxVelocity": 4,
             "handoffRadius": 0.3
           }
         },
@@ -2650,7 +2659,7 @@
           "timeout": 5,
           "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 4.86 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.0
+            "maxVelocity": 3
           }
         },
         {
@@ -2658,15 +2667,16 @@
           "name": "Aim and shoot",
           "kind": "custom",
           "action": "drivetrain.alignAndShoot",
-          "timeout": 4,
-          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window."
+          "timeout": 3.5,
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window; the routine then continues.",
+          "onTimeout": "succeed"
         },
         {
           "id": "outpost-sweep-x2-pass2-p1",
           "name": "Pass 2 · point 1",
           "kind": "pose",
           "goal": {
-            "x": 3.0,
+            "x": 3,
             "y": 1.35,
             "heading": 1.5708,
             "translationTolerance": 0.12,
@@ -2688,7 +2698,7 @@
           "timeout": 5,
           "description": "Hand-placed waypoint, after the solved OutpostTrenchSweepBumpPt2 pass: turn square clear of the wall and post, then the trench centre line.",
           "constraints": {
-            "maxVelocity": 3.0,
+            "maxVelocity": 3,
             "handoffRadius": 0.3
           }
         },
@@ -2767,7 +2777,7 @@
           "timeout": 5,
           "description": "Hand-placed waypoint, after the solved OutpostTrenchSweepBumpPt2 pass: turn square clear of the wall and post, then the trench centre line.",
           "constraints": {
-            "maxVelocity": 4.0,
+            "maxVelocity": 4,
             "handoffRadius": 0.3
           }
         },
@@ -2815,7 +2825,7 @@
           "timeout": 5,
           "description": "Hand-placed waypoint, after the solved OutpostTrenchSweepBumpPt2 pass: turn square clear of the wall and post, then the trench centre line.",
           "constraints": {
-            "maxVelocity": 3.0,
+            "maxVelocity": 3,
             "handoffRadius": 0.3
           }
         },
@@ -2863,7 +2873,7 @@
           "timeout": 5,
           "description": "Hand-placed waypoint, after the solved OutpostTrenchSweepBumpPt2 pass: turn square clear of the wall and post, then the trench centre line.",
           "constraints": {
-            "maxVelocity": 3.0,
+            "maxVelocity": 3,
             "handoffRadius": 0.3
           }
         },
@@ -2872,7 +2882,7 @@
           "name": "Pass 2 · point 9",
           "kind": "pose",
           "goal": {
-            "x": 6.0,
+            "x": 6,
             "y": 2.5,
             "heading": -1.5708,
             "translationTolerance": 0.12,
@@ -2887,7 +2897,7 @@
           "timeout": 5,
           "description": "Hand-placed waypoint, after the solved OutpostTrenchSweepBumpPt2 pass: turn square clear of the wall and post, then the trench centre line.",
           "constraints": {
-            "maxVelocity": 3.0,
+            "maxVelocity": 3,
             "handoffRadius": 0.3
           }
         },
@@ -2926,8 +2936,9 @@
           "name": "Aim and shoot",
           "kind": "custom",
           "action": "drivetrain.alignAndShoot",
-          "timeout": 4,
-          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window."
+          "timeout": 3.5,
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window; the routine then continues.",
+          "onTimeout": "succeed"
         },
         {
           "id": "done",
@@ -3454,7 +3465,7 @@
           "timeout": 5,
           "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 4.97 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.0
+            "maxVelocity": 3
           }
         },
         {
@@ -3462,8 +3473,9 @@
           "name": "Aim and shoot",
           "kind": "custom",
           "action": "drivetrain.alignAndShoot",
-          "timeout": 4,
-          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window."
+          "timeout": 3.5,
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window; the routine then continues.",
+          "onTimeout": "succeed"
         },
         {
           "id": "done",
@@ -3903,7 +3915,7 @@
           "timeout": 5,
           "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 4.97 s: position, heading (intake leading) and speed.",
           "constraints": {
-            "maxVelocity": 3.0
+            "maxVelocity": 3
           }
         },
         {
@@ -3911,17 +3923,18 @@
           "name": "Aim and shoot",
           "kind": "custom",
           "action": "drivetrain.alignAndShoot",
-          "timeout": 4,
-          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window."
+          "timeout": 3.5,
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window; the routine then continues.",
+          "onTimeout": "succeed"
         },
         {
           "id": "depot-sweep-x2-pass2-p1",
           "name": "Pass 2 · point 1",
           "kind": "pose",
           "goal": {
-            "x": 3.0,
+            "x": 3,
             "y": 6.72,
-            "heading": 0.0,
+            "heading": 0,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
@@ -3939,14 +3952,14 @@
               {
                 "kind": "rotation",
                 "t": 0.5,
-                "heading": 0.0
+                "heading": 0
               }
             ]
           },
           "timeout": 5,
           "description": "Hand-placed waypoint, after the solved DepotTrenchSweepBump2xPt2 pass: turn square clear of the wall and post, then the trench centre line.",
           "constraints": {
-            "maxVelocity": 3.0,
+            "maxVelocity": 3,
             "handoffRadius": 0.3
           }
         },
@@ -3957,7 +3970,7 @@
           "goal": {
             "x": 3.75,
             "y": 7.37,
-            "heading": 0.0,
+            "heading": 0,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
@@ -3981,7 +3994,7 @@
           "goal": {
             "x": 5.8,
             "y": 7.43,
-            "heading": 0.0,
+            "heading": 0,
             "translationTolerance": 0.12,
             "rotationTolerance": 0.2,
             "velocityTolerance": 0.3,
@@ -4138,7 +4151,7 @@
           "timeout": 5,
           "description": "Hand-placed waypoint, after the solved DepotTrenchSweepBump2xPt2 pass: turn square clear of the wall and post, then the trench centre line.",
           "constraints": {
-            "maxVelocity": 3.0,
+            "maxVelocity": 3,
             "handoffRadius": 0.3
           }
         },
@@ -4147,7 +4160,7 @@
           "name": "Pass 2 · point 10",
           "kind": "pose",
           "goal": {
-            "x": 6.0,
+            "x": 6,
             "y": 5.1,
             "heading": 1.5708,
             "translationTolerance": 0.12,
@@ -4162,7 +4175,7 @@
           "timeout": 5,
           "description": "Hand-placed waypoint, after the solved DepotTrenchSweepBump2xPt2 pass: turn square clear of the wall and post, then the trench centre line.",
           "constraints": {
-            "maxVelocity": 3.0,
+            "maxVelocity": 3,
             "handoffRadius": 0.3
           }
         },
@@ -4201,8 +4214,9 @@
           "name": "Aim and shoot",
           "kind": "custom",
           "action": "drivetrain.alignAndShoot",
-          "timeout": 4,
-          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window."
+          "timeout": 3.5,
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window; the routine then continues.",
+          "onTimeout": "succeed"
         },
         {
           "id": "done",

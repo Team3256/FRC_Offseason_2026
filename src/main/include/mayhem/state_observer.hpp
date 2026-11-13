@@ -1,4 +1,5 @@
 #pragma once
+#include "mayhem/signals.hpp"
 #include <string>
 #include <string_view>
 #include <type_traits>
@@ -18,6 +19,13 @@ class StateObserver {
                           std::string_view from, std::string_view to, double timestamp) = 0;
   virtual void GoalProgress(std::string_view goal, double translationError,
                             double rotationError, bool reached, double timestamp) = 0;
+  // Optional input logging (StateMachine::Attach with InputLogging::On). RegisterInput is called
+  // once per declared input during Attach (allocate there); Input reports each declared input's
+  // value on the first step of every Tick/Settle and must not allocate. Default: ignored.
+  virtual void RegisterInput(std::string_view machine, const MachineInput& input) { (void)machine; (void)input; }
+  virtual void Input(std::string_view machine, std::string_view key, const SignalValue& value, double timestamp) {
+    (void)machine; (void)key; (void)value; (void)timestamp;
+  }
 };
 // Seconds for observer timestamps. Without a clock, StateMachine and AutoRunner pass 0,
 // which WpiLogObserver records as "now" and NtStateObserver ignores.

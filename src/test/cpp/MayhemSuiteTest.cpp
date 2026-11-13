@@ -23,134 +23,115 @@ class Hooks : public mayhem::RobotHooks {
 };
 }  // namespace
 TEST(MayhemSuiteTest, ShooterModeShootsWhileHeldAndRevsInTheZone) {
-  Hooks h;
-  for (const auto& key : {"stopAll", "shootHeld", "autoShooting", "outtakeHeld", "inAllianceZone"})
-    h.inputs[key] = false;
-  h.inputs["enabled"] = true;
-  mayhem::StateMachine machine(mayhem_generated::ShooterMode::machine,
-                               [&](std::string_view key) { return h.Signal(key); });
+  using S = mayhem_generated::ShooterMode::State;
+  using In = mayhem_generated::ShooterMode::Inputs;
+  mayhem_generated::ShooterMode::Machine machine;
   ASSERT_TRUE(machine.Valid());
-  auto set = [&](const char* key, bool v) {
-    h.inputs[key] = v;
-    machine.Tick(.02);
-    machine.Tick(.02);  // settle
-    return machine.State();
+  machine.In().enabled = true;
+  // One robot loop: the machine settles, so A released in the zone is SHOOTING -> OFF -> REV.
+  auto set = [&](bool In::* input, bool v) {
+    machine.In().*input = v;
+    machine.Settle(.02);
+    EXPECT_TRUE(machine.Settled());
+    return machine.Current();
   };
-  EXPECT_EQ(set("shootHeld", true), "SHOOTING");
-  EXPECT_EQ(set("inAllianceZone", true), "SHOOTING");  // the zone never interrupts a shot
-  EXPECT_EQ(set("shootHeld", false), "REV");
-  EXPECT_EQ(set("autoShooting", true), "SHOOTING");
-  EXPECT_EQ(set("outtakeHeld", true), "REV");  // outtaking stops the shot
-  EXPECT_EQ(set("outtakeHeld", false), "SHOOTING");
-  EXPECT_EQ(set("autoShooting", false), "REV");
-  EXPECT_EQ(set("inAllianceZone", false), "OFF");
-  EXPECT_EQ(set("inAllianceZone", true), "REV");
-  EXPECT_EQ(set("enabled", false), "OFF");  // no rev while disabled
+  EXPECT_EQ(set(&In::shootHeld, true), S::SHOOTING);
+  EXPECT_EQ(set(&In::inAllianceZone, true), S::SHOOTING);  // the zone never interrupts a shot
+  EXPECT_EQ(set(&In::shootHeld, false), S::REV);
+  EXPECT_EQ(set(&In::autoShooting, true), S::SHOOTING);
+  EXPECT_EQ(set(&In::outtakeHeld, true), S::REV);  // outtaking stops the shot
+  EXPECT_EQ(set(&In::outtakeHeld, false), S::SHOOTING);
+  EXPECT_EQ(set(&In::autoShooting, false), S::REV);
+  EXPECT_EQ(set(&In::inAllianceZone, false), S::OFF);
+  EXPECT_EQ(set(&In::inAllianceZone, true), S::REV);
+  EXPECT_EQ(set(&In::stopAll, true), S::REV) << "stop all, then back to REV in the zone";
+  EXPECT_FALSE(machine.In().stopAll) << "an event lasts one loop";
+  EXPECT_EQ(set(&In::enabled, false), S::OFF);  // no rev while disabled
 }
 
 TEST(MayhemSuiteTest, IntakeModeTogglesAndHolds) {
-  Hooks h;
-  for (const auto& key : {"stopAll", "intakePressed", "autoIntake", "autoStow", "jitterHeld",
-                          "deployPressed", "outtakeHeld"})
-    h.inputs[key] = false;
-  h.inputs["enabled"] = true;
-  mayhem::StateMachine machine(mayhem_generated::IntakeMode::machine,
-                               [&](std::string_view key) { return h.Signal(key); });
+  using S = mayhem_generated::IntakeMode::State;
+  using In = mayhem_generated::IntakeMode::Inputs;
+  mayhem_generated::IntakeMode::Machine machine;
   ASSERT_TRUE(machine.Valid());
-  // A press is an input for one tick; a hold stays until released.
-  auto press = [&](const char* key) {
-    h.inputs[key] = true;
-    machine.Tick(.02);
-    h.inputs[key] = false;
-    machine.Tick(.02);
-    return machine.State();
+  machine.In().enabled = true;
+  // A press is an event: used by the first step of one loop, so X toggles once, not on and off.
+  auto press = [&](bool In::* input) {
+    machine.In().*input = true;
+    machine.Settle(.02);
+    EXPECT_FALSE(machine.In().*input);
+    return machine.Current();
   };
-  auto hold = [&](const char* key, bool v) {
-    h.inputs[key] = v;
-    machine.Tick(.02);
-    return machine.State();
+  auto hold = [&](bool In::* input, bool v) {
+    machine.In().*input = v;
+    machine.Settle(.02);
+    return machine.Current();
   };
-  EXPECT_EQ(press("intakePressed"), "INTAKING");
-  EXPECT_EQ(press("intakePressed"), "STOWED");
-  EXPECT_EQ(press("autoIntake"), "INTAKING");
-  EXPECT_EQ(hold("jitterHeld", true), "JITTERING");
-  EXPECT_EQ(hold("jitterHeld", false), "INTAKING");
-  EXPECT_EQ(press("deployPressed"), "DEPLOYED");
-  EXPECT_EQ(press("deployPressed"), "STOWED");
-  EXPECT_EQ(hold("outtakeHeld", true), "OUTTAKING");
-  EXPECT_EQ(press("intakePressed"), "OUTTAKING");  // outtaking wins while held
-  EXPECT_EQ(hold("outtakeHeld", false), "STOWED");
-  EXPECT_EQ(press("intakePressed"), "INTAKING");
-  EXPECT_EQ(press("autoStow"), "STOWED");
-  EXPECT_EQ(press("intakePressed"), "INTAKING");
-  EXPECT_EQ(hold("enabled", false), "STOWED");
+  EXPECT_EQ(press(&In::intakePressed), S::INTAKING);
+  EXPECT_EQ(press(&In::intakePressed), S::STOWED);
+  EXPECT_EQ(press(&In::autoIntake), S::INTAKING);
+  EXPECT_EQ(hold(&In::jitterHeld, true), S::JITTERING);
+  EXPECT_EQ(hold(&In::jitterHeld, false), S::INTAKING);
+  EXPECT_EQ(press(&In::deployPressed), S::DEPLOYED);
+  EXPECT_EQ(press(&In::deployPressed), S::STOWED);
+  EXPECT_EQ(hold(&In::outtakeHeld, true), S::OUTTAKING);
+  EXPECT_EQ(press(&In::intakePressed), S::OUTTAKING);  // outtaking wins while held
+  EXPECT_EQ(hold(&In::outtakeHeld, false), S::STOWED);
+  EXPECT_EQ(press(&In::intakePressed), S::INTAKING);
+  EXPECT_EQ(press(&In::autoStow), S::STOWED);
+  EXPECT_EQ(press(&In::intakePressed), S::INTAKING);
+  EXPECT_EQ(hold(&In::enabled, false), S::STOWED);
 }
 
 TEST(MayhemSuiteTest, IntakeGraphClearsTheHoodBeforeTheSlideMoves) {
-  Hooks h;
-  h.inputs = {{"enabled", true},
-              {"deploy", true},
-              {"jitterDemand", false},
-              {"hoodClear", false},
-              {"slideDeployed", false}};
-  mayhem::StateMachine machine(mayhem_generated::IntakeSequence::machine,
-                               [&](std::string_view key) { return h.Signal(key); });
+  using S = mayhem_generated::IntakeSequence::State;
+  mayhem_generated::IntakeSequence::Machine machine;
+  auto& in = machine.In();
+  in.enabled = true;
+  in.deploy = true;
   auto tick = [&] {
     machine.Tick(.02);
-    h.state = machine.State();
+    return machine.Current();
   };
-  tick();
-  EXPECT_EQ(h.state, "CLEARING_HOOD");
-  tick();
-  EXPECT_EQ(h.state, "CLEARING_HOOD") << "the slide waits for the hood";
-  h.inputs["hoodClear"] = true;
-  tick();
-  EXPECT_EQ(h.state, "DEPLOYING");
-  h.inputs["slideDeployed"] = true;
-  tick();
-  EXPECT_EQ(h.state, "READY");
-  h.inputs["jitterDemand"] = true;
-  tick();
-  EXPECT_EQ(h.state, "JITTERING");
-  h.inputs["deploy"] = false;
-  tick();
-  EXPECT_EQ(h.state, "PARKED");
+  EXPECT_EQ(tick(), S::CLEARING_HOOD);
+  EXPECT_EQ(tick(), S::CLEARING_HOOD) << "the slide waits for the hood";
+  in.hoodClear = true;
+  EXPECT_EQ(tick(), S::DEPLOYING);
+  in.slideDeployed = true;
+  EXPECT_EQ(tick(), S::READY);
+  in.jitterDemand = true;
+  EXPECT_EQ(tick(), S::JITTERING);
+  in.deploy = false;
+  EXPECT_EQ(tick(), S::PARKED);
   // Jitter from parked starts as soon as the hood is clear; it does not deploy first.
-  h.inputs["deploy"] = true;
-  h.inputs["hoodClear"] = false;
-  tick();
-  EXPECT_EQ(h.state, "CLEARING_HOOD");
-  h.inputs["hoodClear"] = true;
-  tick();
-  EXPECT_EQ(h.state, "JITTERING");
+  in.deploy = true;
+  in.hoodClear = false;
+  EXPECT_EQ(tick(), S::CLEARING_HOOD);
+  in.hoodClear = true;
+  EXPECT_EQ(tick(), S::JITTERING);
 }
 TEST(MayhemSuiteTest, ShotGraphFeedsOnceAtSpeedAndPausesUnderTheTrench) {
-  Hooks h;
-  h.inputs = {{"enabled", true}, {"shotDemand", true}, {"flywheelReady", false}, {"trench", false}};
-  mayhem::StateMachine machine(mayhem_generated::ShotCycle::machine,
-                               [&](std::string_view key) { return h.Signal(key); });
+  using S = mayhem_generated::ShotCycle::State;
+  mayhem_generated::ShotCycle::Machine machine;
+  auto& in = machine.In();
+  in.enabled = true;
+  in.shotDemand = true;
   auto tick = [&] {
     machine.Tick(.02);
-    h.state = machine.State();
+    return machine.Current();
   };
-  tick();
-  EXPECT_EQ(h.state, "SPINNING_UP");
-  h.inputs["flywheelReady"] = true;
-  tick();
-  EXPECT_EQ(h.state, "FEEDING");
+  EXPECT_EQ(tick(), S::SPINNING_UP);
+  in.flywheelReady = true;
+  EXPECT_EQ(tick(), S::FEEDING);
   // the speed dip as a piece goes through does not stop the feed
-  h.inputs["flywheelReady"] = false;
-  tick();
-  EXPECT_EQ(h.state, "FEEDING");
-  h.inputs["trench"] = true;
-  tick();
-  EXPECT_EQ(h.state, "INHIBITED");
-  h.inputs["trench"] = false;
-  tick();
-  EXPECT_EQ(h.state, "SPINNING_UP");
-  h.inputs["shotDemand"] = false;
-  tick();
-  EXPECT_EQ(h.state, "OFF");
+  in.flywheelReady = false;
+  EXPECT_EQ(tick(), S::FEEDING);
+  in.trench = true;
+  EXPECT_EQ(tick(), S::INHIBITED);
+  in.trench = false;
+  EXPECT_EQ(tick(), S::SPINNING_UP);
+  in.shotDemand = false;
+  EXPECT_EQ(tick(), S::OFF);
 }
 TEST(MayhemSuiteTest, AllFiveGraphsReachTheirFinalNodeWithPoseFeedback) {
   for (const auto& def : mayhem_generated::routines) {
@@ -190,13 +171,18 @@ TEST(MayhemSuiteTest, PreviewAndAllianceTransformsUseExecutableGraph) {
     for (bool red : {false, true}) {
       const auto poses = suite_autos::Preview(def, red);
       ASSERT_GT(poses.size(), 2u);
-      EXPECT_NEAR(poses.front().X().value(), suite_autos::Resolve(def.startPose, red).x, 1e-9);
+      // Mayhem stores the preview to the millimetre.
+      constexpr double kTolerance = 1e-3;
+      EXPECT_NEAR(poses.front().X().value(), suite_autos::Resolve(def.startPose, red).x,
+                  kTolerance);
       const mayhem::AutoNode* last = nullptr;
       for (std::size_t i = 0; i < def.routine.nodeCount; ++i)
         if (def.routine.nodes[i].kind == mayhem::NodeKind::Pose)
           last = &def.routine.nodes[i];
       ASSERT_NE(last, nullptr);
-      EXPECT_NEAR(poses.back().X().value(), suite_autos::Resolve(last->goal.pose, red).x, 1e-9);
-      EXPECT_NEAR(poses.back().Y().value(), suite_autos::Resolve(last->goal.pose, red).y, 1e-9);
+      EXPECT_NEAR(poses.back().X().value(), suite_autos::Resolve(last->goal.pose, red).x,
+                  kTolerance);
+      EXPECT_NEAR(poses.back().Y().value(), suite_autos::Resolve(last->goal.pose, red).y,
+                  kTolerance);
     }
 }

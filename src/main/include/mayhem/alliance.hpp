@@ -43,7 +43,7 @@ inline PathMarker TransformMarker(PathMarker marker, FieldTransform t) {
 // RoutineView. Construct once at startup (allocates); call Apply() when the alliance
 // is known (e.g. autonomousInit), then Start() the runner. Apply() never allocates and
 // always re-derives from the blue source, so repeated calls do not accumulate. Fields
-// covered: goal pose x/y/heading, aimX/aimY, rotation-marker headings, start pose.
+// covered: goal pose x/y/heading, aimX/aimY, rotation-marker headings, start pose, preview.
 // Transitions, guards, actions, event markers, tolerances and limits are unchanged.
 // Never transform measured odometry; it is already in the blue-origin field frame.
 class AllianceRoutine {
@@ -59,7 +59,13 @@ class AllianceRoutine {
   }
   AllianceRoutine(const RoutineInfo& blue, double fieldLength, double fieldWidth,
                   FieldTransform transform = FieldTransform::None)
-      : AllianceRoutine(blue.routine, fieldLength, fieldWidth, transform, blue.startPose) {}
+      : AllianceRoutine(blue.routine, fieldLength, fieldWidth, FieldTransform::None, blue.startPose) {
+    if (blue.preview && blue.previewCount) {
+      previewSource_ = blue.preview;
+      preview_.assign(blue.preview, blue.preview + blue.previewCount);
+    }
+    Apply(transform);
+  }
   AllianceRoutine(const AllianceRoutine&) = delete;
   AllianceRoutine& operator=(const AllianceRoutine&) = delete;
   AllianceRoutine(AllianceRoutine&&) = default;  // vector storage moves; views stay valid
@@ -83,6 +89,8 @@ class AllianceRoutine {
           markers_[m++] = TransformMarker(source.goal.markers[j], transform);
       }
     }
+    for (std::size_t i = 0; previewSource_ && i < preview_.size(); ++i)
+      preview_[i] = TransformPose(previewSource_[i], transform, length_, width_);
     return ok;
   }
   FieldTransform Transform() const { return transform_; }
@@ -93,11 +101,26 @@ class AllianceRoutine {
   Pose StartPose() const { return Resolve(start_); }
   // Transform any other blue-origin pose (preview points, targets) the same way.
   Pose Resolve(Pose blue) const { return TransformPose(blue, transform_, length_, width_); }
+  // The exported path preview (RoutineInfo::preview: the poses the editor's path-only playback
+  // drives through, about every 0.1 m), transformed. Empty for a RoutineView without one.
+  const std::vector<Pose>& Preview() const { return preview_; }
   const RoutineView& Blue() const { return blue_; }
 
  private:
   RoutineView blue_; Pose start_; double length_, width_;
   FieldTransform transform_ = FieldTransform::None;
   std::vector<AutoNode> nodes_; std::vector<PathMarker> markers_;
+  const Pose* previewSource_ = nullptr; std::vector<Pose> preview_;
 };
+// A routine's exported path preview for one alliance/side, e.g. to draw the selected auto on a
+// Field2d while disabled. Allocates; empty when the header has no preview.
+inline std::vector<Pose> PreviewPath(const RoutineInfo& routine, FieldTransform transform, double fieldLength,
+                                     double fieldWidth) {
+  std::vector<Pose> path;
+  if (!routine.preview) return path;
+  path.reserve(routine.previewCount);
+  for (std::size_t i = 0; i < routine.previewCount; ++i)
+    path.push_back(TransformPose(routine.preview[i], transform, fieldLength, fieldWidth));
+  return path;
+}
 }  // namespace mayhem

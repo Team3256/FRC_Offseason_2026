@@ -158,7 +158,7 @@ TEST(FeatureSimTest, AutoPreviewShowsTheSelectedRoutineForEachAlliance) {
     EXPECT_LT(Distance(*h.C().GetAutoStartPose(), first), 1e-9);
     const auto path = h.C().GetField().GetObject("AutoPath")->GetPoses();
     EXPECT_GT(path.size(), 20u) << "both paths are drawn";
-    EXPECT_LT(Distance(path.front(), first), 1e-9);
+    EXPECT_LT(Distance(path.front(), first), 1e-3) << "the preview is stored to the millimetre";
     const auto expected = suite_autos::Preview(*definition, red);
     EXPECT_EQ(path.size(), expected.size());
     EXPECT_LT(Distance(path.back(), expected.back()), 1e-9);
@@ -180,6 +180,16 @@ TEST(FeatureSimTest, AutoPreviewShowsTheSelectedRoutineForEachAlliance) {
     EXPECT_FALSE(h.C().GetAutoStartPose().has_value());
     EXPECT_TRUE(h.C().GetField().GetObject("AutoPath")->GetPoses().empty());
   }
+}
+
+TEST(FeatureSimTest, EveryAutoActionEventAndSignalIsHandled) {
+  RobotHarness h;
+  auto& c = h.C();
+  for (const auto& routine : mayhem_generated::routines)
+    EXPECT_EQ(suite_autos::UnboundReport(routine, c.GetDrivetrain(), c.GetSuperstructure(),
+                                         c.GetShotCalculator()),
+              "")
+        << routine.name;
 }
 
 TEST(FeatureSimTest, ReadyToShootLightsUpWhileShooting) {

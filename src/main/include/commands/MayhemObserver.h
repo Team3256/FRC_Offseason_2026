@@ -22,6 +22,17 @@ class MayhemObserver final : public mayhem::StateObserver {
     if (m_log)
       m_log->RegisterGuard(transition, input);
   }
+  void RegisterInput(std::string_view m, const mayhem::MachineInput& i) override {
+    m_nt.RegisterInput(m, i);
+    if (m_log)
+      m_log->RegisterInput(m, i);
+  }
+  void Input(std::string_view m, std::string_view k, const mayhem::SignalValue& v,
+             double t) override {
+    m_nt.Input(m, k, v, t);
+    if (m_log)
+      m_log->Input(m, k, v, t);
+  }
   void Enter(std::string_view m, std::string_view s, double t) override {
     m_nt.Enter(m, s, t);
     if (m_log)

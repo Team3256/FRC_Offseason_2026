@@ -47,10 +47,22 @@ Without a valid shot distance the flywheel stays off and an alert says why. Auto
 `superstructure.intake` / `superstructure.stow` events and the aim-and-shoot action; when an auto
 ends, everything stops.
 
-`tools/mayhem/phase_graphs.py robot.mayhem.json` regenerates the four graphs, plus every
-transition's name and description and every input's category. Categories: operator = driver
-request, sensor = measured, internal = derived in code. The robot runs all four with
-`mayhem::StateMachine`.
+The four graphs are written as a compact spec in `tools/mayhem/machines.json`: states, transitions
+as `"FROM -> TO: condition  # name"`, and every input's category. Categories: operator = driver
+request, sensor = measured, internal = derived in code. Presses and the auto's one-loop requests
+(`intakePressed`, `deployPressed`, `autoIntake`, `autoStow`, `stopAll`) are `event` inputs. Edit the
+spec, then apply it and regenerate the header:
+
+```sh
+node <Mayhem>/scripts/mayhem.mjs machine apply robot.mayhem.json tools/mayhem/machines.json
+tools/mayhem/export.sh
+```
+
+(`machine spec robot.mayhem.json <id>` prints a machine edited in the app back as a spec.) The
+exporter generates a typed machine per graph (`mayhem_generated::<Machine>::Machine`) with an
+`enum class State` and an `Inputs` struct, so a misspelled state or input does not compile.
+`Superstructure` fills `In()` each loop, `Settle()`s the mode machines (A released in the alliance
+zone goes SHOOTING, OFF, REV in one loop; a press is used once) and `Tick()`s the phase machines.
 
 ## Autonomous
 
@@ -58,18 +70,27 @@ Each routine goes through the key waypoints of its original solved sweep (start,
 shot spot) from the `.mtraj` passes in `tools/mayhem/solved/`; the old paths are a reference, not a
 path to trace exactly. Every point carries the solved heading and speed, so the robot crosses the
 trench sideways and **leads with the intake down the centerline pickup**.
-`tools/mayhem/rebuild_routes.py .` rebuilds the routines. Drivetrain limits come from
+The routines in `robot.mayhem.json` are the source: edit them in the Mayhem app or with its
+`save_project` tool. `mayhem.mjs route import-mtraj` can re-seed a routine from solved passes, but
+it rebuilds the whole routine, so the hand-placed x2 second passes and heading overrides would have
+to be redone. Drivetrain limits come from
 `tools/mayhem/robot_limits.py --write`; it uses the motor curve, gearing and slip current from
 `TunerConstants.h` at 150 lb.
 
 After each pass, `drivetrain.alignAndShoot` behaves like the original AlignAndShoot:
 - the drivetrain's heading controller turns to the lookahead shot;
 - SHOOT is requested once within 3°;
-- after 3.5 s the routine continues. A missed shot never aborts the second pass.
+- after 3.5 s the routine continues (the step's `onTimeout: "succeed"`). A missed shot never aborts
+  the second pass.
+
+`MayhemAutos.cpp` binds each action, path event and signal by ID (`AutoRunner::Bind`). A routine
+that uses an ID the robot does not handle raises a dashboard error as soon as it is selected, and
+`FeatureSimTest.EveryAutoActionEventAndSignalIsHandled` fails. The disabled field preview is the
+path Mayhem exports with each routine (`mayhem::PreviewPath`).
 
 The x2 second passes now intake. In the original code the `intake2` marker was missing from the
-path, so pass 2 never intaked. Their waypoints are hand-placed (`MANUAL` in `rebuild_routes.py`),
-with the solved pass only as the general direction. They turn square near the shot spot, clear of
+path, so pass 2 never intaked. Their waypoints are hand-placed, with the solved pass only as the
+general direction. They turn square near the shot spot, clear of
 the wall and the trench post, and then drive the trench opening's centre line. Depot x2 comes back
 north at x ≈ 6 and crosses the bump square, well below the trench post.
 
@@ -92,9 +113,9 @@ The observers write to the robot's existing DataLog (USB `/U/wpilogs`, roboRIO f
 | `Mayhem/Schema/<machine>` | Machine manifest (states, transitions, inputs) |
 | `Mayhem/States/<machine>/{state,transition,from,to}` | State entries and transitions |
 | `Mayhem/States/<machine>/guards/<transition>/condition` | Guard results |
-| `Mayhem/States/Superstructure/inputs/*` | Every signal the graphs read |
+| `RealOutputs/Mayhem/States/<machine>/inputs/*` | Every input the graph reads (NT: `Mayhem/States/<machine>/inputs/*`) |
 | `Mayhem/Goals/Autonomous/*` | Active goal, translation/rotation error, reached |
 | `RealOutputs/Superstructure/{State,PrevState,StateTime,Fault,FeedAllowed}` | Mode and diagnostics |
-| `RealOutputs/Mayhem/Auto/{Status,Name,Target,FieldSpeeds,DeltaSeconds,ShotAimAcquired}` | Auto runner |
+| `RealOutputs/Mayhem/Auto/{Status,Name,Target,FieldSpeeds,LoopOverruns,ShotAimAcquired}` | Auto runner |
 
 Import a `.wpilog` together with this project in Mayhem's Logs view to replay decisions.

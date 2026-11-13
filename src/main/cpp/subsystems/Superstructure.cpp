@@ -10,7 +10,6 @@
 #include <algorithm>
 #include <cmath>
 #include <cstdio>
-#include <string>
 
 #include <frc/DriverStation.h>
 
@@ -25,35 +24,14 @@
 #include "subsystems/shooterpivot/ShooterPivotConstants.h"
 #include "subsystems/sotm/ShotCalculator.h"
 
-using Shooter_ = Superstructure::ShooterMode;
 using Intake = Superstructure::IntakeMode;
 
 std::string_view Superstructure::ToString(ShooterMode mode) {
-  switch (mode) {
-    case Shooter_::OFF:
-      return "OFF";
-    case Shooter_::REV:
-      return "REV";
-    case Shooter_::SHOOTING:
-      return "SHOOTING";
-  }
-  return "?";
+  return mayhem_generated::ShooterMode::Machine::Name(mode);
 }
 
 std::string_view Superstructure::ToString(IntakeMode mode) {
-  switch (mode) {
-    case Intake::STOWED:
-      return "STOWED";
-    case Intake::INTAKING:
-      return "INTAKING";
-    case Intake::JITTERING:
-      return "JITTERING";
-    case Intake::DEPLOYED:
-      return "DEPLOYED";
-    case Intake::OUTTAKING:
-      return "OUTTAKING";
-  }
-  return "?";
+  return mayhem_generated::IntakeMode::Machine::Name(mode);
 }
 
 Superstructure::Superstructure(Indexer& indexer, ShooterPivot& shooterPivot, Shooter& shooter,
@@ -69,15 +47,12 @@ Superstructure::Superstructure(Indexer& indexer, ShooterPivot& shooterPivot, Sho
       m_shotCalculator{shotCalculator},
       m_robotPoseSupplier{std::move(robotPoseSupplier)},
       m_target{field_constants::hub::kTarget2d, frc::Rotation2d{}} {
+  // The clock also times Tick() and Settle(); every declared input is logged each loop.
   auto clock = [] { return frc::Timer::GetFPGATimestamp().value(); };
-  m_shooterMachine.Attach(m_shooterObserver, clock);
-  m_intakeModeMachine.Attach(m_intakeModeObserver, clock);
-  m_intakeMachine.Attach(m_intakeObserver, clock);
-  m_shotMachine.Attach(m_shotObserver, clock);
-  m_lastTick = clock();
-  for (std::size_t i = 0; i < kInputs.size(); ++i)
-    m_inputLogs[i] = std::make_unique<logging::Output<bool>>(
-        std::string{"Mayhem/States/Superstructure/inputs/"} + std::string{kInputs[i]});
+  m_shooterMachine.Attach(m_shooterObserver, clock, mayhem::InputLogging::On);
+  m_intakeModeMachine.Attach(m_intakeModeObserver, clock, mayhem::InputLogging::On);
+  m_intakeMachine.Attach(m_intakeObserver, clock, mayhem::InputLogging::On);
+  m_shotMachine.Attach(m_shotObserver, clock, mayhem::InputLogging::On);
 }
 
 void Superstructure::ApplyOutputs() {
@@ -110,17 +85,17 @@ void Superstructure::ApplyOutputs() {
 
   if (IsIntaking() || IsJittering()) {
     m_intakeRollers.SetVoltage(8);
-  } else if (m_intakeMode == Intake::OUTTAKING) {
+  } else if (m_intakeModeMachine.Is(Intake::OUTTAKING)) {
     m_intakeRollers.Outtake();
   } else {
     m_intakeRollers.Off();
   }
 
   // The slide only moves in the intake graph's deploy phases; it is off everywhere else.
-  const auto phase = IntakePhase();
-  if (NeedsExtension() && (phase == "DEPLOYING" || phase == "READY")) {
+  if (NeedsExtension() &&
+      (m_intakeMachine.Is(IntakePhase_::DEPLOYING) || m_intakeMachine.Is(IntakePhase_::READY))) {
     m_linearSlide.GoToIntakeSequence();
-  } else if (NeedsExtension() && phase == "JITTERING") {
+  } else if (NeedsExtension() && m_intakeMachine.Is(IntakePhase_::JITTERING)) {
     m_linearSlide.JitterIntake();
   } else {
     m_linearSlide.Off();
@@ -128,12 +103,12 @@ void Superstructure::ApplyOutputs() {
 
   // FEEDING is entered once the flywheel first reaches speed and is latched until shooting ends, so
   // the speed dip as each piece goes through never stops the feed.
-  if (m_feedDebouncer.Calculate(ShotPhase() == "FEEDING")) {
+  if (m_feedDebouncer.Calculate(m_shotMachine.Is(ShotPhase_::FEEDING))) {
     m_indexer.SetIndexVel();
     m_feeder.SetFeedVel();
   } else {
     m_indexer.Off();
-    if (m_intakeMode == Intake::OUTTAKING) {
+    if (m_intakeModeMachine.Is(Intake::OUTTAKING)) {
       m_feeder.Outtake();
     } else {
       m_feeder.Off();
@@ -142,7 +117,19 @@ void Superstructure::ApplyOutputs() {
 }
 
 bool Superstructure::NeedsExtension() const {
-  return IsIntaking() || IsJittering() || m_intakeMode == Intake::DEPLOYED;
+  return IsIntaking() || IsJittering() || m_intakeModeMachine.Is(Intake::DEPLOYED);
+}
+bool Superstructure::FlywheelReady() const {
+  return m_shooter.RequestedVelocity() > 0 && m_shooter.ReachedVelocity();
+}
+bool Superstructure::HoodClear() const {
+  return !m_linearSlide.AtPosition() ||
+         (m_shooterPivot.RequestedPosition() >= kIntakeHoodPosition - .005 &&
+          m_shooterPivot.ReachedPosition());
+}
+bool Superstructure::SlideDeployed() const {
+  return m_linearSlide.Inputs().leftMotorPosition >= .80 &&
+         m_linearSlide.Inputs().rightMotorPosition >= .80;
 }
 bool Superstructure::ShotDistanceValid() const {
   return std::isfinite(m_shotCalculator.GetDistance());
@@ -153,8 +140,8 @@ bool Superstructure::Aimed() const {
 }
 double Superstructure::HoodTarget() const {
   // The hood clears the slide whenever the slide is moving through the hood's travel.
-  const auto phase = IntakePhase();
-  if (m_linearSlide.AtPosition() && (phase == "CLEARING_HOOD" || phase == "DEPLOYING"))
+  if (m_linearSlide.AtPosition() && (m_intakeMachine.Is(IntakePhase_::CLEARING_HOOD) ||
+                                     m_intakeMachine.Is(IntakePhase_::DEPLOYING)))
     return kIntakeHoodPosition;
   if (IsShooting() || IsRevving())
     return m_inAllianceZone ? shooter_pivot::kHubLUT.Get(m_shotCalculator.GetDistance())
@@ -166,8 +153,7 @@ double Superstructure::HoodTarget() const {
 bool Superstructure::ReadyToShoot() const {
   // Dashboard light: flywheel at a positive request and hood in place. Aim is logged separately
   // and is not required, matching the driver's original A-button behavior.
-  return m_shooter.RequestedVelocity() > 0 && m_shooter.ReachedVelocity() &&
-         m_shooterPivot.ReachedPosition();
+  return FlywheelReady() && m_shooterPivot.ReachedPosition();
 }
 
 void Superstructure::UpdateTarget() {
@@ -198,51 +184,61 @@ void Superstructure::UpdateTarget() {
   m_target = frc::Pose2d{target, frc::Rotation2d{}};
   m_shotCalculator.SetTarget(target);
 }
-void Superstructure::TickMode(mayhem::StateMachine& machine) {
-  // dt 0: the mode machines have no timed guards. A press is used by the first tick only; the next
-  // ticks settle the mode (A released inside the alliance zone goes SHOOTING, OFF, then REV).
-  machine.Tick(0);
-  m_settling = true;
-  for (int i = 0; i < 3 && machine.Tick(0); ++i) {
-  }
-  m_settling = false;
-}
-
 void Superstructure::Periodic() {
   UpdateTarget();
-  if (!frc::DriverStation::IsEnabled()) {
-    if (m_intakeMachine.State() != "PARKED")
+  const bool enabled = frc::DriverStation::IsEnabled();
+  if (!enabled) {
+    if (!m_intakeMachine.Is(IntakePhase_::PARKED))
       m_intakeMachine.Reset();
-    if (m_shotMachine.State() != "OFF")
+    if (!m_shotMachine.Is(ShotPhase_::OFF))
       m_shotMachine.Reset();
-  }
-  const double now = frc::Timer::GetFPGATimestamp().value();
-  const double dt = now - m_lastTick;
-  m_lastTick = now;
-  if (!frc::DriverStation::IsEnabled()) {
     m_operator = {};
     m_autoShooting = false;
   }
-  TickMode(m_shooterMachine);
-  TickMode(m_intakeModeMachine);
-  for (auto mode : {Shooter_::OFF, Shooter_::REV, Shooter_::SHOOTING})
-    if (ToString(mode) == m_shooterMachine.State())
-      m_shooterMode = mode;
-  for (auto mode : {Intake::STOWED, Intake::INTAKING, Intake::JITTERING, Intake::DEPLOYED,
-                    Intake::OUTTAKING})
-    if (ToString(mode) == m_intakeModeMachine.State())
-      m_intakeMode = mode;
-  m_intakeMachine.Tick(dt);
-  m_shotMachine.Tick(dt);
+  // Mode machines settle within the loop: A released inside the alliance zone goes SHOOTING, OFF,
+  // then REV. Presses and the auto's requests are events, used by the first step only.
+  auto& shooter = m_shooterMachine.In();
+  shooter.enabled = enabled;
+  shooter.stopAll = m_stopAll;
+  shooter.shootHeld = m_operator.shootHeld;
+  shooter.autoShooting = m_autoShooting;
+  shooter.outtakeHeld = m_operator.outtakeHeld;
+  shooter.inAllianceZone = m_inAllianceZone;
+  m_shooterMachine.Settle();
+  auto& intakeMode = m_intakeModeMachine.In();
+  intakeMode.enabled = enabled;
+  intakeMode.stopAll = m_stopAll;
+  intakeMode.intakePressed = m_operator.intakePressed;
+  intakeMode.autoIntake = m_autoIntake;
+  intakeMode.autoStow = m_autoStow;
+  intakeMode.jitterHeld = m_operator.jitterHeld;
+  intakeMode.deployPressed = m_operator.deployPressed;
+  intakeMode.outtakeHeld = m_operator.outtakeHeld;
+  m_intakeModeMachine.Settle();
+  // Phase machines take one step per loop, from the modes just decided and the sensors.
+  auto& intake = m_intakeMachine.In();
+  intake.enabled = enabled;
+  intake.deploy = NeedsExtension();
+  intake.jitterDemand = IsJittering();
+  intake.hoodClear = HoodClear();
+  intake.slideDeployed = SlideDeployed();
+  m_intakeMachine.Tick();
+  auto& shot = m_shotMachine.In();
+  shot.enabled = enabled;
+  shot.shotDemand = IsShooting();
+  shot.trench = IsInTrenchApproachZone();
+  shot.flywheelReady = FlywheelReady();
+  m_shotMachine.Tick();
   m_intakeTimeLog.Set(m_intakeMachine.StateTime());
   m_shotTimeLog.Set(m_shotMachine.StateTime());
   // Slow phases are reported, never acted on: the driver's request keeps running.
-  const auto intakePhase = IntakePhase();
   const double intakeTime = m_intakeMachine.StateTime();
-  const bool hoodStuck = intakePhase == "CLEARING_HOOD" && intakeTime > kHoodClearWarnSeconds;
-  const bool slideStuck = intakePhase == "DEPLOYING" && intakeTime > kDeployWarnSeconds;
+  const bool hoodStuck =
+      m_intakeMachine.Is(IntakePhase_::CLEARING_HOOD) && intakeTime > kHoodClearWarnSeconds;
+  const bool slideStuck =
+      m_intakeMachine.Is(IntakePhase_::DEPLOYING) && intakeTime > kDeployWarnSeconds;
   const bool spinStuck =
-      ShotPhase() == "SPINNING_UP" && m_shotMachine.StateTime() > kSpinUpWarnSeconds;
+      m_shotMachine.Is(ShotPhase_::SPINNING_UP) && m_shotMachine.StateTime() > kSpinUpWarnSeconds;
   m_hoodStuckAlert.Set(hoodStuck);
   m_slideStuckAlert.Set(slideStuck);
   m_spinUpAlert.Set(spinStuck);
@@ -253,21 +249,17 @@ void Superstructure::Periodic() {
   m_noShotAlert.Set((IsShooting() || IsRevving()) && !ShotDistanceValid());
   m_shooterPivot.SetTrenchOverride(IsInTrenchApproachZone());
   m_ready = ReadyToShoot();
-  for (std::size_t i = 0; i < kInputs.size(); ++i) {
-    const auto v = Signal(kInputs[i]);
-    m_inputLogs[i]->Set(std::holds_alternative<bool>(v) && std::get<bool>(v));
-  }
   // The auto's one-loop requests are used up (the operator's are replaced every loop).
   m_autoIntake = m_autoStow = m_stopAll = false;
-  m_shooterModeLog.Set(ToString(m_shooterMode));
-  m_intakeModeLog.Set(ToString(m_intakeMode));
+  m_shooterModeLog.Set(m_shooterMachine.StateName());
+  m_intakeModeLog.Set(m_intakeModeMachine.StateName());
   m_velMultiplierLog.Set(m_velMultiplier);
   m_targetLog.Set(m_target);
-  m_readyFlywheelLog.Set(m_shooter.RequestedVelocity() > 0 && m_shooter.ReachedVelocity());
+  m_readyFlywheelLog.Set(FlywheelReady());
   m_readyPivotLog.Set(m_shooterPivot.ReachedPosition());
   m_readyAimedLog.Set(Aimed());
   m_readyLog.Set(m_ready);
-  m_feedAllowedLog.Set(m_ready && ShotPhase() == "FEEDING");
+  m_feedAllowedLog.Set(m_ready && m_shotMachine.Is(ShotPhase_::FEEDING));
   ApplyOutputs();
   logging::LoggedTracer::Record("Superstructure");
 }
@@ -286,55 +278,6 @@ bool Superstructure::TargetRedHub() const {
 }
 
 bool Superstructure::IsRobotTopHalf() const { return m_robotPoseSupplier().Y().value() > 4; }
-
-mayhem::SignalValue Superstructure::Signal(std::string_view key) const {
-  if (key == "enabled")
-    return frc::DriverStation::IsEnabled();
-  if (key == "stopAll")
-    return m_stopAll && !m_settling;
-  if (key == "shootHeld")
-    return m_operator.shootHeld;
-  if (key == "autoShooting")
-    return m_autoShooting;
-  if (key == "intakePressed")
-    return m_operator.intakePressed && !m_settling;
-  if (key == "autoIntake")
-    return m_autoIntake && !m_settling;
-  if (key == "autoStow")
-    return m_autoStow && !m_settling;
-  if (key == "jitterHeld")
-    return m_operator.jitterHeld;
-  if (key == "deployPressed")
-    return m_operator.deployPressed && !m_settling;
-  if (key == "outtakeHeld")
-    return m_operator.outtakeHeld;
-  if (key == "inAllianceZone")
-    return m_inAllianceZone;
-  if (key == "ready")
-    return ReadyToShoot();
-  if (key == "flywheelReady")
-    return m_shooter.RequestedVelocity() > 0 && m_shooter.ReachedVelocity();
-  if (key == "pivotReady")
-    return m_shooterPivot.ReachedPosition();
-  if (key == "aimed")
-    return Aimed();
-  if (key == "trench")
-    return IsInTrenchApproachZone();
-  if (key == "deploy")
-    return NeedsExtension();
-  if (key == "jitterDemand")
-    return IsJittering();
-  if (key == "hoodClear")
-    return !m_linearSlide.AtPosition() ||
-           (m_shooterPivot.RequestedPosition() >= kIntakeHoodPosition - .005 &&
-            m_shooterPivot.ReachedPosition());
-  if (key == "slideDeployed")
-    return m_linearSlide.Inputs().leftMotorPosition >= .80 &&
-           m_linearSlide.Inputs().rightMotorPosition >= .80;
-  if (key == "shotDemand")
-    return IsShooting();
-  return {};
-}
 
 void Superstructure::AddShootMultiplier(double amt) {
   if (frc::DriverStation::IsEnabled()) {
