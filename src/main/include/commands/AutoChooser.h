@@ -9,17 +9,29 @@
 
 #include <functional>
 #include <map>
-#include <optional>
+#include <memory>
 #include <string>
 #include <vector>
 
-#include <frc2/command/CommandPtr.h>
 #include <wpi/sendable/Sendable.h>
 #include <wpi/sendable/SendableHelper.h>
 
 /**
- * Dashboard chooser for autonomous routines. The selected routine's command is built while
- * disabled (so the first autonomous loop does not pay for it) and run as a proxy.
+ * An autonomous routine. RobotContainer calls Start() when autonomous is enabled, Periodic() every
+ * autonomous loop after that (starting with the same loop as Start()), and Stop() when autonomous
+ * ends. While a routine runs, it owns the drivetrain.
+ */
+class AutoRoutine {
+ public:
+  virtual ~AutoRoutine() = default;
+  virtual void Start() = 0;
+  virtual void Periodic() = 0;
+  virtual void Stop() = 0;
+};
+
+/**
+ * Dashboard chooser for autonomous routines. The selected routine is built while disabled (so the
+ * first autonomous loop does not pay for it).
  */
 class AutoChooser : public wpi::Sendable, public wpi::SendableHelper<AutoChooser> {
  public:
@@ -28,25 +40,27 @@ class AutoChooser : public wpi::Sendable, public wpi::SendableHelper<AutoChooser
   AutoChooser();
 
   /** Adds an option; {@code generator} runs only when this option is selected. */
-  AutoChooser& AddCmd(const std::string& name, std::function<frc2::CommandPtr()> generator);
+  AutoChooser& AddRoutine(const std::string& name,
+                          std::function<std::unique_ptr<AutoRoutine>()> generator);
   /** Selects an option by name, as the dashboard would. Unknown names are ignored. */
   void Select(const std::string& name);
   const std::string& Selected() const { return m_selected; }
   std::vector<std::string> Options() const { return m_order; }
-  /** The command for the selected option, generating it if the selection changed. */
-  frc2::Command* SelectedCommand();
-  /** Runs the selected auto as a proxy; bind it to RobotModeTriggers::Autonomous().WhileTrue. */
-  frc2::CommandPtr SelectedCommandScheduler();
+  /**
+   * The routine for the selected option, building it if the selection changed; null for
+   * "Nothing". Stays valid until the next call after the selection changes.
+   */
+  AutoRoutine* SelectedRoutine();
 
   void InitSendable(wpi::SendableBuilder& builder) override;
 
  private:
   void Build();
 
-  std::map<std::string, std::function<frc2::CommandPtr()>> m_generators;
+  std::map<std::string, std::function<std::unique_ptr<AutoRoutine>()>> m_generators;
   std::vector<std::string> m_order;
   int m_instance;
   std::string m_selected = kNoneName;
   std::string m_builtFor = kNoneName;
-  std::optional<frc2::CommandPtr> m_built;
+  std::unique_ptr<AutoRoutine> m_built;
 };

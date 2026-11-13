@@ -7,53 +7,43 @@
 
 #include "subsystems/linearslide/LinearSlideIOSim.h"
 
-#include <numbers>
-
-#include <frc/RobotController.h>
-#include <frc/TimedRobot.h>
-#include <frc/system/plant/DCMotor.h>
-
-#include "sim/SimBattery.h"
+#include "sim/PhysicsWorld.h"
 #include "sim/SimMechs.h"
 
-using namespace linear_slide;
-
-LinearSlideIOSim::LinearSlideIOSim()
-    : m_slideSim{frc::DCMotor::KrakenX44(2),
-                 sim::kGearing,
-                 sim::kMass,
-                 sim::kDrumRadius,
-                 sim::kMinLength,
-                 sim::kMaxLength,
-                 false,
-                 sim::kStartingHeight} {
-  GetRightMotor().GetSimState().Orientation =
-      ctre::phoenix6::sim::ChassisReference::Clockwise_Positive;
-  GetLeftMotor().GetSimState().Orientation =
-      ctre::phoenix6::sim::ChassisReference::CounterClockwise_Positive;
+LinearSlideIOSim::LinearSlideIOSim() {
+  auto& world = ::sim::PhysicsWorld::Get();
+  world.AttachMotor(::sim::Mechanism::kSlide, GetRightMotor(), linear_slide::RightMotorConfigs(),
+                    mayhem::sim::DcMotor::KrakenX44(), mayhem::sim::DcMotor::KrakenX44Foc());
+  world.AttachMotor(::sim::Mechanism::kSlide, GetLeftMotor(), linear_slide::LeftMotorConfigs(),
+                    mayhem::sim::DcMotor::KrakenX44(), mayhem::sim::DcMotor::KrakenX44Foc());
 }
 
 void LinearSlideIOSim::UpdateInputs(LinearSlideIOInputs& inputs) {
-  auto& right = GetRightMotor().GetSimState();
-  auto& left = GetLeftMotor().GetSimState();
-  right.SetSupplyVoltage(frc::RobotController::GetBatteryVoltage());
-  left.SetSupplyVoltage(frc::RobotController::GetBatteryVoltage());
+  const auto& world = ::sim::PhysicsWorld::Get();
+  const auto& right = world.Motor(GetRightMotor());
+  const auto& left = world.Motor(GetLeftMotor());
+  inputs.rightMotorVoltage = right.MotorVoltage();
+  inputs.rightMotorVelocity = right.Velocity();
+  inputs.rightMotorPosition = right.Position();
+  inputs.rightMotorStatorCurrent = right.StatorCurrent();
+  inputs.rightMotorSupplyCurrent = right.SupplyCurrent();
+  inputs.leftMotorVoltage = left.MotorVoltage();
+  inputs.leftMotorVelocity = left.Velocity();
+  inputs.leftMotorPosition = left.Position();
+  inputs.leftMotorStatorCurrent = left.StatorCurrent();
+  inputs.leftMotorSupplyCurrent = left.SupplyCurrent();
+  m_positionLog.Set(world.SlideExtension());
+  SimMechs::GetInstance().UpdateLinearSlide(units::meter_t{world.SlideExtension()});
+}
 
-  m_slideSim.SetInputVoltage((right.GetMotorVoltage() + left.GetMotorVoltage()) / 2.0);
-  m_slideSim.Update(frc::TimedRobot::kDefaultPeriod);
+void LinearSlideIOSim::ResetPosition(double angle) {
+  LinearSlideIOTalonFX::ResetPosition(angle);
+  ::sim::PhysicsWorld::Get().SetMechanismPosition(GetRightMotor(), angle);
+  ::sim::PhysicsWorld::Get().SetMechanismPosition(GetLeftMotor(), angle);
+}
 
-  const double rotorRotationsPerMeter =
-      sim::kGearing / (2.0 * std::numbers::pi * sim::kDrumRadius.value());
-  const double rotorPosition = m_slideSim.GetPosition().value() * rotorRotationsPerMeter;
-  const double rotorVelocity = m_slideSim.GetVelocity().value() * rotorRotationsPerMeter;
-  right.SetRawRotorPosition(units::turn_t{rotorPosition});
-  right.SetRotorVelocity(units::turns_per_second_t{rotorVelocity});
-  left.SetRawRotorPosition(units::turn_t{rotorPosition});
-  left.SetRotorVelocity(units::turns_per_second_t{rotorVelocity});
-  sim_battery::AddCurrent(right.GetSupplyCurrent() + left.GetSupplyCurrent());
-
-  LinearSlideIOTalonFX::UpdateInputs(inputs);
-  m_positionLog.Set(m_slideSim.GetPosition().value());
-  m_velocityLog.Set(m_slideSim.GetVelocity().value());
-  SimMechs::GetInstance().UpdateLinearSlide(m_slideSim.GetPosition());
+void LinearSlideIOSim::Zero() {
+  LinearSlideIOTalonFX::Zero();
+  ::sim::PhysicsWorld::Get().SetMechanismPosition(GetRightMotor(), 0);
+  ::sim::PhysicsWorld::Get().SetMechanismPosition(GetLeftMotor(), 0);
 }

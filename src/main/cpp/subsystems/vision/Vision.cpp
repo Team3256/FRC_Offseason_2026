@@ -27,7 +27,7 @@ Vision::Camera::Camera(size_t index, std::unique_ptr<VisionIO> io_)
       rejectedLog{"Vision/Camera" + std::to_string(index) + "/RobotPosesRejected"} {}
 
 Vision::Vision(VisionConsumer consumer, std::vector<std::unique_ptr<VisionIO>> io)
-    : frc2::SubsystemBase("Vision"), m_consumer{std::move(consumer)} {
+    : m_consumer{std::move(consumer)} {
   m_cameras.reserve(io.size());
   for (size_t i = 0; i < io.size(); i++) {
     m_cameras.push_back(std::make_unique<Camera>(i, std::move(io[i])));

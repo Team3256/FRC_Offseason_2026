@@ -20,9 +20,6 @@
 #include <frc/apriltag/AprilTagFieldLayout.h>
 #include <frc/simulation/DriverStationSim.h>
 #include <frc/simulation/SimHooks.h>
-#include <frc2/command/CommandScheduler.h>
-#include <frc2/command/Commands.h>
-#include <frc2/command/SubsystemBase.h>
 #include <gtest/gtest.h>
 #include <wpi/DataLogReader.h>
 #include <wpi/MemoryBuffer.h>
@@ -87,43 +84,53 @@ TEST(UtilTest, MatchesJavaUtil) {
 }
 
 namespace {
-struct Probe {
-  frc2::CommandPtr SetVelocity(std::source_location loc = std::source_location::current()) {
-    name = DisableSubsystem::CallerName(loc);
-    return frc2::cmd::None();
-  }
-  std::string name;
-};
-
 class TestSubsystem : public DisableSubsystem {
  public:
   explicit TestSubsystem(bool enabled) : DisableSubsystem(enabled, "TestSubsystem") {}
-  frc2::CommandPtr SetVelocity(double v) {
-    return Run([this, v] { last = v; });
+  void Periodic() override {}
+  void SetVelocity(double v) {
+    if (Request()) {
+      last = v;
+    }
   }
-  frc2::CommandPtr Off() {
-    return RunOnce([this] { last = 0; });
+  void Off() {
+    if (Request() && GoalChanged()) {
+      last = 0;
+      offs++;
+    }
   }
   double last = -1;
+  int offs = 0;
 };
 }  // namespace
 
-TEST(DisableSubsystemTest, CommandsAreNamedAfterTheirFactoryMethod) {
+TEST(DisableSubsystemTest, GoalsAreNamedAfterTheirRequestMethod) {
   TestSubsystem s{true};
-  auto vel = s.SetVelocity(1);
-  auto off = s.Off();
-  EXPECT_EQ(vel.get()->GetName(), "setVelocity");
-  EXPECT_EQ(off.get()->GetName(), "off.runOnce");
-  EXPECT_TRUE(vel.get()->HasRequirement(&s));
-  frc2::CommandScheduler::GetInstance().UnregisterSubsystem(&s);
+  EXPECT_EQ(s.GoalName(), "none");
+  s.SetVelocity(1);
+  EXPECT_EQ(s.GoalName(), "setVelocity");
+  EXPECT_DOUBLE_EQ(s.last, 1);
+  s.Off();
+  EXPECT_EQ(s.GoalName(), "off");
+  EXPECT_DOUBLE_EQ(s.last, 0);
 }
 
-TEST(DisableSubsystemTest, DisabledSubsystemsReturnNoOps) {
+TEST(DisableSubsystemTest, OffOnlyReachesTheMotorsWhenTheGoalChanges) {
+  TestSubsystem s{true};
+  s.Off();
+  s.Off();
+  EXPECT_EQ(s.offs, 1);
+  s.SetVelocity(2);
+  s.Off();
+  EXPECT_EQ(s.offs, 2);
+}
+
+TEST(DisableSubsystemTest, DisabledSubsystemsIgnoreRequests) {
   TestSubsystem s{false};
   EXPECT_TRUE(s.disabled);
-  auto c = s.SetVelocity(3);
-  EXPECT_FALSE(c.get()->HasRequirement(&s));
-  frc2::CommandScheduler::GetInstance().UnregisterSubsystem(&s);
+  s.SetVelocity(3);
+  EXPECT_DOUBLE_EQ(s.last, -1);
+  EXPECT_EQ(s.GoalName(), "none");
 }
 
 // ------------------------------------------------------------------------------- field / vision
@@ -213,7 +220,6 @@ TEST(VisionTest, RejectsBadObservationsAndScalesStdDevs) {
   EXPECT_NEAR(got[0].sd[2], vision::kAngularStdDevBaseline * 2.0, 1e-12);
   EXPECT_NEAR(got[1].sd[0], vision::kLinearStdDevBaseline * 9.0 * 1.3, 1e-12);
   EXPECT_NEAR(got[1].pose.X().value(), 5.0, 1e-12);
-  frc2::CommandScheduler::GetInstance().UnregisterSubsystem(&v);
 }
 
 TEST(VisionTest, SimulatedCameraSeesTagsInItsFieldOfView) {

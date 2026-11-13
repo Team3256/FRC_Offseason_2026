@@ -22,7 +22,6 @@ ShooterPivot::ShooterPivot(bool enabled, std::unique_ptr<ShooterPivotIO> io)
 }
 
 void ShooterPivot::Periodic() {
-  DisableSubsystem::Periodic();
   m_io->UpdateInputs(m_inputs);
   m_inputsLog.Publish();
   m_reqPositionLog.Set(m_reqPosition);
@@ -32,34 +31,29 @@ void ShooterPivot::Periodic() {
   logging::LoggedTracer::Record("ShooterPivot");
 }
 
-frc2::CommandPtr ShooterPivot::SetPosition(double position) {
-  return SetPosition([position] { return position; });
+void ShooterPivot::SetPosition(double position) {
+  if (Request()) {
+    m_reqPosition = m_trenchOverride ? 0.0 : position;
+    m_io->SetPosition(m_reqPosition, m_hoodVel);
+  }
 }
 
-frc2::CommandPtr ShooterPivot::SetPosition(std::function<double()> position) {
-  return Run([this, position = std::move(position)] {
-           m_reqPosition = m_trenchOverride ? 0.0 : position();
-           m_io->SetPosition(m_reqPosition, m_hoodVel);
-         })
-      .FinallyDo([this] { m_io->Off(); });
+void ShooterPivot::SetVoltage(double voltage) {
+  if (Request()) {
+    m_io->SetVoltage(voltage);
+  }
 }
 
-frc2::CommandPtr ShooterPivot::SetVoltage(double voltage) {
-  return Run([this, voltage] { m_io->SetVoltage(voltage); });
+void ShooterPivot::Off() {
+  if (Request() && GoalChanged()) {
+    m_io->Off();
+  }
 }
 
-frc2::CommandPtr ShooterPivot::Off() {
-  return RunOnce([this] { m_io->Off(); }).WithName("off");
-}
+void ShooterPivot::ShootHub(double distance) { SetPosition(shooter_pivot::kHubLUT.Get(distance)); }
 
-frc2::CommandPtr ShooterPivot::ShootHub(std::function<double()> distance) {
-  return SetPosition(
-      [distance = std::move(distance)] { return shooter_pivot::kHubLUT.Get(distance()); });
-}
-
-frc2::CommandPtr ShooterPivot::FeedCorner(std::function<double()> distance) {
-  return SetPosition(
-      [distance = std::move(distance)] { return shooter_pivot::kFeedLUT.Get(distance()); });
+void ShooterPivot::FeedCorner(double distance) {
+  SetPosition(shooter_pivot::kFeedLUT.Get(distance));
 }
 
 bool ShooterPivot::ReachedPosition() const {

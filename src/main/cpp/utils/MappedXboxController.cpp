@@ -13,8 +13,8 @@
 #include <wpi/json.h>
 
 double MappedXboxController::GetTriggerAxes() {
-  double left = GetHID().GetLeftTriggerAxis();
-  double right = GetHID().GetRightTriggerAxis();
+  double left = GetLeftTriggerAxis();
+  double right = GetRightTriggerAxis();
   if (left != 0 && right == 0) {
     return -left;
   }

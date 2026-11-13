@@ -19,7 +19,7 @@
 #include "commands/MayhemAutos.h"
 #include "utils/RobotAlerts.h"
 
-using SS = Superstructure::StructureState;
+using ShooterMode = Superstructure::ShooterMode;
 
 namespace {
 std::vector<std::string> ActiveAlerts(const char* kind) {
@@ -123,7 +123,7 @@ TEST(RobotAlertsTest, ControllerBrownoutCanOverrunAndAutoSelection) {
 
 TEST(FeatureSimTest, EveryDeviceIsWatchedAndHealthyInSimulation) {
   RobotHarness h;
-  h.Step(30);
+  h.StepWallClock(30);  // Phoenix's simulated devices come up on the wall clock
   // 13 mechanism TalonFXs, 4 swerve modules x (drive, steer, CANcoder), and the Pigeon 2.
   EXPECT_EQ(phoenix_util::WatchedDeviceCount(), 26u);
   EXPECT_EQ(phoenix_util::DisconnectedDeviceCount(), 0);
@@ -184,17 +184,16 @@ TEST(FeatureSimTest, AutoPreviewShowsTheSelectedRoutineForEachAlliance) {
 
 TEST(FeatureSimTest, ReadyToShootLightsUpWhileShooting) {
   RobotHarness h;
-  // Midfield (outside the hub zone, so nothing revs until SHOOT), feeding a corner.
+  // Midfield (outside the hub zone, so nothing revs until A is held), feeding a corner.
   h.C().GetDrivetrain().ResetPose(frc::Pose2d{8.0_m, 2.0_m, frc::Rotation2d{}});
   h.Step(5);
   h.Teleop();
   h.Step(5);
   auto& ss = h.C().GetSuperstructure();
-  EXPECT_EQ(ss.GetState(), SS::IDLE);
+  EXPECT_EQ(ss.GetShooterMode(), ShooterMode::OFF);
   EXPECT_FALSE(ss.IsReadyToShoot()) << "flywheel is off";
-  h.Driver().SetAButton(true);
-  h.Step();
-  h.Driver().SetAButton(false);
+  h.Driver().SetAButton(true);  // shoots while held
   EXPECT_TRUE(h.StepUntil([&] { return ss.IsReadyToShoot(); }, 150));
-  EXPECT_EQ(ss.GetState(), SS::SHOOT);
+  EXPECT_EQ(ss.GetShooterMode(), ShooterMode::SHOOTING);
+  h.Driver().SetAButton(false);
 }

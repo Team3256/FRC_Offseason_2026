@@ -200,3 +200,6 @@ logs/
 # clangd
 .cache/
 compile_commands.json
+
+# Monte Carlo runs (tools/sim/montecarlo.sh)
+sim-runs/

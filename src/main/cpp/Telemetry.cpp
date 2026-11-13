@@ -31,7 +31,7 @@ Telemetry::Telemetry(double maxSpeed) : m_maxSpeed{maxSpeed} {
   }
 }
 
-void Telemetry::Telemeterize(const subsystems::CommandSwerveDrivetrain::SwerveDriveState& state) {
+void Telemetry::Telemeterize(const subsystems::Drivetrain::SwerveDriveState& state) {
   /* Telemeterize the swerve drive state */
   m_drivePose.Set(state.Pose);
   m_driveSpeeds.Set(state.Speeds);

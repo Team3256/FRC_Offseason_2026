@@ -22,44 +22,70 @@ class Hooks : public mayhem::RobotHooks {
   int transitions = 0;
 };
 }  // namespace
-TEST(MayhemSuiteTest, SupervisorPrioritizesIntentAndPreservesShootingAcrossZones) {
+TEST(MayhemSuiteTest, ShooterModeShootsWhileHeldAndRevsInTheZone) {
   Hooks h;
-  for (const auto& key :
-       {"enabled", "poseValid", "cancel", "home", "outtake", "shoot", "intake", "jitter", "rev"})
+  for (const auto& key : {"stopAll", "shootHeld", "autoShooting", "outtakeHeld", "inAllianceZone"})
     h.inputs[key] = false;
   h.inputs["enabled"] = true;
-  h.inputs["poseValid"] = true;
-  mayhem::StateMachine machine(mayhem_generated::Superstructure::machine,
+  mayhem::StateMachine machine(mayhem_generated::ShooterMode::machine,
                                [&](std::string_view key) { return h.Signal(key); });
   ASSERT_TRUE(machine.Valid());
-  auto tick = [&] {
+  auto set = [&](const char* key, bool v) {
+    h.inputs[key] = v;
     machine.Tick(.02);
-    h.state = machine.State();
+    machine.Tick(.02);  // settle
+    return machine.State();
   };
-  h.inputs["intake"] = true;
-  tick();
-  EXPECT_EQ(h.state, "INTAKE");
-  h.inputs["shoot"] = true;
-  tick();
-  EXPECT_EQ(h.state, "SHOOT_AND_INTAKE");
-  h.inputs["rev"] = true;
-  tick();
-  EXPECT_EQ(h.state, "SHOOT_AND_INTAKE");
-  h.inputs["outtake"] = true;
-  tick();
-  EXPECT_EQ(h.state, "OUTTAKE");
-  h.inputs["cancel"] = true;
-  tick();
-  EXPECT_EQ(h.state, "CANCEL_ALL");
-  h.inputs["enabled"] = false;
-  tick();
-  EXPECT_EQ(h.state, "IDLE");
-  h.inputs["enabled"] = true;
-  h.inputs["cancel"] = false;
-  h.inputs["poseValid"] = false;
-  tick();
-  EXPECT_EQ(h.state, "CANCEL_ALL");
+  EXPECT_EQ(set("shootHeld", true), "SHOOTING");
+  EXPECT_EQ(set("inAllianceZone", true), "SHOOTING");  // the zone never interrupts a shot
+  EXPECT_EQ(set("shootHeld", false), "REV");
+  EXPECT_EQ(set("autoShooting", true), "SHOOTING");
+  EXPECT_EQ(set("outtakeHeld", true), "REV");  // outtaking stops the shot
+  EXPECT_EQ(set("outtakeHeld", false), "SHOOTING");
+  EXPECT_EQ(set("autoShooting", false), "REV");
+  EXPECT_EQ(set("inAllianceZone", false), "OFF");
+  EXPECT_EQ(set("inAllianceZone", true), "REV");
+  EXPECT_EQ(set("enabled", false), "OFF");  // no rev while disabled
 }
+
+TEST(MayhemSuiteTest, IntakeModeTogglesAndHolds) {
+  Hooks h;
+  for (const auto& key : {"stopAll", "intakePressed", "autoIntake", "autoStow", "jitterHeld",
+                          "deployPressed", "outtakeHeld"})
+    h.inputs[key] = false;
+  h.inputs["enabled"] = true;
+  mayhem::StateMachine machine(mayhem_generated::IntakeMode::machine,
+                               [&](std::string_view key) { return h.Signal(key); });
+  ASSERT_TRUE(machine.Valid());
+  // A press is an input for one tick; a hold stays until released.
+  auto press = [&](const char* key) {
+    h.inputs[key] = true;
+    machine.Tick(.02);
+    h.inputs[key] = false;
+    machine.Tick(.02);
+    return machine.State();
+  };
+  auto hold = [&](const char* key, bool v) {
+    h.inputs[key] = v;
+    machine.Tick(.02);
+    return machine.State();
+  };
+  EXPECT_EQ(press("intakePressed"), "INTAKING");
+  EXPECT_EQ(press("intakePressed"), "STOWED");
+  EXPECT_EQ(press("autoIntake"), "INTAKING");
+  EXPECT_EQ(hold("jitterHeld", true), "JITTERING");
+  EXPECT_EQ(hold("jitterHeld", false), "INTAKING");
+  EXPECT_EQ(press("deployPressed"), "DEPLOYED");
+  EXPECT_EQ(press("deployPressed"), "STOWED");
+  EXPECT_EQ(hold("outtakeHeld", true), "OUTTAKING");
+  EXPECT_EQ(press("intakePressed"), "OUTTAKING");  // outtaking wins while held
+  EXPECT_EQ(hold("outtakeHeld", false), "STOWED");
+  EXPECT_EQ(press("intakePressed"), "INTAKING");
+  EXPECT_EQ(press("autoStow"), "STOWED");
+  EXPECT_EQ(press("intakePressed"), "INTAKING");
+  EXPECT_EQ(hold("enabled", false), "STOWED");
+}
+
 TEST(MayhemSuiteTest, IntakeGraphClearsTheHoodBeforeTheSlideMoves) {
   Hooks h;
   h.inputs = {{"enabled", true},

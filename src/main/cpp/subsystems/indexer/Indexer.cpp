@@ -16,22 +16,27 @@ Indexer::Indexer(bool enabled, std::unique_ptr<RollerPairIO> io)
 }
 
 void Indexer::Periodic() {
-  DisableSubsystem::Periodic();
   m_io->UpdateInputs(m_inputs);
   m_inputsLog.Publish();
   logging::LoggedTracer::Record("Indexer");
 }
 
-frc2::CommandPtr Indexer::SetVoltage(double voltage) {
-  return Run([this, voltage] { m_io->SetVoltage(voltage); }).FinallyDo([this] { m_io->Off(); });
+void Indexer::SetVoltage(double voltage) {
+  if (Request()) {
+    m_io->SetVoltage(voltage);
+  }
 }
 
-frc2::CommandPtr Indexer::SetVelocity(double velocity) {
-  return Run([this, velocity] { m_io->SetVelocity(velocity); }).FinallyDo([this] { m_io->Off(); });
+void Indexer::SetVelocity(double velocity) {
+  if (Request()) {
+    m_io->SetVelocity(velocity);
+  }
 }
 
-frc2::CommandPtr Indexer::Off() {
-  return RunOnce([this] { m_io->Off(); });
+void Indexer::Off() {
+  if (Request() && GoalChanged()) {
+    m_io->Off();
+  }
 }
 
-frc2::CommandPtr Indexer::SetIndexVel() { return SetVelocity(indexer::kIndexerVelocity); }
+void Indexer::SetIndexVel() { SetVelocity(indexer::kIndexerVelocity); }

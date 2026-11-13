@@ -7,18 +7,20 @@
 
 #pragma once
 
-#include <frc/simulation/ElevatorSim.h>
-
 #include "logging/Logger.h"
 #include "subsystems/linearslide/LinearSlideIOTalonFX.h"
 
+/**
+ * Simulated slide: the real TalonFX IO, both motors and the slide (rack plates, hopper and roller
+ * on a 12 degree rack) simulated on sim::PhysicsWorld.
+ */
 class LinearSlideIOSim : public LinearSlideIOTalonFX {
  public:
   LinearSlideIOSim();
   void UpdateInputs(LinearSlideIOInputs& inputs) override;
+  void ResetPosition(double angle) override;
+  void Zero() override;
 
  private:
-  frc::sim::ElevatorSim m_slideSim;
   logging::Output<double> m_positionLog{"LinearSlideSim/positionMeters"};
-  logging::Output<double> m_velocityLog{"LinearSlideSim/velocityMetersPerSecond"};
 };

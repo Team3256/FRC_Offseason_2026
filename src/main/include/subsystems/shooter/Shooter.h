@@ -7,11 +7,7 @@
 
 #pragma once
 
-#include <functional>
 #include <memory>
-
-#include <frc2/command/CommandPtr.h>
-#include <frc2/command/button/Trigger.h>
 
 #include "logging/Logger.h"
 #include "subsystems/shooter/ShooterIO.h"
@@ -23,20 +19,19 @@ class Shooter : public DisableSubsystem {
 
   void Periodic() override;
 
-  frc2::CommandPtr SetVoltage(double voltage);
-  frc2::CommandPtr SetVelocity(double velocity);
-  frc2::CommandPtr SetVelocity(std::function<double()> velocity);
-  frc2::CommandPtr ShootHub(std::function<double()> distance,
-                            std::function<double()> velMultiplier);
-  frc2::CommandPtr FeedCorner(std::function<double()> distance);
-  frc2::CommandPtr Off();
+  // Requests: call every loop the request should hold.
+  void SetVoltage(double voltage);
+  void SetVelocity(double velocity);
+  /** Hub shot: speed from the hub table at {@code distance} [m], times {@code velMultiplier}. */
+  void ShootHub(double distance, double velMultiplier);
+  /** Feed shot to a corner: speed from the feed table at {@code distance} [m]. */
+  void FeedCorner(double distance);
+  void Off();
 
   /** Leader flywheel within 5 rot/s of the requested speed. */
   bool ReachedVelocity() const;
   double RequestedVelocity() const { return m_reqVelocity; }
   const ShooterIOInputs& Inputs() const { return m_inputs; }
-
-  frc2::Trigger reachedVelocity{[this] { return ReachedVelocity(); }};
 
  private:
   std::unique_ptr<ShooterIO> m_io;

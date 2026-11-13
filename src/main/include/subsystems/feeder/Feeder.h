@@ -9,8 +9,6 @@
 
 #include <memory>
 
-#include <frc2/command/CommandPtr.h>
-
 #include "logging/Logger.h"
 #include "subsystems/rollers/RollerPairIO.h"
 #include "utils/DisableSubsystem.h"
@@ -21,11 +19,12 @@ class Feeder : public DisableSubsystem {
 
   void Periodic() override;
 
-  frc2::CommandPtr SetVoltage(double voltage);
-  frc2::CommandPtr SetVelocity(double velocity);
-  frc2::CommandPtr Off();
-  frc2::CommandPtr SetFeedVel();
-  frc2::CommandPtr Outtake();
+  // Requests: call every loop the request should hold.
+  void SetVoltage(double voltage);
+  void SetVelocity(double velocity);
+  void Off();
+  void SetFeedVel();
+  void Outtake();
   const RollerPairInputs& Inputs() const { return m_inputs; }
 
  private:

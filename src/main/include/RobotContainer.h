@@ -27,8 +27,9 @@
 #include "subsystems/shooter/Shooter.h"
 #include "subsystems/shooterpivot/ShooterPivot.h"
 #include "subsystems/sotm/ShotCalculator.h"
-#include "subsystems/swerve/CommandSwerveDrivetrain.h"
+#include "subsystems/swerve/Drivetrain.h"
 #include "subsystems/vision/Vision.h"
+#include "utils/EdgeDetector.h"
 #include "utils/MappedXboxController.h"
 
 class RobotContainer {
@@ -36,14 +37,24 @@ class RobotContainer {
   RobotContainer();
   ~RobotContainer();
 
-  /** Call at the very start of each robot loop (before the scheduler runs). */
+  /** Call at the very start of each robot loop. */
   void BeginLoop();
-  /** Call after the scheduler has run. */
+  /**
+   * The whole robot loop: mechanism inputs, driver buttons, autonomous, drivetrain control, then
+   * the superstructure's state machines and mechanism outputs.
+   */
   void Periodic();
+
+  /** How the driver is driving (the button pressed last wins; releasing it goes back to kNormal).
+   */
+  enum class DriveMode { kNormal, kSlow, kSuperSlow, kAim };
+  DriveMode GetDriveMode() const { return m_driveMode; }
+  /** True while an autonomous routine runs (it owns the drivetrain). */
+  bool IsAutoRunning() const { return m_runningAuto != nullptr; }
 
   // Accessors for tests and simulation tooling.
   Superstructure& GetSuperstructure() { return m_superstructure; }
-  subsystems::CommandSwerveDrivetrain& GetDrivetrain() { return m_drivetrain; }
+  subsystems::Drivetrain& GetDrivetrain() { return m_drivetrain; }
   ShotCalculator& GetShotCalculator() { return m_shotCalculator; }
   Shooter& GetShooter() { return m_shooter; }
   ShooterPivot& GetShooterPivot() { return m_shooterPivot; }
@@ -65,8 +76,15 @@ class RobotContainer {
 
  private:
   void ConfigureMayhemAutoChooser();
-  void ConfigureOperatorBinds();
   void ConfigureSwerve();
+  /** Reads every driver button into its edge detector. */
+  void SampleDriverButtons();
+  /** Driver button presses: superstructure requests, shot multiplier, drive mode, gyro reset. */
+  void UpdateDriverButtons();
+  /** Starts, runs and stops the selected routine with autonomous mode. */
+  void UpdateAutonomous();
+  /** Driver drive control, unless an autonomous routine owns the drivetrain. */
+  void UpdateDrive();
   /** Draws the selected auto on the field while disabled and reports how far off its start the
    * robot is. */
   void UpdateAutoPreview();
@@ -93,7 +111,7 @@ class RobotContainer {
   Feeder m_feeder;
   Indexer m_indexer;
 
-  subsystems::CommandSwerveDrivetrain m_drivetrain;
+  subsystems::Drivetrain m_drivetrain;
 
   static inline const frc::Transform2d kRobotToShooterTransform{0_m, 0_m, frc::Rotation2d{}};
 
@@ -115,6 +133,13 @@ class RobotContainer {
   logging::Output<bool> m_autoAtStartLog{"Auto/AtStartPose"};
 
   Superstructure m_superstructure;
+
+  AutoRoutine* m_runningAuto = nullptr;
+  bool m_autoEnabled = false;
+  DriveMode m_driveMode = DriveMode::kNormal;
+  EdgeDetector m_aButton, m_bButton, m_xButton, m_yButton, m_leftTrigger, m_leftBumper,
+      m_rightBumper, m_povUp, m_povDown, m_povRight;
+  logging::Output<std::string> m_driveModeLog{"Drive/Mode"};
 
   ctre::phoenix6::swerve::requests::FieldCentric m_drive;
   ctre::phoenix6::swerve::requests::FieldCentricFacingAngle m_azimuth;

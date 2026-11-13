@@ -10,8 +10,6 @@
 #include <atomic>
 
 #include <frc/DriverStation.h>
-#include <frc2/command/Commands.h>
-#include <frc2/command/ProxyCommand.h>
 #include <wpi/sendable/SendableBuilder.h>
 #include <wpi/sendable/SendableRegistry.h>
 
@@ -22,14 +20,13 @@ std::atomic<int> g_instances{0};
 }  // namespace
 
 AutoChooser::AutoChooser() : m_instance{g_instances.fetch_add(1)} {
-  m_generators[kNoneName] = [] { return frc2::cmd::None().WithName(kNoneName); };
+  m_generators[kNoneName] = [] { return nullptr; };
   m_order.push_back(kNoneName);
-  m_built.emplace(frc2::cmd::None().WithName(kNoneName));
   wpi::SendableRegistry::Add(this, "AutoChooser", m_instance);
 }
 
-AutoChooser& AutoChooser::AddCmd(const std::string& name,
-                                 std::function<frc2::CommandPtr()> generator) {
+AutoChooser& AutoChooser::AddRoutine(const std::string& name,
+                                     std::function<std::unique_ptr<AutoRoutine>()> generator) {
   if (!m_generators.contains(name)) {
     m_order.push_back(name);
   }
@@ -48,19 +45,15 @@ void AutoChooser::Select(const std::string& name) {
   }
 }
 
-frc2::Command* AutoChooser::SelectedCommand() {
+AutoRoutine* AutoChooser::SelectedRoutine() {
   Build();
-  return m_built->get();
-}
-
-frc2::CommandPtr AutoChooser::SelectedCommandScheduler() {
-  return frc2::cmd::Defer([this] { return frc2::ProxyCommand(SelectedCommand()).ToPtr(); }, {})
-      .WithName("AutoChooser");
+  return m_built.get();
 }
 
 void AutoChooser::Build() {
   if (m_selected != m_builtFor) {
-    m_built.emplace(m_generators[m_selected]());
+    m_built.reset();  // first: routines publish to the same NT/log entries
+    m_built = m_generators[m_selected]();
     m_builtFor = m_selected;
   }
 }

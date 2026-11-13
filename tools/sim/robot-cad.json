@@ -1,0 +1,97 @@
+{
+  "_comment": "AdvantageScope robot asset from the Onshape export (00.Main.glb, exported stowed): uv run tools/sim/cad-to-advantagescope.py 00.Main.glb tools/sim/robot-cad.json --out <AdvantageScope assets folder>. CAD frame: z up, robot front (intake) is CAD -y, frame centre at CAD x=y=0, carpet at z=0. Joint axes and origins are in the robot frame (x forward, y left, z up). Components are logged in this order as RealOutputs/Sim/Components (sim/PhysicsWorld.cpp).",
+  "name": "3256 2026",
+  "frame": {
+    "forward": "-y",
+    "up": "+z",
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "floor": 0
+  },
+  "units": 1.0,
+  "drop": [
+    "(?i)SHCS|BHCS|screw|locknut|\\bnut\\b|washer|rivet|snapring|bearing|bushing|spacer|standoff",
+    "Origin Cube",
+    "MAXPlanetary",
+    "^00\\.Main/occurrence of /",
+    "^00\\.Main/occurrence of _"
+  ],
+  "targetMB": 28,
+  "components": [
+    {
+      "name": "Intake slide",
+      "_comment": "Two rack plates (driven out by pinions under them), the hopper on them and the main roller at their ends. Onshape planar mate: 0.309 m of travel; the rack is inclined 12 deg down toward the front. The real hopper was cut down after this CAD: clipped to 0.555 m (just under the trench).",
+      "match": [
+        "0200_Intake_Assembly.*(0203_Main_Plate_Inside|0204_Main_Plate|0208_Beater_Bar|0209_Main_Roller|0210_32T|0211_Hopper_Front|0213_x60_Spacer|0214_x60_Spacer|0222_Hopper_Side|0223_Hopper_Mounting_Front|0224_Hopper_Mounting_Side|Stub Shaft|16t Aluminum Pulley|60T HTD Belt|Tube Plug|Nut Strip|Kraken X60)"
+      ],
+      "joint": {
+        "type": "prismatic",
+        "axis": [
+          0.9782,
+          0,
+          -0.2079
+        ]
+      },
+      "clip": {
+        "maxZ": 0.555
+      }
+    },
+    {
+      "name": "Hood",
+      "_comment": "ShooterPivot: the pivot frame (main shooter roller at the back, two mini rollers at the front) about the main roller axle (team-confirmed). Axis -y: a positive angle raises the front rollers.",
+      "match": [
+        "0400_Shooter_Assembly.*(0406_|0407_|0408_|0409_|0411_|0412_|0413_|0417_|0418_)"
+      ],
+      "joint": {
+        "type": "revolute",
+        "axis": [
+          0,
+          -1,
+          0
+        ],
+        "origin": [
+          -0.283,
+          0,
+          0.494
+        ]
+      }
+    },
+    {
+      "name": "Kicker bar",
+      "_comment": "Frame-mounted arms and two 22 in bars, exported deployed. Onshape revolute: 0 (deployed) to 72 deg folded up.",
+      "match": [
+        "0200_Intake_Assembly.*(0218_Kicker_Bar_Arm|0217_)"
+      ],
+      "joint": {
+        "type": "revolute",
+        "axis": [
+          0,
+          -1,
+          0
+        ],
+        "origin": [
+          0.1525,
+          0,
+          0.0825
+        ]
+      }
+    }
+  ],
+  "dropOutside": {
+    "min": [
+      -0.5,
+      -0.5,
+      -0.05
+    ],
+    "max": [
+      0.5,
+      0.5,
+      0.8
+    ]
+  },
+  "dropBelowFloor": 0.01,
+  "quadric": true
+}

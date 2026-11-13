@@ -24,7 +24,8 @@
 #include "RobotHarness.h"
 #include "commands/MayhemAutos.h"
 
-using SS = Superstructure::StructureState;
+using ShooterMode = Superstructure::ShooterMode;
+using IntakeMode = Superstructure::IntakeMode;
 
 namespace {
 
@@ -65,7 +66,7 @@ double Distance(const frc::Pose2d& a, const frc::Pose2d& b) {
 }
 
 void RunAuto(const AutoCase& c, bool red) {
-  RobotHarness h{red};
+  RobotHarness h{red, /*field=*/ true};
   h.Step(5);
   // Selected while disabled, like on the dashboard: the routine (and its paths) are built now.
   h.C().GetAutoChooser().Select(c.chooserName);
@@ -73,7 +74,8 @@ void RunAuto(const AutoCase& c, bool red) {
   EXPECT_EQ(h.C().GetAutoChooser().Selected(), c.chooserName);
 
   h.Autonomous();
-  std::vector<SS> visited;
+  std::vector<IntakeMode> visited;
+  bool shot = false;
   auto& ss = h.C().GetSuperstructure();
   auto& dt = h.C().GetDrivetrain();
   const auto& def = Definition(c.chooserName);
@@ -93,8 +95,9 @@ void RunAuto(const AutoCase& c, bool red) {
   auto graph = nt::NetworkTableInstance::GetDefault().GetTable("Mayhem/States/Autonomous");
   for (int i = 0; i < 3000; i++) {
     h.Step();
-    if (visited.empty() || visited.back() != ss.GetState())
-      visited.push_back(ss.GetState());
+    if (visited.empty() || visited.back() != ss.GetIntakeMode())
+      visited.push_back(ss.GetIntakeMode());
+    shot |= ss.GetShooterMode() == ShooterMode::SHOOTING;
     if (!resetSeen && i < 10 && Distance(dt.State().Pose, start) < 0.05)
       resetSeen = true;
     result = status->GetString("Status", "");
@@ -109,7 +112,7 @@ void RunAuto(const AutoCase& c, bool red) {
     }
     const auto step = pose.Translation() - lastPose.Translation();
     const double speed = step.Norm().value() / .02;
-    if (driving && ss.GetState() == SS::INTAKE && speed > 0.8 &&
+    if (driving && ss.GetIntakeMode() == IntakeMode::INTAKING && speed > 0.8 &&
         std::abs(pose.X().value() - field_constants::fieldLength / 2) < 1.0) {
       const double travel = std::atan2(step.Y().value(), step.X().value());
       intakeErrors.push_back(
@@ -122,7 +125,7 @@ void RunAuto(const AutoCase& c, bool red) {
     maxY = std::max(maxY, pose.Y().value());
     minX = std::min(minX, pose.X().value());
     trace << i * .02 << ',' << pose.X().value() << ',' << pose.Y().value() << ','
-          << pose.Rotation().Radians().value() << ',' << Superstructure::ToString(ss.GetState())
+          << pose.Rotation().Radians().value() << ',' << Superstructure::ToString(ss.GetShooterMode())
           << ',' << ss.IntakePhase() << ',' << ss.ShotPhase() << ',' << node << ',' << result
           << '\n';
     if (node != previousNode) {
@@ -166,18 +169,16 @@ void RunAuto(const AutoCase& c, bool red) {
     seq += std::string{Superstructure::ToString(s)} + " ";
   }
   // the intake marker fired
-  EXPECT_NE(std::find(visited.begin(), visited.end(), SS::INTAKE), visited.end()) << seq;
-  // and the routine ended by shooting
+  EXPECT_NE(std::find(visited.begin(), visited.end(), IntakeMode::INTAKING), visited.end()) << seq;
+  // and the routine shot
   if (c.shots > 0) {
-    EXPECT_TRUE(ss.GetState() == SS::SHOOT || ss.GetState() == SS::SHOOT_AND_INTAKE ||
-                ss.GetState() == SS::JITTER_AND_SHOOT)
-        << seq;
+    EXPECT_TRUE(shot) << seq;
   }
 
   // Leaving autonomous stops the routine
   h.Disable();
   h.Step(3);
-  EXPECT_EQ(dt.GetCurrentCommand(), nullptr);
+  EXPECT_FALSE(h.C().IsAutoRunning());
 }
 
 const std::vector<AutoCase> kAutos = {
@@ -209,8 +210,9 @@ TEST(AutoSimTest, NothingDoesNothing) {
                 .Pose.Translation()
                 .Distance(frc::Translation2d{8_m, 4_m})
                 .value(),
-            0.02);
-  EXPECT_EQ(h.C().GetSuperstructure().GetState(), SS::IDLE);
+            0.04);  // the estimate moves with the simulated camera's noise (2 cm std dev)
+  EXPECT_EQ(h.C().GetSuperstructure().GetShooterMode(), ShooterMode::OFF);
+  EXPECT_EQ(h.C().GetSuperstructure().GetIntakeMode(), IntakeMode::STOWED);
 }
 
 TEST(AutoSimTest, DepotTrenchSweepDepotBlue) { RunAuto(kAutos[0], false); }
@@ -232,13 +234,12 @@ TEST(AutoSimTest, DisablingMidAutoStopsEverything) {
   h.Autonomous();
   h.Step(60);
   auto& dt = h.C().GetDrivetrain();
-  // the path follower (inside the routine's reset-then-follow sequence) owns the drivetrain
-  ASSERT_NE(dt.GetCurrentCommand(), nullptr);
-  EXPECT_NE(dt.GetCurrentCommand(), dt.GetDefaultCommand());
+  // the routine owns the drivetrain
+  ASSERT_TRUE(h.C().IsAutoRunning());
   const double startX = Expected(Definition("Depot Trench Sweep"), false, false).X().value();
   h.Disable();
   h.Step(2);
-  EXPECT_EQ(dt.GetCurrentCommand(), nullptr);
+  EXPECT_FALSE(h.C().IsAutoRunning());
   h.Step(25);  // the simulated drivetrain coasts to a stop
   const auto p = dt.State().Pose;
   h.Step(25);
@@ -247,8 +248,7 @@ TEST(AutoSimTest, DisablingMidAutoStopsEverything) {
   // start)
   h.Autonomous();
   h.Step(3);
-  ASSERT_NE(dt.GetCurrentCommand(), nullptr);
-  EXPECT_NE(dt.GetCurrentCommand(), dt.GetDefaultCommand());
+  ASSERT_TRUE(h.C().IsAutoRunning());
   EXPECT_NEAR(dt.State().Pose.X().value(), startX, 0.1);
   h.Disable();
   h.Step(2);

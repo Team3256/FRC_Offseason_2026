@@ -7,16 +7,13 @@
 
 #pragma once
 
-#include <frc/simulation/SingleJointedArmSim.h>
-
 #include "subsystems/shooterpivot/ShooterPivotIOTalonFX.h"
 
+/** Simulated hood: the real TalonFX IO, its motor and the hood simulated on sim::PhysicsWorld. */
 class ShooterPivotIOSim : public ShooterPivotIOTalonFX {
  public:
   ShooterPivotIOSim();
   void UpdateInputs(ShooterPivotIOInputs& inputs) override;
-  double SimAngleRadians() const { return m_pivotSim.GetAngle().value(); }
-
- private:
-  frc::sim::SingleJointedArmSim m_pivotSim;
+  void ResetPosition(double angle) override;
+  double SimAngleRadians() const;
 };

@@ -2,7 +2,7 @@
 #include <memory>
 #include "logging/Logger.h"
 #include "mayhem/networktables_observer.hpp"
-#include "mayhem/wpilib.hpp"
+#include "mayhem/wpilib_log.hpp"
 
 // Use the robot's existing DataLog (including USB/fallback policy) and NT4 server.
 class MayhemObserver final : public mayhem::StateObserver {

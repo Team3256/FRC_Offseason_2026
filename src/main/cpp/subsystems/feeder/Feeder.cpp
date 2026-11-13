@@ -16,24 +16,29 @@ Feeder::Feeder(bool enabled, std::unique_ptr<RollerPairIO> io)
 }
 
 void Feeder::Periodic() {
-  DisableSubsystem::Periodic();
   m_io->UpdateInputs(m_inputs);
   m_inputsLog.Publish();
   logging::LoggedTracer::Record("Feeder");
 }
 
-frc2::CommandPtr Feeder::SetVoltage(double voltage) {
-  return Run([this, voltage] { m_io->SetVoltage(voltage); }).FinallyDo([this] { m_io->Off(); });
+void Feeder::SetVoltage(double voltage) {
+  if (Request()) {
+    m_io->SetVoltage(voltage);
+  }
 }
 
-frc2::CommandPtr Feeder::SetVelocity(double velocity) {
-  return Run([this, velocity] { m_io->SetVelocity(velocity); }).FinallyDo([this] { m_io->Off(); });
+void Feeder::SetVelocity(double velocity) {
+  if (Request()) {
+    m_io->SetVelocity(velocity);
+  }
 }
 
-frc2::CommandPtr Feeder::Off() {
-  return RunOnce([this] { m_io->Off(); });
+void Feeder::Off() {
+  if (Request() && GoalChanged()) {
+    m_io->Off();
+  }
 }
 
-frc2::CommandPtr Feeder::SetFeedVel() { return SetVelocity(feeder::kFeederVelocity); }
+void Feeder::SetFeedVel() { SetVelocity(feeder::kFeederVelocity); }
 
-frc2::CommandPtr Feeder::Outtake() { return SetVelocity(feeder::kOuttakeVelocity); }
+void Feeder::Outtake() { SetVelocity(feeder::kOuttakeVelocity); }

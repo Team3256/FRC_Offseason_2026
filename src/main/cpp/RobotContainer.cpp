@@ -14,8 +14,9 @@
 #include <frc/DriverStation.h>
 #include <frc/RobotBase.h>
 #include <frc/smartdashboard/SmartDashboard.h>
-#include <frc2/command/button/RobotModeTriggers.h>
 
+#include "sim/PhysicsWorld.h"
+#include "sim/SimConstants.h"
 #include "sim/SimMechs.h"
 #include "subsystems/linearslide/LinearSlideIOSim.h"
 #include "subsystems/linearslide/LinearSlideIOTalonFX.h"
@@ -33,7 +34,6 @@
 #endif
 
 using namespace swerve_constants;
-using SS = Superstructure::StructureState;
 
 namespace {
 bool IsSim() { return frc::RobotBase::IsSimulation(); }
@@ -46,14 +46,15 @@ std::unique_ptr<Base> Choose() {
   return std::make_unique<Real>();
 }
 
-std::vector<std::unique_ptr<VisionIO>> MakeVisionIO(
-    subsystems::CommandSwerveDrivetrain& drivetrain) {
+std::vector<std::unique_ptr<VisionIO>> MakeVisionIO(subsystems::Drivetrain& drivetrain) {
   std::vector<std::unique_ptr<VisionIO>> io;
   // Only the back camera is mounted (front cameras were commented out in the Java code too).
   if (IsSim()) {
     if (constants::feature_flags::kSimulateVision) {
+      // The camera sees the robot's true pose (plus noise), not the pose estimate.
       io.push_back(std::make_unique<VisionIOSim>(
-          vision::kRobotToBackCam, [&drivetrain] { return drivetrain.State().Pose; }));
+          vision::kRobotToBackCam, [] { return sim::PhysicsWorld::Get().TruePose(); },
+          sim::PhysicsWorld::Get().GetPerturbation().visionNoise));
     } else {
       io.push_back(std::make_unique<VisionIO>());
     }
@@ -94,7 +95,9 @@ RobotContainer::RobotContainer()
                        m_shotCalculator, m_shotCalculator.GetRobotPoseSupplier()} {
   ConfigureMayhemAutoChooser();
   ConfigureSwerve();
-  ConfigureOperatorBinds();
+  // Buttons' starting state, so a button already down at startup is not a press (like a WPILib
+  // Trigger, which samples its condition when it is bound).
+  SampleDriverButtons();
   frc::SmartDashboard::PutData("Field Visualize", &m_field2d);
 
   if (IsSim()) {
@@ -107,36 +110,25 @@ void RobotContainer::ConfigureMayhemAutoChooser() {
   // automatically after regeneration, without a second hand-maintained table.
   for (const auto& definition : mayhem_generated::routines) {
     const auto* def = &definition;
-    m_mayhemAutoChooser.AddCmd(std::string{def->name}, [this, def] {
-      return suite_autos::Command(*def, m_drivetrain, m_superstructure, m_shotCalculator);
+    m_mayhemAutoChooser.AddRoutine(std::string{def->name}, [this, def] {
+      return suite_autos::Routine(*def, m_drivetrain, m_superstructure, m_shotCalculator);
     });
   }
 
   frc::SmartDashboard::PutData("Mayhem Auto Chooser", &m_mayhemAutoChooser);
-
-  // Schedule the selected Mayhem routine during autonomous.
-  frc2::RobotModeTriggers::Autonomous().WhileTrue(m_mayhemAutoChooser.SelectedCommandScheduler());
-}
-
-void RobotContainer::ConfigureOperatorBinds() {
-  m_driverController.A().OnTrue(m_superstructure.SetState(SS::SHOOT));
-  m_driverController.X().OnTrue(m_superstructure.SetState(SS::INTAKE));
-  m_driverController.Y().OnTrue(m_superstructure.SetState(SS::JITTER));
-  m_driverController.B().OnTrue(m_superstructure.SetState(SS::HOME));
-  m_driverController.LeftTrigger().OnTrue(m_superstructure.SetState(SS::OUTTAKE));
 }
 
 double RobotContainer::VxSupplier() {
-  return SquareInput(m_driverController.GetHID().GetLeftY()) * MaxSpeed;
+  return SquareInput(m_driverController.GetLeftY()) * MaxSpeed;
 }
 
 double RobotContainer::VySupplier() {
-  return SquareInput(m_driverController.GetHID().GetLeftX()) * MaxSpeed;
+  return SquareInput(m_driverController.GetLeftX()) * MaxSpeed;
 }
 
 ctre::phoenix6::swerve::requests::FieldCentric& RobotContainer::DriveRequest(double maxSpeed,
                                                                              double maxAngular) {
-  auto& hid = m_driverController.GetHID();
+  auto& hid = m_driverController;
   const frc::ChassisSpeeds assisted = m_drivetrain.ApplyTrenchAssist(
       frc::ChassisSpeeds{units::meters_per_second_t{SquareInput(hid.GetLeftY()) * maxSpeed},
                          units::meters_per_second_t{SquareInput(hid.GetLeftX()) * maxSpeed},
@@ -156,50 +148,148 @@ void RobotContainer::ConfigureSwerve() {
   m_azimuth.HeadingController.SetPID(azimuth_targets::aziKP, azimuth_targets::aziKi,
                                      azimuth_targets::aziKD);
 
-  // Default drive with trench assist.
-  m_drivetrain.SetDefaultCommand(
-      m_drivetrain.ApplyRequest([this]() -> ctre::phoenix6::swerve::requests::FieldCentric& {
-        return DriveRequest(MaxSpeed, MaxAngularRate);
-      }));
+  m_drivetrain.RegisterTelemetry([this](const subsystems::Drivetrain::SwerveDriveState& state) {
+    m_logger.Telemeterize(state);
+  });
+}
 
-  // Slow drive with trench assist.
-  m_driverController.LeftBumper().WhileTrue(
-      m_drivetrain.ApplyRequest([this]() -> ctre::phoenix6::swerve::requests::FieldCentric& {
-        return DriveRequest(SlowMaxSpeed, SlowMaxAngular);
-      }));
+void RobotContainer::SampleDriverButtons() {
+  m_aButton.Update(m_driverController.GetAButton());
+  m_bButton.Update(m_driverController.GetBButton());
+  m_xButton.Update(m_driverController.GetXButton());
+  m_yButton.Update(m_driverController.GetYButton());
+  m_leftTrigger.Update(m_driverController.GetLeftTriggerAxis() > 0.5);
+  m_leftBumper.Update(m_driverController.GetLeftBumperButton());
+  m_rightBumper.Update(m_driverController.GetRightBumperButton());
+  m_povUp.Update(m_driverController.GetPOV() == 0);
+  m_povDown.Update(m_driverController.GetPOV() == 180);
+  m_povRight.Update(m_driverController.GetPOV() == 90);
+}
 
-  // Super slow drive with trench assist.
-  m_driverController.RightBumper().WhileTrue(
-      m_drivetrain.ApplyRequest([this]() -> ctre::phoenix6::swerve::requests::FieldCentric& {
-        return DriveRequest(SuperSlowMaxSpeed, SlowMaxAngular);
-      }));
+void RobotContainer::UpdateDriverButtons() {
+  SampleDriverButtons();
 
-  m_driverController.POVUp().OnTrue(m_superstructure.AddShootMultiplier(.02));
-  m_driverController.POVDown().OnTrue(m_superstructure.AddShootMultiplier(-0.02));
+  // Presses while disabled, or during an auto, do nothing (and are not remembered for later).
+  if (!frc::DriverStation::IsEnabled() || IsAutoRunning()) {
+    m_superstructure.SetOperatorInputs({});
+  } else {
+    m_superstructure.SetOperatorInputs({.shootHeld = m_aButton.Get(),
+                                        .intakePressed = m_xButton.Rose(),
+                                        .jitterHeld = m_yButton.Get(),
+                                        .deployPressed = m_bButton.Rose(),
+                                        .outtakeHeld = m_leftTrigger.Get()});
+  }
+  if (!frc::DriverStation::IsEnabled()) {
+    m_driveMode = DriveMode::kNormal;
+    return;
+  }
 
-  m_driverController.POVRight().OnTrue(
-      m_drivetrain.RunOnce([this] { m_drivetrain.SeedFieldCentric(); }));
+  if (m_povUp.Rose()) {
+    m_superstructure.AddShootMultiplier(.02);
+  }
+  if (m_povDown.Rose()) {
+    m_superstructure.AddShootMultiplier(-0.02);
+  }
 
-  m_drivetrain.RegisterTelemetry(
-      [this](const subsystems::CommandSwerveDrivetrain::SwerveDriveState& state) {
-        m_logger.Telemeterize(state);
-      });
+  // A routine owns the drivetrain for all of autonomous: driving buttons wait for it to end.
+  if (IsAutoRunning()) {
+    m_driveMode = DriveMode::kNormal;
+    return;
+  }
+  // The most recent press wins; releasing the button that set the mode goes back to normal.
+  if ((m_driveMode == DriveMode::kSlow && m_leftBumper.Fell()) ||
+      (m_driveMode == DriveMode::kSuperSlow && m_rightBumper.Fell()) ||
+      (m_driveMode == DriveMode::kAim && m_aButton.Fell())) {
+    m_driveMode = DriveMode::kNormal;
+  }
+  if (m_leftBumper.Rose()) {
+    m_driveMode = DriveMode::kSlow;
+  }
+  if (m_rightBumper.Rose()) {
+    m_driveMode = DriveMode::kSuperSlow;
+  }
+  if (m_povRight.Rose()) {
+    m_drivetrain.SeedFieldCentric();
+    m_driveMode = DriveMode::kNormal;
+  }
+  // Held A turns to the shot (aim assist) while the driver translates.
+  if (m_aButton.Rose()) {
+    m_driveMode = DriveMode::kAim;
+  }
+}
 
-  m_driverController.A().WhileTrue(m_drivetrain.RotateToLookahead(
-      m_shotCalculator, [this] { return VxSupplier(); }, [this] { return VySupplier(); }));
+void RobotContainer::UpdateAutonomous() {
+  const bool autoEnabled = frc::DriverStation::IsAutonomousEnabled();
+  if (autoEnabled && !m_autoEnabled) {
+    m_runningAuto = m_mayhemAutoChooser.SelectedRoutine();
+    if (m_runningAuto != nullptr) {
+      m_runningAuto->Start();
+    }
+  } else if (!autoEnabled && m_runningAuto != nullptr) {
+    m_runningAuto->Stop();
+    m_runningAuto = nullptr;
+  }
+  m_autoEnabled = autoEnabled;
+  if (m_runningAuto != nullptr) {
+    m_runningAuto->Periodic();
+  }
+}
+
+void RobotContainer::UpdateDrive() {
+  if (!frc::DriverStation::IsEnabled() || IsAutoRunning()) {
+    return;
+  }
+  switch (m_driveMode) {
+    case DriveMode::kNormal:
+      m_drivetrain.SetControl(DriveRequest(MaxSpeed, MaxAngularRate));
+      break;
+    case DriveMode::kSlow:
+      m_drivetrain.SetControl(DriveRequest(SlowMaxSpeed, SlowMaxAngular));
+      break;
+    case DriveMode::kSuperSlow:
+      m_drivetrain.SetControl(DriveRequest(SuperSlowMaxSpeed, SlowMaxAngular));
+      break;
+    case DriveMode::kAim:
+      m_drivetrain.RotateToLookahead(m_shotCalculator, VxSupplier(), VySupplier());
+      break;
+  }
 }
 
 RobotContainer::~RobotContainer() {
   // Before any member goes away: the drivetrain holds references to m_drive and the auto
-  // factory's request (see CommandSwerveDrivetrain::Shutdown).
+  // factory's request (see Drivetrain::Shutdown).
   m_drivetrain.Shutdown();
+  if (IsSim()) {
+    // A fresh field and robot for the next robot program (tests build several).
+    sim::PhysicsWorld::Destroy();
+  }
 }
 
 void RobotContainer::BeginLoop() { m_drivetrain.InvalidateStateCache(); }
 
 void RobotContainer::Periodic() {
-  m_field2d.SetRobotPose(m_drivetrain.State().Pose);
+  // Inputs first: sensors, then vision into the pose estimate.
+  m_intakeRollers.Periodic();
+  m_shooter.Periodic();
+  m_shooterPivot.Periodic();
+  m_linearSlide.Periodic();
+  m_feeder.Periodic();
+  m_indexer.Periodic();
+  m_drivetrain.Periodic();
+  m_vision.Periodic();
+
+  // Requests, then control.
+  UpdateDriverButtons();
+  UpdateAutonomous();
+  UpdateDrive();
+  m_driveModeLog.Set(IsAutoRunning()                        ? "Auto"
+                     : m_driveMode == DriveMode::kSlow      ? "Slow"
+                     : m_driveMode == DriveMode::kSuperSlow ? "SuperSlow"
+                     : m_driveMode == DriveMode::kAim       ? "Aim"
+                                                            : "Normal");
   m_superstructure.Periodic();
+
+  m_field2d.SetRobotPose(m_drivetrain.State().Pose);
   m_shotCalculator.Periodic();
   m_shotTargetObject->SetPose(m_superstructure.GetTarget());
   m_lookaheadObject->SetPose(m_shotCalculator.GetLookaheadPose());

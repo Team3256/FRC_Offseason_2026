@@ -1,8 +1,6 @@
 #include "commands/MayhemAutos.h"
 #include <frc/DriverStation.h>
 #include <frc/Timer.h>
-#include <frc2/command/Command.h>
-#include <frc2/command/CommandHelper.h>
 #include <algorithm>
 #include <cmath>
 #include <ctre/phoenix6/swerve/SwerveRequest.hpp>
@@ -12,7 +10,7 @@
 #include "mayhem/alliance.hpp"
 #include "subsystems/Superstructure.h"
 #include "subsystems/sotm/ShotCalculator.h"
-#include "subsystems/swerve/CommandSwerveDrivetrain.h"
+#include "subsystems/swerve/Drivetrain.h"
 
 namespace suite_autos {
 bool IsRed() { return frc::DriverStation::GetAlliance() == frc::DriverStation::Alliance::kRed; }
@@ -49,19 +47,16 @@ std::vector<frc::Pose2d> Preview(const mayhem::RoutineInfo& def, bool red) {
   return path;
 }
 namespace {
-class SuiteCommand final : public frc2::CommandHelper<frc2::Command, SuiteCommand>,
-                           private mayhem::RobotHooks {
+class SuiteRoutine final : public AutoRoutine, private mayhem::RobotHooks {
  public:
-  SuiteCommand(const mayhem::RoutineInfo& def, subsystems::CommandSwerveDrivetrain& drive,
-               Superstructure& ss, ShotCalculator& shots)
+  SuiteRoutine(const mayhem::RoutineInfo& def, subsystems::Drivetrain& drive, Superstructure& ss,
+               ShotCalculator& shots)
       : def_(def), drive_(drive), ss_(ss), shots_(shots) {
-    AddRequirements({&drive_});
-    SetName(std::string{def.name});
     // Enter/guard/transition and goal errors go to the log and NT under machine "Autonomous".
     runner_.Attach(observer_, mayhem_generated::autonomous::manifest,
                    [] { return frc::Timer::GetFPGATimestamp().value(); });
   }
-  void Initialize() override {
+  void Start() override {
     // Re-derived from the blue routine on every enable; measured odometry is never transformed.
     routine_.Apply(Transform(IsRed()));
     drive_.ResetPose(ToWpi(routine_.StartPose()));
@@ -71,16 +66,10 @@ class SuiteCommand final : public frc2::CommandHelper<frc2::Command, SuiteComman
     statusLog_.Set("Running");
     nameLog_.Set(def_.name);
   }
-  void Execute() override {
-    if (ss_.GetState() == Superstructure::StructureState::CANCEL_ALL) {
-      runner_.Cancel();
-      statusLog_.Set("Failed");
-      Output({});
-      return;
-    }
+  void Periodic() override {
     const double now = frc::Timer::GetFPGATimestamp().value(), dt = now - last_;
     last_ = now;
-    // WPILib can execute in the same tick as Initialize. A zero dt is not a fault.
+    // Periodic() runs in the same loop as Start(). A zero dt is not a fault.
     if (dt == 0)
       return;
     dtLog_.Set(dt);
@@ -89,12 +78,11 @@ class SuiteCommand final : public frc2::CommandHelper<frc2::Command, SuiteComman
     if (runner_.Status() == mayhem::RunStatus::Running && aligning_) {
       // Same as the original AlignAndShoot: the drivetrain's heading controller turns to the
       // lookahead shot, and SHOOT is requested once within 3 degrees.
-      align_.get()->Execute();
+      drive_.RotateToLookahead(shots_, 0.0, 0.0);
       if (!shotRequested_ &&
           ShotCalculator::IsAimed(drive_.State().Pose.Rotation(), shots_.GetDriveAngle(),
                                   3.0 * std::numbers::pi / 180.0)) {
-        ss_.RequestState(Superstructure::StructureState::SHOOT,
-                         Superstructure::RequestSource::Autonomous);
+        ss_.SetAutoShooting(true);
         shotRequested_ = true;
       }
       aimedLog_.Set(shotRequested_);
@@ -105,8 +93,7 @@ class SuiteCommand final : public frc2::CommandHelper<frc2::Command, SuiteComman
     if (status == mayhem::RunStatus::Failed && !failureHandled_) {
       failureHandled_ = true;
       statusLog_.Set("Failed");
-      ss_.RequestState(Superstructure::StructureState::CANCEL_ALL,
-                       Superstructure::RequestSource::Supervisor);
+      ss_.StopAll();
     } else if (status == mayhem::RunStatus::Completed)
       statusLog_.Set("Completed");
     if (const auto* goal = runner_.ActiveGoal())
@@ -116,19 +103,15 @@ class SuiteCommand final : public frc2::CommandHelper<frc2::Command, SuiteComman
                                       units::meters_per_second_t{out.vy},
                                       units::radians_per_second_t{out.omega}});
   }
-  // Keep the drivetrain stopped after completion/failure until auto is cancelled.
-  // Otherwise the driver's default drive command could take control during auto.
-  bool IsFinished() override { return false; }
-  void End(bool interrupted) override {
+  // Runs (holding the drivetrain stopped after completion or failure) until autonomous ends.
+  void Stop() override {
+    const bool running = runner_.Status() == mayhem::RunStatus::Running;
     runner_.Cancel();
-    if (aligning_)
-      align_.get()->End(true);
     aligning_ = false;
     Output({});
-    if (interrupted)
+    if (running)
       statusLog_.Set("Cancelled");
-    ss_.RequestState(Superstructure::StructureState::CANCEL_ALL,
-                     Superstructure::RequestSource::Supervisor);
+    ss_.StopAll();
   }
 
  private:
@@ -151,21 +134,15 @@ class SuiteCommand final : public frc2::CommandHelper<frc2::Command, SuiteComman
   }
   void BeginAction(std::string_view action) override {
     if (action == "drivetrain.alignAndShoot") {
-      align_.get()->Initialize();
       aligning_ = true;
       shotRequested_ = false;
       actionStart_ = frc::Timer::GetFPGATimestamp().value();
       return;
     }
-    constexpr std::string_view prefix = "superstructure.setState.";
-    if (action.starts_with(prefix))
-      for (int i = 0; i < Superstructure::kNumStates; ++i) {
-        const auto s = static_cast<Superstructure::StructureState>(i);
-        if (action.substr(prefix.size()) == Superstructure::ToString(s)) {
-          ss_.RequestState(s, Superstructure::RequestSource::Autonomous);
-          return;
-        }
-      }
+    if (action == "superstructure.intake")
+      ss_.StartIntaking();
+    else if (action == "superstructure.stow")
+      ss_.StowIntake();
   }
   mayhem::ActionStatus TickAction(std::string_view action) override {
     if (action == "drivetrain.alignAndShoot") {
@@ -174,23 +151,19 @@ class SuiteCommand final : public frc2::CommandHelper<frc2::Command, SuiteComman
                  ? mayhem::ActionStatus::Succeeded
                  : mayhem::ActionStatus::Running;
     }
-    constexpr std::string_view prefix = "superstructure.setState.";
-    if (action.starts_with(prefix))
-      for (int i = 0; i < Superstructure::kNumStates; ++i)
-        if (action.substr(prefix.size()) ==
-            Superstructure::ToString(static_cast<Superstructure::StructureState>(i)))
-          return mayhem::ActionStatus::Succeeded;
+    if (action == "superstructure.intake" || action == "superstructure.stow")
+      return mayhem::ActionStatus::Succeeded;
     return mayhem::ActionStatus::Failed;
   }
-  void EndAction(std::string_view action, bool interrupted) override {
-    if (action == "drivetrain.alignAndShoot" && aligning_) {
-      align_.get()->End(interrupted);
+  void EndAction(std::string_view action, bool /*interrupted*/) override {
+    if (action == "drivetrain.alignAndShoot") {
       aligning_ = false;
+      ss_.SetAutoShooting(false);
     }
   }
   void PathEvent(std::string_view action) override { BeginAction(action); }
   const mayhem::RoutineInfo& def_;
-  subsystems::CommandSwerveDrivetrain& drive_;
+  subsystems::Drivetrain& drive_;
   Superstructure& ss_;
   ShotCalculator& shots_;
   mayhem::AllianceRoutine routine_{def_, field_constants::kFieldLength,
@@ -199,8 +172,6 @@ class SuiteCommand final : public frc2::CommandHelper<frc2::Command, SuiteComman
   mayhem::AutoRunner runner_{routine_.View(), static_cast<mayhem::RobotHooks&>(*this)};
   double last_ = 0, actionStart_ = 0;
   static constexpr double kShootWindowSeconds = 3.5;
-  frc2::CommandPtr align_ =
-      drive_.RotateToLookahead(shots_, [] { return 0.0; }, [] { return 0.0; });
   bool aligning_ = false, shotRequested_ = false, failureHandled_ = false;
   logging::Output<std::string> statusLog_{"Mayhem/Auto/Status"}, nameLog_{"Mayhem/Auto/Name"};
   logging::Output<double> dtLog_{"Mayhem/Auto/DeltaSeconds"};
@@ -210,8 +181,8 @@ class SuiteCommand final : public frc2::CommandHelper<frc2::Command, SuiteComman
   logging::Output<frc::ChassisSpeeds> outputLog_{"Mayhem/Auto/FieldSpeeds"};
 };
 }  // namespace
-frc2::CommandPtr Command(const mayhem::RoutineInfo& def, subsystems::CommandSwerveDrivetrain& drive,
-                         Superstructure& ss, ShotCalculator& shots) {
-  return frc2::CommandPtr{std::make_unique<SuiteCommand>(def, drive, ss, shots)};
+std::unique_ptr<AutoRoutine> Routine(const mayhem::RoutineInfo& def, subsystems::Drivetrain& drive,
+                                     Superstructure& ss, ShotCalculator& shots) {
+  return std::make_unique<SuiteRoutine>(def, drive, ss, shots);
 }
 }  // namespace suite_autos

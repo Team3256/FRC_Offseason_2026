@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <random>
+
 #include <functional>
 #include <vector>
 
@@ -43,6 +45,8 @@ class VisionIOSim : public VisionIO {
   frc::Transform3d m_robotToCamera;
   std::function<frc::Pose2d()> m_poseSupplier;
   double m_noise;
+  /** Per camera, so a test's noise does not depend on what ran before it. */
+  std::mt19937 m_rng{3256};
   std::vector<Tag> m_tags;
   mutable std::vector<int> m_visible;
 };

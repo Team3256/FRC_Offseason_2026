@@ -17,48 +17,46 @@ The Mayhem C++ headers are vendored in `src/main/include/mayhem/*.hpp` by
 `node <Mayhem>/scripts/mayhem.mjs vendor . --snapshot docs/mayhem/vendor-snapshot.json`. The BLine-Lib
 license is in `BLine-Lib-LICENSE.txt`. Switch to the `MayhemCpp.json` vendordep once Mayhem hosts it.
 
-## Driver controls: same inputs, same outcomes
+## Driver controls
 
-| Input | Outcome |
+| Input | Mode |
 | --- | --- |
-| A (tap) | SHOOT. Feeds as soon as the flywheel first reaches speed and keeps feeding until the request ends. Held A also turns to the shot (aim assist). Aim is logged but not required. |
-| X | INTAKE (SHOOT_AND_INTAKE while shooting) |
-| Y | JITTER (JITTER_AND_SHOOT while shooting) |
-| B | HOME: rollers, shooter, indexer, feeder off; slide to ground intake; hood 0.05 |
-| Left trigger | OUTTAKE |
-| Bumpers, D-pad, trench assist | unchanged |
+| A (hold) | Shooter: SHOOTING. Spins up, then feeds once the flywheel first reaches speed, until A is released. Also turns the robot to the shot. |
+| X (press) | Intake: INTAKING on / off (STOWED) |
+| Y (hold) | Intake: JITTERING, then back to INTAKING on release |
+| B (press) | Intake: DEPLOYED (slide out, rollers off) on / off |
+| Left trigger (hold) | Intake: OUTTAKING (rollers and feeder reverse; stops the shot), then STOWED |
+| Bumpers, D-pad, trench assist | drive modes, shot speed, heading reset |
 
-Deliberate improvements. None of them changes what a button press ends up doing:
-
-- **The hood clears the slide whenever the slide moves through its travel.** This covers HOME,
-  SHOOT/REV_AND_INTAKE and JITTER, not only INTAKE. The slide waits for the hood
-  (`IntakeSequence: CLEARING_HOOD`).
-- **Feeding pauses under the trench** (where the hood is forced flat) and resumes on exit
-  (`ShotCycle: INHIBITED`).
-- **Entering the alliance zone pre-spins** an idle or intaking robot, but no longer replaces an
-  active SHOOT with REV.
-- **The shot target is picked from the pose every loop**, including at startup.
-- **Disabling clears old requests**, so A works on the first press of teleop.
-- **Slow mechanisms raise dashboard alerts** (hood, slide, flywheel) instead of cancelling your request.
+The shooter and the intake are independent: shooting while intaking, or while jittering, is just
+both modes at once. Inside the alliance zone the shooter pre-spins (REV) whenever it is not
+shooting.
 
 ## How the state machines fit together
 
-- `Superstructure`: driver/auto intent resolves to the operating mode. Priority: cancel, home,
-  outtake, shoot+jitter, shoot+intake, shoot, jitter, rev+intake, intake, rev, idle.
-- `IntakeSequence`: PARKED → CLEARING_HOOD → DEPLOYING → READY, with JITTERING. The slide commands
-  run from these phases.
-- `ShotCycle`: OFF → SPINNING_UP → FEEDING (latched), plus INHIBITED under the trench. The indexer
-  and feeder run in FEEDING.
+- `ShooterMode`: OFF, REV, SHOOTING (what the shooter is doing).
+- `IntakeMode`: STOWED, INTAKING, JITTERING, DEPLOYED, OUTTAKING (what the intake is doing).
+- `IntakeSequence`: PARKED → CLEARING_HOOD → DEPLOYING → READY, with JITTERING. The slide only moves
+  in these phases, and it waits for the hood to clear it.
+- `ShotCycle`: OFF → SPINNING_UP → FEEDING (latched), plus INHIBITED under the trench, where the
+  hood is forced flat. The indexer and feeder run in FEEDING.
 
-`tools/mayhem/phase_graphs.py robot.mayhem.json` regenerates the two phase graphs, plus every
+The two mode machines say what is wanted; the two phase machines do the physical sequencing under
+them. Slow phases raise dashboard alerts (hood, slide, flywheel) instead of cancelling anything.
+Without a valid shot distance the flywheel stays off and an alert says why. Autos ask through
+`superstructure.intake` / `superstructure.stow` events and the aim-and-shoot action; when an auto
+ends, everything stops.
+
+`tools/mayhem/phase_graphs.py robot.mayhem.json` regenerates the four graphs, plus every
 transition's name and description and every input's category. Categories: operator = driver
-request, sensor = measured, internal = derived in code. The robot runs all three with
+request, sensor = measured, internal = derived in code. The robot runs all four with
 `mayhem::StateMachine`.
 
 ## Autonomous
 
-Each routine follows its original solved sweep, sampled every ~0.6 m from the `.mtraj` passes in
-`tools/mayhem/solved/`. Every point carries the solved heading and speed, so the robot crosses the
+Each routine goes through the key waypoints of its original solved sweep (start, corners, pickup,
+shot spot) from the `.mtraj` passes in `tools/mayhem/solved/`; the old paths are a reference, not a
+path to trace exactly. Every point carries the solved heading and speed, so the robot crosses the
 trench sideways and **leads with the intake down the centerline pickup**.
 `tools/mayhem/rebuild_routes.py .` rebuilds the routines. Drivetrain limits come from
 `tools/mayhem/robot_limits.py --write`; it uses the motor curve, gearing and slip current from
@@ -70,7 +68,10 @@ After each pass, `drivetrain.alignAndShoot` behaves like the original AlignAndSh
 - after 3.5 s the routine continues. A missed shot never aborts the second pass.
 
 The x2 second passes now intake. In the original code the `intake2` marker was missing from the
-path, so pass 2 never intaked.
+path, so pass 2 never intaked. Their waypoints are hand-placed (`MANUAL` in `rebuild_routes.py`),
+with the solved pass only as the general direction. They turn square near the shot spot, clear of
+the wall and the trench post, and then drive the trench opening's centre line. Depot x2 comes back
+north at x ≈ 6 and crosses the bump square, well below the trench post.
 
 The simulation checks every routine on both alliances:
 - driving time per pass;
