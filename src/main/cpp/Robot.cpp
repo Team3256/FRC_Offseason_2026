@@ -9,10 +9,13 @@
 
 #include <cstdlib>
 #include <filesystem>
+#include <fstream>
+#include <sstream>
 #include <string>
 #include <system_error>
 
 #include <frc/DriverStation.h>
+#include <frc/Filesystem.h>
 #include <frc/RobotBase.h>
 #include <frc/RobotController.h>
 #include <ctre/phoenix6/SignalLogger.hpp>
@@ -71,6 +74,7 @@ Robot::Robot() {
   m_batteryLog = std::make_unique<logging::Output<double>>("SystemStats/BatteryVoltage");
   m_brownoutLog = std::make_unique<logging::Output<bool>>("SystemStats/BrownedOut");
   m_canUtilLog = std::make_unique<logging::Output<double>>("SystemStats/CANBus/Utilization");
+  m_buildLog = std::make_unique<logging::Output<std::string>>("Mayhem/Build");
   // Instantiate our RobotContainer. This builds every mechanism and puts the autonomous chooser on
   // the dashboard.
   m_container = std::make_unique<RobotContainer>();
@@ -86,6 +90,14 @@ void Robot::RobotPeriodic() {
   m_lastLoopStartUs = startUs;
 
   logging::Logger::Periodic();
+  if (!m_buildLogged) {
+    // So every log says which code it ran (Mayhem: Robot → On the robot now, and feedback anchors).
+    m_buildLogged = true;
+    std::ifstream stamp{frc::filesystem::GetDeployDirectory() + "/mayhem-build.json"};
+    std::stringstream text;
+    text << stamp.rdbuf();
+    m_buildLog->Set(stamp ? text.str() : std::string{"{}"});
+  }
   logging::LoggedTracer::Reset();
   m_container->BeginLoop();
   phoenix_util::RefreshAll();

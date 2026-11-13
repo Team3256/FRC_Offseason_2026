@@ -203,3 +203,6 @@ compile_commands.json
 
 # Monte Carlo runs (tools/sim/montecarlo.sh)
 sim-runs/
+
+# Written by the build (mayhemBuildStamp): what was deployed
+src/main/deploy/mayhem-build.json

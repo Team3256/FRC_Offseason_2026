@@ -50,6 +50,9 @@ class Robot : public frc::TimedRobot {
   std::unique_ptr<logging::Output<double>> m_batteryLog;
   std::unique_ptr<logging::Output<bool>> m_brownoutLog;
   std::unique_ptr<logging::Output<double>> m_canUtilLog;
+  /** What was deployed (deploy/mayhem-build.json, written by the build), logged once per run. */
+  std::unique_ptr<logging::Output<std::string>> m_buildLog;
+  bool m_buildLogged = false;
   RobotAlerts m_alerts;
   DriverDashboard m_dashboard;
   int64_t m_lastLoopStartUs = 0;
