@@ -140,9 +140,15 @@ class PhysicsWorld {
   /** Launch model fitted to the robot's hub lookup tables (see Calibrate). */
   struct ShotModel {
     double exitSpeedRatio, angleAtZero, anglePerRotation;
-    double rmsMissM;
+    double rmsMissM, rmsTofErrS;
+    bool highArc;
   };
   static const ShotModel& Shots();
+  /** A shot's horizontal range when it falls through the hub's top, and its time of flight. */
+  struct Flight {
+    double range = 0, time = 0;
+  };
+  static Flight FlyShot(double exitSpeed, double launchAngle);
 
  private:
   PhysicsWorld();

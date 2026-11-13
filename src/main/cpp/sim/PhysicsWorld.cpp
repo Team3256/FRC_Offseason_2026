@@ -27,6 +27,7 @@
 #include "subsystems/linearslide/LinearSlideConstants.h"
 #include "subsystems/shooter/ShooterConstants.h"
 #include "subsystems/shooterpivot/ShooterPivotConstants.h"
+#include "subsystems/sotm/ShotCalculator.h"
 #include "subsystems/swerve/generated/TunerConstants.h"
 
 namespace sim {
@@ -104,7 +105,7 @@ mayhem::sim::BallParams MakeBallParams() {
  * constants) crosses targetZ on the way down, as horizontal distance; NaN if it never gets there.
  * Same flight model as mayhem::sim::GamePieces (gravity, quadratic drag, Magnus, spin decay).
  */
-double RangeAtHeight(double v, double theta, double z0, double targetZ) {
+double RangeAtHeight(double v, double theta, double z0, double targetZ, double* time = nullptr) {
   const auto b = MakeBallParams();
   const double area = kPi * b.radius * b.radius;
   const double kDrag = 0.5 * b.airDensity * b.dragCd * area / b.mass;
@@ -121,7 +122,11 @@ double RangeAtHeight(double v, double theta, double z0, double targetZ) {
     const double nz = z + vz * dt + 0.5 * az * dt * dt;
     const double nx = x + vx * dt + 0.5 * ax * dt * dt;
     if (vz < 0 && z >= targetZ && nz < targetZ) {
-      return x + (nx - x) * (z - targetZ) / (z - nz);
+      const double f = (z - targetZ) / (z - nz);
+      if (time) {
+        *time = (i + f) * dt;
+      }
+      return x + (nx - x) * f;
     }
     x = nx;
     z = nz;
@@ -657,20 +662,21 @@ void PhysicsWorld::Publish() {
 
 const PhysicsWorld::ShotModel& PhysicsWorld::Shots() {
   /*
-   * The robot's hub tables (flywheel rot/s and hood rotations by distance) are tuned on the real
-   * robot, so they score. Fit the exit speed ratio and the hood-to-launch-angle line that make
-   * them score here: for each candidate ratio and either arc, solve each table row's launch angle
-   * (ball falls through the hub opening's centre), fit angle = a - b * hood, keep the best fit.
-   * (For this robot the high arc fits the tables to ~0.1 m: it lobs into the hub.)
+   * Calibrated like a real shooter model, from what was measured on the real robot: the hub tables
+   * (flywheel rot/s and hood rotations by distance, which score) and ShotCalculator's measured time
+   * of flight. For each candidate exit-speed ratio and either arc, solve each table row's launch
+   * angle (ball falls through the hub opening's centre), fit angle = a - b * hood, and score the
+   * fit by the miss distance plus the time-of-flight error (1 m of miss ~ 1 s of timing error).
    */
   static const ShotModel model = [] {
     const auto& speeds = shooter::kHubLUT.Points();
     const double z0 = sc::shooter::kExitZ, target = rebuilt::kHubTopM;
     ShotModel best{sc::shooter::kExitSpeedRatio, sc::shooter::kLaunchAngleAtZero,
-                   sc::shooter::kLaunchAnglePerHoodRotation, 1e9};
+                   sc::shooter::kLaunchAnglePerHoodRotation, 1e9, 1e9, false};
+    double bestCost = 1e18;
     for (bool highArc : {true, false}) {
-      for (double ratio = 0.25; ratio <= 0.95; ratio += 0.01) {
-        std::vector<double> hood, angle, speed, range;
+      for (double ratio = 0.20; ratio <= 0.95; ratio += 0.005) {
+        std::vector<double> hood, angle, speed, range, tof;
         bool ok = true;
         for (const auto& [distance, rps] : speeds) {
           const double v = ratio * 2 * kPi * rps * sc::shooter::kFlywheelRadiusM;
@@ -684,6 +690,7 @@ const PhysicsWorld::ShotModel& PhysicsWorld::Shots() {
           angle.push_back(t);
           speed.push_back(v);
           range.push_back(r);
+          tof.push_back(ShotCalculator::TimeOfFlightHub().Get(distance));
         }
         if (!ok) {
           continue;
@@ -699,26 +706,40 @@ const PhysicsWorld::ShotModel& PhysicsWorld::Shots() {
         }
         const double c = (n * sha - sh * sa) / (n * shh - sh * sh);
         const double a = (sa - c * sh) / n;
-        double miss = 0;
+        double miss = 0, tofErr = 0;
         for (std::size_t i = 0; i < hood.size(); i++) {
-          const double r = RangeAtHeight(speed[i], a + c * hood[i], z0, target);
+          double t = 0;
+          const double r = RangeAtHeight(speed[i], a + c * hood[i], z0, target, &t);
           const double e = std::isfinite(r) ? r - range[i] : 3.0;
+          const double et = std::isfinite(r) ? t - tof[i] : 3.0;
           miss += e * e;
+          tofErr += et * et;
         }
         miss = std::sqrt(miss / n);
-        if (miss < best.rmsMissM) {
-          best = {ratio, a, -c, miss};
+        tofErr = std::sqrt(tofErr / n);
+        const double cost = miss * miss + tofErr * tofErr;
+        if (cost < bestCost) {
+          bestCost = cost;
+          best = {ratio, a, -c, miss, tofErr, highArc};
         }
       }
     }
     std::printf(
-        "[sim] shot model fitted to the hub tables: exit speed %.2f x flywheel surface, launch "
-        "%.1f deg - %.1f deg per hood rotation, rms miss %.3f m\n",
-        best.exitSpeedRatio, best.angleAtZero * 180 / kPi, best.anglePerRotation * 180 / kPi,
-        best.rmsMissM);
+        "[sim] shot model calibrated to the hub tables + measured time of flight: %s arc, exit "
+        "speed %.3f x flywheel surface, launch %.1f deg - %.1f deg per hood rotation, rms miss "
+        "%.3f m, rms time-of-flight error %.3f s\n",
+        best.highArc ? "high" : "low", best.exitSpeedRatio, best.angleAtZero * 180 / kPi,
+        best.anglePerRotation * 180 / kPi, best.rmsMissM, best.rmsTofErrS);
     return best;
   }();
   return model;
+}
+
+// Flight of one shot from the shooter exit, for the shot tuner (see ShotTuningTest).
+PhysicsWorld::Flight PhysicsWorld::FlyShot(double exitSpeed, double launchAngle) {
+  Flight f;
+  f.range = RangeAtHeight(exitSpeed, launchAngle, sc::shooter::kExitZ, rebuilt::kHubTopM, &f.time);
+  return f;
 }
 
 }  // namespace sim

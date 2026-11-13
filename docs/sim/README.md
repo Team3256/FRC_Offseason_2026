@@ -55,17 +55,21 @@ Each run writes a `.wpilog` (`sim-runs/<auto>/log_<seed>/`); the summary lists t
 
 ## AdvantageScope
 
-1. Build the robot model from the CAD (once, or after the CAD changes):
+1. Build the robot model from the CAD (once, or after the CAD changes). Onshape tessellates
+   coarsely (real part shapes, ~2M triangles); `simplify_parts.py` reduces only dense parts
+   (gears, motors, perforated bellypan) and keeps plates, hopper and bumpers exact, so the exporter
+   only clusters at ~1 mm and 1/8 in plates stay intact:
    ```bash
-   uv run tools/sim/cad-to-advantagescope.py ~/Downloads/00.Main.glb tools/sim/robot-cad.json \
+   ONSHAPE_ACCESS_KEY=... ONSHAPE_SECRET_KEY=... python3 tools/sim/onshape_export.py coarse 00.Main.coarse.glb
+   uv run tools/sim/simplify_parts.py 00.Main.coarse.glb 00.Main.light.glb 400 0.08 1500
+   uv run tools/sim/cad-to-advantagescope.py 00.Main.light.glb tools/sim/robot-cad.json \
      --out ~/Library/Application\ Support/AdvantageScope/userAssets
-   python3 tools/sim/trim_hopper.py ~/Library/Application\ Support/AdvantageScope/userAssets/Robot_32562026/model_0.glb
    ```
-   It writes `Robot_32562026` (≈10 MB, robot frame, three articulated components) and a preview PNG
-   next to it; `trim_hopper.py` cuts the CAD's old 0.61 m hopper down to the real robot's 0.555 m
-   (just under the trench). `tools/sim/robot-cad.json` says which parts move: the intake slide (Onshape planar
-   mate, 0.309 m along the 12° rack), the hood (pivot frame about the main shooter roller axle), the
-   kicker bar (Onshape revolute, folded 72° until the first deploy).
+   It writes `Robot_32562026` (≈38 MB, robot frame, three articulated components) and a preview
+   PNG next to it. `tools/sim/robot-cad.json` says which parts move: the intake slide (Onshape
+   planar mate, 0.309 m along the 12° rack, hopper clipped to the real 0.555 m), the hood (pivot
+   frame about the main shooter roller axle), the kicker bar (Onshape revolute, folded 72° until
+   the first deploy). The hopper's polycarbonate is drawn clear (the CAD colours it black).
 2. Open a sim log (or connect to `simulateNative`) and add a **3D Field** tab, field "2026 Field":
    - **Robot**: `RealOutputs/Sim/RobotPose` (true pose, with pitch/roll on the bumps), model
      "3256 2026", components `RealOutputs/Sim/Components`.

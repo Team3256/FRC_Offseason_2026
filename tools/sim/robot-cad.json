@@ -1,5 +1,5 @@
 {
-  "_comment": "AdvantageScope robot asset from the Onshape export (00.Main.glb, exported stowed): uv run tools/sim/cad-to-advantagescope.py 00.Main.glb tools/sim/robot-cad.json --out <AdvantageScope assets folder>. CAD frame: z up, robot front (intake) is CAD -y, frame centre at CAD x=y=0, carpet at z=0. Joint axes and origins are in the robot frame (x forward, y left, z up). Components are logged in this order as RealOutputs/Sim/Components (sim/PhysicsWorld.cpp).",
+  "_comment": "AdvantageScope robot asset from the Onshape export (00.Main.glb, exported stowed): uv run tools/sim/cad-to-advantagescope.py 00.Main.light.glb (from onshape_export.py + simplify_parts.py, see docs/sim/README.md) tools/sim/robot-cad.json --out <AdvantageScope assets folder>. CAD frame: z up, robot front (intake) is CAD -y, frame centre at CAD x=y=0, carpet at z=0. Joint axes and origins are in the robot frame (x forward, y left, z up). Components are logged in this order as RealOutputs/Sim/Components (sim/PhysicsWorld.cpp).",
   "name": "3256 2026",
   "frame": {
     "forward": "-y",
@@ -17,9 +17,10 @@
     "Origin Cube",
     "MAXPlanetary",
     "^00\\.Main/occurrence of /",
-    "^00\\.Main/occurrence of _"
+    "^00\\.Main/occurrence of _",
+    "Hopper[ _](Back|Side_Right1)"
   ],
-  "targetMB": 28,
+  "targetMB": 40,
   "components": [
     {
       "name": "Intake slide",
@@ -93,5 +94,6 @@
     ]
   },
   "dropBelowFloor": 0.01,
-  "quadric": true
+  "quadric": false,
+  "_dropComment": "Hopper Back/Back Left/Back Right/Side_Right1: clear polycarbonate panels on the shooter end (solid grey in the CAD), dropped so the pocketed shooter plates show."
 }

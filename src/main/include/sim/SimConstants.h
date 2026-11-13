@@ -62,7 +62,7 @@ inline constexpr double kStowedHeightM = 0.55;
 /**
  * Top of the hopper with the slide in. The real hopper was cut down after the CAD (whose
  * polycarbonate reaches 0.61 m) so it sits just under the trench's 22.25 in (0.565 m) opening
- * (team-confirmed); tools/sim/trim_hopper.py trims the AdvantageScope model to the same height.
+ * (team-confirmed); tools/sim/robot-cad.json clips the AdvantageScope model to the same height.
  * It drops 0.064 m as the slide goes out (12 deg rack).
  */
 inline constexpr double kHopperTopStowedM = 0.555;
