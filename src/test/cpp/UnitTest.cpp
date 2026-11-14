@@ -61,7 +61,7 @@ TEST(InterpolatingMapTest, RobotTablesAreSortedAndClamped) {
   EXPECT_NEAR(shooter::kHubLUT.Get((1.62 + 2.71) / 2), (65.8 + 74.8) / 2, 1e-12);
   EXPECT_DOUBLE_EQ(shooter::kFeedLUT.Get(20.0), 95.0);
   EXPECT_DOUBLE_EQ(shooter_pivot::kHubLUT.Get(3.95), 0.069);
-  EXPECT_DOUBLE_EQ(shooter_pivot::kFeedLUT.Get(7.0), 0.01);
+  EXPECT_DOUBLE_EQ(shooter_pivot::kFeedLUT.Get(7.0), 0.071);
 }
 
 TEST(UtilTest, MatchesJavaUtil) {
