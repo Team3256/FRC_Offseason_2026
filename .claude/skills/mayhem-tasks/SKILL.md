@@ -7,6 +7,10 @@ description: Work the team's Mayhem task queue for this robot repo - feedback pe
 
 People on the team don't read code. They leave feedback in the Mayhem app and review what the robot *does*. Each run of this skill advances the queue by one step and stops; run it on a loop (`/loop 10m /mayhem-tasks`) to keep the queue moving.
 
+## Where to run
+
+In a checkout of the robot repo that has the Mayhem integration (`tools/mayhem/machines.json`; the `mayhem/suite-integration` branch, at `~/Downloads/FRC_Offseason_2026-suite-integration` on Ryan's Mac). Feedback lives in that checkout's `tools/mayhem/review/`. If the current folder has no `tools/mayhem/machines.json`, stop and say which folder to open instead.
+
 ## Tools
 
 Use the Mayhem MCP tools (`mcp__mayhem__list_tasks`, `get_task`, `claim_task`, `propose_plan`, `report_progress`, `finish_task`, `release_task`, `run_scenarios`, `behavior_diff`, `log_states`, `log_anomalies`, `log_what_changed`, `log_table`, `analyze_log`). If they are not available, call the same tools from the shell, from a Mayhem checkout (`$MAYHEM_DIR`, default `../Mayhem` next to this repo):
