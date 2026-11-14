@@ -56,7 +56,8 @@ void Drivetrain::Init() {
     // The physics engine drives the simulated drivetrain on simulated time; Phoenix's odometry
     // thread and device simulation would run on the wall clock (see sim/DrivetrainSim.h).
     GetOdometryThread().Stop();
-    m_sim = std::make_unique<::sim::DrivetrainSim>([this] { return GetOperatorForwardDirection(); });
+    m_sim =
+        std::make_unique<::sim::DrivetrainSim>([this] { return GetOperatorForwardDirection(); });
   }
 }
 
@@ -83,7 +84,9 @@ const Drivetrain::SwerveDriveState& Drivetrain::State() {
   return m_state;
 }
 
-void Drivetrain::SimSetControl(const swerve::requests::SwerveRequest& request) { m_sim->SetControl(request); }
+void Drivetrain::SimSetControl(const swerve::requests::SwerveRequest& request) {
+  m_sim->SetControl(request);
+}
 
 void Drivetrain::RegisterTelemetry(std::function<void(SwerveDriveState const&)> telemetryFunction) {
   if (m_sim) {
@@ -136,9 +139,8 @@ void Drivetrain::AddVisionMeasurement(frc::Pose2d visionRobotPose, units::second
   if (m_sim) {
     m_sim->AddVisionMeasurement(visionRobotPose, timestamp.value(), visionMeasurementStdDevs);
   } else {
-    TunerSwerveDrivetrain::AddVisionMeasurement(std::move(visionRobotPose),
-                                                utils::FPGAToCurrentTime(timestamp),
-                                                visionMeasurementStdDevs);
+    TunerSwerveDrivetrain::AddVisionMeasurement(
+        std::move(visionRobotPose), utils::FPGAToCurrentTime(timestamp), visionMeasurementStdDevs);
   }
   InvalidateStateCache();
 }

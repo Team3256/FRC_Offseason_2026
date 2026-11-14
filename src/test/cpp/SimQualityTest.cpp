@@ -48,8 +48,9 @@ void Dump(const std::vector<Sample>& s) {
     FILE* f = std::fopen(path, "w");
     std::fprintf(f, "t,x,y,z,roll,pitch,yaw,estX,estY,estYaw,vx,vy,omega\n");
     for (const auto& a : s) {
-      std::fprintf(f, "%.3f,%.5f,%.5f,%.5f,%.5f,%.5f,%.5f,%.5f,%.5f,%.5f,%.4f,%.4f,%.4f\n", a.t, a.x,
-                   a.y, a.z, a.roll, a.pitch, a.yaw, a.estX, a.estY, a.estYaw, a.vx, a.vy, a.omega);
+      std::fprintf(f, "%.3f,%.5f,%.5f,%.5f,%.5f,%.5f,%.5f,%.5f,%.5f,%.5f,%.4f,%.4f,%.4f\n", a.t,
+                   a.x, a.y, a.z, a.roll, a.pitch, a.yaw, a.estX, a.estY, a.estYaw, a.vx, a.vy,
+                   a.omega);
     }
     std::fclose(f);
   }
@@ -77,9 +78,10 @@ TEST(SimQualityTest, DrivesOverTheBump) {
     }
     yawDrift = std::max(yawDrift, std::abs(a.yaw));
   }
-  std::printf("max pitch %.1f deg, max z %.3f m, flat pitch %.2f deg, yaw drift %.2f deg, end x %.2f\n",
-              maxPitch * 180 / std::numbers::pi, maxZ, flatPitchNoise * 180 / std::numbers::pi,
-              yawDrift * 180 / std::numbers::pi, s.back().x);
+  std::printf(
+      "max pitch %.1f deg, max z %.3f m, flat pitch %.2f deg, yaw drift %.2f deg, end x %.2f\n",
+      maxPitch * 180 / std::numbers::pi, maxZ, flatPitchNoise * 180 / std::numbers::pi,
+      yawDrift * 180 / std::numbers::pi, s.back().x);
   EXPECT_GT(s.back().x, 5.4) << "made it over the bump";
   EXPECT_GT(maxPitch * 180 / std::numbers::pi, 8) << "pitches on the 15 deg ramps";
   EXPECT_GT(maxZ, 0.08) << "the chassis rises on the bump";

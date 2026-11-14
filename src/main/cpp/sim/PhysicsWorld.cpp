@@ -671,8 +671,12 @@ const PhysicsWorld::ShotModel& PhysicsWorld::Shots() {
   static const ShotModel model = [] {
     const auto& speeds = shooter::kHubLUT.Points();
     const double z0 = sc::shooter::kExitZ, target = rebuilt::kHubTopM;
-    ShotModel best{sc::shooter::kExitSpeedRatio, sc::shooter::kLaunchAngleAtZero,
-                   sc::shooter::kLaunchAnglePerHoodRotation, 1e9, 1e9, false};
+    ShotModel best{sc::shooter::kExitSpeedRatio,
+                   sc::shooter::kLaunchAngleAtZero,
+                   sc::shooter::kLaunchAnglePerHoodRotation,
+                   1e9,
+                   1e9,
+                   false};
     double bestCost = 1e18;
     for (bool highArc : {true, false}) {
       for (double ratio = 0.20; ratio <= 0.95; ratio += 0.005) {

@@ -66,7 +66,7 @@ double Distance(const frc::Pose2d& a, const frc::Pose2d& b) {
 }
 
 void RunAuto(const AutoCase& c, bool red) {
-  RobotHarness h{red, /*field=*/ true};
+  RobotHarness h{red, /*field=*/true};
   h.Step(5);
   // Selected while disabled, like on the dashboard: the routine (and its paths) are built now.
   h.C().GetAutoChooser().Select(c.chooserName);
@@ -125,9 +125,9 @@ void RunAuto(const AutoCase& c, bool red) {
     maxY = std::max(maxY, pose.Y().value());
     minX = std::min(minX, pose.X().value());
     trace << i * .02 << ',' << pose.X().value() << ',' << pose.Y().value() << ','
-          << pose.Rotation().Radians().value() << ',' << Superstructure::ToString(ss.GetShooterMode())
-          << ',' << ss.IntakePhase() << ',' << ss.ShotPhase() << ',' << node << ',' << result
-          << '\n';
+          << pose.Rotation().Radians().value() << ','
+          << Superstructure::ToString(ss.GetShooterMode()) << ',' << ss.IntakePhase() << ','
+          << ss.ShotPhase() << ',' << node << ',' << result << '\n';
     if (node != previousNode) {
       graphTrace += node + " @ " + std::to_string(dt.State().Pose.X().value()) + "," +
                     std::to_string(dt.State().Pose.Y().value()) + "\n";

@@ -29,7 +29,7 @@ TEST(MayhemSuiteTest, ShooterModeShootsWhileHeldAndRevsInTheZone) {
   ASSERT_TRUE(machine.Valid());
   machine.In().enabled = true;
   // One robot loop: the machine settles, so A released in the zone is SHOOTING -> OFF -> REV.
-  auto set = [&](bool In::* input, bool v) {
+  auto set = [&](bool In::*input, bool v) {
     machine.In().*input = v;
     machine.Settle(.02);
     EXPECT_TRUE(machine.Settled());
@@ -56,13 +56,13 @@ TEST(MayhemSuiteTest, IntakeModeTogglesAndHolds) {
   ASSERT_TRUE(machine.Valid());
   machine.In().enabled = true;
   // A press is an event: used by the first step of one loop, so X toggles once, not on and off.
-  auto press = [&](bool In::* input) {
+  auto press = [&](bool In::*input) {
     machine.In().*input = true;
     machine.Settle(.02);
     EXPECT_FALSE(machine.In().*input);
     return machine.Current();
   };
-  auto hold = [&](bool In::* input, bool v) {
+  auto hold = [&](bool In::*input, bool v) {
     machine.In().*input = v;
     machine.Settle(.02);
     return machine.Current();

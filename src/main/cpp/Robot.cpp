@@ -185,7 +185,7 @@ void Robot::TestPeriodic() {}
 void Robot::SimulationInit() {}
 
 void Robot::SimulationPeriodic() {
-  // 20 ms of physics (drivetrain, mechanisms, battery, field, FUEL) on simulated time, driven by the
-  // controls the robot code just sent its motors.
+  // 20 ms of physics (drivetrain, mechanisms, battery, field, FUEL) on simulated time, driven by
+  // the controls the robot code just sent its motors.
   sim::PhysicsWorld::Get().Step(GetPeriod().value());
 }

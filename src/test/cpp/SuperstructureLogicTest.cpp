@@ -380,7 +380,7 @@ TEST_F(SuperstructureLogicTest, DeployOuttakeAndStopAll) {
   EXPECT_DOUBLE_EQ(m_pivot->RequestedPosition(), 0.05);
   EXPECT_DOUBLE_EQ(m_rollerIO->voltage, 0);
   EXPECT_NEAR(m_slide->RequestedPosition(), 0.86, 1e-12);  // ground intake position
-  Hold({.shootHeld = true, .outtakeHeld = true});  // outtaking wins over shooting
+  Hold({.shootHeld = true, .outtakeHeld = true});          // outtaking wins over shooting
   Loop();
   EXPECT_EQ(m_ss->GetIntakeMode(), IntakeMode::OUTTAKING);
   EXPECT_EQ(m_ss->GetShooterMode(), ShooterMode::OFF);

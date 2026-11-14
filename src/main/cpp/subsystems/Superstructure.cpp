@@ -135,8 +135,9 @@ bool Superstructure::ShotDistanceValid() const {
   return std::isfinite(m_shotCalculator.GetDistance());
 }
 bool Superstructure::Aimed() const {
-  return ShotDistanceValid() && ShotCalculator::IsAimed(m_robotPoseSupplier().Rotation(),
-                                                m_shotCalculator.GetDriveAngle(), kAimToleranceRad);
+  return ShotDistanceValid() &&
+         ShotCalculator::IsAimed(m_robotPoseSupplier().Rotation(), m_shotCalculator.GetDriveAngle(),
+                                 kAimToleranceRad);
 }
 double Superstructure::HoodTarget() const {
   // The hood clears the slide whenever the slide is moving through the hood's travel.
