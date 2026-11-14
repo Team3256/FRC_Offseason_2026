@@ -1,6 +1,8 @@
 # FRC 3256 — 2026 Offseason Robot (C++)
 
-Robot code for the 2026 offseason robot, in C++ (WPILib 2026, command-based, Phoenix 6, PhotonVision).
+Robot code for the 2026 offseason robot, in C++ (WPILib 2026, Phoenix 6, PhotonVision). It runs its own
+state machines in one explicit robot loop; there is no command-based framework (see
+[The robot loop](#the-robot-loop)).
 It is a port of the previous Java code with the same robot behaviour: same CAN IDs, gains, lookup
 tables, button bindings, superstructure state machine and autonomous routines. See
 [What changed from the Java code](#what-changed-from-the-java-code) for the few deliberate differences.
@@ -22,7 +24,7 @@ vendor libraries). On an `event*` branch, `deploy` also commits your working cha
 
 `CMakeLists.txt` + `tools/desktop/` build and test the same code on Linux x86-64 without GradleRIO,
 using WPILib's libraries as packaged by RobotPy (PyPI) and Phoenix 6 from CTRE's maven. The robot is
-never built this way; see `tools/desktop/frc2shim/README.md`.
+never built this way.
 
 ```bash
 ./tools/desktop/fetch_deps.sh
@@ -35,21 +37,49 @@ ctest --test-dir build-desktop --output-on-failure      # or ./build-desktop/rob
 
 ```
 src/main/include, src/main/cpp
-  Robot, RobotContainer        robot loop, bindings, auto chooser
+  Robot, RobotContainer        robot loop, driver buttons, auto chooser
   subsystems/                  Shooter, ShooterPivot (hood), LinearSlide, IntakeRollers, Feeder,
                                Indexer (each: Constants, IO interface, TalonFX IO, sim IO),
                                swerve/ (Tuner X drivetrain, trench assist), vision/, sotm/ (shot
                                calculator), Superstructure (state machine)
   rollers/                     shared two-motor leader/follower IO for intake, feeder and indexer
   mayhem/                      C++ port of MayhemLib (trajectories, follower, bump recovery, autos)
-  commands/MayhemAutos         the autonomous routines
+  commands/MayhemAutos         the autonomous routines (plain AutoRoutine objects, no commands)
   logging/                     logging (replaces AdvantageKit), loop timing
-  utils/, sim/                 Phoenix helpers, DisableSubsystem, Mechanism2d, sim battery
+  utils/, sim/                 Phoenix helpers, DisableSubsystem, Mechanism2d, the physics
+                               simulation (PhysicsWorld, REBUILT field; docs/sim/README.md)
 src/main/deploy                AprilTag layout, Mayhem (.mtraj) and Choreo paths
 src/test/cpp                   tests (GoogleTest), see below
 tools/golden                   generates golden data from the original Java implementation
-tools/desktop                  desktop CMake dependencies + frc2 shim
+tools/desktop                  desktop CMake dependencies
 ```
+
+## The robot loop
+
+Every 20 ms, `Robot::RobotPeriodic` refreshes the Phoenix signals and calls
+`RobotContainer::Periodic`, which runs these steps in order:
+
+1. **Inputs.** Each mechanism's `Periodic()` reads its sensors; vision adds measurements to the
+   pose estimate.
+2. **Driver buttons** (`UpdateDriverButtons`). The buttons become the superstructure's operator
+   inputs for this loop (`Superstructure::SetOperatorInputs`: presses are `EdgeDetector` rising
+   edges, holds are levels), a shot multiplier nudge, a gyro reset or a drive mode. Presses while
+   disabled or during an auto do nothing.
+3. **Autonomous** (`UpdateAutonomous`). The selected `AutoRoutine` starts when autonomous is
+   enabled, runs every loop, and stops when autonomous ends. While it runs, it owns the drivetrain.
+4. **Drive** (`UpdateDrive`). Otherwise, the driver's mode drives: normal, slow (left bumper),
+   super slow (right bumper) or aim at the shot (held A). The most recent press wins, and releasing
+   that button goes back to normal.
+5. **Superstructure** (`Superstructure::Periodic`). It ticks the four Mayhem state machines
+   (`ShooterMode`, `IntakeMode`, `IntakeSequence`, `ShotCycle`), then `ApplyOutputs()` gives every mechanism
+   exactly one request for this loop: `SetVelocity`, `SetPosition`, `Off` and so on.
+
+Mechanisms (`DisableSubsystem`) have no commands. They expose request methods, and they only move
+when the superstructure asks. Their active request is logged as `<Name>/Goal`. `Off()` reaches the
+motors only when the request changes; Phoenix keeps applying the last control request on its own.
+Multi-step motions that used to be command sequences now live in the mechanism
+(`LinearSlide::GoToIntakeSequence`, `LinearSlide::JitterIntake`) and restart whenever another
+request came in between.
 
 ## Controls (driver, port 0)
 
@@ -58,11 +88,11 @@ tools/desktop                  desktop CMake dependencies + frc2 shim
 | Left stick / right stick X | field-centric drive / rotate (squared response) |
 | Left bumper (hold) | slow drive (30%) |
 | Right bumper (hold) | super slow drive (15%) |
-| A | SHOOT (and, while held, aim at the target) |
-| X | INTAKE |
-| Y | JITTER |
-| B | HOME |
-| Left trigger | OUTTAKE |
+| A (hold) | shoot, and aim at the target |
+| X | intake on / off |
+| Y (hold) | jitter the slide to settle pieces (back to intaking on release) |
+| B | slide out with the rollers off, on / off |
+| Left trigger (hold) | outtake |
 | D-pad up / down | shot speed multiplier +/- 0.02 |
 | D-pad right | re-zero field-centric heading |
 
@@ -152,8 +182,13 @@ In the desktop simulation, which also runs every mechanism's physics, a full tel
 * **SuperstructureLogicTest**: every state transition and mechanism command of the state machine,
   with ideal mechanisms and stepped time.
 * **RobotSimTest / AutoSimTest**: the whole robot program with simulated hardware, driven through
-  the simulated Driver Station and controller in real time. Covers each button, zone behaviour,
-  driving, aiming, vision, and every auto on both alliances.
+  the simulated Driver Station and controller on stepped simulated time (the physics simulation,
+  [docs/sim/README.md](docs/sim/README.md), does not use the wall clock, so a 20 s auto runs in about
+  a second). Covers each button, zone behaviour, driving, aiming, vision, and every auto on both
+  alliances.
+* **AutoPhysicsTest**: every auto on both alliances on the full REBUILT field (walls, hubs, bumps,
+  trenches, FUEL): fails on hitting anything, beaching, tipping, browning out or not scoring.
+  `MonteCarlo.Run` with `tools/sim/montecarlo.sh` runs hundreds of perturbed copies.
 * **FeatureTest**: the dashboard extras above (alert logic, every device watched and healthy in
   simulation, auto preview on both alliances, shot readiness).
 * **UnitTest**: utilities, config read-back verification, vision filtering, trajectory files, Mayhem
@@ -170,18 +205,15 @@ Robot behaviour is the same. The deliberate differences:
 * **AdvantageKit replaced** by the logger above (same keys, no replay).
 * **ShotCalculator.GetDistance()** before the first update now returns the distance from the current
   pose. Java would have thrown a NullPointerException.
-* **Simulation only** (the real robot is unaffected):
-  - Mechanism physics runs once per loop. The Java sim stepped it twice, because `simulationPeriodic`
-    called `periodic`.
-  - One battery model sums the Phoenix-simulated supply current of every mechanism motor, so current
-    limits count. Java let each mechanism overwrite the battery voltage with its own uncapped draw.
-  - The hood sim uses the configured 30:1 sensor-to-mechanism ratio. With the old 4:1 the simulated
-    hood could not pass about 0.016 rotations, so INTAKE never got past waiting for the hood.
-  - Vision is simulated (`VisionIOSim`) instead of reporting a disconnected camera.
+* **Simulation only** (the real robot is unaffected): the drivetrain, every mechanism, the battery,
+  the field and FUEL run on Mayhem's physics engine on simulated time instead of Phoenix's device
+  simulation (see [docs/sim/README.md](docs/sim/README.md)). Vision is simulated (`VisionIOSim`,
+  from the true pose) instead of reporting a disconnected camera.
 * The MayhemLib port leaves out what this robot doesn't use: the Sleipnir bridge refiner and the
   fuel and bump sim injectors.
-* WPILib's C++ scheduler doesn't promise to run subsystem `Periodic()` in registration order. None of
-  the subsystems depend on each other's periodic.
+* **No command scheduler.** The robot loop above replaces WPILib's command-based framework. Button
+  presses, autonomous and the state machines run in a fixed order each loop, and the mechanisms are
+  driven in the same loop as the state change, not one loop later.
 
 ## Before the first deploy
 
@@ -196,3 +228,10 @@ Robot behaviour is the same. The deliberate differences:
 4. In the pit, go through each button above with the robot on blocks. Then run each auto on the
    ground once per alliance color.
 5. Check `RealOutputs/LoopTimeMS` and the `LoggedTracer` timings in the log.
+
+### Mayhem Suite overhaul
+
+The robot now executes `robot.mayhem.json` through the new Mayhem C++ graph runner
+and pose follower. Regenerate with `tools/mayhem/export.sh` after edits.
+See [the integration guide](docs/mayhem/README.md) for state ownership, log mapping,
+telemetry, build instructions and migration limits.

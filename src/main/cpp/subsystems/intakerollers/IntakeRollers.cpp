@@ -16,26 +16,31 @@ IntakeRollers::IntakeRollers(bool enabled, std::unique_ptr<RollerPairIO> io)
 }
 
 void IntakeRollers::Periodic() {
-  DisableSubsystem::Periodic();
   m_io->UpdateInputs(m_inputs);
   m_inputsLog.Publish();
   logging::LoggedTracer::Record("IntakeRollers");
 }
 
-frc2::CommandPtr IntakeRollers::SetVoltage(double voltage) {
-  return Run([this, voltage] { m_io->SetVoltage(voltage); }).FinallyDo([this] { m_io->Off(); });
+void IntakeRollers::SetVoltage(double voltage) {
+  if (Request()) {
+    m_io->SetVoltage(voltage);
+  }
 }
 
-frc2::CommandPtr IntakeRollers::SetVelocity(double velocity) {
-  return Run([this, velocity] { m_io->SetVelocity(velocity); }).FinallyDo([this] { m_io->Off(); });
+void IntakeRollers::SetVelocity(double velocity) {
+  if (Request()) {
+    m_io->SetVelocity(velocity);
+  }
 }
 
-frc2::CommandPtr IntakeRollers::Off() {
-  return RunOnce([this] { m_io->Off(); });
+void IntakeRollers::Off() {
+  if (Request() && GoalChanged()) {
+    m_io->Off();
+  }
 }
 
-frc2::CommandPtr IntakeRollers::Unjam() { return SetVoltage(intake_rollers::kUnjamVoltage); }
+void IntakeRollers::Unjam() { SetVoltage(intake_rollers::kUnjamVoltage); }
 
-frc2::CommandPtr IntakeRollers::Intake() { return SetVoltage(intake_rollers::kIntakeVoltage); }
+void IntakeRollers::Intake() { SetVoltage(intake_rollers::kIntakeVoltage); }
 
-frc2::CommandPtr IntakeRollers::Outtake() { return SetVoltage(intake_rollers::kOuttakeVoltage); }
+void IntakeRollers::Outtake() { SetVoltage(intake_rollers::kOuttakeVoltage); }

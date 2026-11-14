@@ -7,12 +7,9 @@
 
 #pragma once
 
-#include <functional>
 #include <memory>
 
 #include <frc/filter/LinearFilter.h>
-#include <frc2/command/CommandPtr.h>
-#include <frc2/command/button/Trigger.h>
 
 #include "logging/Logger.h"
 #include "subsystems/shooterpivot/ShooterPivotIO.h"
@@ -25,12 +22,14 @@ class ShooterPivot : public DisableSubsystem {
 
   void Periodic() override;
 
-  frc2::CommandPtr SetPosition(double position);
-  frc2::CommandPtr SetPosition(std::function<double()> position);
-  frc2::CommandPtr SetVoltage(double voltage);
-  frc2::CommandPtr Off();
-  frc2::CommandPtr ShootHub(std::function<double()> distance);
-  frc2::CommandPtr FeedCorner(std::function<double()> distance);
+  // Requests: call every loop the request should hold.
+  void SetPosition(double position);
+  void SetVoltage(double voltage);
+  void Off();
+  /** Hub shot angle from the hub table at {@code distance} [m]. */
+  void ShootHub(double distance);
+  /** Feed shot angle from the feed table at {@code distance} [m]. */
+  void FeedCorner(double distance);
 
   /** Within 0.01 rotations of the requested position. */
   bool ReachedPosition() const;
@@ -39,8 +38,6 @@ class ShooterPivot : public DisableSubsystem {
   bool TrenchOverride() const { return m_trenchOverride; }
   double RequestedPosition() const { return m_reqPosition; }
   const ShooterPivotIOInputs& Inputs() const { return m_inputs; }
-
-  frc2::Trigger reachedPosition{[this] { return ReachedPosition(); }};
 
  private:
   std::unique_ptr<ShooterPivotIO> m_io;

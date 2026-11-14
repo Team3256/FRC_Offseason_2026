@@ -7,47 +7,58 @@
 
 #pragma once
 
-#include <functional>
 #include <source_location>
 #include <string>
 #include <string_view>
 
-#include <frc2/command/CommandPtr.h>
-#include <frc2/command/SubsystemBase.h>
-#include <wpi/FunctionExtras.h>
-
 #include "logging/Logger.h"
 
 /**
- * A subsystem that can be switched off at construction: every command factory then returns a
- * no-op command. Commands are named after the factory method that built them (like the Java
- * version's StackWalker lookup, but resolved at compile time through std::source_location), and
- * the running command's name is logged every loop as "<Name>/CurrentCommand".
+ * Base of every mechanism. There is no scheduler: the superstructure decides each loop what every
+ * mechanism should do and calls one of its request methods (SetVelocity, Off, ...). A mechanism
+ * switched off at construction ignores every request.
+ *
+ * The request driving a mechanism is named after the method that made it (like the Java version's
+ * StackWalker lookup, but resolved at compile time through std::source_location) and logged as
+ * "<Name>/Goal" whenever it changes.
  */
-class DisableSubsystem : public frc2::SubsystemBase {
+class DisableSubsystem {
  public:
   DisableSubsystem(bool enabled, std::string_view name);
+  virtual ~DisableSubsystem() = default;
+  DisableSubsystem(const DisableSubsystem&) = delete;
+  DisableSubsystem& operator=(const DisableSubsystem&) = delete;
 
   const bool disabled;
 
-  [[nodiscard]] frc2::CommandPtr Run(std::function<void()> action,
-                                     std::source_location loc = std::source_location::current());
-  [[nodiscard]] frc2::CommandPtr RunOnce(
-      std::function<void()> action, std::source_location loc = std::source_location::current());
-  [[nodiscard]] frc2::CommandPtr StartEnd(
-      std::function<void()> start, std::function<void()> end,
-      std::source_location loc = std::source_location::current());
-  [[nodiscard]] frc2::CommandPtr RunEnd(std::function<void()> run, std::function<void()> end,
-                                        std::source_location loc = std::source_location::current());
-  [[nodiscard]] frc2::CommandPtr Defer(wpi::unique_function<frc2::CommandPtr()> supplier,
-                                       std::source_location loc = std::source_location::current());
+  /** Reads the mechanism's inputs and logs them. Call once per loop, before any request. */
+  virtual void Periodic() = 0;
 
-  void Periodic() override;
+  const std::string& GetName() const { return m_name; }
+  /** Name of the request driving the mechanism, e.g. "setVelocity"; "none" before the first. */
+  const std::string& GoalName() const { return m_goal; }
 
-  /** "frc2::CommandPtr Shooter::SetVelocity(...)" -> "setVelocity" (the Java method name). */
+  /** "void Shooter::SetVelocity(double)" -> "setVelocity" (the Java method name). */
   static std::string CallerName(const std::source_location& loc);
 
+ protected:
+  /**
+   * Call at the top of every request method: records the calling method as the goal and returns
+   * false (do nothing) if the mechanism is disabled.
+   */
+  bool Request(std::source_location loc = std::source_location::current());
+  /**
+   * True if the last Request() switched to a different request method. One-shot requests (Off)
+   * only talk to the motors then: Phoenix keeps applying the last control request on its own.
+   */
+  bool GoalChanged() const { return m_goalChanged; }
+
  private:
-  logging::Output<std::string> m_currentCommandLog;
-  const frc2::Command* m_lastCommand = reinterpret_cast<const frc2::Command*>(1);
+  std::string m_name;
+  std::string m_goal{"none"};
+  // function_name() points at a string literal, so a pointer compare finds goal changes without
+  // building a string every loop.
+  const char* m_lastFunction = nullptr;
+  bool m_goalChanged = false;
+  logging::Output<std::string> m_goalLog;
 };

@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <algorithm>
 #include <array>
 #include <functional>
 #include <memory>
@@ -15,14 +16,13 @@
 
 #include <frc/Alert.h>
 #include <frc/geometry/Pose2d.h>
-#include <frc2/command/SubsystemBase.h>
 #include <units/time.h>
 
 #include "logging/Logger.h"
 #include "subsystems/vision/VisionIO.h"
 
 /** Filters camera pose observations and feeds the accepted ones to the pose estimator. */
-class Vision : public frc2::SubsystemBase {
+class Vision {
  public:
   using VisionConsumer =
       std::function<void(const frc::Pose2d& visionRobotPose, units::second_t timestamp,
@@ -30,12 +30,17 @@ class Vision : public frc2::SubsystemBase {
 
   Vision(VisionConsumer consumer, std::vector<std::unique_ptr<VisionIO>> io);
 
-  void Periodic() override;
+  /** Call once per loop, before anything reads the pose. */
+  void Periodic();
 
   static bool HasElement(std::span<const short> list1, std::span<const short> list2);
 
   int AcceptedCount() const { return m_acceptedTotal; }
   int RejectedCount() const { return m_rejectedTotal; }
+  bool AllCamerasConnected() const {
+    return std::all_of(m_cameras.begin(), m_cameras.end(),
+                       [](const auto& cam) { return cam->inputs.connected; });
+  }
   const VisionIOInputs& Inputs(size_t camera) const { return m_cameras[camera]->inputs; }
 
  private:

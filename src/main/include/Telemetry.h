@@ -22,7 +22,7 @@
 #include <networktables/StructArrayTopic.h>
 #include <networktables/StructTopic.h>
 
-#include "subsystems/swerve/CommandSwerveDrivetrain.h"
+#include "subsystems/swerve/Drivetrain.h"
 
 /** Publishes the swerve drive state (called by Phoenix from its odometry thread). */
 class Telemetry {
@@ -31,7 +31,7 @@ class Telemetry {
   explicit Telemetry(double maxSpeed);
 
   /** Accept the swerve drive state and telemeterize it to SmartDashboard and SignalLogger. */
-  void Telemeterize(const subsystems::CommandSwerveDrivetrain::SwerveDriveState& state);
+  void Telemeterize(const subsystems::Drivetrain::SwerveDriveState& state);
 
  private:
   double m_maxSpeed;

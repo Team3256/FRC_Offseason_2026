@@ -9,18 +9,20 @@
 
 #include <cstdlib>
 #include <filesystem>
+#include <fstream>
+#include <sstream>
 #include <string>
 #include <system_error>
 
 #include <frc/DriverStation.h>
+#include <frc/Filesystem.h>
 #include <frc/RobotBase.h>
 #include <frc/RobotController.h>
-#include <frc2/command/CommandScheduler.h>
 #include <ctre/phoenix6/SignalLogger.hpp>
 
 #include "Constants.h"
 #include "logging/LoggedTracer.h"
-#include "sim/SimBattery.h"
+#include "sim/PhysicsWorld.h"
 #include "utils/PhoenixUtil.h"
 
 using ctre::phoenix6::SignalLogger;
@@ -72,8 +74,9 @@ Robot::Robot() {
   m_batteryLog = std::make_unique<logging::Output<double>>("SystemStats/BatteryVoltage");
   m_brownoutLog = std::make_unique<logging::Output<bool>>("SystemStats/BrownedOut");
   m_canUtilLog = std::make_unique<logging::Output<double>>("SystemStats/CANBus/Utilization");
-  // Instantiate our RobotContainer. This performs all the button bindings and puts the
-  // autonomous chooser on the dashboard.
+  m_buildLog = std::make_unique<logging::Output<std::string>>("Mayhem/Build");
+  // Instantiate our RobotContainer. This builds every mechanism and puts the autonomous chooser on
+  // the dashboard.
   m_container = std::make_unique<RobotContainer>();
 }
 
@@ -87,14 +90,20 @@ void Robot::RobotPeriodic() {
   m_lastLoopStartUs = startUs;
 
   logging::Logger::Periodic();
+  if (!m_buildLogged) {
+    // So every log says which code it ran (Mayhem: Robot → On the robot now, and feedback anchors).
+    m_buildLogged = true;
+    std::ifstream stamp{frc::filesystem::GetDeployDirectory() + "/mayhem-build.json"};
+    std::stringstream text;
+    text << stamp.rdbuf();
+    m_buildLog->Set(stamp ? text.str() : std::string{"{}"});
+  }
   logging::LoggedTracer::Reset();
   m_container->BeginLoop();
   phoenix_util::RefreshAll();
   phoenix_util::UpdateDeviceAlerts();
   logging::LoggedTracer::Record("Phoenix Refresh");
-  // Runs the Scheduler: polls buttons, schedules commands, runs scheduled commands, removes
-  // finished or interrupted commands, and runs subsystem Periodic() methods.
-  frc2::CommandScheduler::GetInstance().Run();
+  // Inputs, buttons, autonomous, drive, then the superstructure's state machines and outputs.
   m_container->Periodic();
 
   RobotAlerts::Inputs alertInputs;
@@ -111,9 +120,27 @@ void Robot::RobotPeriodic() {
   alertInputs.loopTimeMs = m_lastLoopTimeMs;
   alertInputs.driverControllerConnected =
       frc::DriverStation::IsJoystickConnected(constants::controller::kDriverControllerPort);
-  alertInputs.autoSelected =
-      m_container->GetAutoChooser().Selected() != mayhem::AutoChooser::kNoneName;
+  alertInputs.autoSelected = m_container->GetAutoChooser().Selected() != AutoChooser::kNoneName;
   m_alerts.Update(alertInputs);
+
+  DriverDashboard::Inputs dash;
+  dash.autoSelected = alertInputs.autoSelected;
+  dash.autoAtStartPose = m_container->IsAtAutoStartPose();
+  dash.batteryOk = !m_alerts.LowBattery();
+  dash.controllerConnected = !m_alerts.DriverControllerDisconnected();
+  dash.noBrownout = !m_alerts.BrownedOut();
+  dash.canOk = !m_alerts.HighCanUtilization();
+  dash.devicesConnected =
+      phoenix_util::DisconnectedDeviceCount() == 0 && phoenix_util::ConfigFailureCount() == 0;
+  dash.devicesCool = phoenix_util::HotDeviceCount() == 0;
+  dash.camerasConnected = m_container->GetVision().AllCamerasConnected();
+  dash.readyToShoot = m_container->GetSuperstructure().IsReadyToShoot();
+  const auto& ss = m_container->GetSuperstructure();
+  dash.state = std::string{Superstructure::ToString(ss.GetShooterMode())} + " · " +
+               std::string{Superstructure::ToString(ss.GetIntakeMode())};
+  dash.batteryVolts = alertInputs.batteryVolts;
+  dash.matchTimeSeconds = frc::DriverStation::GetMatchTime().value();
+  m_dashboard.Update(dash);
 
   m_lastLoopTimeMs = static_cast<double>(frc::RobotController::GetFPGATime() - startUs) / 1000.0;
   m_loopTimeLog->Set(m_lastLoopTimeMs);
@@ -134,7 +161,7 @@ void Robot::DriverStationConnected() {
 }
 
 void Robot::AutonomousInit() {
-  // no auto command, uses trigger
+  // RobotContainer starts the selected routine when it sees autonomous enabled.
   SignalLogger::WriteString("MatchStatus", "Auto");
 }
 
@@ -149,8 +176,8 @@ void Robot::TeleopExit() { SignalLogger::WriteString("MatchStatus", "TeleopEnded
 void Robot::TeleopPeriodic() {}
 
 void Robot::TestInit() {
-  // Cancels all running commands at the start of test mode.
-  frc2::CommandScheduler::GetInstance().CancelAll();
+  // Start test mode from a clean slate: no request carried over.
+  m_container->GetSuperstructure().StopAll();
 }
 
 void Robot::TestPeriodic() {}
@@ -158,6 +185,7 @@ void Robot::TestPeriodic() {}
 void Robot::SimulationInit() {}
 
 void Robot::SimulationPeriodic() {
-  // Apply every simulated mechanism's current draw to the simulated battery at once.
-  sim_battery::Update();
+  // 20 ms of physics (drivetrain, mechanisms, battery, field, FUEL) on simulated time, driven by
+  // the controls the robot code just sent its motors.
+  sim::PhysicsWorld::Get().Step(GetPeriod().value());
 }

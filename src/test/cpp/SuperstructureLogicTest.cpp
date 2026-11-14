@@ -15,7 +15,6 @@
 #include <frc/geometry/Pose2d.h>
 #include <frc/simulation/DriverStationSim.h>
 #include <frc/simulation/SimHooks.h>
-#include <frc2/command/CommandScheduler.h>
 #include <gtest/gtest.h>
 
 #include "FieldConstants.h"
@@ -30,7 +29,8 @@
 #include "subsystems/shooterpivot/ShooterPivotConstants.h"
 #include "subsystems/sotm/ShotCalculator.h"
 
-using SS = Superstructure::StructureState;
+using ShooterMode = Superstructure::ShooterMode;
+using IntakeMode = Superstructure::IntakeMode;
 
 namespace {
 
@@ -149,10 +149,6 @@ class SuperstructureLogicTest : public ::testing::Test {
   }
 
   void TearDown() override {
-    auto& s = frc2::CommandScheduler::GetInstance();
-    s.CancelAll();
-    s.GetDefaultButtonLoop()->Clear();
-    s.UnregisterAllSubsystems();
     m_ss.reset();
     m_shot.reset();
     m_indexer.reset();
@@ -170,30 +166,44 @@ class SuperstructureLogicTest : public ::testing::Test {
     frc::DriverStation::RefreshData();
   }
 
-  /** One robot loop: scheduler, then the superstructure and shot calculator (as RobotContainer). */
+  /** Runs until the intake phase graph reaches {@code phase} (the hood clears the slide first). */
+  void LoopUntilIntakePhase(std::string_view phase, int max = 150) {
+    for (int i = 0; i < max && m_ss->IntakePhase() != phase; ++i) {
+      Loop();
+    }
+    ASSERT_EQ(m_ss->IntakePhase(), phase);
+  }
+
+  /** One robot loop as RobotContainer runs it: inputs, then the superstructure, then shots. */
   void Loop(int n = 1) {
     for (int i = 0; i < n; i++) {
       frc::sim::StepTiming(20_ms);
       frc::DriverStation::RefreshData();
-      frc2::CommandScheduler::GetInstance().Run();
+      m_intakeRollers->Periodic();
+      m_shooter->Periodic();
+      m_pivot->Periodic();
+      m_slide->Periodic();
+      m_feeder->Periodic();
+      m_indexer->Periodic();
       m_ss->Periodic();
       m_shot->Periodic();
     }
   }
 
-  void Set(SS state) {
-    frc2::CommandScheduler::GetInstance().Schedule(
-        m_holder.emplace_back(m_ss->SetState(state)).get());
+  /** The driver's buttons for the next loops (helds stay held until changed). */
+  void Hold(Superstructure::OperatorInputs in) { m_ss->SetOperatorInputs(in); }
+  /** One loop with these buttons, then all released (a press lasts one loop). */
+  void Press(Superstructure::OperatorInputs in) {
+    m_ss->SetOperatorInputs(in);
     Loop();
+    m_ss->SetOperatorInputs({});
   }
+  void PressX() { Press({.intakePressed = true}); }
+  void PressB() { Press({.deployPressed = true}); }
 
-  std::string CmdName(frc2::Subsystem& s) {
-    auto* c = s.GetCurrentCommand();
-    return c ? c->GetName() : "none";
-  }
+  std::string CmdName(const DisableSubsystem& s) { return s.GoalName(); }
 
   frc::Pose2d m_pose{8_m, 2_m, frc::Rotation2d{}};
-  std::vector<frc2::CommandPtr> m_holder;
   FakeShooterIO* m_shooterIO;
   FakePivotIO* m_pivotIO;
   FakeSlideIO* m_slideIO;
@@ -212,32 +222,25 @@ class SuperstructureLogicTest : public ::testing::Test {
 
 }  // namespace
 
-TEST_F(SuperstructureLogicTest, StartsIdleAndKeepsTheHubTarget) {
+TEST_F(SuperstructureLogicTest, StartsOffAndStowedAndSelectsTheCornerImmediately) {
   Loop(3);
-  EXPECT_EQ(m_ss->GetState(), SS::IDLE);
-  // The feed-corner trigger is already true when it is bound, so (as in Java) there is no rising
-  // edge and the target stays the blue hub until the robot moves between zones.
-  EXPECT_NEAR(m_ss->GetTarget().X().value(), field_constants::hub::kCenterX, 1e-12);
+  EXPECT_EQ(m_ss->GetShooterMode(), ShooterMode::OFF);
+  EXPECT_EQ(m_ss->GetIntakeMode(), IntakeMode::STOWED);
+  // The target is chosen from the pose every loop, so a robot that starts outside the alliance
+  // zone already aims at its feed corner.
+  EXPECT_NEAR(m_ss->GetTarget().X().value(), Superstructure::kBottomCorner.X().value(), 1e-12);
 }
 
-TEST_F(SuperstructureLogicTest, SetStateTracksPreviousState) {
-  Set(SS::HOME);
-  EXPECT_EQ(m_ss->GetState(), SS::HOME);
-  EXPECT_EQ(m_ss->GetPrevState(), SS::IDLE);
-  Set(SS::HOME);  // same state again: previous is kept
-  EXPECT_EQ(m_ss->GetPrevState(), SS::IDLE);
-  Set(SS::OUTTAKE);
-  EXPECT_EQ(m_ss->GetPrevState(), SS::HOME);
-}
-
-TEST_F(SuperstructureLogicTest, SetStateDoesNotRunWhileDisabled) {
+TEST_F(SuperstructureLogicTest, ButtonsDoNothingWhileDisabled) {
   SetEnabled(false);
-  Set(SS::INTAKE);
-  EXPECT_EQ(m_ss->GetState(), SS::IDLE);
+  PressX();
+  Press({.shootHeld = true});
+  EXPECT_EQ(m_ss->GetIntakeMode(), IntakeMode::STOWED);
+  EXPECT_EQ(m_ss->GetShooterMode(), ShooterMode::OFF);
 }
 
 TEST_F(SuperstructureLogicTest, IntakeSequence) {
-  Set(SS::INTAKE);
+  PressX();
   Loop();
   EXPECT_EQ(CmdName(*m_intakeRollers), "setVoltage");
   EXPECT_DOUBLE_EQ(m_rollerIO->voltage, 8.0);
@@ -252,28 +255,35 @@ TEST_F(SuperstructureLogicTest, IntakeSequence) {
   EXPECT_TRUE(m_slideIO->extendedSlot);
 }
 
-TEST_F(SuperstructureLogicTest, IntakeThenShootBecomesShootAndIntake) {
-  Set(SS::INTAKE);
-  Set(SS::SHOOT);
-  Loop();
-  EXPECT_EQ(m_ss->GetState(), SS::SHOOT_AND_INTAKE);
-  EXPECT_EQ(m_ss->GetPrevState(), SS::SHOOT);
+TEST_F(SuperstructureLogicTest, XTogglesIntaking) {
+  PressX();
+  EXPECT_EQ(m_ss->GetIntakeMode(), IntakeMode::INTAKING);
+  Loop(5);
+  EXPECT_EQ(m_ss->GetIntakeMode(), IntakeMode::INTAKING);  // a press, not a hold
+  PressX();
+  EXPECT_EQ(m_ss->GetIntakeMode(), IntakeMode::STOWED);
+  EXPECT_DOUBLE_EQ(m_rollerIO->voltage, 0);
 }
 
-TEST_F(SuperstructureLogicTest, ShootThenIntakeBecomesShootAndIntake) {
-  Set(SS::SHOOT);
-  Set(SS::INTAKE);
+TEST_F(SuperstructureLogicTest, ShootsOnlyWhileAIsHeldAndKeepsIntaking) {
+  PressX();
+  Hold({.shootHeld = true});
   Loop();
-  EXPECT_EQ(m_ss->GetState(), SS::SHOOT_AND_INTAKE);
+  EXPECT_EQ(m_ss->GetShooterMode(), ShooterMode::SHOOTING);
+  EXPECT_EQ(m_ss->GetIntakeMode(), IntakeMode::INTAKING);  // the two modes are independent
+  Hold({});
+  Loop();
+  EXPECT_EQ(m_ss->GetShooterMode(), ShooterMode::OFF);
+  EXPECT_EQ(m_ss->GetIntakeMode(), IntakeMode::INTAKING);
 }
 
 TEST_F(SuperstructureLogicTest, ShootingFeedsOnceTheFlywheelIsAtSpeed) {
   m_pose = frc::Pose2d{3_m, 4_m, frc::Rotation2d{}};  // in the blue zone -> hub targeting (REV)
   Loop(2);
-  EXPECT_EQ(m_ss->GetState(), SS::REV);
+  EXPECT_EQ(m_ss->GetShooterMode(), ShooterMode::REV);
   EXPECT_EQ(CmdName(*m_shooter), "setVelocity");
-  EXPECT_EQ(CmdName(*m_feeder), "none");  // feeder.off() ran once
-  Set(SS::SHOOT);
+  EXPECT_EQ(CmdName(*m_feeder), "off");
+  Hold({.shootHeld = true});
   Loop();
   // hub shot: velocity from the hub table times the multiplier, hood from the hub table
   const double dist = m_shot->GetDistance();
@@ -283,16 +293,19 @@ TEST_F(SuperstructureLogicTest, ShootingFeedsOnceTheFlywheelIsAtSpeed) {
   Loop(3);
   EXPECT_DOUBLE_EQ(m_indexerIO->velocity, 60);
   EXPECT_DOUBLE_EQ(m_feederIO->velocity, 60);
+  // releasing A inside the zone goes back to pre-spinning, and the feed stops
+  Hold({});
+  Loop();
+  EXPECT_EQ(m_ss->GetShooterMode(), ShooterMode::REV);
+  EXPECT_DOUBLE_EQ(m_feederIO->velocity, 0);
 }
 
 TEST_F(SuperstructureLogicTest, ShootMultiplierScalesHubShots) {
   m_pose = frc::Pose2d{3_m, 4_m, frc::Rotation2d{}};
   Loop(2);
-  frc2::CommandScheduler::GetInstance().Schedule(
-      m_holder.emplace_back(m_ss->AddShootMultiplier(0.02)).get());
-  Loop();
-  Set(SS::SHOOT);
-  Loop();
+  m_ss->AddShootMultiplier(0.02);
+  Hold({.shootHeld = true});
+  Loop(2);
   EXPECT_NEAR(m_shooterIO->velocity, shooter::kHubLUT.Get(m_shot->GetDistance()) * 1.02, 1e-9);
 }
 
@@ -301,44 +314,47 @@ TEST_F(SuperstructureLogicTest, FeedShotsUseTheFeedTables) {
   m_pose = frc::Pose2d{8_m, 6_m, frc::Rotation2d{}};
   Loop(2);
   EXPECT_NEAR(m_ss->GetTarget().Y().value(), Superstructure::kTopCorner.Y().value(), 1e-12);
-  Set(SS::SHOOT);
-  Loop();
+  Hold({.shootHeld = true});
+  Loop(2);
   const double dist = m_shot->GetDistance();
   EXPECT_NEAR(m_shooterIO->velocity, shooter::kFeedLUT.Get(dist), 1e-9);
   EXPECT_NEAR(m_pivot->RequestedPosition(), shooter_pivot::kFeedLUT.Get(dist), 1e-9);
 }
 
-TEST_F(SuperstructureLogicTest, HubZoneRevAndIntakeCombine) {
+TEST_F(SuperstructureLogicTest, TheZoneRevsWhileIntaking) {
   m_pose = frc::Pose2d{3_m, 4_m, frc::Rotation2d{}};
   Loop(2);
-  EXPECT_EQ(m_ss->GetState(), SS::REV);
-  Set(SS::INTAKE);
+  PressX();
   Loop();
-  EXPECT_EQ(m_ss->GetState(), SS::REV_AND_INTAKE);
+  EXPECT_EQ(m_ss->GetShooterMode(), ShooterMode::REV);
+  EXPECT_EQ(m_ss->GetIntakeMode(), IntakeMode::INTAKING);
   EXPECT_EQ(CmdName(*m_shooter), "setVelocity");      // still revving
   m_pose = frc::Pose2d{8_m, 4_m, frc::Rotation2d{}};  // leave the zone
   Loop(2);
-  EXPECT_EQ(m_ss->GetState(), SS::INTAKE);
-  EXPECT_EQ(CmdName(*m_shooter), "none");  // whileTrue rev ended
+  EXPECT_EQ(m_ss->GetShooterMode(), ShooterMode::OFF);
+  EXPECT_EQ(m_ss->GetIntakeMode(), IntakeMode::INTAKING);
+  EXPECT_EQ(CmdName(*m_shooter), "off");  // rev ended
 }
 
-TEST_F(SuperstructureLogicTest, LeavingTheHubZoneWhileRevvingIdles) {
+TEST_F(SuperstructureLogicTest, LeavingTheZoneStopsTheRev) {
   m_pose = frc::Pose2d{3_m, 4_m, frc::Rotation2d{}};
   Loop(2);
   m_pose = frc::Pose2d{8_m, 4_m, frc::Rotation2d{}};
   Loop(2);
-  EXPECT_EQ(m_ss->GetState(), SS::IDLE);
+  EXPECT_EQ(m_ss->GetShooterMode(), ShooterMode::OFF);
   EXPECT_DOUBLE_EQ(m_rollerIO->voltage, 0);
   EXPECT_EQ(m_shooterIO->mode, "off");
 }
 
-TEST_F(SuperstructureLogicTest, JitterAndShootCombinations) {
-  Set(SS::SHOOT);
-  Set(SS::JITTER);
+TEST_F(SuperstructureLogicTest, JitterWhileYIsHeldThenBackToIntaking) {
+  Hold({.shootHeld = true, .jitterHeld = true});
   Loop();
-  EXPECT_EQ(m_ss->GetState(), SS::JITTER_AND_SHOOT);
+  EXPECT_EQ(m_ss->GetShooterMode(), ShooterMode::SHOOTING);
+  EXPECT_EQ(m_ss->GetIntakeMode(), IntakeMode::JITTERING);
   EXPECT_EQ(CmdName(*m_intakeRollers), "setVoltage");
   EXPECT_DOUBLE_EQ(m_rollerIO->voltage, 8.0);
+  LoopUntilIntakePhase("JITTERING");
+  Loop(2);
   // jitter alternates the slide between 0.7 and 0.3745, 0.2 s each
   double lo = 10, hi = -10;
   for (int i = 0; i < 40; i++) {
@@ -349,39 +365,59 @@ TEST_F(SuperstructureLogicTest, JitterAndShootCombinations) {
   EXPECT_DOUBLE_EQ(lo, 0.3745);
   EXPECT_DOUBLE_EQ(hi, 0.7);
   EXPECT_FALSE(m_slideIO->extendedSlot);  // jitter always uses slot 0
-}
-
-TEST_F(SuperstructureLogicTest, JitterThenShootBecomesJitterAndShoot) {
-  Set(SS::JITTER);
-  Set(SS::SHOOT);
+  Hold({.shootHeld = true});
   Loop();
-  EXPECT_EQ(m_ss->GetState(), SS::JITTER_AND_SHOOT);
+  EXPECT_EQ(m_ss->GetIntakeMode(), IntakeMode::INTAKING);
 }
 
-TEST_F(SuperstructureLogicTest, HomeOuttakeIdleAndCancelAll) {
-  Set(SS::INTAKE);
+TEST_F(SuperstructureLogicTest, DeployOuttakeAndStopAll) {
+  PressX();
   Loop(5);
-  Set(SS::HOME);
+  PressB();  // slide stays out, rollers stop
+  EXPECT_EQ(m_ss->GetIntakeMode(), IntakeMode::DEPLOYED);
+  LoopUntilIntakePhase("READY");
   Loop();
   EXPECT_DOUBLE_EQ(m_pivot->RequestedPosition(), 0.05);
   EXPECT_DOUBLE_EQ(m_rollerIO->voltage, 0);
   EXPECT_NEAR(m_slide->RequestedPosition(), 0.86, 1e-12);  // ground intake position
-  Set(SS::OUTTAKE);
+  Hold({.shootHeld = true, .outtakeHeld = true});          // outtaking wins over shooting
   Loop();
+  EXPECT_EQ(m_ss->GetIntakeMode(), IntakeMode::OUTTAKING);
+  EXPECT_EQ(m_ss->GetShooterMode(), ShooterMode::OFF);
   EXPECT_DOUBLE_EQ(m_rollerIO->voltage, -8.0);
   EXPECT_DOUBLE_EQ(m_feederIO->velocity, -80);
-  Set(SS::CANCEL_ALL);
+  Hold({});
   Loop();
+  EXPECT_EQ(m_ss->GetIntakeMode(), IntakeMode::STOWED);
   EXPECT_DOUBLE_EQ(m_rollerIO->voltage, 0);
   EXPECT_DOUBLE_EQ(m_feederIO->velocity, 0);
-  EXPECT_DOUBLE_EQ(m_pivot->RequestedPosition(), 0.05);
-  Set(SS::IDLE);
-  Loop();
   EXPECT_EQ(m_slideIO->target, -1);  // slide off
+  PressX();
+  m_ss->StopAll();
+  Loop();
+  EXPECT_EQ(m_ss->GetIntakeMode(), IntakeMode::STOWED);
+  EXPECT_DOUBLE_EQ(m_rollerIO->voltage, 0);
+}
+
+TEST_F(SuperstructureLogicTest, AutoRequests) {
+  m_ss->StartIntaking();
+  Loop();
+  EXPECT_EQ(m_ss->GetIntakeMode(), IntakeMode::INTAKING);
+  m_ss->SetAutoShooting(true);
+  Loop(3);
+  EXPECT_EQ(m_ss->GetShooterMode(), ShooterMode::SHOOTING);
+  m_ss->StowIntake();
+  Loop();
+  EXPECT_EQ(m_ss->GetIntakeMode(), IntakeMode::STOWED);
+  EXPECT_EQ(m_ss->GetShooterMode(), ShooterMode::SHOOTING);
+  m_ss->StopAll();  // also ends the auto's shot
+  Loop(2);
+  EXPECT_EQ(m_ss->GetShooterMode(), ShooterMode::OFF);
 }
 
 TEST_F(SuperstructureLogicTest, TrenchApproachForcesHoodDown) {
-  Set(SS::HOME);
+  PressB();
+  LoopUntilIntakePhase("READY");
   Loop();
   EXPECT_DOUBLE_EQ(m_pivot->RequestedPosition(), 0.05);
   m_pose = frc::Pose2d{units::meter_t{field_constants::lines_vertical::oppHubCenter}, 7.5_m,
@@ -418,10 +454,10 @@ TEST_F(SuperstructureLogicTest, RedAllianceZonesAndTargets) {
   EXPECT_FALSE(m_ss->TargetBlueHub());
   m_pose = frc::Pose2d{3_m, 4_m, frc::Rotation2d{}};
   Loop(2);
-  EXPECT_EQ(m_ss->GetState(), SS::IDLE);  // the blue zone means nothing on red
+  EXPECT_EQ(m_ss->GetShooterMode(), ShooterMode::OFF);  // the blue zone means nothing on red
   m_pose = frc::Pose2d{13_m, 4_m, frc::Rotation2d{}};
   Loop(2);
-  EXPECT_EQ(m_ss->GetState(), SS::REV);
+  EXPECT_EQ(m_ss->GetShooterMode(), ShooterMode::REV);
   EXPECT_NEAR(m_ss->GetTarget().X().value(), field_constants::hub::kOppCenterX, 1e-12);
   m_pose = frc::Pose2d{8_m, 2_m, frc::Rotation2d{}};  // bottom half on red: flipped top corner
   Loop(2);
@@ -436,8 +472,8 @@ TEST_F(SuperstructureLogicTest, TargetChangesEvenWhileDisabled) {
   EXPECT_NEAR(m_ss->GetTarget().Y().value(), Superstructure::kTopCorner.Y().value(), 1e-12);
   m_pose = frc::Pose2d{3_m, 4_m, frc::Rotation2d{}};  // blue zone: the hub
   Loop(2);
-  // ChangeTarget ignores disable, SetState(REV) does not
+  // the target follows the pose while disabled; the rev does not start
   EXPECT_NEAR(m_ss->GetTarget().X().value(), field_constants::hub::kCenterX, 1e-12);
   EXPECT_NEAR(m_shot->GetTarget().X().value(), field_constants::hub::kCenterX, 1e-12);
-  EXPECT_EQ(m_ss->GetState(), SS::IDLE);
+  EXPECT_EQ(m_ss->GetShooterMode(), ShooterMode::OFF);
 }

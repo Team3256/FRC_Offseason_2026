@@ -117,6 +117,38 @@ model {
     }
 }
 
+// Mayhem: record what is being built and deployed in deploy/mayhem-build.json (deployed to the
+// roboRIO and logged at boot as Mayhem/Build), so the Mayhem app can show what's on the robot and
+// each log says which code it ran. MAYHEM_BUILD_SHA/BRANCH override git (Mayhem's rollback builds a
+// clean export of a commit).
+task mayhemBuildStamp {
+    outputs.upToDateWhen { false }
+    doLast {
+        def git = { List<String> args ->
+            try {
+                def p = (["git"] + args).execute(null, projectDir)
+                def text = p.text
+                p.waitFor() == 0 ? text : ""
+            } catch (ignored) {
+                ""
+            }
+        }
+        def dirty = git(["status", "--porcelain"]).readLines().collect { it.length() > 3 ? it.substring(3) : it }
+        def stamp = [
+            sha     : System.getenv("MAYHEM_BUILD_SHA") ?: git(["rev-parse", "HEAD"]).trim(),
+            branch  : System.getenv("MAYHEM_BUILD_BRANCH") ?: git(["rev-parse", "--abbrev-ref", "HEAD"]).trim(),
+            dirty   : dirty.take(50),
+            builtAt : new Date().format("yyyy-MM-dd'T'HH:mm:ssXXX"),
+            builtBy : System.getProperty("user.name"),
+            computer: InetAddress.localHost.hostName,
+        ]
+        def out = file("src/main/deploy/mayhem-build.json")
+        out.parentFile.mkdirs()
+        out.text = groovy.json.JsonOutput.toJson(stamp) + "\n"
+    }
+}
+tasks.withType(CppCompile).configureEach { dependsOn mayhemBuildStamp }
+
 // Create commit with working changes on event branches
 task(eventDeploy) {
     doLast {

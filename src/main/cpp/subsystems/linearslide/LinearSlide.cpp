@@ -7,7 +7,9 @@
 
 #include "subsystems/linearslide/LinearSlide.h"
 
-#include <cstdio>
+#include <cmath>
+
+#include <frc/Timer.h>
 
 #include "logging/LoggedTracer.h"
 #include "subsystems/linearslide/LinearSlideConstants.h"
@@ -16,8 +18,6 @@
 LinearSlide::LinearSlide(bool enabled, std::unique_ptr<LinearSlideIO> io)
     : DisableSubsystem(enabled, "LinearSlide"), m_io{std::move(io)} {
   m_io->Zero();
-  const auto* current = GetCurrentCommand();
-  std::printf("Current command: %s\n", current != nullptr ? current->GetName().c_str() : "none");
   m_inputsLog.Add("rightMotorVoltage", &m_inputs.rightMotorVoltage);
   m_inputsLog.Add("rightMotorVelocity", &m_inputs.rightMotorVelocity);
   m_inputsLog.Add("rightMotorPosition", &m_inputs.rightMotorPosition);
@@ -31,76 +31,88 @@ LinearSlide::LinearSlide(bool enabled, std::unique_ptr<LinearSlideIO> io)
 }
 
 void LinearSlide::Periodic() {
-  DisableSubsystem::Periodic();
   m_io->UpdateInputs(m_inputs);
   m_inputsLog.Publish();
   m_reqPositionLog.Set(m_reqPosition);
   logging::LoggedTracer::Record("LinearSlide");
 }
 
-frc2::CommandPtr LinearSlide::SetPosition(double position) {
-  return Run([this, position] {
-    m_reqPosition = position;
-    if (IsExtended()) {
-      m_io->SetExtendedPosition(position);
-    } else {
-      m_io->SetPosition(position);
-    }
-  });
-}
-
-frc2::CommandPtr LinearSlide::SetNonExtendedPosition(double position) {
-  return Run([this, position] {
-    m_reqPosition = position;
+void LinearSlide::Drive(double position) {
+  m_reqPosition = position;
+  if (IsExtended()) {
+    m_io->SetExtendedPosition(position);
+  } else {
     m_io->SetPosition(position);
-  });
+  }
 }
 
-frc2::CommandPtr LinearSlide::SetPosition(std::function<double()> position) {
-  return Run([this, position = std::move(position)] {
-    m_reqPosition = position();
-    if (IsExtended()) {
-      m_io->SetExtendedPosition(m_reqPosition);
-    } else {
-      m_io->SetPosition(m_reqPosition);
-    }
-  });
+void LinearSlide::DriveNonExtended(double position) {
+  m_reqPosition = position;
+  m_io->SetPosition(position);
 }
 
-frc2::CommandPtr LinearSlide::SetVoltage(double voltage) {
-  return Run([this, voltage] { m_io->SetVoltage(voltage); });
+void LinearSlide::SetPosition(double position) {
+  if (Request()) {
+    Drive(position);
+  }
 }
 
-frc2::CommandPtr LinearSlide::Off() {
-  return RunOnce([this] { m_io->Off(); }).WithName("off");
+void LinearSlide::SetNonExtendedPosition(double position) {
+  if (Request()) {
+    DriveNonExtended(position);
+  }
 }
 
-frc2::CommandPtr LinearSlide::GoToStow() { return SetPosition(linear_slide::kStowPosition); }
-
-frc2::CommandPtr LinearSlide::GoToGroundIntake() {
-  return SetPosition(linear_slide::kIntakeFinalPosition);
+void LinearSlide::SetVoltage(double voltage) {
+  if (Request()) {
+    m_io->SetVoltage(voltage);
+  }
 }
 
-frc2::CommandPtr LinearSlide::GoToIntakeSequence() {
-  return SetPosition(linear_slide::kIntakeInitialPosition)
-      .Until([this] { return ReachedPosition(0.0005); })
-      .WithTimeout(2.0_s)
-      .AndThen(SetPosition(linear_slide::kIntakeFinalPosition));
+void LinearSlide::Off() {
+  if (Request() && GoalChanged()) {
+    m_io->Off();
+  }
 }
 
-frc2::CommandPtr LinearSlide::GoToJitter() {
-  return SetNonExtendedPosition(linear_slide::kJitterPosition);
+void LinearSlide::GoToStow() { SetPosition(linear_slide::kStowPosition); }
+
+void LinearSlide::GoToGroundIntake() { SetPosition(linear_slide::kIntakeFinalPosition); }
+
+void LinearSlide::GoToJitter() { SetNonExtendedPosition(linear_slide::kJitterPosition); }
+
+void LinearSlide::GoToJitterIntermediate() {
+  SetNonExtendedPosition(linear_slide::kJitterIntermediate);
 }
 
-frc2::CommandPtr LinearSlide::GoToJitterIntermediate() {
-  return SetNonExtendedPosition(linear_slide::kJitterIntermediate);
+void LinearSlide::GoToIntakeSequence() {
+  if (!Request()) {
+    return;
+  }
+  const double now = frc::Timer::GetFPGATimestamp().value();
+  if (GoalChanged()) {
+    m_sequenceStart = now;
+    m_sequenceFinalLeg = false;
+  }
+  if (!m_sequenceFinalLeg &&
+      (now - m_sequenceStart >= 2.0 ||
+       (m_reqPosition == linear_slide::kIntakeInitialPosition && ReachedPosition(0.0005)))) {
+    m_sequenceFinalLeg = true;
+  }
+  Drive(m_sequenceFinalLeg ? linear_slide::kIntakeFinalPosition
+                           : linear_slide::kIntakeInitialPosition);
 }
 
-frc2::CommandPtr LinearSlide::JitterIntake() {
-  return GoToJitter()
-      .WithTimeout(.2_s)
-      .AndThen(GoToJitterIntermediate().WithTimeout(.2_s))
-      .Repeatedly();
+void LinearSlide::JitterIntake() {
+  if (!Request()) {
+    return;
+  }
+  const double now = frc::Timer::GetFPGATimestamp().value();
+  if (GoalChanged()) {
+    m_sequenceStart = now;
+  }
+  const bool firstHalf = std::fmod(now - m_sequenceStart, 0.4) < 0.2;
+  DriveNonExtended(firstHalf ? linear_slide::kJitterPosition : linear_slide::kJitterIntermediate);
 }
 
 bool LinearSlide::ReachedPosition(double tolerance) const {

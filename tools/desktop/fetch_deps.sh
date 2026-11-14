@@ -6,9 +6,8 @@
 #   Phoenix 6 C++ (headers + desktop sim libs)           -> maven.ctr-electronics.com
 #   PhotonLib C++ headers (syntax check only)            -> maven.photonvision.org
 #
-# The command-based framework (wpilibNewCommands) is not published outside frcmaven, so the desktop
-# build uses a small API-compatible implementation in tools/desktop/frc2shim. The real robot build
-# (./gradlew build / deploy) always uses the official WPILib libraries from the vendordeps.
+# The real robot build (./gradlew build / deploy) always uses the official WPILib libraries from the
+# vendordeps.
 set -euo pipefail
 WPILIB_VERSION="${WPILIB_VERSION:-2026.2.2}"
 PHOENIX_VERSION="26.3.0"

@@ -7,47 +7,29 @@
 
 #include "subsystems/shooter/ShooterIOSim.h"
 
-#include <frc/RobotController.h>
-#include <frc/TimedRobot.h>
-#include <frc/system/plant/DCMotor.h>
-#include <frc/system/plant/LinearSystemId.h>
-
-#include "sim/SimBattery.h"
+#include "sim/PhysicsWorld.h"
 #include "sim/SimMechs.h"
 
-namespace {
-const frc::DCMotor kMotor =
-    shooter::kUseFOC ? frc::DCMotor::KrakenX60FOC(4) : frc::DCMotor::KrakenX60(4);
+ShooterIOSim::ShooterIOSim() {
+  auto& world = sim::PhysicsWorld::Get();
+  for (auto& m : GetMotors()) {
+    world.AttachMotor(sim::Mechanism::kShooter, m, shooter::MotorConfigs(),
+                      mayhem::sim::DcMotor::KrakenX60(), mayhem::sim::DcMotor::KrakenX60Foc());
+  }
 }
 
-ShooterIOSim::ShooterIOSim()
-    : m_flywheelSim{frc::LinearSystemId::FlywheelSystem(
-                        kMotor, units::kilogram_square_meter_t{shooter::sim::kLeftMomentOfInertia},
-                        shooter::sim::kLeftGearingRatio),
-                    kMotor} {}
-
 void ShooterIOSim::UpdateInputs(ShooterIOInputs& inputs) {
-  constexpr double dt = frc::TimedRobot::kDefaultPeriod.value();
+  const auto& world = sim::PhysicsWorld::Get();
   auto& motors = GetMotors();
-  for (auto& m : motors) {
-    m.GetSimState().SetSupplyVoltage(frc::RobotController::GetBatteryVoltage());
+  for (size_t i = 0; i < motors.size(); i++) {
+    const auto& m = world.Motor(motors[i]);
+    inputs.shooterMotorVoltages[i] = m.MotorVoltage();
+    inputs.shooterMotorVelocitys[i] = m.Velocity();
+    inputs.shooterMotorStatorCurrents[i] = m.StatorCurrent();
+    inputs.shooterMotorSupplyCurrents[i] = m.SupplyCurrent();
+    inputs.shooterMotorTemperatures[i] = 25;
+    inputs.shooterMotorIDs[i] = shooter::kMotorIds[i];
   }
-  // Update physics models
-  m_flywheelSim.SetInputVoltage(motors[0].GetSimState().GetMotorVoltage());
-  m_flywheelSim.Update(frc::TimedRobot::kDefaultPeriod);
-
-  const double motorRps = units::turns_per_second_t{m_flywheelSim.GetAngularVelocity()}.value();
-  for (auto& m : motors) {
-    auto& simState = m.GetSimState();
-    simState.SetRotorVelocity(units::turns_per_second_t{motorRps});
-    simState.AddRotorPosition(units::turn_t{motorRps * dt});
-  }
-  // Battery load: the simulated TalonFXs' supply currents (these include the current limits).
-  for (auto& m : motors) {
-    sim_battery::AddCurrent(m.GetSimState().GetSupplyCurrent());
-  }
-
-  ShooterIOTalonFX::UpdateInputs(inputs);
-  SimMechs::GetInstance().UpdateShooterWheel(
-      units::degree_t{motorRps * 360 * dt * shooter::sim::kAngularVelocityScalar});
+  SimMechs::GetInstance().UpdateShooterWheel(units::degree_t{
+      inputs.shooterMotorVelocitys[0] * 360 * 0.02 * shooter::sim::kAngularVelocityScalar});
 }

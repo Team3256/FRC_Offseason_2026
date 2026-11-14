@@ -7,16 +7,14 @@
 
 #pragma once
 
-#include <frc/simulation/FlywheelSim.h>
-
 #include "subsystems/shooter/ShooterIOTalonFX.h"
 
-/** Simulated shooter: the real TalonFX IO driven by a flywheel physics model. */
+/**
+ * Simulated shooter: the real TalonFX IO, with its four motors simulated on sim::PhysicsWorld (a
+ * flywheel plant driven by Mayhem's TalonFX emulator configured like the real motors).
+ */
 class ShooterIOSim : public ShooterIOTalonFX {
  public:
   ShooterIOSim();
   void UpdateInputs(ShooterIOInputs& inputs) override;
-
- private:
-  frc::sim::FlywheelSim m_flywheelSim;
 };

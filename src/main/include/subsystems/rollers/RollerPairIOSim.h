@@ -8,37 +8,29 @@
 #pragma once
 
 #include <functional>
+#include <memory>
 
-#include <frc/simulation/FlywheelSim.h>
 #include <units/angle.h>
 
+#include "sim/PhysicsWorld.h"
 #include "subsystems/rollers/RollerPairIO.h"
 
 /**
- * Simulated roller pair: the real TalonFX IO with a flywheel model driven by the leader's output.
- * The small differences between the Java intake/feeder/indexer simulations are kept as options.
+ * Simulated roller pair (intake rollers, feeder, indexer): the real TalonFX IO, both motors and the
+ * roller simulated on sim::PhysicsWorld. The follower is simulated as Phoenix's Follower request.
  */
 class RollerPairIOSim : public RollerPairIOTalonFX {
  public:
-  struct Options {
-    /** Follower rotor spins opposite the leader in the sim (intake) or with it (feeder/indexer). */
-    bool followerReversed = false;
-    /** Also update the follower's supply voltage (the indexer sim did not). */
-    bool setFollowerSupply = true;
-    /** Mechanism2d update, given the rotation delta to draw. */
-    std::function<void(units::degree_t)> visualize;
-    double angularVelocityScalar = 1;
-  };
-
-  RollerPairIOSim(const RollerPairConfig& config, const frc::LinearSystem<1, 1, 1>& plant,
-                  const frc::DCMotor& gearbox, Options options);
+  /** Mechanism2d update, given the rotation delta to draw. */
+  using Visualize = std::function<void(units::degree_t)>;
+  RollerPairIOSim(const RollerPairConfig& config, sim::Mechanism mechanism, Visualize visualize,
+                  double angularVelocityScalar);
   void UpdateInputs(RollerPairInputs& inputs) override;
-
   double SimRps() const { return m_lastRps; }
 
  private:
-  frc::sim::FlywheelSim m_sim;
-  Options m_options;
+  Visualize m_visualize;
+  double m_angularVelocityScalar;
   double m_lastRps = 0;
 };
 

@@ -11,13 +11,12 @@
 #include <string>
 #include <string_view>
 
-#include <frc2/command/button/CommandXboxController.h>
+#include <frc/XboxController.h>
 
-/** CommandXboxController with a name and optional per-button labels (for a controller map). */
-class MappedXboxController : public frc2::CommandXboxController {
+/** XboxController with a name and optional per-button labels (for a controller map). */
+class MappedXboxController : public frc::XboxController {
  public:
-  MappedXboxController(int port, std::string_view name)
-      : frc2::CommandXboxController(port), name{name} {}
+  MappedXboxController(int port, std::string_view name) : frc::XboxController(port), name{name} {}
 
   const std::string name;
 

@@ -26,11 +26,11 @@ endif()
 add_compile_options(-Wall -Wextra -Wno-unused-parameter -Wno-deprecated-declarations
                     -Wno-missing-field-initializers -Wno-psabi)
 
-# ----------------------------------------------------------------------------- frc2 (desktop shim)
-add_library(frc2shim STATIC tools/desktop/frc2shim/src/frc2shim.cpp)
-target_include_directories(frc2shim PUBLIC tools/desktop/frc2shim/include "${DEPS_DIR}/inc")
-target_link_directories(frc2shim PUBLIC "${DEPS_DIR}/lib")
-target_link_libraries(frc2shim PUBLIC wpilibc wpiHal ntcore wpimath wpinet wpiutil)
+# ----------------------------------------------------------------------------- WPILib
+add_library(wpilib INTERFACE)
+target_include_directories(wpilib INTERFACE "${DEPS_DIR}/inc")
+target_link_directories(wpilib INTERFACE "${DEPS_DIR}/lib")
+target_link_libraries(wpilib INTERFACE wpilibc wpiHal ntcore wpimath wpinet wpiutil)
 
 # ----------------------------------------------------------------------------- robot code
 file(GLOB_RECURSE ROBOT_SOURCES CONFIGURE_DEPENDS "${CMAKE_SOURCE_DIR}/src/main/cpp/*.cpp")
@@ -43,7 +43,7 @@ list(FILTER ROBOT_SOURCES EXCLUDE REGEX ".*/Main\\.cpp$")
 add_library(robotlib STATIC ${ROBOT_SOURCES})
 target_include_directories(robotlib PUBLIC src/main/include)
 target_compile_definitions(robotlib PUBLIC ROBOT_DESKTOP_BUILD=1)
-target_link_libraries(robotlib PUBLIC frc2shim CTRE_Phoenix6_WPISim CTRE_PhoenixTools_Sim apriltag
+target_link_libraries(robotlib PUBLIC wpilib CTRE_Phoenix6_WPISim CTRE_PhoenixTools_Sim apriltag
                       pthread)
 set_target_properties(robotlib PROPERTIES BUILD_RPATH "${DEPS_DIR}/lib")
 
@@ -54,7 +54,7 @@ set_target_properties(robot-sim PROPERTIES BUILD_RPATH "${DEPS_DIR}/lib")
 # Compile (not link) the PhotonVision IO against the real PhotonLib headers.
 add_library(photon-syntax-check OBJECT src/main/cpp/subsystems/vision/VisionIOPhotonVision.cpp)
 target_include_directories(photon-syntax-check PRIVATE src/main/include)
-target_link_libraries(photon-syntax-check PRIVATE frc2shim)
+target_link_libraries(photon-syntax-check PRIVATE wpilib)
 set_target_properties(photon-syntax-check PROPERTIES EXCLUDE_FROM_ALL ON)
 
 # ----------------------------------------------------------------------------- tests

@@ -20,9 +20,6 @@
 #include <frc/apriltag/AprilTagFieldLayout.h>
 #include <frc/simulation/DriverStationSim.h>
 #include <frc/simulation/SimHooks.h>
-#include <frc2/command/CommandScheduler.h>
-#include <frc2/command/Commands.h>
-#include <frc2/command/SubsystemBase.h>
 #include <gtest/gtest.h>
 #include <wpi/DataLogReader.h>
 #include <wpi/MemoryBuffer.h>
@@ -32,7 +29,6 @@
 #include "FieldConstants.h"
 #include "TestUtil.h"
 #include "logging/Logger.h"
-#include "mayhem/Auto.h"
 #include "subsystems/linearslide/LinearSlideConstants.h"
 #include "subsystems/shooter/ShooterConstants.h"
 #include "subsystems/shooterpivot/ShooterPivotConstants.h"
@@ -65,7 +61,7 @@ TEST(InterpolatingMapTest, RobotTablesAreSortedAndClamped) {
   EXPECT_NEAR(shooter::kHubLUT.Get((1.62 + 2.71) / 2), (65.8 + 74.8) / 2, 1e-12);
   EXPECT_DOUBLE_EQ(shooter::kFeedLUT.Get(20.0), 95.0);
   EXPECT_DOUBLE_EQ(shooter_pivot::kHubLUT.Get(3.95), 0.069);
-  EXPECT_DOUBLE_EQ(shooter_pivot::kFeedLUT.Get(7.0), 0.01);
+  EXPECT_DOUBLE_EQ(shooter_pivot::kFeedLUT.Get(7.0), 0.071);
 }
 
 TEST(UtilTest, MatchesJavaUtil) {
@@ -88,43 +84,53 @@ TEST(UtilTest, MatchesJavaUtil) {
 }
 
 namespace {
-struct Probe {
-  frc2::CommandPtr SetVelocity(std::source_location loc = std::source_location::current()) {
-    name = DisableSubsystem::CallerName(loc);
-    return frc2::cmd::None();
-  }
-  std::string name;
-};
-
 class TestSubsystem : public DisableSubsystem {
  public:
   explicit TestSubsystem(bool enabled) : DisableSubsystem(enabled, "TestSubsystem") {}
-  frc2::CommandPtr SetVelocity(double v) {
-    return Run([this, v] { last = v; });
+  void Periodic() override {}
+  void SetVelocity(double v) {
+    if (Request()) {
+      last = v;
+    }
   }
-  frc2::CommandPtr Off() {
-    return RunOnce([this] { last = 0; });
+  void Off() {
+    if (Request() && GoalChanged()) {
+      last = 0;
+      offs++;
+    }
   }
   double last = -1;
+  int offs = 0;
 };
 }  // namespace
 
-TEST(DisableSubsystemTest, CommandsAreNamedAfterTheirFactoryMethod) {
+TEST(DisableSubsystemTest, GoalsAreNamedAfterTheirRequestMethod) {
   TestSubsystem s{true};
-  auto vel = s.SetVelocity(1);
-  auto off = s.Off();
-  EXPECT_EQ(vel.get()->GetName(), "setVelocity");
-  EXPECT_EQ(off.get()->GetName(), "off.runOnce");
-  EXPECT_TRUE(vel.get()->HasRequirement(&s));
-  frc2::CommandScheduler::GetInstance().UnregisterSubsystem(&s);
+  EXPECT_EQ(s.GoalName(), "none");
+  s.SetVelocity(1);
+  EXPECT_EQ(s.GoalName(), "setVelocity");
+  EXPECT_DOUBLE_EQ(s.last, 1);
+  s.Off();
+  EXPECT_EQ(s.GoalName(), "off");
+  EXPECT_DOUBLE_EQ(s.last, 0);
 }
 
-TEST(DisableSubsystemTest, DisabledSubsystemsReturnNoOps) {
+TEST(DisableSubsystemTest, OffOnlyReachesTheMotorsWhenTheGoalChanges) {
+  TestSubsystem s{true};
+  s.Off();
+  s.Off();
+  EXPECT_EQ(s.offs, 1);
+  s.SetVelocity(2);
+  s.Off();
+  EXPECT_EQ(s.offs, 2);
+}
+
+TEST(DisableSubsystemTest, DisabledSubsystemsIgnoreRequests) {
   TestSubsystem s{false};
   EXPECT_TRUE(s.disabled);
-  auto c = s.SetVelocity(3);
-  EXPECT_FALSE(c.get()->HasRequirement(&s));
-  frc2::CommandScheduler::GetInstance().UnregisterSubsystem(&s);
+  s.SetVelocity(3);
+  EXPECT_DOUBLE_EQ(s.last, -1);
+  EXPECT_EQ(s.GoalName(), "none");
 }
 
 // ------------------------------------------------------------------------------- field / vision
@@ -214,7 +220,6 @@ TEST(VisionTest, RejectsBadObservationsAndScalesStdDevs) {
   EXPECT_NEAR(got[0].sd[2], vision::kAngularStdDevBaseline * 2.0, 1e-12);
   EXPECT_NEAR(got[1].sd[0], vision::kLinearStdDevBaseline * 9.0 * 1.3, 1e-12);
   EXPECT_NEAR(got[1].pose.X().value(), 5.0, 1e-12);
-  frc2::CommandScheduler::GetInstance().UnregisterSubsystem(&v);
 }
 
 TEST(VisionTest, SimulatedCameraSeesTagsInItsFieldOfView) {
@@ -260,143 +265,6 @@ TEST(PhoenixTest, SignalsAreRefreshedTogether) {
   EXPECT_EQ(phoenix_util::RegisteredSignalCount(), 2u);
   phoenix_util::RefreshAll();  // must not throw or block
   phoenix_util::ClearRegisteredSignals();
-}
-
-// -------------------------------------------------------------------------------------- mayhem
-TEST(MayhemTest, EveryDeployedTrajectoryLoads) {
-  // Same check as the Java MayhemTrajectoriesTest.
-  test_util::UseRepoDeployDir();
-  namespace fs = std::filesystem;
-  int n = 0;
-  for (const auto& f : fs::directory_iterator{test_util::RepoPath("src/main/deploy/mayhem")}) {
-    if (f.path().extension() != ".mtraj") {
-      continue;
-    }
-    const std::string name = f.path().stem().string();
-    auto traj = mayhem::trajectory_loader::LoadFile(f.path().string());
-    EXPECT_EQ(name, traj->Name()) << "file name should match the trajectory name";
-    EXPECT_FALSE(traj->Samples().empty()) << name;
-    EXPECT_GT(traj->TotalTime(), 0) << name;
-    EXPECT_NE(traj->Recovery(), nullptr) << name;
-    EXPECT_TRUE(std::isfinite(traj->InitialPose().X().value()) &&
-                std::isfinite(traj->FinalPose().X().value()));
-    n++;
-  }
-  EXPECT_EQ(n, 10);
-}
-
-TEST(MayhemTest, LoaderRejectsBadFiles) {
-  EXPECT_THROW(mayhem::trajectory_loader::Parse("{not json"), std::invalid_argument);
-  EXPECT_THROW(mayhem::trajectory_loader::Parse(R"({"name":"x","formatVersion":2,"output":{}})"),
-               std::invalid_argument);
-  EXPECT_THROW(mayhem::trajectory_loader::Parse(R"({"name":"x","formatVersion":1})"),
-               std::invalid_argument);
-  EXPECT_THROW(mayhem::trajectory_loader::LoadFile("/nonexistent.mtraj"), std::invalid_argument);
-}
-
-namespace {
-/** A drivetrain that does exactly what it is told. */
-class FakeDrive : public frc2::SubsystemBase {
- public:
-  FakeDrive() : SubsystemBase("FakeDrive") {}
-  frc::Pose2d pose;
-  mayhem::DriveCommand last;
-};
-}  // namespace
-
-/** Routine/trigger semantics (Choreo-style), with stepped simulated time and an ideal drivetrain.
- */
-TEST(MayhemTest, RoutineTriggersFireOnceInOrder) {
-  test_util::UseRepoDeployDir();
-  frc::sim::PauseTiming();
-  frc::sim::DriverStationSim::ResetData();
-  frc::sim::DriverStationSim::SetAllianceStationId(HAL_AllianceStationID_kBlue1);
-  frc::sim::DriverStationSim::SetEnabled(true);
-  frc::sim::DriverStationSim::SetAutonomous(true);
-  frc::sim::DriverStationSim::NotifyNewData();
-  frc::DriverStation::RefreshData();
-
-  FakeDrive drive;
-  mayhem::AutoFactory factory{[&] { return drive.pose; },
-                              [&](const frc::Pose2d& p) { drive.pose = p; },
-                              [&] { return drive.last.fieldSpeeds; },
-                              [&](const mayhem::DriveCommand& dc) { drive.last = dc; },
-                              true,
-                              &drive};
-  std::vector<std::string> log;
-  frc2::CommandPtr routineCmd = [&] {
-    auto routine = factory.NewRoutine("test");
-    auto& traj = routine->Trajectory("trenchDepotOnly");
-    routine->Active().OnTrue(traj.ResetOdometry().AndThen(traj.Cmd()));
-    routine->Active().OnTrue(frc2::cmd::RunOnce([&] { log.push_back("active"); }));
-    traj.AtTime("intake").OnTrue(frc2::cmd::RunOnce([&] { log.push_back("intake"); }));
-    traj.AtTime(2.0).OnTrue(frc2::cmd::RunOnce([&] { log.push_back("t2"); }));
-    traj.AtTime("shoot").OnTrue(frc2::cmd::RunOnce([&] { log.push_back("shoot"); }));
-    traj.Done().OnTrue(frc2::cmd::RunOnce([&] { log.push_back("done"); }));
-    return routine->Cmd();
-  }();
-  auto& scheduler = frc2::CommandScheduler::GetInstance();
-  scheduler.Schedule(routineCmd.get());
-  const auto t = mayhem::trajectory_loader::Load("trenchDepotOnly");
-  for (int i = 0; i < 300; i++) {
-    frc::sim::StepTiming(20_ms);
-    // ideal plant: the robot moves exactly as commanded
-    const auto& s = drive.last.fieldSpeeds;
-    drive.pose = frc::Pose2d{drive.pose.X() + s.vx * 20_ms, drive.pose.Y() + s.vy * 20_ms,
-                             drive.pose.Rotation() + frc::Rotation2d{s.omega * 20_ms}};
-    scheduler.Run();
-    if (i == 1) {
-      EXPECT_LT(drive.pose.Translation().Distance(t->InitialPose().Translation()).value(), 0.05);
-    }
-  }
-  EXPECT_EQ(log, (std::vector<std::string>{"active", "intake", "t2", "shoot", "done"}));
-  EXPECT_LT(drive.pose.Translation().Distance(t->FinalPose().Translation()).value(), 0.05);
-  EXPECT_TRUE(routineCmd.get()->IsScheduled());  // a routine runs until autonomous ends
-
-  // cancelling resets it; running it again replays the whole thing
-  scheduler.Cancel(routineCmd.get());
-  log.clear();
-  scheduler.Schedule(routineCmd.get());
-  for (int i = 0; i < 300; i++) {
-    frc::sim::StepTiming(20_ms);
-    const auto& s = drive.last.fieldSpeeds;
-    drive.pose = frc::Pose2d{drive.pose.X() + s.vx * 20_ms, drive.pose.Y() + s.vy * 20_ms,
-                             drive.pose.Rotation() + frc::Rotation2d{s.omega * 20_ms}};
-    scheduler.Run();
-  }
-  EXPECT_EQ(log, (std::vector<std::string>{"active", "intake", "t2", "shoot", "done"}));
-  scheduler.Cancel(routineCmd.get());
-  scheduler.GetDefaultButtonLoop()->Clear();
-  scheduler.UnregisterSubsystem(&drive);
-  frc::sim::ResumeTiming();
-}
-
-TEST(MayhemTest, RedAllianceRunsTheFlippedPath) {
-  test_util::UseRepoDeployDir();
-  frc::sim::DriverStationSim::SetAllianceStationId(HAL_AllianceStationID_kRed1);
-  frc::sim::DriverStationSim::NotifyNewData();
-  frc::DriverStation::RefreshData();
-  FakeDrive drive;
-  mayhem::AutoFactory factory{[&] { return drive.pose; },
-                              [&](const frc::Pose2d& p) { drive.pose = p; },
-                              [] { return frc::ChassisSpeeds{}; },
-                              [](const mayhem::DriveCommand&) {},
-                              true,
-                              &drive};
-  auto routine = factory.NewRoutine("red");
-  auto& traj = routine->Trajectory("trenchDepotOnly");
-  auto start = traj.GetInitialPose();
-  ASSERT_TRUE(start.has_value());
-  const auto blue = mayhem::trajectory_loader::Load("trenchDepotOnly")->InitialPose();
-  EXPECT_NEAR(start->X().value(), field_constants::fieldLength - blue.X().value(), 1e-3);
-  EXPECT_NEAR(start->Y().value(), 8.0692 - blue.Y().value(), 1e-6);
-  // a missing trajectory gives an inert placeholder instead of crashing
-  auto& missing = routine->Trajectory("doesNotExist");
-  EXPECT_FALSE(missing.IsLoaded());
-  EXPECT_FALSE(missing.GetInitialPose().has_value());
-  frc2::CommandScheduler::GetInstance().UnregisterSubsystem(&drive);
-  frc::sim::DriverStationSim::SetAllianceStationId(HAL_AllianceStationID_kBlue1);
-  frc::sim::DriverStationSim::NotifyNewData();
 }
 
 // ------------------------------------------------------------------------------------- logging

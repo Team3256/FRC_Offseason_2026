@@ -1,0 +1,295 @@
+{
+  "machines": [
+    {
+      "id": "ShooterMode",
+      "name": "Shooter mode",
+      "description": "What the shooter is doing: off, pre-spinning in the alliance zone, or shooting while A is held (or the auto shoots).",
+      "stateChannel": "/RealOutputs/Superstructure/ShooterMode",
+      "source": "src/main/cpp/subsystems/Superstructure.cpp",
+      "inputChannel": "/RealOutputs/Mayhem/States/{machine}/inputs/{key}",
+      "inputs": {
+        "operator": {
+          "shootHeld": "A held (shoot)",
+          "outtakeHeld": "Left trigger held (outtake)"
+        },
+        "internal": {
+          "autoShooting": "Auto is shooting",
+          "stopAll": {
+            "name": "Stop everything (auto ended, or test mode)",
+            "event": true
+          },
+          "enabled": "Robot enabled"
+        },
+        "sensor": {
+          "inAllianceZone": "In alliance zone (pose)"
+        }
+      },
+      "states": {
+        "OFF": {
+          "name": "Off",
+          "description": "Flywheel off."
+        },
+        "REV": {
+          "name": "Rev",
+          "description": "In the alliance zone: the flywheel pre-spins for the hub shot."
+        },
+        "SHOOTING": {
+          "name": "Shooting",
+          "description": "Spin up, then feed (ShotCycle). Hub shot in the alliance zone, corner feed elsewhere."
+        }
+      },
+      "transitions": [
+        "* -> OFF: !enabled || stopAll  # Disabled or stop all",
+        "OFF -> SHOOTING: (shootHeld || autoShooting) && !outtakeHeld  # A held / auto",
+        "REV -> SHOOTING: (shootHeld || autoShooting) && !outtakeHeld  # A held / auto",
+        {
+          "from": "SHOOTING",
+          "to": "OFF",
+          "when": "outtakeHeld || !shootHeld && !autoShooting",
+          "name": "A released / outtaking",
+          "description": "Inside the alliance zone it goes straight on to Rev."
+        },
+        "OFF -> REV: enabled && inAllianceZone  # In alliance zone",
+        "REV -> OFF: !inAllianceZone  # Left alliance zone"
+      ]
+    },
+    {
+      "id": "IntakeMode",
+      "name": "Intake mode",
+      "description": "What the intake is doing. X toggles intaking, Y (held) jitters, B toggles the slide out with the rollers off, the left trigger (held) outtakes.",
+      "stateChannel": "/RealOutputs/Superstructure/IntakeMode",
+      "source": "src/main/cpp/subsystems/Superstructure.cpp",
+      "inputChannel": "/RealOutputs/Mayhem/States/{machine}/inputs/{key}",
+      "inputs": {
+        "operator": {
+          "intakePressed": {
+            "name": "X pressed (intake on / off)",
+            "event": true
+          },
+          "jitterHeld": "Y held (jitter)",
+          "deployPressed": {
+            "name": "B pressed (slide out, rollers off)",
+            "event": true
+          },
+          "outtakeHeld": "Left trigger held (outtake)"
+        },
+        "internal": {
+          "autoIntake": {
+            "name": "Auto starts intaking",
+            "event": true
+          },
+          "autoStow": {
+            "name": "Auto stows the intake",
+            "event": true
+          },
+          "stopAll": {
+            "name": "Stop everything (auto ended, or test mode)",
+            "event": true
+          },
+          "enabled": "Robot enabled"
+        }
+      },
+      "states": {
+        "STOWED": {
+          "name": "Stowed",
+          "description": "Slide in, rollers off."
+        },
+        "INTAKING": {
+          "name": "Intaking",
+          "description": "Slide out (IntakeSequence), rollers in."
+        },
+        "JITTERING": {
+          "name": "Jittering",
+          "description": "Slide jitters to settle pieces, rollers in. Releasing Y goes back to intaking."
+        },
+        "DEPLOYED": {
+          "name": "Deployed",
+          "description": "Slide out, rollers off."
+        },
+        "OUTTAKING": {
+          "name": "Outtaking",
+          "description": "Rollers and feeder reverse; the shooter stops."
+        }
+      },
+      "transitions": [
+        "* -> STOWED: !enabled || stopAll || autoStow  # Disabled, stop all or auto stows",
+        "* -> OUTTAKING: outtakeHeld  # Left trigger held",
+        "OUTTAKING -> STOWED: !outtakeHeld  # Left trigger released",
+        "STOWED -> INTAKING: intakePressed || autoIntake  # X / auto",
+        "STOWED -> JITTERING: jitterHeld  # Y held",
+        "STOWED -> DEPLOYED: deployPressed  # B",
+        "INTAKING -> STOWED: intakePressed  # X",
+        "INTAKING -> JITTERING: jitterHeld  # Y held",
+        "INTAKING -> DEPLOYED: deployPressed  # B",
+        "JITTERING -> INTAKING: !jitterHeld  # Y released",
+        "DEPLOYED -> INTAKING: intakePressed || autoIntake  # X / auto",
+        "DEPLOYED -> JITTERING: jitterHeld  # Y held",
+        "DEPLOYED -> STOWED: deployPressed  # B"
+      ]
+    },
+    {
+      "id": "IntakeSequence",
+      "name": "Intake · hood clearance and slide",
+      "stateChannel": "/Mayhem/States/IntakeSequence/state",
+      "source": "src/main/cpp/subsystems/Superstructure.cpp",
+      "inputChannel": "/RealOutputs/Mayhem/States/{machine}/inputs/{key}",
+      "inputs": {
+        "internal": {
+          "enabled": "Robot enabled",
+          "deploy": {
+            "name": "Intake mode wants the slide out (X / Y / B)",
+            "derivedFrom": [
+              "IntakeMode::intakePressed",
+              "IntakeMode::jitterHeld",
+              "IntakeMode::deployPressed"
+            ]
+          },
+          "jitterDemand": {
+            "name": "Intake mode is jittering (Y)",
+            "derivedFrom": [
+              "IntakeMode::jitterHeld"
+            ]
+          }
+        },
+        "sensor": {
+          "hoodClear": "Hood clear of the slide",
+          "slideDeployed": "Slide deployed"
+        }
+      },
+      "states": {
+        "PARKED": "Parked / no deployment demand",
+        "CLEARING_HOOD": "Raise hood clear of the slide",
+        "DEPLOYING": "Deploy slide to intake",
+        "READY": "Intake deployed",
+        "JITTERING": "Jitter slide to settle pieces"
+      },
+      "transitions": [
+        {
+          "from": "CLEARING_HOOD",
+          "to": "PARKED",
+          "when": "!deploy || !enabled",
+          "name": "Intake not wanted",
+          "description": "Intake mode is stowed or outtaking, or the robot is disabled."
+        },
+        {
+          "from": "DEPLOYING",
+          "to": "PARKED",
+          "when": "!deploy || !enabled",
+          "name": "Intake not wanted",
+          "description": "Intake mode is stowed or outtaking, or the robot is disabled."
+        },
+        {
+          "from": "READY",
+          "to": "PARKED",
+          "when": "!deploy || !enabled",
+          "name": "Intake not wanted",
+          "description": "Intake mode is stowed or outtaking, or the robot is disabled."
+        },
+        {
+          "from": "JITTERING",
+          "to": "PARKED",
+          "when": "!deploy || !enabled",
+          "name": "Intake not wanted",
+          "description": "Intake mode is stowed or outtaking, or the robot is disabled."
+        },
+        {
+          "from": "PARKED",
+          "to": "CLEARING_HOOD",
+          "when": "enabled && deploy && !hoodClear",
+          "name": "Slide wanted, hood in the way",
+          "description": "The slide is inside the hood's travel, so the hood lifts first."
+        },
+        "PARKED -> JITTERING: enabled && deploy && jitterDemand  # Jitter, hood clear",
+        "PARKED -> DEPLOYING: enabled && deploy  # Slide wanted, hood clear",
+        "CLEARING_HOOD -> JITTERING: hoodClear && jitterDemand  # Hood clear: jitter",
+        "CLEARING_HOOD -> DEPLOYING: hoodClear  # Hood clear: deploy",
+        "DEPLOYING -> JITTERING: jitterDemand  # Jitter requested",
+        {
+          "from": "DEPLOYING",
+          "to": "READY",
+          "when": "slideDeployed",
+          "name": "Slide out",
+          "description": "Both slide encoders past 0.80."
+        },
+        "READY -> JITTERING: jitterDemand  # Jitter requested",
+        "JITTERING -> CLEARING_HOOD: !jitterDemand && !hoodClear  # Jitter over, hood in the way",
+        "JITTERING -> DEPLOYING: !jitterDemand  # Jitter over: redeploy"
+      ]
+    },
+    {
+      "id": "ShotCycle",
+      "name": "Shooter · spin up and feed",
+      "stateChannel": "/Mayhem/States/ShotCycle/state",
+      "source": "src/main/cpp/subsystems/Superstructure.cpp",
+      "inputChannel": "/RealOutputs/Mayhem/States/{machine}/inputs/{key}",
+      "inputs": {
+        "internal": {
+          "enabled": "Robot enabled",
+          "shotDemand": {
+            "name": "Shooter mode is shooting (A / auto)",
+            "derivedFrom": [
+              "ShooterMode::shootHeld",
+              "ShooterMode::autoShooting"
+            ]
+          }
+        },
+        "sensor": {
+          "trench": "Under a trench (pose)",
+          "flywheelReady": "Flywheel at speed"
+        }
+      },
+      "states": {
+        "OFF": "No shot requested",
+        "SPINNING_UP": "Spin flywheel to the requested speed",
+        "FEEDING": "Feed; latched until the shot request ends",
+        "INHIBITED": "Paused under the trench (hood forced down)"
+      },
+      "transitions": [
+        {
+          "from": "SPINNING_UP",
+          "to": "OFF",
+          "when": "!shotDemand || !enabled",
+          "name": "Shot request ended",
+          "description": "Shooter mode left Shooting, or the robot is disabled."
+        },
+        {
+          "from": "FEEDING",
+          "to": "OFF",
+          "when": "!shotDemand || !enabled",
+          "name": "Shot request ended",
+          "description": "Shooter mode left Shooting, or the robot is disabled."
+        },
+        {
+          "from": "INHIBITED",
+          "to": "OFF",
+          "when": "!shotDemand || !enabled",
+          "name": "Shot request ended",
+          "description": "Shooter mode left Shooting, or the robot is disabled."
+        },
+        "OFF -> SPINNING_UP: enabled && shotDemand  # Shoot requested",
+        {
+          "from": "SPINNING_UP",
+          "to": "INHIBITED",
+          "when": "trench",
+          "name": "Under the trench",
+          "description": "The hood is forced flat there."
+        },
+        {
+          "from": "FEEDING",
+          "to": "INHIBITED",
+          "when": "trench",
+          "name": "Under the trench",
+          "description": "The hood is forced flat there."
+        },
+        {
+          "from": "SPINNING_UP",
+          "to": "FEEDING",
+          "when": "flywheelReady",
+          "name": "Flywheel at speed",
+          "description": "Feeding then stays on until the request ends; the dip as each piece goes through is ignored."
+        },
+        "INHIBITED -> SPINNING_UP: !trench  # Out of the trench"
+      ]
+    }
+  ]
+}

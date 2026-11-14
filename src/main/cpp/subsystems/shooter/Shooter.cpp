@@ -22,47 +22,39 @@ Shooter::Shooter(bool enabled, std::unique_ptr<ShooterIO> io)
 }
 
 void Shooter::Periodic() {
-  DisableSubsystem::Periodic();
   m_io->UpdateInputs(m_inputs);
   m_inputsLog.Publish();
   m_reqVelocityLog.Set(m_reqVelocity);
   logging::LoggedTracer::Record("Shooter");
 }
 
-frc2::CommandPtr Shooter::SetVoltage(double voltage) {
-  return Run([this, voltage] { m_io->SetShooterVoltage(voltage); }).FinallyDo([this] {
-    m_io->Off();
-  });
+void Shooter::SetVoltage(double voltage) {
+  if (Request()) {
+    m_reqVelocity = 0;
+    m_io->SetShooterVoltage(voltage);
+  }
 }
 
-frc2::CommandPtr Shooter::SetVelocity(double velocity) {
-  return SetVelocity([velocity] { return velocity; });
+void Shooter::SetVelocity(double velocity) {
+  if (Request()) {
+    m_reqVelocity = velocity;
+    m_io->SetShooterVelocity(m_reqVelocity);
+  }
 }
 
-frc2::CommandPtr Shooter::SetVelocity(std::function<double()> velocity) {
-  return Run([this, velocity = std::move(velocity)] {
-           m_reqVelocity = velocity();
-           m_io->SetShooterVelocity(m_reqVelocity);
-         })
-      .FinallyDo([this] { m_io->Off(); });
+void Shooter::ShootHub(double distance, double velMultiplier) {
+  SetVelocity(shooter::kHubLUT.Get(distance) * velMultiplier);
 }
 
-frc2::CommandPtr Shooter::ShootHub(std::function<double()> distance,
-                                   std::function<double()> velMultiplier) {
-  return SetVelocity([distance = std::move(distance), velMultiplier = std::move(velMultiplier)] {
-    return shooter::kHubLUT.Get(distance()) * velMultiplier();
-  });
-}
-
-frc2::CommandPtr Shooter::FeedCorner(std::function<double()> distance) {
-  return SetVelocity(
-      [distance = std::move(distance)] { return shooter::kFeedLUT.Get(distance()); });
-}
+void Shooter::FeedCorner(double distance) { SetVelocity(shooter::kFeedLUT.Get(distance)); }
 
 bool Shooter::ReachedVelocity() const {
   return util::EpsilonEquals(m_inputs.shooterMotorVelocitys[0], m_reqVelocity, 5.0);
 }
 
-frc2::CommandPtr Shooter::Off() {
-  return RunOnce([this] { m_io->Off(); });
+void Shooter::Off() {
+  if (Request() && GoalChanged()) {
+    m_reqVelocity = 0;
+    m_io->Off();
+  }
 }

@@ -64,12 +64,12 @@ inline constexpr util::InterpolatingMap<5> kHubLUT{{{
 
 /** Hood position [mechanism rotations] by distance to the corner feed target [m]. */
 inline constexpr util::InterpolatingMap<6> kFeedLUT{{{
-    {4.38, 0.01},
-    {6.11, 0.01},
-    {8.0, 0.01},
-    {9.42, 0.01},
-    {10.8, 0.01},
-    {12.834, 0.01},
+    {4.38, 0.071},
+    {6.11, 0.071},
+    {8.0, 0.071},
+    {9.42, 0.071},
+    {10.8, 0.071},
+    {12.834, 0.071},
 }}};
 
 namespace sim {

@@ -84,8 +84,8 @@ void VisionIOSim::UpdateInputs(VisionIOInputs& inputs) {
 
   frc::Pose3d measured{robotPose};
   if (m_noise > 0) {
-    static std::mt19937 rng{3256};
     std::normal_distribution<double> n{0.0, m_noise};
+    auto& rng = m_rng;
     measured =
         frc::Pose3d{measured.X() + units::meter_t{n(rng)}, measured.Y() + units::meter_t{n(rng)},
                     measured.Z(), measured.Rotation()};

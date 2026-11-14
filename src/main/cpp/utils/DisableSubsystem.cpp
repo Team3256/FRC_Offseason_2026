@@ -9,12 +9,10 @@
 
 #include <cctype>
 
-#include <frc2/command/Commands.h>
-
 DisableSubsystem::DisableSubsystem(bool enabled, std::string_view name)
-    : frc2::SubsystemBase(name),
-      disabled{!enabled},
-      m_currentCommandLog{std::string{name} + "/CurrentCommand"} {}
+    : disabled{!enabled}, m_name{name}, m_goalLog{std::string{name} + "/Goal"} {
+  m_goalLog.Set(m_goal);
+}
 
 std::string DisableSubsystem::CallerName(const std::source_location& loc) {
   std::string_view fn = loc.function_name();
@@ -43,43 +41,15 @@ std::string DisableSubsystem::CallerName(const std::source_location& loc) {
   return name;
 }
 
-frc2::CommandPtr DisableSubsystem::Run(std::function<void()> action, std::source_location loc) {
-  return disabled ? frc2::cmd::None()
-                  : frc2::SubsystemBase::Run(std::move(action)).WithName(CallerName(loc));
-}
-
-frc2::CommandPtr DisableSubsystem::RunOnce(std::function<void()> action, std::source_location loc) {
-  return disabled ? frc2::cmd::None()
-                  : frc2::SubsystemBase::RunOnce(std::move(action))
-                        .WithName(CallerName(loc) + ".runOnce");
-}
-
-frc2::CommandPtr DisableSubsystem::StartEnd(std::function<void()> start, std::function<void()> end,
-                                            std::source_location loc) {
-  return disabled ? frc2::cmd::None()
-                  : frc2::SubsystemBase::StartEnd(std::move(start), std::move(end))
-                        .WithName(CallerName(loc) + ".startEnd");
-}
-
-frc2::CommandPtr DisableSubsystem::RunEnd(std::function<void()> run, std::function<void()> end,
-                                          std::source_location loc) {
-  return disabled ? frc2::cmd::None()
-                  : frc2::SubsystemBase::RunEnd(std::move(run), std::move(end))
-                        .WithName(CallerName(loc) + ".runEnd");
-}
-
-frc2::CommandPtr DisableSubsystem::Defer(wpi::unique_function<frc2::CommandPtr()> supplier,
-                                         std::source_location loc) {
-  return disabled
-             ? frc2::cmd::None()
-             : frc2::SubsystemBase::Defer(std::move(supplier)).WithName(CallerName(loc) + ".defer");
-}
-
-void DisableSubsystem::Periodic() {
-  // Only rebuild the name string when the running command changes.
-  const frc2::Command* current = GetCurrentCommand();
-  if (current != m_lastCommand) {
-    m_lastCommand = current;
-    m_currentCommandLog.Set(current != nullptr ? current->GetName() : std::string{"none"});
+bool DisableSubsystem::Request(std::source_location loc) {
+  if (disabled) {
+    return false;
   }
+  m_goalChanged = loc.function_name() != m_lastFunction;
+  if (m_goalChanged) {
+    m_lastFunction = loc.function_name();
+    m_goal = CallerName(loc);
+    m_goalLog.Set(m_goal);
+  }
+  return true;
 }

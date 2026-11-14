@@ -21,7 +21,8 @@
 #include "subsystems/swerve/SwerveConstants.h"
 #include "subsystems/vision/VisionConstants.h"
 
-using SS = Superstructure::StructureState;
+using ShooterMode = Superstructure::ShooterMode;
+using IntakeMode = Superstructure::IntakeMode;
 using XSim = frc::sim::XboxControllerSim;
 
 namespace {
@@ -41,8 +42,8 @@ TEST(RobotSimTest, BootsDisabledAndIdles) {
   RobotHarness h;
   h.Step(25);
   auto& ss = h.C().GetSuperstructure();
-  EXPECT_EQ(ss.GetState(), SS::IDLE);
-  EXPECT_EQ(ss.GetPrevState(), SS::IDLE);
+  EXPECT_EQ(ss.GetShooterMode(), ShooterMode::OFF);
+  EXPECT_EQ(ss.GetIntakeMode(), IntakeMode::STOWED);
   // every mechanism's status signals are batched for one refresh per loop
   EXPECT_GE(phoenix_util::RegisteredSignalCount(), 5u * 10u);
   // nothing moves while disabled
@@ -53,9 +54,9 @@ TEST(RobotSimTest, BootsDisabledAndIdles) {
 TEST(RobotSimTest, DisabledButtonPressesDoNotChangeState) {
   RobotHarness h;
   h.Step(5);
-  h.Tap(X);  // setState commands don't run while disabled (same as WPILib Java)
+  h.Tap(X);  // presses while disabled do nothing
   h.Step(2);
-  EXPECT_EQ(h.C().GetSuperstructure().GetState(), SS::IDLE);
+  EXPECT_EQ(h.C().GetSuperstructure().GetIntakeMode(), IntakeMode::STOWED);
 }
 
 TEST(RobotSimTest, IntakeExtendsSlideAfterHoodClearsIt) {
@@ -65,12 +66,10 @@ TEST(RobotSimTest, IntakeExtendsSlideAfterHoodClearsIt) {
   h.Step(5);
   h.Tap(X);
   auto& ss = h.C().GetSuperstructure();
-  EXPECT_EQ(ss.GetState(), SS::INTAKE);
+  EXPECT_EQ(ss.GetIntakeMode(), IntakeMode::INTAKING);
   // rollers commanded to 8 V (the simulated roller is heavy, so the 80 A stator limit holds the
   // output near 2 V while it spins up -- same physics as the Java simulation)
-  auto* rollerCmd = h.C().GetIntakeRollers().GetCurrentCommand();
-  ASSERT_NE(rollerCmd, nullptr);
-  EXPECT_EQ(rollerCmd->GetName(), "setVoltage");
+  EXPECT_EQ(h.C().GetIntakeRollers().GoalName(), "setVoltage");
   ASSERT_TRUE(h.StepUntil([&] { return h.C().GetIntakeRollers().Inputs().leftVoltage > 1.5; }, 25));
   // hood goes to 0.07 to clear the slide, then the slide extends to 0.86
   auto& slide = h.C().GetLinearSlide();
@@ -93,9 +92,10 @@ TEST(RobotSimTest, ShootSpinsUpThenFeeds) {
   h.Step(5);
   h.Teleop();
   h.Step(5);
-  h.Tap(A);
+  A(h.Driver(), true);  // shoots while A is held
+  h.Step();
   auto& ss = h.C().GetSuperstructure();
-  EXPECT_EQ(ss.GetState(), SS::SHOOT);
+  EXPECT_EQ(ss.GetShooterMode(), ShooterMode::SHOOTING);
   auto& shooter = h.C().GetShooter();
   const double expected = shooter::kHubLUT.Get(h.C().GetShotCalculator().GetDistance());
   ASSERT_TRUE(h.StepUntil([&] { return shooter.RequestedVelocity() > 1.0; }, 10));
@@ -104,33 +104,38 @@ TEST(RobotSimTest, ShootSpinsUpThenFeeds) {
       << "flywheel " << shooter.Inputs().shooterMotorVelocitys[0] << " / "
       << shooter.RequestedVelocity();
   // indexer and feeder start (60 rot/s) once the flywheels are at speed
-  ASSERT_TRUE(h.StepUntil([&] { return h.C().GetIndexer().GetCurrentCommand() != nullptr; }, 10));
-  EXPECT_EQ(h.C().GetIndexer().GetCurrentCommand()->GetName(), "setVelocity");
-  ASSERT_NE(h.C().GetFeeder().GetCurrentCommand(), nullptr);
-  EXPECT_EQ(h.C().GetFeeder().GetCurrentCommand()->GetName(), "setVelocity");
+  ASSERT_TRUE(h.StepUntil([&] { return h.C().GetIndexer().GoalName() == "setVelocity"; }, 10));
+  EXPECT_EQ(h.C().GetFeeder().GoalName(), "setVelocity");
   ASSERT_TRUE(h.StepUntil([&] { return h.C().GetIndexer().Inputs().leftVelocity > 8; }, 100));
   ASSERT_TRUE(h.StepUntil([&] { return h.C().GetFeeder().Inputs().leftVelocity > 8; }, 100));
   // the hood follows the hub lookup table (clamped by the sim's travel)
   EXPECT_GT(h.C().GetShooterPivot().RequestedPosition(), 0.03);
 }
 
-TEST(RobotSimTest, StateTransitionsCombineIntakeAndShoot) {
+TEST(RobotSimTest, ShooterAndIntakeModesAreIndependent) {
   RobotHarness h;
   h.C().GetDrivetrain().ResetPose(Pose(8, 2));
   h.Teleop();
   h.Step(3);
   auto& ss = h.C().GetSuperstructure();
-  h.Tap(A);
-  EXPECT_EQ(ss.GetState(), SS::SHOOT);
-  h.Tap(X);  // INTAKE after SHOOT -> SHOOT_AND_INTAKE
-  h.Step(2);
-  EXPECT_EQ(ss.GetState(), SS::SHOOT_AND_INTAKE);
-  h.Tap(B);
-  EXPECT_EQ(ss.GetState(), SS::HOME);
+  A(h.Driver(), true);
+  h.Step();
+  EXPECT_EQ(ss.GetShooterMode(), ShooterMode::SHOOTING);
+  h.Tap(X);  // intake on while still shooting
+  EXPECT_EQ(ss.GetIntakeMode(), IntakeMode::INTAKING);
+  EXPECT_EQ(ss.GetShooterMode(), ShooterMode::SHOOTING);
+  A(h.Driver(), false);
+  h.Step();
+  EXPECT_EQ(ss.GetShooterMode(), ShooterMode::OFF);
+  EXPECT_EQ(ss.GetIntakeMode(), IntakeMode::INTAKING);
+  h.Tap(B);  // slide stays out, rollers off
+  EXPECT_EQ(ss.GetIntakeMode(), IntakeMode::DEPLOYED);
+  // (the hood first lifts clear while the slide moves through its travel)
   ASSERT_TRUE(h.StepUntil(
-      [&] { return std::abs(h.C().GetShooterPivot().RequestedPosition() - 0.05) < 1e-9; }, 10));
-  h.Tap(Y);  // JITTER after HOME
-  EXPECT_EQ(ss.GetState(), SS::JITTER);
+      [&] { return std::abs(h.C().GetShooterPivot().RequestedPosition() - 0.05) < 1e-9; }, 100));
+  Y(h.Driver(), true);  // jitter while Y is held
+  h.Step();
+  EXPECT_EQ(ss.GetIntakeMode(), IntakeMode::JITTERING);
   // the slide jitters between 0.7 and 0.3745 every 0.2 s
   double minReq = 10;
   double maxReq = -10;
@@ -141,14 +146,18 @@ TEST(RobotSimTest, StateTransitionsCombineIntakeAndShoot) {
   }
   EXPECT_NEAR(minReq, linear_slide::kJitterIntermediate, 1e-9);
   EXPECT_NEAR(maxReq, linear_slide::kJitterPosition, 1e-9);
-  h.Tap(A);  // SHOOT after JITTER -> JITTER_AND_SHOOT
-  h.Step(2);
-  EXPECT_EQ(ss.GetState(), SS::JITTER_AND_SHOOT);
-  h.Tap(LeftTrigger);
-  EXPECT_EQ(ss.GetState(), SS::OUTTAKE);
+  Y(h.Driver(), false);
+  h.Step();
+  EXPECT_EQ(ss.GetIntakeMode(), IntakeMode::INTAKING);
+  LeftTrigger(h.Driver(), true);  // outtake while the trigger is held
+  h.Step();
+  EXPECT_EQ(ss.GetIntakeMode(), IntakeMode::OUTTAKING);
   ASSERT_TRUE(
       h.StepUntil([&] { return h.C().GetIntakeRollers().Inputs().leftVoltage < -1.5; }, 25));
   ASSERT_TRUE(h.StepUntil([&] { return h.C().GetFeeder().Inputs().leftVelocity < -8; }, 100));
+  LeftTrigger(h.Driver(), false);
+  h.Step();
+  EXPECT_EQ(ss.GetIntakeMode(), IntakeMode::STOWED);
 }
 
 TEST(RobotSimTest, EnteringHubZoneRevsAndLeavingIdles) {
@@ -157,14 +166,14 @@ TEST(RobotSimTest, EnteringHubZoneRevsAndLeavingIdles) {
   h.Teleop();
   h.Step(5);
   auto& ss = h.C().GetSuperstructure();
-  EXPECT_EQ(ss.GetState(), SS::IDLE);
+  EXPECT_EQ(ss.GetShooterMode(), ShooterMode::OFF);
   h.C().GetDrivetrain().ResetPose(Pose(3, 4));  // into the blue alliance zone
   h.Step(3);
-  EXPECT_EQ(ss.GetState(), SS::REV);
+  EXPECT_EQ(ss.GetShooterMode(), ShooterMode::REV);
   ASSERT_TRUE(h.StepUntil([&] { return h.C().GetShooter().RequestedVelocity() > 50; }, 20));
   h.C().GetDrivetrain().ResetPose(Pose(8, 4));  // back out
   h.Step(3);
-  EXPECT_EQ(ss.GetState(), SS::IDLE);
+  EXPECT_EQ(ss.GetShooterMode(), ShooterMode::OFF);
   // the corner feed target is chosen by which half of the field the robot is in
   EXPECT_NEAR(ss.GetTarget().X().value(), Superstructure::kBottomCorner.X().value(), 1e-9);
   EXPECT_NEAR(ss.GetTarget().Y().value(), Superstructure::kBottomCorner.Y().value(), 1e-9);
@@ -181,7 +190,7 @@ TEST(RobotSimTest, RedAllianceTargetsRedHubAndFlippedCorners) {
   EXPECT_NEAR(ss.GetTarget().Y().value(), field_constants::fieldWidth - 1.5, 1e-9);
   h.C().GetDrivetrain().ResetPose(Pose(13, 4));  // red alliance zone (x > 12.5)
   h.Step(3);
-  EXPECT_EQ(ss.GetState(), SS::REV);
+  EXPECT_EQ(ss.GetShooterMode(), ShooterMode::REV);
   EXPECT_NEAR(ss.GetTarget().X().value(), field_constants::hub::kOppCenterX, 1e-9);
 }
 
@@ -190,7 +199,8 @@ TEST(RobotSimTest, TrenchZoneForcesHoodDown) {
   h.C().GetDrivetrain().ResetPose(Pose(8, 2));
   h.Teleop();
   h.Step(3);
-  h.Tap(B);  // HOME: hood to 0.05
+  h.Tap(B);  // slide out, rollers off: hood to 0.05 once the slide is out of its way
+  ASSERT_TRUE(h.StepUntil([&] { return h.C().GetSuperstructure().IntakePhase() == "READY"; }, 150));
   h.Step(3);
   EXPECT_FALSE(h.C().GetShooterPivot().TrenchOverride());
   EXPECT_NEAR(h.C().GetShooterPivot().RequestedPosition(), 0.05, 1e-9);
@@ -252,6 +262,43 @@ TEST(RobotSimTest, HoldingAAimsAtTheHub) {
       << sc.GetDriveAngle().Degrees().value();
   h.Driver().SetAButton(false);
   h.Step(2);
+}
+
+// Same as the command-based bindings: the most recent drive button wins, and releasing the button
+// that set the mode goes back to normal driving even if another one is still held.
+TEST(RobotSimTest, LastDriveButtonPressedWins) {
+  using Mode = RobotContainer::DriveMode;
+  RobotHarness h;
+  h.C().GetDrivetrain().ResetPose(Pose(8, 2));
+  h.Teleop();
+  h.Step(2);
+  EXPECT_EQ(h.C().GetDriveMode(), Mode::kNormal);
+  h.Driver().SetAButton(true);
+  h.Step();
+  EXPECT_EQ(h.C().GetDriveMode(), Mode::kAim);
+  h.Driver().SetLeftBumperButton(true);
+  h.Step();
+  EXPECT_EQ(h.C().GetDriveMode(), Mode::kSlow);
+  h.Driver().SetAButton(false);  // not the button that set slow: no change
+  h.Step();
+  EXPECT_EQ(h.C().GetDriveMode(), Mode::kSlow);
+  h.Driver().SetRightBumperButton(true);
+  h.Step();
+  EXPECT_EQ(h.C().GetDriveMode(), Mode::kSuperSlow);
+  h.Driver().SetRightBumperButton(false);  // left bumper still held, but normal
+  h.Step();
+  EXPECT_EQ(h.C().GetDriveMode(), Mode::kNormal);
+  h.Driver().SetLeftBumperButton(false);
+  // a press while disabled does nothing, and holding it through enable is not a press
+  h.Disable();
+  h.Step();
+  h.Driver().SetLeftBumperButton(true);
+  h.Step();
+  h.Teleop();
+  h.Step(2);
+  EXPECT_EQ(h.C().GetDriveMode(), Mode::kNormal);
+  h.Driver().SetLeftBumperButton(false);
+  h.Step();
 }
 
 TEST(RobotSimTest, VisionSimulationFeedsThePoseEstimator) {

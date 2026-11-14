@@ -7,43 +7,28 @@
 
 #include "subsystems/shooterpivot/ShooterPivotIOSim.h"
 
-#include <numbers>
-
-#include <frc/RobotController.h>
-#include <frc/TimedRobot.h>
-#include <frc/system/plant/DCMotor.h>
-
-#include "sim/SimBattery.h"
+#include "sim/PhysicsWorld.h"
 #include "sim/SimMechs.h"
 
-using namespace shooter_pivot;
-
-ShooterPivotIOSim::ShooterPivotIOSim()
-    : m_pivotSim{frc::DCMotor::KrakenX44(1),
-                 sim::kGearing,
-                 units::kilogram_square_meter_t{sim::kMoiKgM2},
-                 sim::kLength,
-                 sim::kMinAngle,
-                 sim::kMaxAngle,
-                 false,
-                 sim::kStartingAngle} {
-  GetMotor().GetSimState().Orientation = ctre::phoenix6::sim::ChassisReference::Clockwise_Positive;
+ShooterPivotIOSim::ShooterPivotIOSim() {
+  sim::PhysicsWorld::Get().AttachMotor(
+      sim::Mechanism::kHood, GetMotor(), shooter_pivot::MotorConfigs(),
+      mayhem::sim::DcMotor::KrakenX44(), mayhem::sim::DcMotor::KrakenX44Foc());
 }
 
 void ShooterPivotIOSim::UpdateInputs(ShooterPivotIOInputs& inputs) {
-  auto& simState = GetMotor().GetSimState();
-  simState.SetSupplyVoltage(frc::RobotController::GetBatteryVoltage());
-  m_pivotSim.SetInputVoltage(simState.GetMotorVoltage());
-  m_pivotSim.Update(frc::TimedRobot::kDefaultPeriod);
-
-  // Arm rotations times the gearing at the rotor (see sim::kGearing).
-  constexpr double kRadToRot = 1.0 / (2.0 * std::numbers::pi);
-  simState.SetRawRotorPosition(
-      units::turn_t{m_pivotSim.GetAngle().value() * kRadToRot * sim::kGearing});
-  simState.SetRotorVelocity(
-      units::turns_per_second_t{m_pivotSim.GetVelocity().value() * kRadToRot * sim::kGearing});
-  sim_battery::AddCurrent(simState.GetSupplyCurrent());
-
-  ShooterPivotIOTalonFX::UpdateInputs(inputs);
-  SimMechs::GetInstance().UpdateShooterPivot(m_pivotSim.GetAngle());
+  const auto& m = sim::PhysicsWorld::Get().Motor(GetMotor());
+  inputs.shooterPivotMotorVoltage = m.MotorVoltage();
+  inputs.shooterPivotMotorVelocity = m.Velocity();
+  inputs.shooterPivotMotorPosition = m.Position();
+  inputs.shooterPivotMotorStatorCurrent = m.StatorCurrent();
+  inputs.shooterPivotMotorSupplyCurrent = m.SupplyCurrent();
+  SimMechs::GetInstance().UpdateShooterPivot(units::radian_t{SimAngleRadians()});
 }
+
+void ShooterPivotIOSim::ResetPosition(double angle) {
+  ShooterPivotIOTalonFX::ResetPosition(angle);
+  sim::PhysicsWorld::Get().SetMechanismPosition(GetMotor(), angle);
+}
+
+double ShooterPivotIOSim::SimAngleRadians() const { return sim::PhysicsWorld::Get().HoodAngle(); }
