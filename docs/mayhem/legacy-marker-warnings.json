@@ -1,0 +1,6 @@
+[
+  "Outpost Trench Sweep x2: OutpostTrenchSweepBumpPt2 has no \"intake2\" marker (it has idle, intake, shoot), so AtTime(\"intake2\") never fires and the superstructure never goes to INTAKE there.",
+  "Outpost Trench Sweep x2: OutpostTrenchSweepBumpPt2 has no \"idle2\" marker (it has idle, intake, shoot), so AtTime(\"idle2\") never fires and the superstructure never goes to IDLE there.",
+  "Depot Trench Sweep x2: DepotTrenchSweepBump2xPt2 has no \"intake2\" marker (it has idle2, shoot2), so AtTime(\"intake2\") never fires and the superstructure never goes to INTAKE there.",
+  "Depot Trench Sweep Depot: DepotTrenchSweepDepotPt has no \"idle\" marker (it has intake, shoot), so AtTime(\"idle\") never fires and the superstructure never goes to IDLE there."
+]

@@ -1,0 +1,4448 @@
+{
+  "extensions": {
+    "logRules": {
+      "rules": [
+        {
+          "channel": "/RealOutputs/SystemStats/BatteryVoltage",
+          "detail": "Battery stayed under 11.5 V for two seconds. Swap or charge before the next match.",
+          "duration": 2,
+          "id": "resting-battery",
+          "op": "lt",
+          "severity": "warning",
+          "title": "Battery sagging for 2 s",
+          "value": 11.5
+        },
+        {
+          "channel": "/RealOutputs/SystemStats/BrownedOut",
+          "detail": "The roboRIO reported a brownout. Check what was drawing current in the seconds before.",
+          "duration": 0,
+          "id": "brownout",
+          "op": "eq",
+          "severity": "error",
+          "title": "Robot browned out",
+          "value": true
+        }
+      ]
+    },
+    "machines": [
+      {
+        "format": "mayhem-machine",
+        "version": 1,
+        "id": "ShooterMode",
+        "name": "Shooter mode",
+        "description": "What the shooter is doing: off, pre-spinning in the alliance zone, or shooting while A is held (or the auto shoots).",
+        "initial": "OFF",
+        "stateChannel": "/RealOutputs/Superstructure/ShooterMode",
+        "states": [
+          {
+            "id": "OFF",
+            "name": "Off",
+            "description": "Flywheel off.",
+            "source": "src/main/cpp/subsystems/Superstructure.cpp"
+          },
+          {
+            "id": "REV",
+            "name": "Rev",
+            "description": "In the alliance zone: the flywheel pre-spins for the hub shot.",
+            "source": "src/main/cpp/subsystems/Superstructure.cpp"
+          },
+          {
+            "id": "SHOOTING",
+            "name": "Shooting",
+            "description": "Spin up, then feed (ShotCycle). Hub shot in the alliance zone, corner feed elsewhere.",
+            "source": "src/main/cpp/subsystems/Superstructure.cpp"
+          }
+        ],
+        "inputs": [
+          {
+            "key": "shootHeld",
+            "name": "A held (shoot)",
+            "type": "boolean",
+            "initial": false,
+            "category": "operator",
+            "channel": "/RealOutputs/Mayhem/States/ShooterMode/inputs/shootHeld"
+          },
+          {
+            "key": "outtakeHeld",
+            "name": "Left trigger held (outtake)",
+            "type": "boolean",
+            "initial": false,
+            "category": "operator",
+            "channel": "/RealOutputs/Mayhem/States/ShooterMode/inputs/outtakeHeld"
+          },
+          {
+            "key": "autoShooting",
+            "name": "Auto is shooting",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "channel": "/RealOutputs/Mayhem/States/ShooterMode/inputs/autoShooting"
+          },
+          {
+            "key": "stopAll",
+            "name": "Stop everything (auto ended, or test mode)",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "event": true,
+            "channel": "/RealOutputs/Mayhem/States/ShooterMode/inputs/stopAll"
+          },
+          {
+            "key": "enabled",
+            "name": "Robot enabled",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "channel": "/RealOutputs/Mayhem/States/ShooterMode/inputs/enabled"
+          },
+          {
+            "key": "inAllianceZone",
+            "name": "In alliance zone (pose)",
+            "type": "boolean",
+            "initial": false,
+            "category": "sensor",
+            "channel": "/RealOutputs/Mayhem/States/ShooterMode/inputs/inAllianceZone"
+          }
+        ],
+        "transitions": [
+          {
+            "id": "any-to-OFF",
+            "from": "*",
+            "to": "OFF",
+            "condition": {
+              "kind": "any",
+              "conditions": [
+                {
+                  "kind": "signal",
+                  "key": "enabled",
+                  "op": "eq",
+                  "value": false
+                },
+                {
+                  "kind": "signal",
+                  "key": "stopAll",
+                  "op": "eq",
+                  "value": true
+                }
+              ]
+            },
+            "name": "Disabled or stop all"
+          },
+          {
+            "id": "OFF-to-SHOOTING",
+            "from": "OFF",
+            "to": "SHOOTING",
+            "condition": {
+              "kind": "all",
+              "conditions": [
+                {
+                  "kind": "any",
+                  "conditions": [
+                    {
+                      "kind": "signal",
+                      "key": "shootHeld",
+                      "op": "eq",
+                      "value": true
+                    },
+                    {
+                      "kind": "signal",
+                      "key": "autoShooting",
+                      "op": "eq",
+                      "value": true
+                    }
+                  ]
+                },
+                {
+                  "kind": "signal",
+                  "key": "outtakeHeld",
+                  "op": "eq",
+                  "value": false
+                }
+              ]
+            },
+            "name": "A held / auto"
+          },
+          {
+            "id": "REV-to-SHOOTING",
+            "from": "REV",
+            "to": "SHOOTING",
+            "condition": {
+              "kind": "all",
+              "conditions": [
+                {
+                  "kind": "any",
+                  "conditions": [
+                    {
+                      "kind": "signal",
+                      "key": "shootHeld",
+                      "op": "eq",
+                      "value": true
+                    },
+                    {
+                      "kind": "signal",
+                      "key": "autoShooting",
+                      "op": "eq",
+                      "value": true
+                    }
+                  ]
+                },
+                {
+                  "kind": "signal",
+                  "key": "outtakeHeld",
+                  "op": "eq",
+                  "value": false
+                }
+              ]
+            },
+            "name": "A held / auto"
+          },
+          {
+            "id": "SHOOTING-to-OFF",
+            "from": "SHOOTING",
+            "to": "OFF",
+            "condition": {
+              "kind": "any",
+              "conditions": [
+                {
+                  "kind": "signal",
+                  "key": "outtakeHeld",
+                  "op": "eq",
+                  "value": true
+                },
+                {
+                  "kind": "all",
+                  "conditions": [
+                    {
+                      "kind": "signal",
+                      "key": "shootHeld",
+                      "op": "eq",
+                      "value": false
+                    },
+                    {
+                      "kind": "signal",
+                      "key": "autoShooting",
+                      "op": "eq",
+                      "value": false
+                    }
+                  ]
+                }
+              ]
+            },
+            "name": "A released / outtaking",
+            "description": "Inside the alliance zone it goes straight on to Rev."
+          },
+          {
+            "id": "OFF-to-REV",
+            "from": "OFF",
+            "to": "REV",
+            "condition": {
+              "kind": "all",
+              "conditions": [
+                {
+                  "kind": "signal",
+                  "key": "enabled",
+                  "op": "eq",
+                  "value": true
+                },
+                {
+                  "kind": "signal",
+                  "key": "inAllianceZone",
+                  "op": "eq",
+                  "value": true
+                }
+              ]
+            },
+            "name": "In alliance zone"
+          },
+          {
+            "id": "REV-to-OFF",
+            "from": "REV",
+            "to": "OFF",
+            "condition": {
+              "kind": "signal",
+              "key": "inAllianceZone",
+              "op": "eq",
+              "value": false
+            },
+            "name": "Left alliance zone"
+          }
+        ]
+      },
+      {
+        "format": "mayhem-machine",
+        "version": 1,
+        "id": "IntakeMode",
+        "name": "Intake mode",
+        "description": "What the intake is doing. X toggles intaking, Y (held) jitters, B toggles the slide out with the rollers off, the left trigger (held) outtakes.",
+        "initial": "STOWED",
+        "stateChannel": "/RealOutputs/Superstructure/IntakeMode",
+        "states": [
+          {
+            "id": "STOWED",
+            "name": "Stowed",
+            "description": "Slide in, rollers off.",
+            "source": "src/main/cpp/subsystems/Superstructure.cpp"
+          },
+          {
+            "id": "INTAKING",
+            "name": "Intaking",
+            "description": "Slide out (IntakeSequence), rollers in.",
+            "source": "src/main/cpp/subsystems/Superstructure.cpp"
+          },
+          {
+            "id": "JITTERING",
+            "name": "Jittering",
+            "description": "Slide jitters to settle pieces, rollers in. Releasing Y goes back to intaking.",
+            "source": "src/main/cpp/subsystems/Superstructure.cpp"
+          },
+          {
+            "id": "DEPLOYED",
+            "name": "Deployed",
+            "description": "Slide out, rollers off.",
+            "source": "src/main/cpp/subsystems/Superstructure.cpp"
+          },
+          {
+            "id": "OUTTAKING",
+            "name": "Outtaking",
+            "description": "Rollers and feeder reverse; the shooter stops.",
+            "source": "src/main/cpp/subsystems/Superstructure.cpp"
+          }
+        ],
+        "inputs": [
+          {
+            "key": "intakePressed",
+            "name": "X pressed (intake on / off)",
+            "type": "boolean",
+            "initial": false,
+            "category": "operator",
+            "event": true,
+            "channel": "/RealOutputs/Mayhem/States/IntakeMode/inputs/intakePressed"
+          },
+          {
+            "key": "jitterHeld",
+            "name": "Y held (jitter)",
+            "type": "boolean",
+            "initial": false,
+            "category": "operator",
+            "channel": "/RealOutputs/Mayhem/States/IntakeMode/inputs/jitterHeld"
+          },
+          {
+            "key": "deployPressed",
+            "name": "B pressed (slide out, rollers off)",
+            "type": "boolean",
+            "initial": false,
+            "category": "operator",
+            "event": true,
+            "channel": "/RealOutputs/Mayhem/States/IntakeMode/inputs/deployPressed"
+          },
+          {
+            "key": "outtakeHeld",
+            "name": "Left trigger held (outtake)",
+            "type": "boolean",
+            "initial": false,
+            "category": "operator",
+            "channel": "/RealOutputs/Mayhem/States/IntakeMode/inputs/outtakeHeld"
+          },
+          {
+            "key": "autoIntake",
+            "name": "Auto starts intaking",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "event": true,
+            "channel": "/RealOutputs/Mayhem/States/IntakeMode/inputs/autoIntake"
+          },
+          {
+            "key": "autoStow",
+            "name": "Auto stows the intake",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "event": true,
+            "channel": "/RealOutputs/Mayhem/States/IntakeMode/inputs/autoStow"
+          },
+          {
+            "key": "stopAll",
+            "name": "Stop everything (auto ended, or test mode)",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "event": true,
+            "channel": "/RealOutputs/Mayhem/States/IntakeMode/inputs/stopAll"
+          },
+          {
+            "key": "enabled",
+            "name": "Robot enabled",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "channel": "/RealOutputs/Mayhem/States/IntakeMode/inputs/enabled"
+          }
+        ],
+        "transitions": [
+          {
+            "id": "any-to-STOWED",
+            "from": "*",
+            "to": "STOWED",
+            "condition": {
+              "kind": "any",
+              "conditions": [
+                {
+                  "kind": "signal",
+                  "key": "enabled",
+                  "op": "eq",
+                  "value": false
+                },
+                {
+                  "kind": "signal",
+                  "key": "stopAll",
+                  "op": "eq",
+                  "value": true
+                },
+                {
+                  "kind": "signal",
+                  "key": "autoStow",
+                  "op": "eq",
+                  "value": true
+                }
+              ]
+            },
+            "name": "Disabled, stop all or auto stows"
+          },
+          {
+            "id": "any-to-OUTTAKING",
+            "from": "*",
+            "to": "OUTTAKING",
+            "condition": {
+              "kind": "signal",
+              "key": "outtakeHeld",
+              "op": "eq",
+              "value": true
+            },
+            "name": "Left trigger held"
+          },
+          {
+            "id": "OUTTAKING-to-STOWED",
+            "from": "OUTTAKING",
+            "to": "STOWED",
+            "condition": {
+              "kind": "signal",
+              "key": "outtakeHeld",
+              "op": "eq",
+              "value": false
+            },
+            "name": "Left trigger released"
+          },
+          {
+            "id": "STOWED-to-INTAKING",
+            "from": "STOWED",
+            "to": "INTAKING",
+            "condition": {
+              "kind": "any",
+              "conditions": [
+                {
+                  "kind": "signal",
+                  "key": "intakePressed",
+                  "op": "eq",
+                  "value": true
+                },
+                {
+                  "kind": "signal",
+                  "key": "autoIntake",
+                  "op": "eq",
+                  "value": true
+                }
+              ]
+            },
+            "name": "X / auto"
+          },
+          {
+            "id": "STOWED-to-JITTERING",
+            "from": "STOWED",
+            "to": "JITTERING",
+            "condition": {
+              "kind": "signal",
+              "key": "jitterHeld",
+              "op": "eq",
+              "value": true
+            },
+            "name": "Y held"
+          },
+          {
+            "id": "STOWED-to-DEPLOYED",
+            "from": "STOWED",
+            "to": "DEPLOYED",
+            "condition": {
+              "kind": "signal",
+              "key": "deployPressed",
+              "op": "eq",
+              "value": true
+            },
+            "name": "B"
+          },
+          {
+            "id": "INTAKING-to-STOWED",
+            "from": "INTAKING",
+            "to": "STOWED",
+            "condition": {
+              "kind": "signal",
+              "key": "intakePressed",
+              "op": "eq",
+              "value": true
+            },
+            "name": "X"
+          },
+          {
+            "id": "INTAKING-to-JITTERING",
+            "from": "INTAKING",
+            "to": "JITTERING",
+            "condition": {
+              "kind": "signal",
+              "key": "jitterHeld",
+              "op": "eq",
+              "value": true
+            },
+            "name": "Y held"
+          },
+          {
+            "id": "INTAKING-to-DEPLOYED",
+            "from": "INTAKING",
+            "to": "DEPLOYED",
+            "condition": {
+              "kind": "signal",
+              "key": "deployPressed",
+              "op": "eq",
+              "value": true
+            },
+            "name": "B"
+          },
+          {
+            "id": "JITTERING-to-INTAKING",
+            "from": "JITTERING",
+            "to": "INTAKING",
+            "condition": {
+              "kind": "signal",
+              "key": "jitterHeld",
+              "op": "eq",
+              "value": false
+            },
+            "name": "Y released"
+          },
+          {
+            "id": "DEPLOYED-to-INTAKING",
+            "from": "DEPLOYED",
+            "to": "INTAKING",
+            "condition": {
+              "kind": "any",
+              "conditions": [
+                {
+                  "kind": "signal",
+                  "key": "intakePressed",
+                  "op": "eq",
+                  "value": true
+                },
+                {
+                  "kind": "signal",
+                  "key": "autoIntake",
+                  "op": "eq",
+                  "value": true
+                }
+              ]
+            },
+            "name": "X / auto"
+          },
+          {
+            "id": "DEPLOYED-to-JITTERING",
+            "from": "DEPLOYED",
+            "to": "JITTERING",
+            "condition": {
+              "kind": "signal",
+              "key": "jitterHeld",
+              "op": "eq",
+              "value": true
+            },
+            "name": "Y held"
+          },
+          {
+            "id": "DEPLOYED-to-STOWED",
+            "from": "DEPLOYED",
+            "to": "STOWED",
+            "condition": {
+              "kind": "signal",
+              "key": "deployPressed",
+              "op": "eq",
+              "value": true
+            },
+            "name": "B"
+          }
+        ]
+      },
+      {
+        "format": "mayhem-machine",
+        "version": 1,
+        "id": "IntakeSequence",
+        "name": "Intake · hood clearance and slide",
+        "initial": "PARKED",
+        "stateChannel": "/Mayhem/States/IntakeSequence/state",
+        "states": [
+          {
+            "id": "PARKED",
+            "name": "Parked / no deployment demand",
+            "source": "src/main/cpp/subsystems/Superstructure.cpp"
+          },
+          {
+            "id": "CLEARING_HOOD",
+            "name": "Raise hood clear of the slide",
+            "source": "src/main/cpp/subsystems/Superstructure.cpp"
+          },
+          {
+            "id": "DEPLOYING",
+            "name": "Deploy slide to intake",
+            "source": "src/main/cpp/subsystems/Superstructure.cpp"
+          },
+          {
+            "id": "READY",
+            "name": "Intake deployed",
+            "source": "src/main/cpp/subsystems/Superstructure.cpp"
+          },
+          {
+            "id": "JITTERING",
+            "name": "Jitter slide to settle pieces",
+            "source": "src/main/cpp/subsystems/Superstructure.cpp"
+          }
+        ],
+        "inputs": [
+          {
+            "key": "enabled",
+            "name": "Robot enabled",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "channel": "/RealOutputs/Mayhem/States/IntakeSequence/inputs/enabled"
+          },
+          {
+            "key": "deploy",
+            "name": "Intake mode wants the slide out (X / Y / B)",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "channel": "/RealOutputs/Mayhem/States/IntakeSequence/inputs/deploy",
+            "derivedFrom": [
+              {
+                "machine": "IntakeMode",
+                "key": "intakePressed"
+              },
+              {
+                "machine": "IntakeMode",
+                "key": "jitterHeld"
+              },
+              {
+                "machine": "IntakeMode",
+                "key": "deployPressed"
+              }
+            ]
+          },
+          {
+            "key": "jitterDemand",
+            "name": "Intake mode is jittering (Y)",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "channel": "/RealOutputs/Mayhem/States/IntakeSequence/inputs/jitterDemand",
+            "derivedFrom": [
+              {
+                "machine": "IntakeMode",
+                "key": "jitterHeld"
+              }
+            ]
+          },
+          {
+            "key": "hoodClear",
+            "name": "Hood clear of the slide",
+            "type": "boolean",
+            "initial": false,
+            "category": "sensor",
+            "channel": "/RealOutputs/Mayhem/States/IntakeSequence/inputs/hoodClear"
+          },
+          {
+            "key": "slideDeployed",
+            "name": "Slide deployed",
+            "type": "boolean",
+            "initial": false,
+            "category": "sensor",
+            "channel": "/RealOutputs/Mayhem/States/IntakeSequence/inputs/slideDeployed"
+          }
+        ],
+        "transitions": [
+          {
+            "id": "CLEARING_HOOD-to-PARKED",
+            "from": "CLEARING_HOOD",
+            "to": "PARKED",
+            "condition": {
+              "kind": "any",
+              "conditions": [
+                {
+                  "kind": "signal",
+                  "key": "deploy",
+                  "op": "eq",
+                  "value": false
+                },
+                {
+                  "kind": "signal",
+                  "key": "enabled",
+                  "op": "eq",
+                  "value": false
+                }
+              ]
+            },
+            "name": "Intake not wanted",
+            "description": "Intake mode is stowed or outtaking, or the robot is disabled."
+          },
+          {
+            "id": "DEPLOYING-to-PARKED",
+            "from": "DEPLOYING",
+            "to": "PARKED",
+            "condition": {
+              "kind": "any",
+              "conditions": [
+                {
+                  "kind": "signal",
+                  "key": "deploy",
+                  "op": "eq",
+                  "value": false
+                },
+                {
+                  "kind": "signal",
+                  "key": "enabled",
+                  "op": "eq",
+                  "value": false
+                }
+              ]
+            },
+            "name": "Intake not wanted",
+            "description": "Intake mode is stowed or outtaking, or the robot is disabled."
+          },
+          {
+            "id": "READY-to-PARKED",
+            "from": "READY",
+            "to": "PARKED",
+            "condition": {
+              "kind": "any",
+              "conditions": [
+                {
+                  "kind": "signal",
+                  "key": "deploy",
+                  "op": "eq",
+                  "value": false
+                },
+                {
+                  "kind": "signal",
+                  "key": "enabled",
+                  "op": "eq",
+                  "value": false
+                }
+              ]
+            },
+            "name": "Intake not wanted",
+            "description": "Intake mode is stowed or outtaking, or the robot is disabled."
+          },
+          {
+            "id": "JITTERING-to-PARKED",
+            "from": "JITTERING",
+            "to": "PARKED",
+            "condition": {
+              "kind": "any",
+              "conditions": [
+                {
+                  "kind": "signal",
+                  "key": "deploy",
+                  "op": "eq",
+                  "value": false
+                },
+                {
+                  "kind": "signal",
+                  "key": "enabled",
+                  "op": "eq",
+                  "value": false
+                }
+              ]
+            },
+            "name": "Intake not wanted",
+            "description": "Intake mode is stowed or outtaking, or the robot is disabled."
+          },
+          {
+            "id": "PARKED-to-CLEARING_HOOD",
+            "from": "PARKED",
+            "to": "CLEARING_HOOD",
+            "condition": {
+              "kind": "all",
+              "conditions": [
+                {
+                  "kind": "signal",
+                  "key": "enabled",
+                  "op": "eq",
+                  "value": true
+                },
+                {
+                  "kind": "signal",
+                  "key": "deploy",
+                  "op": "eq",
+                  "value": true
+                },
+                {
+                  "kind": "signal",
+                  "key": "hoodClear",
+                  "op": "eq",
+                  "value": false
+                }
+              ]
+            },
+            "name": "Slide wanted, hood in the way",
+            "description": "The slide is inside the hood's travel, so the hood lifts first."
+          },
+          {
+            "id": "PARKED-to-JITTERING",
+            "from": "PARKED",
+            "to": "JITTERING",
+            "condition": {
+              "kind": "all",
+              "conditions": [
+                {
+                  "kind": "signal",
+                  "key": "enabled",
+                  "op": "eq",
+                  "value": true
+                },
+                {
+                  "kind": "signal",
+                  "key": "deploy",
+                  "op": "eq",
+                  "value": true
+                },
+                {
+                  "kind": "signal",
+                  "key": "jitterDemand",
+                  "op": "eq",
+                  "value": true
+                }
+              ]
+            },
+            "name": "Jitter, hood clear"
+          },
+          {
+            "id": "PARKED-to-DEPLOYING",
+            "from": "PARKED",
+            "to": "DEPLOYING",
+            "condition": {
+              "kind": "all",
+              "conditions": [
+                {
+                  "kind": "signal",
+                  "key": "enabled",
+                  "op": "eq",
+                  "value": true
+                },
+                {
+                  "kind": "signal",
+                  "key": "deploy",
+                  "op": "eq",
+                  "value": true
+                }
+              ]
+            },
+            "name": "Slide wanted, hood clear"
+          },
+          {
+            "id": "CLEARING_HOOD-to-JITTERING",
+            "from": "CLEARING_HOOD",
+            "to": "JITTERING",
+            "condition": {
+              "kind": "all",
+              "conditions": [
+                {
+                  "kind": "signal",
+                  "key": "hoodClear",
+                  "op": "eq",
+                  "value": true
+                },
+                {
+                  "kind": "signal",
+                  "key": "jitterDemand",
+                  "op": "eq",
+                  "value": true
+                }
+              ]
+            },
+            "name": "Hood clear: jitter"
+          },
+          {
+            "id": "CLEARING_HOOD-to-DEPLOYING",
+            "from": "CLEARING_HOOD",
+            "to": "DEPLOYING",
+            "condition": {
+              "kind": "signal",
+              "key": "hoodClear",
+              "op": "eq",
+              "value": true
+            },
+            "name": "Hood clear: deploy"
+          },
+          {
+            "id": "DEPLOYING-to-JITTERING",
+            "from": "DEPLOYING",
+            "to": "JITTERING",
+            "condition": {
+              "kind": "signal",
+              "key": "jitterDemand",
+              "op": "eq",
+              "value": true
+            },
+            "name": "Jitter requested"
+          },
+          {
+            "id": "DEPLOYING-to-READY",
+            "from": "DEPLOYING",
+            "to": "READY",
+            "condition": {
+              "kind": "signal",
+              "key": "slideDeployed",
+              "op": "eq",
+              "value": true
+            },
+            "name": "Slide out",
+            "description": "Both slide encoders past 0.80."
+          },
+          {
+            "id": "READY-to-JITTERING",
+            "from": "READY",
+            "to": "JITTERING",
+            "condition": {
+              "kind": "signal",
+              "key": "jitterDemand",
+              "op": "eq",
+              "value": true
+            },
+            "name": "Jitter requested"
+          },
+          {
+            "id": "JITTERING-to-CLEARING_HOOD",
+            "from": "JITTERING",
+            "to": "CLEARING_HOOD",
+            "condition": {
+              "kind": "all",
+              "conditions": [
+                {
+                  "kind": "signal",
+                  "key": "jitterDemand",
+                  "op": "eq",
+                  "value": false
+                },
+                {
+                  "kind": "signal",
+                  "key": "hoodClear",
+                  "op": "eq",
+                  "value": false
+                }
+              ]
+            },
+            "name": "Jitter over, hood in the way"
+          },
+          {
+            "id": "JITTERING-to-DEPLOYING",
+            "from": "JITTERING",
+            "to": "DEPLOYING",
+            "condition": {
+              "kind": "signal",
+              "key": "jitterDemand",
+              "op": "eq",
+              "value": false
+            },
+            "name": "Jitter over: redeploy"
+          }
+        ]
+      },
+      {
+        "format": "mayhem-machine",
+        "version": 1,
+        "id": "ShotCycle",
+        "name": "Shooter · spin up and feed",
+        "initial": "OFF",
+        "stateChannel": "/Mayhem/States/ShotCycle/state",
+        "states": [
+          {
+            "id": "OFF",
+            "name": "No shot requested",
+            "source": "src/main/cpp/subsystems/Superstructure.cpp"
+          },
+          {
+            "id": "SPINNING_UP",
+            "name": "Spin flywheel to the requested speed",
+            "source": "src/main/cpp/subsystems/Superstructure.cpp"
+          },
+          {
+            "id": "FEEDING",
+            "name": "Feed; latched until the shot request ends",
+            "source": "src/main/cpp/subsystems/Superstructure.cpp"
+          },
+          {
+            "id": "INHIBITED",
+            "name": "Paused under the trench (hood forced down)",
+            "source": "src/main/cpp/subsystems/Superstructure.cpp"
+          }
+        ],
+        "inputs": [
+          {
+            "key": "enabled",
+            "name": "Robot enabled",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "channel": "/RealOutputs/Mayhem/States/ShotCycle/inputs/enabled"
+          },
+          {
+            "key": "shotDemand",
+            "name": "Shooter mode is shooting (A / auto)",
+            "type": "boolean",
+            "initial": false,
+            "category": "internal",
+            "channel": "/RealOutputs/Mayhem/States/ShotCycle/inputs/shotDemand",
+            "derivedFrom": [
+              {
+                "machine": "ShooterMode",
+                "key": "shootHeld"
+              },
+              {
+                "machine": "ShooterMode",
+                "key": "autoShooting"
+              }
+            ]
+          },
+          {
+            "key": "trench",
+            "name": "Under a trench (pose)",
+            "type": "boolean",
+            "initial": false,
+            "category": "sensor",
+            "channel": "/RealOutputs/Mayhem/States/ShotCycle/inputs/trench"
+          },
+          {
+            "key": "flywheelReady",
+            "name": "Flywheel at speed",
+            "type": "boolean",
+            "initial": false,
+            "category": "sensor",
+            "channel": "/RealOutputs/Mayhem/States/ShotCycle/inputs/flywheelReady"
+          }
+        ],
+        "transitions": [
+          {
+            "id": "SPINNING_UP-to-OFF",
+            "from": "SPINNING_UP",
+            "to": "OFF",
+            "condition": {
+              "kind": "any",
+              "conditions": [
+                {
+                  "kind": "signal",
+                  "key": "shotDemand",
+                  "op": "eq",
+                  "value": false
+                },
+                {
+                  "kind": "signal",
+                  "key": "enabled",
+                  "op": "eq",
+                  "value": false
+                }
+              ]
+            },
+            "name": "Shot request ended",
+            "description": "Shooter mode left Shooting, or the robot is disabled."
+          },
+          {
+            "id": "FEEDING-to-OFF",
+            "from": "FEEDING",
+            "to": "OFF",
+            "condition": {
+              "kind": "any",
+              "conditions": [
+                {
+                  "kind": "signal",
+                  "key": "shotDemand",
+                  "op": "eq",
+                  "value": false
+                },
+                {
+                  "kind": "signal",
+                  "key": "enabled",
+                  "op": "eq",
+                  "value": false
+                }
+              ]
+            },
+            "name": "Shot request ended",
+            "description": "Shooter mode left Shooting, or the robot is disabled."
+          },
+          {
+            "id": "INHIBITED-to-OFF",
+            "from": "INHIBITED",
+            "to": "OFF",
+            "condition": {
+              "kind": "any",
+              "conditions": [
+                {
+                  "kind": "signal",
+                  "key": "shotDemand",
+                  "op": "eq",
+                  "value": false
+                },
+                {
+                  "kind": "signal",
+                  "key": "enabled",
+                  "op": "eq",
+                  "value": false
+                }
+              ]
+            },
+            "name": "Shot request ended",
+            "description": "Shooter mode left Shooting, or the robot is disabled."
+          },
+          {
+            "id": "OFF-to-SPINNING_UP",
+            "from": "OFF",
+            "to": "SPINNING_UP",
+            "condition": {
+              "kind": "all",
+              "conditions": [
+                {
+                  "kind": "signal",
+                  "key": "enabled",
+                  "op": "eq",
+                  "value": true
+                },
+                {
+                  "kind": "signal",
+                  "key": "shotDemand",
+                  "op": "eq",
+                  "value": true
+                }
+              ]
+            },
+            "name": "Shoot requested"
+          },
+          {
+            "id": "SPINNING_UP-to-INHIBITED",
+            "from": "SPINNING_UP",
+            "to": "INHIBITED",
+            "condition": {
+              "kind": "signal",
+              "key": "trench",
+              "op": "eq",
+              "value": true
+            },
+            "name": "Under the trench",
+            "description": "The hood is forced flat there."
+          },
+          {
+            "id": "FEEDING-to-INHIBITED",
+            "from": "FEEDING",
+            "to": "INHIBITED",
+            "condition": {
+              "kind": "signal",
+              "key": "trench",
+              "op": "eq",
+              "value": true
+            },
+            "name": "Under the trench",
+            "description": "The hood is forced flat there."
+          },
+          {
+            "id": "SPINNING_UP-to-FEEDING",
+            "from": "SPINNING_UP",
+            "to": "FEEDING",
+            "condition": {
+              "kind": "signal",
+              "key": "flywheelReady",
+              "op": "eq",
+              "value": true
+            },
+            "name": "Flywheel at speed",
+            "description": "Feeding then stays on until the request ends; the dip as each piece goes through is ignored."
+          },
+          {
+            "id": "INHIBITED-to-SPINNING_UP",
+            "from": "INHIBITED",
+            "to": "SPINNING_UP",
+            "condition": {
+              "kind": "signal",
+              "key": "trench",
+              "op": "eq",
+              "value": false
+            },
+            "name": "Out of the trench"
+          }
+        ]
+      }
+    ],
+    "source": {
+      "branch": "claude/friendly-tesla-o02ue3",
+      "converted": "Pose anchors from the legacy paths; existing marker bindings and mechanism behavior preserved. Executed by vendored Mayhem C++ suite runtime.",
+      "markerWarningsResolved": "Legacy missing intake2/idle2 bindings replaced with explicit progress markers for each collection and stage-end. All marker actions now use exact autonomous intent.",
+      "repository": "Team3256/FRC_Offseason_2026",
+      "stateRedesign": "Intent-driven Mayhem supervisor, continuous shot/hood/slide/aim/trench interlocks, clean cancellation, explicit auto phase intent. Supersedes legacy zone and missing second-sweep marker behavior."
+    }
+  },
+  "field": {
+    "height": 8.069,
+    "name": "2026 REBUILT",
+    "width": 16.541
+  },
+  "format": "mayhem-suite",
+  "id": "team3256-offseason-2026",
+  "name": "3256 Offseason 2026",
+  "revision": 59,
+  "robot": {
+    "constraints": {
+      "maxAcceleration": 8.34,
+      "maxAngularAcceleration": 14.1,
+      "maxAngularVelocity": 7.28,
+      "maxVelocity": 4.51,
+      "rotationKp": 4,
+      "translationKp": 5
+    },
+    "length": 0.813,
+    "name": "Offseason swerve (Kraken X60, 5.90:1)",
+    "start": {
+      "heading": -1.5781595858076165,
+      "x": 4.401654481887817,
+      "y": 7.427656650543213
+    },
+    "width": 0.813
+  },
+  "routines": [
+    {
+      "constraints": {
+        "maxAcceleration": 8.34,
+        "maxAngularAcceleration": 14.1,
+        "maxAngularVelocity": 7.28,
+        "maxVelocity": 4.51,
+        "translationKp": 4.5
+      },
+      "extensions": {
+        "drivingTimeBudget": 6,
+        "legacySources": [
+          "DepotTrenchSweepDepotPt",
+          "DepotTrenchSweepDepotPt2"
+        ],
+        "routeIntent": "Original solved sweep geometry: sideways through the trench, intake leading along the centerline pickup."
+      },
+      "id": "depot-sweep-depot",
+      "initial": "depot-sweep-depot-pass1-p1",
+      "name": "Depot Trench Sweep Depot",
+      "nodes": [
+        {
+          "id": "depot-sweep-depot-pass1-p1",
+          "name": "Pass 1 · point 1",
+          "kind": "pose",
+          "goal": {
+            "x": 5.917,
+            "y": 7.452,
+            "heading": -1.5781,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepDepotPt pass at 0.68 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 4.26,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass1-p2",
+          "name": "Pass 1 · point 2",
+          "kind": "pose",
+          "goal": {
+            "x": 6.747,
+            "y": 7.469,
+            "heading": -1.578,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "event",
+                "t": 0.998,
+                "key": "superstructure.intake"
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepDepotPt pass at 0.88 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 4.51,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass1-p3",
+          "name": "Pass 1 · point 3",
+          "kind": "pose",
+          "goal": {
+            "x": 7.892,
+            "y": 7.081,
+            "heading": -1.5708,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepDepotPt pass at 1.28 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3.73,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass1-p4",
+          "name": "Pass 1 · point 4",
+          "kind": "pose",
+          "goal": {
+            "x": 8.221,
+            "y": 6.459,
+            "heading": -1.5701,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepDepotPt pass at 1.54 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass1-p5",
+          "name": "Pass 1 · point 5",
+          "kind": "pose",
+          "goal": {
+            "x": 8.268,
+            "y": 5.518,
+            "heading": -1.5711,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepDepotPt pass at 1.79 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 4.2,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass1-p6",
+          "name": "Pass 1 · point 6",
+          "kind": "pose",
+          "goal": {
+            "x": 8.009,
+            "y": 4.231,
+            "heading": -1.5708,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepDepotPt pass at 2.15 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 4.4,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass1-p7",
+          "name": "Pass 1 · point 7",
+          "kind": "pose",
+          "goal": {
+            "x": 7.577,
+            "y": 3.596,
+            "heading": -2.4125,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepDepotPt pass at 2.46 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 2.97,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass1-p8",
+          "name": "Pass 1 · point 8",
+          "kind": "pose",
+          "goal": {
+            "x": 7.111,
+            "y": 3.518,
+            "heading": 2.4185,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepDepotPt pass at 2.77 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 1.95,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass1-p9",
+          "name": "Pass 1 · point 9",
+          "kind": "pose",
+          "goal": {
+            "x": 6.837,
+            "y": 3.844,
+            "heading": 1.7216,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepDepotPt pass at 3.02 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 2.02,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass1-p10",
+          "name": "Pass 1 · point 10",
+          "kind": "pose",
+          "goal": {
+            "x": 6.684,
+            "y": 4.527,
+            "heading": 1.7966,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepDepotPt pass at 3.29 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3.19,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass1-p11",
+          "name": "Pass 1 · point 11",
+          "kind": "pose",
+          "goal": {
+            "x": 6.494,
+            "y": 5.306,
+            "heading": 2.6663,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepDepotPt pass at 3.56 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3.29,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass1-p12",
+          "name": "Pass 1 · point 12",
+          "kind": "pose",
+          "goal": {
+            "x": 5.908,
+            "y": 5.775,
+            "heading": -3.1416,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepDepotPt pass at 3.90 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 2.41,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass1-p13",
+          "name": "Pass 1 · point 13",
+          "kind": "pose",
+          "goal": {
+            "x": 3.719,
+            "y": 5.775,
+            "heading": -3.1404,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepDepotPt pass at 4.50 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 4.51,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass1-p14",
+          "name": "Pass 1 · end",
+          "kind": "pose",
+          "goal": {
+            "x": 2.373,
+            "y": 5.921,
+            "heading": -3.1294,
+            "translationTolerance": 0.15,
+            "rotationTolerance": 0.08,
+            "velocityTolerance": 0.3,
+            "settleTime": 0.04,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": true,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "event",
+                "t": 1,
+                "key": "superstructure.stow"
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepDepotPt pass at 5.14 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3
+          }
+        },
+        {
+          "id": "align-shoot-0",
+          "name": "Aim and shoot",
+          "kind": "custom",
+          "action": "drivetrain.alignAndShoot",
+          "timeout": 3.5,
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window; the routine then continues.",
+          "onTimeout": "succeed"
+        },
+        {
+          "id": "depot-sweep-depot-pass2-p1",
+          "name": "Pass 2 · point 1",
+          "kind": "pose",
+          "goal": {
+            "x": 1.554,
+            "y": 5.939,
+            "heading": -3.1346,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "event",
+                "t": 0,
+                "key": "superstructure.intake"
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepDepotPt2 pass at 0.62 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 2.13,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass2-p2",
+          "name": "Pass 2 · point 2",
+          "kind": "pose",
+          "goal": {
+            "x": 0.822,
+            "y": 5.954,
+            "heading": -3.1346,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepDepotPt2 pass at 1.49 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 1,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass2-p3",
+          "name": "Pass 2 · point 3",
+          "kind": "pose",
+          "goal": {
+            "x": 1.809,
+            "y": 5.944,
+            "heading": -3.1321,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepDepotPt2 pass at 2.04 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 2.5,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-depot-pass2-p4",
+          "name": "Pass 2 · end",
+          "kind": "pose",
+          "goal": {
+            "x": 2.446,
+            "y": 5.393,
+            "heading": -3.1261,
+            "translationTolerance": 0.15,
+            "rotationTolerance": 0.08,
+            "velocityTolerance": 0.3,
+            "settleTime": 0.04,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": true,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "event",
+                "t": 1,
+                "key": "superstructure.stow"
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepDepotPt2 pass at 2.40 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3
+          }
+        },
+        {
+          "id": "align-shoot-1",
+          "name": "Aim and shoot",
+          "kind": "custom",
+          "action": "drivetrain.alignAndShoot",
+          "timeout": 3.5,
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window; the routine then continues.",
+          "onTimeout": "succeed"
+        },
+        {
+          "id": "done",
+          "name": "Auto complete",
+          "kind": "finish",
+          "timeout": 1
+        }
+      ],
+      "start": {
+        "x": 4.401654481887817,
+        "y": 7.427656650543213,
+        "heading": -1.5781595858076165
+      },
+      "stateChannel": "/Mayhem/States/Autonomous/state",
+      "transitions": [
+        {
+          "id": "t0",
+          "from": "depot-sweep-depot-pass1-p1",
+          "to": "depot-sweep-depot-pass1-p2",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t1",
+          "from": "depot-sweep-depot-pass1-p2",
+          "to": "depot-sweep-depot-pass1-p3",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t2",
+          "from": "depot-sweep-depot-pass1-p3",
+          "to": "depot-sweep-depot-pass1-p4",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t3",
+          "from": "depot-sweep-depot-pass1-p4",
+          "to": "depot-sweep-depot-pass1-p5",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t4",
+          "from": "depot-sweep-depot-pass1-p5",
+          "to": "depot-sweep-depot-pass1-p6",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t5",
+          "from": "depot-sweep-depot-pass1-p6",
+          "to": "depot-sweep-depot-pass1-p7",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t6",
+          "from": "depot-sweep-depot-pass1-p7",
+          "to": "depot-sweep-depot-pass1-p8",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t7",
+          "from": "depot-sweep-depot-pass1-p8",
+          "to": "depot-sweep-depot-pass1-p9",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t8",
+          "from": "depot-sweep-depot-pass1-p9",
+          "to": "depot-sweep-depot-pass1-p10",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t9",
+          "from": "depot-sweep-depot-pass1-p10",
+          "to": "depot-sweep-depot-pass1-p11",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t10",
+          "from": "depot-sweep-depot-pass1-p11",
+          "to": "depot-sweep-depot-pass1-p12",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t11",
+          "from": "depot-sweep-depot-pass1-p12",
+          "to": "depot-sweep-depot-pass1-p13",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t12",
+          "from": "depot-sweep-depot-pass1-p13",
+          "to": "depot-sweep-depot-pass1-p14",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t13",
+          "from": "depot-sweep-depot-pass1-p14",
+          "to": "align-shoot-0",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t14",
+          "from": "align-shoot-0",
+          "to": "depot-sweep-depot-pass2-p1",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t15",
+          "from": "depot-sweep-depot-pass2-p1",
+          "to": "depot-sweep-depot-pass2-p2",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t16",
+          "from": "depot-sweep-depot-pass2-p2",
+          "to": "depot-sweep-depot-pass2-p3",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t17",
+          "from": "depot-sweep-depot-pass2-p3",
+          "to": "depot-sweep-depot-pass2-p4",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t18",
+          "from": "depot-sweep-depot-pass2-p4",
+          "to": "align-shoot-1",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t19",
+          "from": "align-shoot-1",
+          "to": "done",
+          "condition": {
+            "kind": "always"
+          }
+        }
+      ]
+    },
+    {
+      "constraints": {
+        "maxAcceleration": 8.34,
+        "maxAngularAcceleration": 14.1,
+        "maxAngularVelocity": 7.28,
+        "maxVelocity": 4.51,
+        "translationKp": 4.5
+      },
+      "extensions": {
+        "drivingTimeBudget": 6,
+        "legacySources": [
+          "OutpostTrenchSweepBumpPt1"
+        ],
+        "routeIntent": "Original solved sweep geometry: sideways through the trench, intake leading along the centerline pickup."
+      },
+      "id": "outpost-sweep",
+      "initial": "outpost-sweep-pass1-p1",
+      "name": "Outpost Trench Sweep",
+      "nodes": [
+        {
+          "id": "outpost-sweep-pass1-p1",
+          "name": "Pass 1 · point 1",
+          "kind": "pose",
+          "goal": {
+            "x": 6.809,
+            "y": 0.721,
+            "heading": 1.5877,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 0.87 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 4.51,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-pass1-p2",
+          "name": "Pass 1 · point 2",
+          "kind": "pose",
+          "goal": {
+            "x": 8.095,
+            "y": 1.248,
+            "heading": 1.5708,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "event",
+                "t": 0,
+                "key": "superstructure.intake"
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 1.30 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 4.22,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-pass1-p3",
+          "name": "Pass 1 · point 3",
+          "kind": "pose",
+          "goal": {
+            "x": 8.415,
+            "y": 1.913,
+            "heading": 1.7879,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 1.56 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3.01,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-pass1-p4",
+          "name": "Pass 1 · point 4",
+          "kind": "pose",
+          "goal": {
+            "x": 8.357,
+            "y": 3.038,
+            "heading": 2.3481,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 1.87 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 4,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-pass1-p5",
+          "name": "Pass 1 · point 5",
+          "kind": "pose",
+          "goal": {
+            "x": 8.133,
+            "y": 3.838,
+            "heading": -3.118,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 2.16 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3.39,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-pass1-p6",
+          "name": "Pass 1 · point 6",
+          "kind": "pose",
+          "goal": {
+            "x": 7.862,
+            "y": 4.13,
+            "heading": -2.4393,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 2.44 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 1.73,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-pass1-p7",
+          "name": "Pass 1 · point 7",
+          "kind": "pose",
+          "goal": {
+            "x": 7.507,
+            "y": 3.914,
+            "heading": -1.9443,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 2.72 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 1.79,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-pass1-p8",
+          "name": "Pass 1 · point 8",
+          "kind": "pose",
+          "goal": {
+            "x": 7.109,
+            "y": 3.196,
+            "heading": -1.6672,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 3.00 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3.34,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-pass1-p9",
+          "name": "Pass 1 · point 9",
+          "kind": "pose",
+          "goal": {
+            "x": 6.78,
+            "y": 2.503,
+            "heading": -1.6117,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 3.30 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3.47,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-pass1-p10",
+          "name": "Pass 1 · point 10",
+          "kind": "pose",
+          "goal": {
+            "x": 6.477,
+            "y": 2.358,
+            "heading": -1.5856,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 3.53 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 1.57,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-pass1-p11",
+          "name": "Pass 1 · point 11",
+          "kind": "pose",
+          "goal": {
+            "x": 5.958,
+            "y": 2.494,
+            "heading": -1.5718,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 3.79 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 2.61,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-pass1-p12",
+          "name": "Pass 1 · end",
+          "kind": "pose",
+          "goal": {
+            "x": 3.041,
+            "y": 2.496,
+            "heading": -1.5708,
+            "translationTolerance": 0.15,
+            "rotationTolerance": 0.08,
+            "velocityTolerance": 0.3,
+            "settleTime": 0.04,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": true,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "event",
+                "t": 1,
+                "key": "superstructure.stow"
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 4.86 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3
+          }
+        },
+        {
+          "id": "align-shoot-0",
+          "name": "Aim and shoot",
+          "kind": "custom",
+          "action": "drivetrain.alignAndShoot",
+          "timeout": 3.5,
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window; the routine then continues.",
+          "onTimeout": "succeed"
+        },
+        {
+          "id": "done",
+          "name": "Auto complete",
+          "kind": "finish",
+          "timeout": 1
+        }
+      ],
+      "start": {
+        "x": 4.440799713134766,
+        "y": 0.6637292504310608,
+        "heading": 1.5812742545885516
+      },
+      "stateChannel": "/Mayhem/States/Autonomous/state",
+      "transitions": [
+        {
+          "id": "t0",
+          "from": "outpost-sweep-pass1-p1",
+          "to": "outpost-sweep-pass1-p2",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t1",
+          "from": "outpost-sweep-pass1-p2",
+          "to": "outpost-sweep-pass1-p3",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t2",
+          "from": "outpost-sweep-pass1-p3",
+          "to": "outpost-sweep-pass1-p4",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t3",
+          "from": "outpost-sweep-pass1-p4",
+          "to": "outpost-sweep-pass1-p5",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t4",
+          "from": "outpost-sweep-pass1-p5",
+          "to": "outpost-sweep-pass1-p6",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t5",
+          "from": "outpost-sweep-pass1-p6",
+          "to": "outpost-sweep-pass1-p7",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t6",
+          "from": "outpost-sweep-pass1-p7",
+          "to": "outpost-sweep-pass1-p8",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t7",
+          "from": "outpost-sweep-pass1-p8",
+          "to": "outpost-sweep-pass1-p9",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t8",
+          "from": "outpost-sweep-pass1-p9",
+          "to": "outpost-sweep-pass1-p10",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t9",
+          "from": "outpost-sweep-pass1-p10",
+          "to": "outpost-sweep-pass1-p11",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t10",
+          "from": "outpost-sweep-pass1-p11",
+          "to": "outpost-sweep-pass1-p12",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t11",
+          "from": "outpost-sweep-pass1-p12",
+          "to": "align-shoot-0",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t12",
+          "from": "align-shoot-0",
+          "to": "done",
+          "condition": {
+            "kind": "always"
+          }
+        }
+      ]
+    },
+    {
+      "constraints": {
+        "maxAcceleration": 8.34,
+        "maxAngularAcceleration": 14.1,
+        "maxAngularVelocity": 7.28,
+        "maxVelocity": 4.51,
+        "translationKp": 4.5
+      },
+      "extensions": {
+        "drivingTimeBudget": 6,
+        "legacySources": [
+          "OutpostTrenchSweepBumpPt1",
+          "OutpostTrenchSweepBumpPt2"
+        ],
+        "routeIntent": "Original solved sweep geometry: sideways through the trench, intake leading along the centerline pickup."
+      },
+      "id": "outpost-sweep-x2",
+      "initial": "outpost-sweep-x2-pass1-p1",
+      "name": "Outpost Trench Sweep x2",
+      "nodes": [
+        {
+          "id": "outpost-sweep-x2-pass1-p1",
+          "name": "Pass 1 · point 1",
+          "kind": "pose",
+          "goal": {
+            "x": 6.809,
+            "y": 0.721,
+            "heading": 1.5877,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 0.87 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 4.51,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass1-p2",
+          "name": "Pass 1 · point 2",
+          "kind": "pose",
+          "goal": {
+            "x": 8.095,
+            "y": 1.248,
+            "heading": 1.5708,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "event",
+                "t": 0,
+                "key": "superstructure.intake"
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 1.30 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 4.22,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass1-p3",
+          "name": "Pass 1 · point 3",
+          "kind": "pose",
+          "goal": {
+            "x": 8.415,
+            "y": 1.913,
+            "heading": 1.7879,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 1.56 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3.01,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass1-p4",
+          "name": "Pass 1 · point 4",
+          "kind": "pose",
+          "goal": {
+            "x": 8.357,
+            "y": 3.038,
+            "heading": 2.3481,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 1.87 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 4,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass1-p5",
+          "name": "Pass 1 · point 5",
+          "kind": "pose",
+          "goal": {
+            "x": 8.133,
+            "y": 3.838,
+            "heading": -3.118,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 2.16 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3.39,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass1-p6",
+          "name": "Pass 1 · point 6",
+          "kind": "pose",
+          "goal": {
+            "x": 7.862,
+            "y": 4.13,
+            "heading": -2.4393,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 2.44 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 1.73,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass1-p7",
+          "name": "Pass 1 · point 7",
+          "kind": "pose",
+          "goal": {
+            "x": 7.507,
+            "y": 3.914,
+            "heading": -1.9443,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 2.72 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 1.79,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass1-p8",
+          "name": "Pass 1 · point 8",
+          "kind": "pose",
+          "goal": {
+            "x": 7.109,
+            "y": 3.196,
+            "heading": -1.6672,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 3.00 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3.34,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass1-p9",
+          "name": "Pass 1 · point 9",
+          "kind": "pose",
+          "goal": {
+            "x": 6.78,
+            "y": 2.503,
+            "heading": -1.6117,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 3.30 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3.47,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass1-p10",
+          "name": "Pass 1 · point 10",
+          "kind": "pose",
+          "goal": {
+            "x": 6.477,
+            "y": 2.358,
+            "heading": -1.5856,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 3.53 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 1.57,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass1-p11",
+          "name": "Pass 1 · point 11",
+          "kind": "pose",
+          "goal": {
+            "x": 5.958,
+            "y": 2.494,
+            "heading": -1.5718,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 3.79 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 2.61,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass1-p12",
+          "name": "Pass 1 · end",
+          "kind": "pose",
+          "goal": {
+            "x": 3.041,
+            "y": 2.496,
+            "heading": -1.5708,
+            "translationTolerance": 0.15,
+            "rotationTolerance": 0.08,
+            "velocityTolerance": 0.3,
+            "settleTime": 0.04,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": true,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "event",
+                "t": 1,
+                "key": "superstructure.stow"
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 4.86 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3
+          }
+        },
+        {
+          "id": "align-shoot-0",
+          "name": "Aim and shoot",
+          "kind": "custom",
+          "action": "drivetrain.alignAndShoot",
+          "timeout": 3.5,
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window; the routine then continues.",
+          "onTimeout": "succeed"
+        },
+        {
+          "id": "outpost-sweep-x2-pass2-p1",
+          "name": "Pass 2 · point 1",
+          "kind": "pose",
+          "goal": {
+            "x": 3,
+            "y": 1.35,
+            "heading": 1.5708,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "rotation",
+                "t": 0.5,
+                "heading": 1.5708
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Hand-placed waypoint, after the solved OutpostTrenchSweepBumpPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "constraints": {
+            "maxVelocity": 3,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass2-p2",
+          "name": "Pass 2 · point 2",
+          "kind": "pose",
+          "goal": {
+            "x": 3.75,
+            "y": 0.7,
+            "heading": 1.5708,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Hand-placed waypoint, after the solved OutpostTrenchSweepBumpPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "constraints": {
+            "maxVelocity": 2.2,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass2-p3",
+          "name": "Pass 2 · point 3",
+          "kind": "pose",
+          "goal": {
+            "x": 6.27,
+            "y": 0.71,
+            "heading": 1.5708,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Hand-placed waypoint, after the solved OutpostTrenchSweepBumpPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "constraints": {
+            "maxVelocity": 4.3,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass2-p4",
+          "name": "Pass 2 · point 4",
+          "kind": "pose",
+          "goal": {
+            "x": 7.21,
+            "y": 1.3,
+            "heading": 1.5708,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "event",
+                "t": 0,
+                "key": "superstructure.intake"
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Hand-placed waypoint, after the solved OutpostTrenchSweepBumpPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "constraints": {
+            "maxVelocity": 4,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass2-p5",
+          "name": "Pass 2 · point 5",
+          "kind": "pose",
+          "goal": {
+            "x": 7.63,
+            "y": 2.55,
+            "heading": 1.8675,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Hand-placed waypoint, after the solved OutpostTrenchSweepBumpPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "constraints": {
+            "maxVelocity": 3.55,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass2-p6",
+          "name": "Pass 2 · point 6",
+          "kind": "pose",
+          "goal": {
+            "x": 7.17,
+            "y": 3.82,
+            "heading": 2.7227,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Hand-placed waypoint, after the solved OutpostTrenchSweepBumpPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "constraints": {
+            "maxVelocity": 3,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass2-p7",
+          "name": "Pass 2 · point 7",
+          "kind": "pose",
+          "goal": {
+            "x": 6.6,
+            "y": 4.1,
+            "heading": -2.4435,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Hand-placed waypoint, after the solved OutpostTrenchSweepBumpPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "constraints": {
+            "maxVelocity": 2.4,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass2-p8",
+          "name": "Pass 2 · point 8",
+          "kind": "pose",
+          "goal": {
+            "x": 6.42,
+            "y": 3.45,
+            "heading": -1.6581,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Hand-placed waypoint, after the solved OutpostTrenchSweepBumpPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "constraints": {
+            "maxVelocity": 3,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass2-p9",
+          "name": "Pass 2 · point 9",
+          "kind": "pose",
+          "goal": {
+            "x": 6,
+            "y": 2.5,
+            "heading": -1.5708,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Hand-placed waypoint, after the solved OutpostTrenchSweepBumpPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "constraints": {
+            "maxVelocity": 3,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "outpost-sweep-x2-pass2-p10",
+          "name": "Pass 2 · end",
+          "kind": "pose",
+          "goal": {
+            "x": 3.1,
+            "y": 2.51,
+            "heading": -1.5708,
+            "translationTolerance": 0.15,
+            "rotationTolerance": 0.08,
+            "velocityTolerance": 0.3,
+            "settleTime": 0.04,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": true,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "event",
+                "t": 1,
+                "key": "superstructure.stow"
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Hand-placed waypoint, after the solved OutpostTrenchSweepBumpPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "constraints": {
+            "maxVelocity": 3.5
+          }
+        },
+        {
+          "id": "align-shoot-1",
+          "name": "Aim and shoot",
+          "kind": "custom",
+          "action": "drivetrain.alignAndShoot",
+          "timeout": 3.5,
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window; the routine then continues.",
+          "onTimeout": "succeed"
+        },
+        {
+          "id": "done",
+          "name": "Auto complete",
+          "kind": "finish",
+          "timeout": 1
+        }
+      ],
+      "start": {
+        "x": 4.440799713134766,
+        "y": 0.6637292504310608,
+        "heading": 1.5812742545885516
+      },
+      "stateChannel": "/Mayhem/States/Autonomous/state",
+      "transitions": [
+        {
+          "id": "t0",
+          "from": "outpost-sweep-x2-pass1-p1",
+          "to": "outpost-sweep-x2-pass1-p2",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t1",
+          "from": "outpost-sweep-x2-pass1-p2",
+          "to": "outpost-sweep-x2-pass1-p3",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t2",
+          "from": "outpost-sweep-x2-pass1-p3",
+          "to": "outpost-sweep-x2-pass1-p4",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t3",
+          "from": "outpost-sweep-x2-pass1-p4",
+          "to": "outpost-sweep-x2-pass1-p5",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t4",
+          "from": "outpost-sweep-x2-pass1-p5",
+          "to": "outpost-sweep-x2-pass1-p6",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t5",
+          "from": "outpost-sweep-x2-pass1-p6",
+          "to": "outpost-sweep-x2-pass1-p7",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t6",
+          "from": "outpost-sweep-x2-pass1-p7",
+          "to": "outpost-sweep-x2-pass1-p8",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t7",
+          "from": "outpost-sweep-x2-pass1-p8",
+          "to": "outpost-sweep-x2-pass1-p9",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t8",
+          "from": "outpost-sweep-x2-pass1-p9",
+          "to": "outpost-sweep-x2-pass1-p10",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t9",
+          "from": "outpost-sweep-x2-pass1-p10",
+          "to": "outpost-sweep-x2-pass1-p11",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t10",
+          "from": "outpost-sweep-x2-pass1-p11",
+          "to": "outpost-sweep-x2-pass1-p12",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t11",
+          "from": "outpost-sweep-x2-pass1-p12",
+          "to": "align-shoot-0",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t12",
+          "from": "align-shoot-0",
+          "to": "outpost-sweep-x2-pass2-p1",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t13",
+          "from": "outpost-sweep-x2-pass2-p1",
+          "to": "outpost-sweep-x2-pass2-p2",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t14",
+          "from": "outpost-sweep-x2-pass2-p2",
+          "to": "outpost-sweep-x2-pass2-p3",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t15",
+          "from": "outpost-sweep-x2-pass2-p3",
+          "to": "outpost-sweep-x2-pass2-p4",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t16",
+          "from": "outpost-sweep-x2-pass2-p4",
+          "to": "outpost-sweep-x2-pass2-p5",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t17",
+          "from": "outpost-sweep-x2-pass2-p5",
+          "to": "outpost-sweep-x2-pass2-p6",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t18",
+          "from": "outpost-sweep-x2-pass2-p6",
+          "to": "outpost-sweep-x2-pass2-p7",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t19",
+          "from": "outpost-sweep-x2-pass2-p7",
+          "to": "outpost-sweep-x2-pass2-p8",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t20",
+          "from": "outpost-sweep-x2-pass2-p8",
+          "to": "outpost-sweep-x2-pass2-p9",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t21",
+          "from": "outpost-sweep-x2-pass2-p9",
+          "to": "outpost-sweep-x2-pass2-p10",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t22",
+          "from": "outpost-sweep-x2-pass2-p10",
+          "to": "align-shoot-1",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t23",
+          "from": "align-shoot-1",
+          "to": "done",
+          "condition": {
+            "kind": "always"
+          }
+        }
+      ]
+    },
+    {
+      "constraints": {
+        "maxAcceleration": 8.34,
+        "maxAngularAcceleration": 14.1,
+        "maxAngularVelocity": 7.28,
+        "maxVelocity": 4.51,
+        "translationKp": 4.5
+      },
+      "extensions": {
+        "drivingTimeBudget": 6,
+        "legacySources": [
+          "DepotTrenchSweepBumpPt1"
+        ],
+        "routeIntent": "Original solved sweep geometry: sideways through the trench, intake leading along the centerline pickup."
+      },
+      "id": "depot-sweep",
+      "initial": "depot-sweep-pass1-p1",
+      "name": "Depot Trench Sweep",
+      "nodes": [
+        {
+          "id": "depot-sweep-pass1-p1",
+          "name": "Pass 1 · point 1",
+          "kind": "pose",
+          "goal": {
+            "x": 6.809,
+            "y": 7.367,
+            "heading": -1.5769,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 0.87 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 4.51,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-pass1-p2",
+          "name": "Pass 1 · point 2",
+          "kind": "pose",
+          "goal": {
+            "x": 8.134,
+            "y": 6.724,
+            "heading": -1.0472,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "event",
+                "t": 0.001,
+                "key": "superstructure.intake"
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 1.23 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 4.51,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-pass1-p3",
+          "name": "Pass 1 · point 3",
+          "kind": "pose",
+          "goal": {
+            "x": 8.596,
+            "y": 6.145,
+            "heading": -1.309,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 1.43 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3.79,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-pass1-p4",
+          "name": "Pass 1 · point 4",
+          "kind": "pose",
+          "goal": {
+            "x": 8.837,
+            "y": 5.284,
+            "heading": -1.8959,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 1.68 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3.61,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-pass1-p5",
+          "name": "Pass 1 · point 5",
+          "kind": "pose",
+          "goal": {
+            "x": 8.693,
+            "y": 4.48,
+            "heading": -2.3304,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 1.93 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3.43,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-pass1-p6",
+          "name": "Pass 1 · point 6",
+          "kind": "pose",
+          "goal": {
+            "x": 8.29,
+            "y": 3.976,
+            "heading": -3.0543,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 2.19 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 2.82,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-pass1-p7",
+          "name": "Pass 1 · point 7",
+          "kind": "pose",
+          "goal": {
+            "x": 7.805,
+            "y": 3.87,
+            "heading": 2.2689,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 2.44 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 2.07,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-pass1-p8",
+          "name": "Pass 1 · point 8",
+          "kind": "pose",
+          "goal": {
+            "x": 7.452,
+            "y": 4.152,
+            "heading": 1.6581,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 2.69 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 1.97,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-pass1-p9",
+          "name": "Pass 1 · point 9",
+          "kind": "pose",
+          "goal": {
+            "x": 7.383,
+            "y": 4.763,
+            "heading": 1.5708,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 2.96 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 2.88,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-pass1-p10",
+          "name": "Pass 1 · point 10",
+          "kind": "pose",
+          "goal": {
+            "x": 7.292,
+            "y": 5.64,
+            "heading": 1.543,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 3.42 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 2.78,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-pass1-p11",
+          "name": "Pass 1 · point 11",
+          "kind": "pose",
+          "goal": {
+            "x": 6.357,
+            "y": 5.671,
+            "heading": 1.5543,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 3.83 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3.49,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-pass1-p12",
+          "name": "Pass 1 · end",
+          "kind": "pose",
+          "goal": {
+            "x": 2.85,
+            "y": 5.709,
+            "heading": 1.5653,
+            "translationTolerance": 0.15,
+            "rotationTolerance": 0.08,
+            "velocityTolerance": 0.3,
+            "settleTime": 0.04,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": true,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "event",
+                "t": 1,
+                "key": "superstructure.stow"
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 4.97 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3
+          }
+        },
+        {
+          "id": "align-shoot-0",
+          "name": "Aim and shoot",
+          "kind": "custom",
+          "action": "drivetrain.alignAndShoot",
+          "timeout": 3.5,
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window; the routine then continues.",
+          "onTimeout": "succeed"
+        },
+        {
+          "id": "done",
+          "name": "Auto complete",
+          "kind": "finish",
+          "timeout": 1
+        }
+      ],
+      "start": {
+        "x": 4.431839466094971,
+        "y": 7.417532444000244,
+        "heading": -1.572799364656904
+      },
+      "stateChannel": "/Mayhem/States/Autonomous/state",
+      "transitions": [
+        {
+          "id": "t0",
+          "from": "depot-sweep-pass1-p1",
+          "to": "depot-sweep-pass1-p2",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t1",
+          "from": "depot-sweep-pass1-p2",
+          "to": "depot-sweep-pass1-p3",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t2",
+          "from": "depot-sweep-pass1-p3",
+          "to": "depot-sweep-pass1-p4",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t3",
+          "from": "depot-sweep-pass1-p4",
+          "to": "depot-sweep-pass1-p5",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t4",
+          "from": "depot-sweep-pass1-p5",
+          "to": "depot-sweep-pass1-p6",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t5",
+          "from": "depot-sweep-pass1-p6",
+          "to": "depot-sweep-pass1-p7",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t6",
+          "from": "depot-sweep-pass1-p7",
+          "to": "depot-sweep-pass1-p8",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t7",
+          "from": "depot-sweep-pass1-p8",
+          "to": "depot-sweep-pass1-p9",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t8",
+          "from": "depot-sweep-pass1-p9",
+          "to": "depot-sweep-pass1-p10",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t9",
+          "from": "depot-sweep-pass1-p10",
+          "to": "depot-sweep-pass1-p11",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t10",
+          "from": "depot-sweep-pass1-p11",
+          "to": "depot-sweep-pass1-p12",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t11",
+          "from": "depot-sweep-pass1-p12",
+          "to": "align-shoot-0",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t12",
+          "from": "align-shoot-0",
+          "to": "done",
+          "condition": {
+            "kind": "always"
+          }
+        }
+      ]
+    },
+    {
+      "constraints": {
+        "maxAcceleration": 8.34,
+        "maxAngularAcceleration": 14.1,
+        "maxAngularVelocity": 7.28,
+        "maxVelocity": 4.51,
+        "translationKp": 4.5
+      },
+      "extensions": {
+        "drivingTimeBudget": 6,
+        "legacySources": [
+          "DepotTrenchSweepBumpPt1",
+          "DepotTrenchSweepBump2xPt2"
+        ],
+        "routeIntent": "Original solved sweep geometry: sideways through the trench, intake leading along the centerline pickup."
+      },
+      "id": "depot-sweep-x2",
+      "initial": "depot-sweep-x2-pass1-p1",
+      "name": "Depot Trench Sweep x2",
+      "nodes": [
+        {
+          "id": "depot-sweep-x2-pass1-p1",
+          "name": "Pass 1 · point 1",
+          "kind": "pose",
+          "goal": {
+            "x": 6.809,
+            "y": 7.367,
+            "heading": -1.5769,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 0.87 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 4.51,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass1-p2",
+          "name": "Pass 1 · point 2",
+          "kind": "pose",
+          "goal": {
+            "x": 8.134,
+            "y": 6.724,
+            "heading": -1.0472,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "event",
+                "t": 0.001,
+                "key": "superstructure.intake"
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 1.23 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 4.51,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass1-p3",
+          "name": "Pass 1 · point 3",
+          "kind": "pose",
+          "goal": {
+            "x": 8.596,
+            "y": 6.145,
+            "heading": -1.309,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 1.43 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3.79,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass1-p4",
+          "name": "Pass 1 · point 4",
+          "kind": "pose",
+          "goal": {
+            "x": 8.837,
+            "y": 5.284,
+            "heading": -1.8959,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 1.68 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3.61,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass1-p5",
+          "name": "Pass 1 · point 5",
+          "kind": "pose",
+          "goal": {
+            "x": 8.693,
+            "y": 4.48,
+            "heading": -2.3304,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 1.93 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3.43,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass1-p6",
+          "name": "Pass 1 · point 6",
+          "kind": "pose",
+          "goal": {
+            "x": 8.29,
+            "y": 3.976,
+            "heading": -3.0543,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 2.19 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 2.82,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass1-p7",
+          "name": "Pass 1 · point 7",
+          "kind": "pose",
+          "goal": {
+            "x": 7.805,
+            "y": 3.87,
+            "heading": 2.2689,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 2.44 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 2.07,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass1-p8",
+          "name": "Pass 1 · point 8",
+          "kind": "pose",
+          "goal": {
+            "x": 7.452,
+            "y": 4.152,
+            "heading": 1.6581,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 2.69 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 1.97,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass1-p9",
+          "name": "Pass 1 · point 9",
+          "kind": "pose",
+          "goal": {
+            "x": 7.383,
+            "y": 4.763,
+            "heading": 1.5708,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 2.96 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 2.88,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass1-p10",
+          "name": "Pass 1 · point 10",
+          "kind": "pose",
+          "goal": {
+            "x": 7.292,
+            "y": 5.64,
+            "heading": 1.543,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 3.42 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 2.78,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass1-p11",
+          "name": "Pass 1 · point 11",
+          "kind": "pose",
+          "goal": {
+            "x": 6.357,
+            "y": 5.671,
+            "heading": 1.5543,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 3.83 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3.49,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass1-p12",
+          "name": "Pass 1 · end",
+          "kind": "pose",
+          "goal": {
+            "x": 2.85,
+            "y": 5.709,
+            "heading": 1.5653,
+            "translationTolerance": 0.15,
+            "rotationTolerance": 0.08,
+            "velocityTolerance": 0.3,
+            "settleTime": 0.04,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": true,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "event",
+                "t": 1,
+                "key": "superstructure.stow"
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 4.97 s: position, heading (intake leading) and speed.",
+          "constraints": {
+            "maxVelocity": 3
+          }
+        },
+        {
+          "id": "align-shoot-0",
+          "name": "Aim and shoot",
+          "kind": "custom",
+          "action": "drivetrain.alignAndShoot",
+          "timeout": 3.5,
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window; the routine then continues.",
+          "onTimeout": "succeed"
+        },
+        {
+          "id": "depot-sweep-x2-pass2-p1",
+          "name": "Pass 2 · point 1",
+          "kind": "pose",
+          "goal": {
+            "x": 3,
+            "y": 6.72,
+            "heading": 0,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "event",
+                "t": 0,
+                "key": "superstructure.intake"
+              },
+              {
+                "kind": "rotation",
+                "t": 0.5,
+                "heading": 0
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Hand-placed waypoint, after the solved DepotTrenchSweepBump2xPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "constraints": {
+            "maxVelocity": 3,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass2-p2",
+          "name": "Pass 2 · point 2",
+          "kind": "pose",
+          "goal": {
+            "x": 3.75,
+            "y": 7.37,
+            "heading": 0,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Hand-placed waypoint, after the solved DepotTrenchSweepBump2xPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "constraints": {
+            "maxVelocity": 2.2,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass2-p3",
+          "name": "Pass 2 · point 3",
+          "kind": "pose",
+          "goal": {
+            "x": 5.8,
+            "y": 7.43,
+            "heading": 0,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Hand-placed waypoint, after the solved DepotTrenchSweepBump2xPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "constraints": {
+            "maxVelocity": 4.2,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass2-p4",
+          "name": "Pass 2 · point 4",
+          "kind": "pose",
+          "goal": {
+            "x": 6.6,
+            "y": 7.1,
+            "heading": -0.7854,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Hand-placed waypoint, after the solved DepotTrenchSweepBump2xPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "constraints": {
+            "maxVelocity": 4.1,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass2-p5",
+          "name": "Pass 2 · point 5",
+          "kind": "pose",
+          "goal": {
+            "x": 7.22,
+            "y": 6.34,
+            "heading": -1.5708,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Hand-placed waypoint, after the solved DepotTrenchSweepBump2xPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "constraints": {
+            "maxVelocity": 3.8,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass2-p6",
+          "name": "Pass 2 · point 6",
+          "kind": "pose",
+          "goal": {
+            "x": 7.44,
+            "y": 5.4,
+            "heading": -2.3213,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Hand-placed waypoint, after the solved DepotTrenchSweepBump2xPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "constraints": {
+            "maxVelocity": 3.9,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass2-p7",
+          "name": "Pass 2 · point 7",
+          "kind": "pose",
+          "goal": {
+            "x": 7.27,
+            "y": 4.33,
+            "heading": -2.8623,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Hand-placed waypoint, after the solved DepotTrenchSweepBump2xPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "constraints": {
+            "maxVelocity": 4.3,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass2-p8",
+          "name": "Pass 2 · point 8",
+          "kind": "pose",
+          "goal": {
+            "x": 6.85,
+            "y": 3.4,
+            "heading": 2.4784,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Hand-placed waypoint, after the solved DepotTrenchSweepBump2xPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "constraints": {
+            "maxVelocity": 2.8,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass2-p9",
+          "name": "Pass 2 · point 9",
+          "kind": "pose",
+          "goal": {
+            "x": 6.1,
+            "y": 3.75,
+            "heading": 1.7453,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Hand-placed waypoint, after the solved DepotTrenchSweepBump2xPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "constraints": {
+            "maxVelocity": 3,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass2-p10",
+          "name": "Pass 2 · point 10",
+          "kind": "pose",
+          "goal": {
+            "x": 6,
+            "y": 5.1,
+            "heading": 1.5708,
+            "translationTolerance": 0.12,
+            "rotationTolerance": 0.2,
+            "velocityTolerance": 0.3,
+            "settleTime": 0,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": false,
+            "profiled": true
+          },
+          "timeout": 5,
+          "description": "Hand-placed waypoint, after the solved DepotTrenchSweepBump2xPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "constraints": {
+            "maxVelocity": 3,
+            "handoffRadius": 0.3
+          }
+        },
+        {
+          "id": "depot-sweep-x2-pass2-p11",
+          "name": "Pass 2 · end",
+          "kind": "pose",
+          "goal": {
+            "x": 2.84,
+            "y": 5.63,
+            "heading": 1.5708,
+            "translationTolerance": 0.15,
+            "rotationTolerance": 0.08,
+            "velocityTolerance": 0.3,
+            "settleTime": 0.04,
+            "handoffRadius": 0,
+            "headingMode": "fixed",
+            "stop": true,
+            "profiled": true,
+            "markers": [
+              {
+                "kind": "event",
+                "t": 1,
+                "key": "superstructure.stow"
+              }
+            ]
+          },
+          "timeout": 5,
+          "description": "Hand-placed waypoint, after the solved DepotTrenchSweepBump2xPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "constraints": {
+            "maxVelocity": 3.5
+          }
+        },
+        {
+          "id": "align-shoot-1",
+          "name": "Aim and shoot",
+          "kind": "custom",
+          "action": "drivetrain.alignAndShoot",
+          "timeout": 3.5,
+          "description": "Turn to the live shot solution, request SHOOT once within 3 degrees, and shoot for the original 3.5 second window; the routine then continues.",
+          "onTimeout": "succeed"
+        },
+        {
+          "id": "done",
+          "name": "Auto complete",
+          "kind": "finish",
+          "timeout": 1
+        }
+      ],
+      "start": {
+        "x": 4.431839466094971,
+        "y": 7.417532444000244,
+        "heading": -1.572799364656904
+      },
+      "stateChannel": "/Mayhem/States/Autonomous/state",
+      "transitions": [
+        {
+          "id": "t0",
+          "from": "depot-sweep-x2-pass1-p1",
+          "to": "depot-sweep-x2-pass1-p2",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t1",
+          "from": "depot-sweep-x2-pass1-p2",
+          "to": "depot-sweep-x2-pass1-p3",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t2",
+          "from": "depot-sweep-x2-pass1-p3",
+          "to": "depot-sweep-x2-pass1-p4",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t3",
+          "from": "depot-sweep-x2-pass1-p4",
+          "to": "depot-sweep-x2-pass1-p5",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t4",
+          "from": "depot-sweep-x2-pass1-p5",
+          "to": "depot-sweep-x2-pass1-p6",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t5",
+          "from": "depot-sweep-x2-pass1-p6",
+          "to": "depot-sweep-x2-pass1-p7",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t6",
+          "from": "depot-sweep-x2-pass1-p7",
+          "to": "depot-sweep-x2-pass1-p8",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t7",
+          "from": "depot-sweep-x2-pass1-p8",
+          "to": "depot-sweep-x2-pass1-p9",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t8",
+          "from": "depot-sweep-x2-pass1-p9",
+          "to": "depot-sweep-x2-pass1-p10",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t9",
+          "from": "depot-sweep-x2-pass1-p10",
+          "to": "depot-sweep-x2-pass1-p11",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t10",
+          "from": "depot-sweep-x2-pass1-p11",
+          "to": "depot-sweep-x2-pass1-p12",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t11",
+          "from": "depot-sweep-x2-pass1-p12",
+          "to": "align-shoot-0",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t12",
+          "from": "align-shoot-0",
+          "to": "depot-sweep-x2-pass2-p1",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t13",
+          "from": "depot-sweep-x2-pass2-p1",
+          "to": "depot-sweep-x2-pass2-p2",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t14",
+          "from": "depot-sweep-x2-pass2-p2",
+          "to": "depot-sweep-x2-pass2-p3",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t15",
+          "from": "depot-sweep-x2-pass2-p3",
+          "to": "depot-sweep-x2-pass2-p4",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t16",
+          "from": "depot-sweep-x2-pass2-p4",
+          "to": "depot-sweep-x2-pass2-p5",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t17",
+          "from": "depot-sweep-x2-pass2-p5",
+          "to": "depot-sweep-x2-pass2-p6",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t18",
+          "from": "depot-sweep-x2-pass2-p6",
+          "to": "depot-sweep-x2-pass2-p7",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t19",
+          "from": "depot-sweep-x2-pass2-p7",
+          "to": "depot-sweep-x2-pass2-p8",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t20",
+          "from": "depot-sweep-x2-pass2-p8",
+          "to": "depot-sweep-x2-pass2-p9",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t21",
+          "from": "depot-sweep-x2-pass2-p9",
+          "to": "depot-sweep-x2-pass2-p10",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t22",
+          "from": "depot-sweep-x2-pass2-p10",
+          "to": "depot-sweep-x2-pass2-p11",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t23",
+          "from": "depot-sweep-x2-pass2-p11",
+          "to": "align-shoot-1",
+          "condition": {
+            "kind": "always"
+          }
+        },
+        {
+          "id": "t24",
+          "from": "align-shoot-1",
+          "to": "done",
+          "condition": {
+            "kind": "always"
+          }
+        }
+      ]
+    }
+  ],
+  "signals": [
+    {
+      "category": "sensor",
+      "initial": false,
+      "key": "superstructure.ready",
+      "name": "Ready to shoot",
+      "type": "boolean"
+    }
+  ],
+  "version": 1
+}
