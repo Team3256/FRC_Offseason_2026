@@ -75,11 +75,11 @@ double SquareInput(double v) { return -(util::Signum(v) * std::pow(v, 2)); }
 RobotContainer::RobotContainer()
     : m_logger{TunerConstants::kSpeedAt12Volts.value()},
       m_intakeRollers{true, MakeIntakeRollersIO(IsSim())},
-      m_shooter{false, Choose<ShooterIOSim, ShooterIOTalonFX, ShooterIO>()},
-      m_shooterPivot{false, Choose<ShooterPivotIOSim, ShooterPivotIOTalonFX, ShooterPivotIO>()},
+      m_shooter{true, Choose<ShooterIOSim, ShooterIOTalonFX, ShooterIO>()},
+      m_shooterPivot{true, Choose<ShooterPivotIOSim, ShooterPivotIOTalonFX, ShooterPivotIO>()},
       m_linearSlide{true, Choose<LinearSlideIOSim, LinearSlideIOTalonFX, LinearSlideIO>()},
-      m_feeder{false, MakeFeederIO(IsSim())},
-      m_indexer{false, MakeIndexerIO(IsSim())},
+      m_feeder{true, MakeFeederIO(IsSim())},
+      m_indexer{true, MakeIndexerIO(IsSim())},
       m_drivetrain{TunerConstants::CreateDrivetrain()},
       m_vision{[this](const frc::Pose2d& pose, units::second_t timestamp,
                       const std::array<double, 3>& stdDevs) {

@@ -72,8 +72,7 @@ class TunerConstants {
 
   // The stator current at which the wheels start to slip;
   // This needs to be tuned to your individual robot
-  // Also the drive motors' stator current limit.
-  static constexpr units::ampere_t kSlipCurrent = 75_A;
+  static constexpr units::ampere_t kSlipCurrent = 70_A;
 
   // Initial configs for the drive and steer motors and the azimuth encoder; these cannot be null.
   // Some configs will be overwritten; check the `With*InitialConfigs()` API documentation.
