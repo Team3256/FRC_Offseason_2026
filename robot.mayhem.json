@@ -1,29 +1,5 @@
 {
   "extensions": {
-    "logRules": {
-      "rules": [
-        {
-          "channel": "/RealOutputs/SystemStats/BatteryVoltage",
-          "detail": "Battery stayed under 11.5 V for two seconds. Swap or charge before the next match.",
-          "duration": 2,
-          "id": "resting-battery",
-          "op": "lt",
-          "severity": "warning",
-          "title": "Battery sagging for 2 s",
-          "value": 11.5
-        },
-        {
-          "channel": "/RealOutputs/SystemStats/BrownedOut",
-          "detail": "The roboRIO reported a brownout. Check what was drawing current in the seconds before.",
-          "duration": 0,
-          "id": "brownout",
-          "op": "eq",
-          "severity": "error",
-          "title": "Robot browned out",
-          "value": true
-        }
-      ]
-    },
     "machines": [
       {
         "format": "mayhem-machine",
