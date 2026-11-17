@@ -110,7 +110,7 @@ TEST(MayhemSuiteTest, IntakeGraphClearsTheHoodBeforeTheSlideMoves) {
   in.hoodClear = true;
   EXPECT_EQ(tick(), S::JITTERING);
 }
-TEST(MayhemSuiteTest, ShotGraphFeedsOnceAtSpeedAndPausesUnderTheTrench) {
+TEST(MayhemSuiteTest, ShotGraphFeedsOnceReadyAndLinedUpAndPausesUnderTheTrench) {
   using S = mayhem_generated::ShotCycle::State;
   mayhem_generated::ShotCycle::Machine machine;
   auto& in = machine.In();
@@ -122,9 +122,20 @@ TEST(MayhemSuiteTest, ShotGraphFeedsOnceAtSpeedAndPausesUnderTheTrench) {
   };
   EXPECT_EQ(tick(), S::SPINNING_UP);
   in.flywheelReady = true;
+  in.hoodReady = true;
+  EXPECT_EQ(tick(), S::SPINNING_UP);  // not lined up yet
+  in.aimed = true;
   EXPECT_EQ(tick(), S::FEEDING);
-  // the speed dip as a piece goes through does not stop the feed
+  // the speed dip as a piece goes through, or a small aim drift, does not stop the feed
   in.flywheelReady = false;
+  in.aimed = false;
+  EXPECT_EQ(tick(), S::FEEDING);
+  // turning well off the target pauses it until lined up again
+  in.aimLost = true;
+  EXPECT_EQ(tick(), S::SPINNING_UP);
+  in.aimLost = false;
+  in.flywheelReady = true;
+  in.aimed = true;
   EXPECT_EQ(tick(), S::FEEDING);
   in.trench = true;
   EXPECT_EQ(tick(), S::INHIBITED);

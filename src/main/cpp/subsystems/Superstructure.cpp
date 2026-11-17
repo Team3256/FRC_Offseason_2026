@@ -101,8 +101,9 @@ void Superstructure::ApplyOutputs() {
     m_linearSlide.Off();
   }
 
-  // FEEDING is entered once the flywheel first reaches speed and is latched until shooting ends, so
-  // the speed dip as each piece goes through never stops the feed.
+  // FEEDING is entered once the flywheel is at speed, the hood is set and the robot is lined up.
+  // The speed dip as each piece goes through never stops the feed; only turning well off the target
+  // pauses it.
   if (m_feedDebouncer.Calculate(m_shotMachine.Is(ShotPhase_::FEEDING))) {
     m_indexer.SetIndexVel();
     m_feeder.SetFeedVel();
@@ -139,6 +140,11 @@ bool Superstructure::Aimed() const {
          ShotCalculator::IsAimed(m_robotPoseSupplier().Rotation(), m_shotCalculator.GetDriveAngle(),
                                  kAimToleranceRad);
 }
+bool Superstructure::AimLost() const {
+  return !ShotDistanceValid() ||
+         !ShotCalculator::IsAimed(m_robotPoseSupplier().Rotation(),
+                                  m_shotCalculator.GetDriveAngle(), kAimLostToleranceRad);
+}
 double Superstructure::HoodTarget() const {
   // The hood clears the slide whenever the slide is moving through the hood's travel.
   if (m_linearSlide.AtPosition() && (m_intakeMachine.Is(IntakePhase_::CLEARING_HOOD) ||
@@ -152,9 +158,9 @@ double Superstructure::HoodTarget() const {
   return .05;
 }
 bool Superstructure::ReadyToShoot() const {
-  // Dashboard light: flywheel at a positive request and hood in place. Aim is logged separately
-  // and is not required, matching the driver's original A-button behavior.
-  return FlywheelReady() && m_shooterPivot.ReachedPosition();
+  // Dashboard light: flywheel at a positive request, hood in place and lined up (what feeding
+  // waits for).
+  return FlywheelReady() && m_shooterPivot.ReachedPosition() && Aimed();
 }
 
 void Superstructure::UpdateTarget() {
@@ -229,6 +235,9 @@ void Superstructure::Periodic() {
   shot.shotDemand = IsShooting();
   shot.trench = IsInTrenchApproachZone();
   shot.flywheelReady = FlywheelReady();
+  shot.hoodReady = m_shooterPivot.ReachedPosition();
+  shot.aimed = Aimed();
+  shot.aimLost = AimLost();
   m_shotMachine.Tick();
   m_intakeTimeLog.Set(m_intakeMachine.StateTime());
   m_shotTimeLog.Set(m_shotMachine.StateTime());

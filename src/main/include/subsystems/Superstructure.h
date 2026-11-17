@@ -94,8 +94,10 @@ class Superstructure {
 
   /** Hood position used to clear the slide while it extends for intake. */
   static constexpr double kIntakeHoodPosition = 0.07;
-  /** How far the robot's heading can be from the shot's drive angle and still count as aimed. */
-  static constexpr double kAimToleranceRad = 5.0 * 3.14159265358979323846 / 180.0;
+  /** How close the robot's heading must be to the shot's drive angle before feeding starts. */
+  static constexpr double kAimToleranceRad = 3.0 * 3.14159265358979323846 / 180.0;
+  /** How far off the heading can drift while feeding before the feed pauses to re-aim. */
+  static constexpr double kAimLostToleranceRad = 8.0 * 3.14159265358979323846 / 180.0;
   static inline const frc::Translation2d kTopCorner{1.5_m, 6.8_m};
   static inline const frc::Translation2d kBottomCorner{1.5_m, 1.5_m};
 
@@ -139,6 +141,7 @@ class Superstructure {
   bool SlideDeployed() const;
   bool ShotDistanceValid() const;
   bool Aimed() const;
+  bool AimLost() const;
   double HoodTarget() const;
   bool ReadyToShoot() const;
   bool GetAllianceBlue() const;

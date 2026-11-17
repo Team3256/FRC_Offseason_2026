@@ -952,12 +952,12 @@
           },
           {
             "id": "SPINNING_UP",
-            "name": "Spin flywheel to the requested speed",
+            "name": "Spin the flywheel up, set the hood and line up",
             "source": "src/main/cpp/subsystems/Superstructure.cpp"
           },
           {
             "id": "FEEDING",
-            "name": "Feed; latched until the shot request ends",
+            "name": "Feed; stays on through the flywheel dip of each piece",
             "source": "src/main/cpp/subsystems/Superstructure.cpp"
           },
           {
@@ -1008,6 +1008,30 @@
             "initial": false,
             "category": "sensor",
             "channel": "/RealOutputs/Mayhem/States/ShotCycle/inputs/flywheelReady"
+          },
+          {
+            "key": "hoodReady",
+            "name": "Hood at its shot angle",
+            "type": "boolean",
+            "initial": false,
+            "category": "sensor",
+            "channel": "/RealOutputs/Mayhem/States/ShotCycle/inputs/hoodReady"
+          },
+          {
+            "key": "aimed",
+            "name": "Lined up with the target (within 3 degrees)",
+            "type": "boolean",
+            "initial": false,
+            "category": "sensor",
+            "channel": "/RealOutputs/Mayhem/States/ShotCycle/inputs/aimed"
+          },
+          {
+            "key": "aimLost",
+            "name": "Turned well off the target (more than 8 degrees)",
+            "type": "boolean",
+            "initial": false,
+            "category": "sensor",
+            "channel": "/RealOutputs/Mayhem/States/ShotCycle/inputs/aimLost"
           }
         ],
         "transitions": [
@@ -1137,13 +1161,43 @@
             "from": "SPINNING_UP",
             "to": "FEEDING",
             "condition": {
+              "kind": "all",
+              "conditions": [
+                {
+                  "kind": "signal",
+                  "key": "flywheelReady",
+                  "op": "eq",
+                  "value": true
+                },
+                {
+                  "kind": "signal",
+                  "key": "hoodReady",
+                  "op": "eq",
+                  "value": true
+                },
+                {
+                  "kind": "signal",
+                  "key": "aimed",
+                  "op": "eq",
+                  "value": true
+                }
+              ]
+            },
+            "name": "Ready and lined up",
+            "description": "Flywheel at speed, hood set and the robot pointed at the target. Feeding then ignores the speed dip as each piece goes through."
+          },
+          {
+            "id": "FEEDING-to-SPINNING_UP",
+            "from": "FEEDING",
+            "to": "SPINNING_UP",
+            "condition": {
               "kind": "signal",
-              "key": "flywheelReady",
+              "key": "aimLost",
               "op": "eq",
               "value": true
             },
-            "name": "Flywheel at speed",
-            "description": "Feeding then stays on until the request ends; the dip as each piece goes through is ignored."
+            "name": "Lost the aim",
+            "description": "The robot turned well off the target (driver or a bump); feeding resumes once it is lined up again."
           },
           {
             "id": "INHIBITED-to-SPINNING_UP",
@@ -1176,7 +1230,7 @@
   "format": "mayhem-suite",
   "id": "team3256-offseason-2026",
   "name": "3256 Offseason 2026",
-  "revision": 59,
+  "revision": 60,
   "robot": {
     "constraints": {
       "maxAcceleration": 8.34,
@@ -1542,7 +1596,7 @@
           "goal": {
             "x": 2.373,
             "y": 5.921,
-            "heading": -3.1294,
+            "heading": 2.4429,
             "translationTolerance": 0.15,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
@@ -1553,6 +1607,12 @@
             "profiled": true,
             "markers": [
               {
+                "kind": "rotation",
+                "t": 0.126,
+                "heading": -3.1294,
+                "profiled": true
+              },
+              {
                 "kind": "event",
                 "t": 1,
                 "key": "superstructure.stow"
@@ -1560,7 +1620,7 @@
             ]
           },
           "timeout": 5,
-          "description": "Waypoint from the solved DepotTrenchSweepDepotPt pass at 5.14 s: position, heading (intake leading) and speed.",
+          "description": "Waypoint from the solved DepotTrenchSweepDepotPt pass at 5.14 s: position, heading (intake leading) and speed. Arrives facing the hub (shooter on the live shot), turning only after it is clear of the bump/trench, so the shot starts on arrival.",
           "constraints": {
             "maxVelocity": 3
           }
@@ -1660,7 +1720,7 @@
           "goal": {
             "x": 2.446,
             "y": 5.393,
-            "heading": -3.1261,
+            "heading": 2.5828,
             "translationTolerance": 0.15,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
@@ -1678,7 +1738,7 @@
             ]
           },
           "timeout": 5,
-          "description": "Waypoint from the solved DepotTrenchSweepDepotPt2 pass at 2.40 s: position, heading (intake leading) and speed.",
+          "description": "Waypoint from the solved DepotTrenchSweepDepotPt2 pass at 2.40 s: position, heading (intake leading) and speed. Arrives facing the hub (shooter on the live shot), turning only after it is clear of the bump/trench, so the shot starts on arrival.",
           "constraints": {
             "maxVelocity": 3
           }
@@ -2165,7 +2225,7 @@
           "goal": {
             "x": 3.041,
             "y": 2.496,
-            "heading": -1.5708,
+            "heading": -2.3688,
             "translationTolerance": 0.15,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
@@ -2176,6 +2236,12 @@
             "profiled": true,
             "markers": [
               {
+                "kind": "rotation",
+                "t": 0.826,
+                "heading": -1.5708,
+                "profiled": true
+              },
+              {
                 "kind": "event",
                 "t": 1,
                 "key": "superstructure.stow"
@@ -2183,7 +2249,7 @@
             ]
           },
           "timeout": 5,
-          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 4.86 s: position, heading (intake leading) and speed.",
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 4.86 s: position, heading (intake leading) and speed. Arrives facing the hub (shooter on the live shot), turning only after it is clear of the bump/trench, so the shot starts on arrival.",
           "constraints": {
             "maxVelocity": 3
           }
@@ -2615,7 +2681,7 @@
           "goal": {
             "x": 3.041,
             "y": 2.496,
-            "heading": -1.5708,
+            "heading": -2.3688,
             "translationTolerance": 0.15,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
@@ -2626,6 +2692,12 @@
             "profiled": true,
             "markers": [
               {
+                "kind": "rotation",
+                "t": 0.826,
+                "heading": -1.5708,
+                "profiled": true
+              },
+              {
                 "kind": "event",
                 "t": 1,
                 "key": "superstructure.stow"
@@ -2633,7 +2705,7 @@
             ]
           },
           "timeout": 5,
-          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 4.86 s: position, heading (intake leading) and speed.",
+          "description": "Waypoint from the solved OutpostTrenchSweepBumpPt1 pass at 4.86 s: position, heading (intake leading) and speed. Arrives facing the hub (shooter on the live shot), turning only after it is clear of the bump/trench, so the shot starts on arrival.",
           "constraints": {
             "maxVelocity": 3
           }
@@ -2748,7 +2820,8 @@
                 "t": 0,
                 "key": "superstructure.intake"
               }
-            ]
+            ],
+            "projectedHandoff": true
           },
           "timeout": 5,
           "description": "Hand-placed waypoint, after the solved OutpostTrenchSweepBumpPt2 pass: turn square clear of the wall and post, then the trench centre line.",
@@ -2884,7 +2957,7 @@
           "goal": {
             "x": 3.1,
             "y": 2.51,
-            "heading": -1.5708,
+            "heading": -2.3543,
             "translationTolerance": 0.15,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
@@ -2895,6 +2968,12 @@
             "profiled": true,
             "markers": [
               {
+                "kind": "rotation",
+                "t": 0.845,
+                "heading": -1.5708,
+                "profiled": true
+              },
+              {
                 "kind": "event",
                 "t": 1,
                 "key": "superstructure.stow"
@@ -2902,7 +2981,7 @@
             ]
           },
           "timeout": 5,
-          "description": "Hand-placed waypoint, after the solved OutpostTrenchSweepBumpPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "description": "Hand-placed waypoint, after the solved OutpostTrenchSweepBumpPt2 pass: turn square clear of the wall and post, then the trench centre line. Arrives facing the hub (shooter on the live shot), turning only after it is clear of the bump/trench, so the shot starts on arrival.",
           "constraints": {
             "maxVelocity": 3.5
           }
@@ -3421,7 +3500,7 @@
           "goal": {
             "x": 2.85,
             "y": 5.709,
-            "heading": 1.5653,
+            "heading": 2.3836,
             "translationTolerance": 0.15,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
@@ -3432,6 +3511,12 @@
             "profiled": true,
             "markers": [
               {
+                "kind": "rotation",
+                "t": 0.8,
+                "heading": 1.5653,
+                "profiled": true
+              },
+              {
                 "kind": "event",
                 "t": 1,
                 "key": "superstructure.stow"
@@ -3439,7 +3524,7 @@
             ]
           },
           "timeout": 5,
-          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 4.97 s: position, heading (intake leading) and speed.",
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 4.97 s: position, heading (intake leading) and speed. Arrives facing the hub (shooter on the live shot), turning only after it is clear of the bump/trench, so the shot starts on arrival.",
           "constraints": {
             "maxVelocity": 3
           }
@@ -3871,7 +3956,7 @@
           "goal": {
             "x": 2.85,
             "y": 5.709,
-            "heading": 1.5653,
+            "heading": 2.3836,
             "translationTolerance": 0.15,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
@@ -3882,6 +3967,12 @@
             "profiled": true,
             "markers": [
               {
+                "kind": "rotation",
+                "t": 0.8,
+                "heading": 1.5653,
+                "profiled": true
+              },
+              {
                 "kind": "event",
                 "t": 1,
                 "key": "superstructure.stow"
@@ -3889,7 +3980,7 @@
             ]
           },
           "timeout": 5,
-          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 4.97 s: position, heading (intake leading) and speed.",
+          "description": "Waypoint from the solved DepotTrenchSweepBumpPt1 pass at 4.97 s: position, heading (intake leading) and speed. Arrives facing the hub (shooter on the live shot), turning only after it is clear of the bump/trench, so the shot starts on arrival.",
           "constraints": {
             "maxVelocity": 3
           }
@@ -4162,7 +4253,7 @@
           "goal": {
             "x": 2.84,
             "y": 5.63,
-            "heading": 1.5708,
+            "heading": 2.4105,
             "translationTolerance": 0.15,
             "rotationTolerance": 0.08,
             "velocityTolerance": 0.3,
@@ -4173,6 +4264,12 @@
             "profiled": true,
             "markers": [
               {
+                "kind": "rotation",
+                "t": 0.775,
+                "heading": 1.5708,
+                "profiled": true
+              },
+              {
                 "kind": "event",
                 "t": 1,
                 "key": "superstructure.stow"
@@ -4180,7 +4277,7 @@
             ]
           },
           "timeout": 5,
-          "description": "Hand-placed waypoint, after the solved DepotTrenchSweepBump2xPt2 pass: turn square clear of the wall and post, then the trench centre line.",
+          "description": "Hand-placed waypoint, after the solved DepotTrenchSweepBump2xPt2 pass: turn square clear of the wall and post, then the trench centre line. Arrives facing the hub (shooter on the live shot), turning only after it is clear of the bump/trench, so the shot starts on arrival.",
           "constraints": {
             "maxVelocity": 3.5
           }
