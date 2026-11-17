@@ -10,6 +10,7 @@
 #include <functional>
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -44,6 +45,8 @@ class AutoChooser : public wpi::Sendable, public wpi::SendableHelper<AutoChooser
                           std::function<std::unique_ptr<AutoRoutine>()> generator);
   /** Selects an option by name, as the dashboard would. Unknown names are ignored. */
   void Select(const std::string& name);
+  /** Applies the dashboard's selection. Call every loop (not from a Sendable callback). */
+  void Periodic();
   const std::string& Selected() const { return m_selected; }
   std::vector<std::string> Options() const { return m_order; }
   /**
@@ -63,4 +66,5 @@ class AutoChooser : public wpi::Sendable, public wpi::SendableHelper<AutoChooser
   std::string m_selected = kNoneName;
   std::string m_builtFor = kNoneName;
   std::unique_ptr<AutoRoutine> m_built;
+  std::optional<std::string> m_requested;
 };

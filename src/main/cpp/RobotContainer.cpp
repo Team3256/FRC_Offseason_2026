@@ -219,6 +219,7 @@ void RobotContainer::UpdateDriverButtons() {
 }
 
 void RobotContainer::UpdateAutonomous() {
+  m_mayhemAutoChooser.Periodic();
   const bool autoEnabled = frc::DriverStation::IsAutonomousEnabled();
   if (autoEnabled && !m_autoEnabled) {
     m_runningAuto = m_mayhemAutoChooser.SelectedRoutine();

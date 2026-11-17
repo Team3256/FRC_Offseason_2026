@@ -45,6 +45,14 @@ void AutoChooser::Select(const std::string& name) {
   }
 }
 
+void AutoChooser::Periodic() {
+  if (m_requested) {
+    std::string name = std::move(*m_requested);
+    m_requested.reset();
+    Select(name);
+  }
+}
+
 AutoRoutine* AutoChooser::SelectedRoutine() {
   Build();
   return m_built.get();
@@ -64,6 +72,9 @@ void AutoChooser::InitSendable(wpi::SendableBuilder& builder) {
   builder.AddStringProperty("default", [] { return std::string{kNoneName}; }, nullptr);
   builder.AddStringArrayProperty("options", [this] { return m_order; }, nullptr);
   builder.AddStringProperty("active", [this] { return m_selected; }, nullptr);
+  // Only recorded here: this runs inside SmartDashboard::UpdateValues(), which holds the
+  // SmartDashboard lock, and building a routine creates frc::Alerts, which take that lock too
+  // (deadlock). Periodic() applies it.
   builder.AddStringProperty("selected", nullptr,
-                            [this](std::string_view val) { Select(std::string{val}); });
+                            [this](std::string_view val) { m_requested = std::string{val}; });
 }

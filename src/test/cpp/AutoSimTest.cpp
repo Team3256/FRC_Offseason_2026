@@ -19,6 +19,8 @@
 
 #include <frc/MathUtil.h>
 #include <gtest/gtest.h>
+#include <networktables/NetworkTableInstance.h>
+#include <networktables/StringTopic.h>
 
 #include "FieldConstants.h"
 #include "RobotHarness.h"
@@ -195,6 +197,21 @@ TEST(AutoSimTest, ChooserListsEveryRoutine) {
   EXPECT_EQ(options[0], "Nothing");
   for (size_t i = 0; i < kAutos.size(); i++) {
     EXPECT_EQ(options[i + 1], kAutos[i].chooserName);
+  }
+}
+
+// The dashboard's selection arrives inside SmartDashboard::UpdateValues(); building a routine there
+// used to deadlock the robot loop (the routine's Alerts take the SmartDashboard lock).
+TEST(AutoSimTest, ChooserSelectsFromDashboard) {
+  RobotHarness h;
+  h.Step(3);
+  auto selected = nt::NetworkTableInstance::GetDefault()
+                      .GetStringTopic("/SmartDashboard/Mayhem Auto Chooser/selected")
+                      .Publish();
+  for (const auto& c : kAutos) {
+    selected.Set(c.chooserName);
+    h.Step(3);
+    EXPECT_EQ(h.C().GetAutoChooser().Selected(), c.chooserName);
   }
 }
 
