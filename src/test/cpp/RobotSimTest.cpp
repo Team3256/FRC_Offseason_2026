@@ -103,8 +103,12 @@ TEST(RobotSimTest, ShootSpinsUpThenFeeds) {
   ASSERT_TRUE(h.StepUntil([&] { return shooter.ReachedVelocity(); }, 250))
       << "flywheel " << shooter.Inputs().shooterMotorVelocitys[0] << " / "
       << shooter.RequestedVelocity();
-  // indexer and feeder start (60 rot/s) once the flywheels are at speed
-  ASSERT_TRUE(h.StepUntil([&] { return h.C().GetIndexer().GoalName() == "setVelocity"; }, 10));
+  // indexer and feeder start (60 rot/s) once the flywheels are at speed and the robot (aiming
+  // while A is held) has turned to the hub
+  ASSERT_TRUE(h.StepUntil([&] { return h.C().GetIndexer().GoalName() == "setVelocity"; }, 100));
+  EXPECT_TRUE(ShotCalculator::IsAimed(h.C().GetDrivetrain().State().Pose.Rotation(),
+                                      h.C().GetShotCalculator().GetDriveAngle(),
+                                      Superstructure::kAimToleranceRad));
   EXPECT_EQ(h.C().GetFeeder().GoalName(), "setVelocity");
   ASSERT_TRUE(h.StepUntil([&] { return h.C().GetIndexer().Inputs().leftVelocity > 8; }, 100));
   ASSERT_TRUE(h.StepUntil([&] { return h.C().GetFeeder().Inputs().leftVelocity > 8; }, 100));

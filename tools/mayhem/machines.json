@@ -235,13 +235,16 @@
         },
         "sensor": {
           "trench": "Under a trench (pose)",
-          "flywheelReady": "Flywheel at speed"
+          "flywheelReady": "Flywheel at speed",
+          "hoodReady": "Hood at its shot angle",
+          "aimed": "Lined up with the target (within 3 degrees)",
+          "aimLost": "Turned well off the target (more than 8 degrees)"
         }
       },
       "states": {
         "OFF": "No shot requested",
-        "SPINNING_UP": "Spin flywheel to the requested speed",
-        "FEEDING": "Feed; latched until the shot request ends",
+        "SPINNING_UP": "Spin the flywheel up, set the hood and line up",
+        "FEEDING": "Feed; stays on through the flywheel dip of each piece",
         "INHIBITED": "Paused under the trench (hood forced down)"
       },
       "transitions": [
@@ -284,9 +287,16 @@
         {
           "from": "SPINNING_UP",
           "to": "FEEDING",
-          "when": "flywheelReady",
-          "name": "Flywheel at speed",
-          "description": "Feeding then stays on until the request ends; the dip as each piece goes through is ignored."
+          "when": "flywheelReady && hoodReady && aimed",
+          "name": "Ready and lined up",
+          "description": "Flywheel at speed, hood set and the robot pointed at the target. Feeding then ignores the speed dip as each piece goes through."
+        },
+        {
+          "from": "FEEDING",
+          "to": "SPINNING_UP",
+          "when": "aimLost",
+          "name": "Lost the aim",
+          "description": "The robot turned well off the target (driver or a bump); feeding resumes once it is lined up again."
         },
         "INHIBITED -> SPINNING_UP: !trench  # Out of the trench"
       ]

@@ -277,7 +277,7 @@ TEST_F(SuperstructureLogicTest, ShootsOnlyWhileAIsHeldAndKeepsIntaking) {
   EXPECT_EQ(m_ss->GetIntakeMode(), IntakeMode::INTAKING);
 }
 
-TEST_F(SuperstructureLogicTest, ShootingFeedsOnceTheFlywheelIsAtSpeed) {
+TEST_F(SuperstructureLogicTest, ShootingFeedsOnceAtSpeedAndLinedUp) {
   m_pose = frc::Pose2d{3_m, 4_m, frc::Rotation2d{}};  // in the blue zone -> hub targeting (REV)
   Loop(2);
   EXPECT_EQ(m_ss->GetShooterMode(), ShooterMode::REV);
@@ -289,10 +289,26 @@ TEST_F(SuperstructureLogicTest, ShootingFeedsOnceTheFlywheelIsAtSpeed) {
   const double dist = m_shot->GetDistance();
   EXPECT_NEAR(m_shooterIO->velocity, shooter::kHubLUT.Get(dist), 1e-9);
   EXPECT_NEAR(m_pivot->RequestedPosition(), shooter_pivot::kHubLUT.Get(dist), 1e-9);
-  // flywheel at speed (debounced 20 ms) -> indexer and feeder at 60 rot/s
+  // flywheel at speed and hood set, but the shooter faces away from the hub: nothing is fed
+  Loop(3);
+  EXPECT_EQ(m_ss->ShotPhase(), "SPINNING_UP");
+  EXPECT_EQ(CmdName(*m_feeder), "off");
+  // lined up (debounced 20 ms) -> indexer and feeder at 60 rot/s
+  m_pose = frc::Pose2d{m_pose.Translation(), m_shot->GetDriveAngle()};
   Loop(3);
   EXPECT_DOUBLE_EQ(m_indexerIO->velocity, 60);
   EXPECT_DOUBLE_EQ(m_feederIO->velocity, 60);
+  // a small drift keeps feeding; turning well off the target pauses the feed until re-aimed
+  m_pose = frc::Pose2d{m_pose.Translation(), m_shot->GetDriveAngle() + frc::Rotation2d{5_deg}};
+  Loop();
+  EXPECT_EQ(m_ss->ShotPhase(), "FEEDING");
+  m_pose = frc::Pose2d{m_pose.Translation(), m_shot->GetDriveAngle() + frc::Rotation2d{12_deg}};
+  Loop();
+  EXPECT_EQ(m_ss->ShotPhase(), "SPINNING_UP");
+  EXPECT_EQ(CmdName(*m_feeder), "off");
+  m_pose = frc::Pose2d{m_pose.Translation(), m_shot->GetDriveAngle()};
+  Loop(2);
+  EXPECT_EQ(m_ss->ShotPhase(), "FEEDING");
   // releasing A inside the zone goes back to pre-spinning, and the feed stops
   Hold({});
   Loop();

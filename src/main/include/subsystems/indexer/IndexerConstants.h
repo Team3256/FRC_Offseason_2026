@@ -29,7 +29,7 @@ inline ctre::phoenix6::configs::TalonFXConfiguration MotorConfigs() {
   return configs::TalonFXConfiguration{}
       .WithSlot0(configs::Slot0Configs{}.WithKS(0).WithKV(0.12).WithKP(1).WithKI(0).WithKD(0))
       .WithMotorOutput(configs::MotorOutputConfigs{}
-                           .WithNeutralMode(signals::NeutralModeValue::Coast)
+                           .WithNeutralMode(signals::NeutralModeValue::Brake)
                            .WithInverted(signals::InvertedValue::Clockwise_Positive))
       .WithCurrentLimits(configs::CurrentLimitsConfigs{}
                              .WithStatorCurrentLimitEnable(true)
