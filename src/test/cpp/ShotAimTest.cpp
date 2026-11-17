@@ -81,8 +81,9 @@ class HoldAShotTest : public ::testing::TestWithParam<double> {};
 TEST_P(HoldAShotTest, WaitsUntilLinedUpWithTheHub) {
   const double startDeg = GetParam();
   const auto log = HoldA(frc::Pose2d{2.5_m, 6.0_m, frc::Rotation2d{units::degree_t{startDeg}}}, 3);
-  std::printf("[shot-aim] start %.0f deg: %zu shots, first at %.2f s, worst aim %.1f deg, %d scored\n",
-              startDeg, log.errorsDeg.size(), log.firstShotAt, log.Worst(), log.scored);
+  std::printf(
+      "[shot-aim] start %.0f deg: %zu shots, first at %.2f s, worst aim %.1f deg, %d scored\n",
+      startDeg, log.errorsDeg.size(), log.firstShotAt, log.Worst(), log.scored);
   ASSERT_FALSE(log.errorsDeg.empty()) << "never shot";
   EXPECT_LE(log.Worst(), 3.5) << "shot before lining up";
   EXPECT_GT(log.scored, 0);

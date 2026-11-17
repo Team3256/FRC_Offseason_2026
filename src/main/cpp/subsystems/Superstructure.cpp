@@ -101,8 +101,8 @@ void Superstructure::ApplyOutputs() {
     m_linearSlide.Off();
   }
 
-  // FEEDING is entered once the flywheel is at speed, the hood is set and the robot is lined up. The
-  // speed dip as each piece goes through never stops the feed; only turning well off the target
+  // FEEDING is entered once the flywheel is at speed, the hood is set and the robot is lined up.
+  // The speed dip as each piece goes through never stops the feed; only turning well off the target
   // pauses it.
   if (m_feedDebouncer.Calculate(m_shotMachine.Is(ShotPhase_::FEEDING))) {
     m_indexer.SetIndexVel();
