@@ -43,6 +43,14 @@ def includeSrcInIncludeRoot = false
 // `./gradlew build` and `./gradlew test` run.
 def includeDesktopSupport = true
 
+// Build speed: `./gradlew build` used to compile every source ~10 times (roboRIO + desktop + tests,
+// each in debug and release, and the Mac ones for both arm64 and x86_64). Debug binaries are only
+// built when asked for (a debug deploy/sim, or -PbuildDebug), and on Apple Silicon the desktop
+// binaries are arm64 only. -PuniversalMac brings back the x86_64 slice.
+def buildDebug = project.frc.getDebugOrDefault(false) || project.hasProperty('buildDebug')
+def armMacOnly = System.getProperty('os.name').toLowerCase().contains('mac') &&
+        System.getProperty('os.arch') == 'aarch64' && !project.hasProperty('universalMac')
+
 // Enable simulation gui support. Must check the box in vscode to enable support
 // upon debugging
 dependencies {
@@ -86,6 +94,12 @@ model {
             // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
             wpi.cpp.vendor.cpp(it)
             wpi.cpp.deps.wpilib(it)
+
+            binaries.all {
+                if (buildType.name == 'debug' && !buildDebug) {
+                    buildable = false
+                }
+            }
         }
     }
     testSuites {
@@ -105,6 +119,9 @@ model {
             binaries.all {
                 // Robot.cpp/Main.cpp leave out main() for the test binary.
                 cppCompiler.define 'RUNNING_FRC_TESTS'
+                if (buildType.name == 'debug' && !buildDebug) {
+                    buildable = false
+                }
             }
 
             // Enable run tasks for this component
@@ -113,6 +130,30 @@ model {
             wpi.cpp.vendor.cpp(it)
             wpi.cpp.deps.wpilib(it)
             wpi.cpp.deps.googleTest(it)
+        }
+    }
+}
+
+if (armMacOnly) {
+    model {
+        toolChains {
+            all { tc ->
+                if (tc.respondsTo('eachPlatform')) {
+                    tc.eachPlatform { p ->
+                        if (p.platform.name == wpi.platforms.desktop) {
+                            def dropX86 = { List<String> args ->
+                                int i = args.indexOf('x86_64')
+                                if (i > 0 && args[i - 1] == '-arch') {
+                                    args.remove(i)
+                                    args.remove(i - 1)
+                                }
+                            }
+                            p.cppCompiler.withArguments(dropX86)
+                            p.linker.withArguments(dropX86)
+                        }
+                    }
+                }
+            }
         }
     }
 }
